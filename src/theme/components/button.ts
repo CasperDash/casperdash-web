@@ -1,7 +1,6 @@
 import type { ComponentStyleConfig } from '@chakra-ui/theme';
 
 import colors from '../foundations/colors';
-import { hexToRgba } from '@/utils/color';
 
 const Button: ComponentStyleConfig = {
   baseStyle: {
@@ -10,102 +9,46 @@ const Button: ComponentStyleConfig = {
 
     bg: colors.primary,
     background: colors.primary,
-    color: colors.blackColor,
+    color: colors.black,
 
     w: '100%',
     minW: '100px',
     maxW: '360px',
     h: '50px',
     height: '50px',
-    borderRadius: 100,
+    borderRadius: '90px',
     padding: '0 30px',
 
     _hover: {
       filter: 'brightness(0.8)',
       bg: colors.primary,
       background: colors.primary,
-      color: colors.blackColor,
+      color: colors.black,
     },
 
     _active: {
       filter: 'brightness(0.9)',
       bg: colors.primary,
       background: colors.primary,
-      color: colors.blackColor,
+      color: colors.black,
     },
   },
 
   variants: {
     primary: {},
 
-    'outline-primary': {
+    light: {
       bg: 'transparent',
       background: 'transparent',
-      color: colors.primary,
-      border: '1px solid',
-      borderColor: colors.primary,
-
-      _hover: {
-        filter: 'brightness(0.95)',
-        bg: colors.primary,
-        background: hexToRgba(colors.primary, 0.1),
-        color: colors.primary,
-      },
-
-      _active: {
-        filter: 'brightness(0.95)',
-        bg: colors.primary,
-        background: hexToRgba(colors.primary, 0.3),
-        color: colors.primary,
-      },
+      color: colors.black,
+      border: `2px solid ${colors.gray[200]}`,
     },
 
-    secondary: {
-      bg: colors.secondary,
-      background: colors.secondary,
-      color: '#fff',
-
-      _hover: {
-        filter: 'brightness(0.8)',
-        bg: colors.secondary,
-        background: colors.secondary,
-        color: '#fff',
-      },
-
-      _active: {
-        filter: 'brightness(0.9)',
-        bg: colors.secondary,
-        background: colors.secondary,
-        color: '#fff',
-      },
-    },
-
-    'outline-secondary': {
+    circle: {
       bg: 'transparent',
       background: 'transparent',
-      color: colors.secondary,
-      border: '1px solid',
-      borderColor: colors.secondary,
-
-      w: '100%',
-      maxW: '362px',
-      h: '50px',
-      height: '50px',
-      borderRadius: 100,
-
-      _hover: {
-        filter: 'brightness(0.95)',
-        bg: colors.secondary,
-        background: hexToRgba(colors.secondary, 0.1),
-        color: colors.secondary,
-      },
-
-      _active: {
-        filter: 'brightness(0.95)',
-        bg: colors.secondary,
-        background: hexToRgba(colors.secondary, 0.3),
-        color: colors.secondary,
-      },
+      color: colors.black,
+      border: `2px solid ${colors.gray[200]}`,
     },
   },
 };

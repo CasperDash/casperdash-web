@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { ScriptProps } from 'next/script';
+import { NextPage } from 'next/types';
+import { appWithTranslation } from 'next-i18next';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
@@ -10,8 +13,19 @@ import { Provider } from 'react-redux';
 import store from '@/store';
 import theme from '@/theme';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+type Page<P = Record<string, never>> = NextPage<P> & {
+  getLayout: (page: ScriptProps) => JSX.Element;
+};
+
+type Props = AppProps & {
+  Component: Page;
+};
+
+const Noop = ({ children }: ScriptProps) => <>{children}</>;
+
+const MyApp = ({ Component, pageProps }: Props) => {
   const [queryClient] = useState(() => new QueryClient());
+  const getLayout = Component.getLayout || Noop;
 
   return (
     <>
@@ -24,7 +38,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Provider store={store}>
         <ChakraProvider resetCSS theme={theme}>
           <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
+            {getLayout(<Component {...pageProps} />)}
             <Toaster />
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           </QueryClientProvider>
@@ -34,4 +48,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp);

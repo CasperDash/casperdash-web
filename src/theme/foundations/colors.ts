@@ -1,9 +1,7 @@
 export default {
   primary: '#FA2852',
   secondary: '#E1372D',
-  blackColor: '#313131',
-  paleWhiteColor: '#838BB3',
-  purpleColor: '#511930',
+  black: '#353945',
   whiteAlpha: {
     50: 'rgba(255, 255, 255, 0.04)',
     100: 'rgba(255, 255, 255, 0.06)',
@@ -31,11 +29,11 @@ export default {
 
   gray: {
     50: '#F7FAFC',
-    100: '#EDF2F7',
-    200: '#E2E8F0',
+    100: '#F4F5F6',
+    200: '#EBECEF',
     300: '#CBD5E0',
     400: '#A0AEC0',
-    500: '#718096',
+    500: '#777E90',
     600: '#4A5568',
     700: '#2D3748',
     800: '#1A202C',
