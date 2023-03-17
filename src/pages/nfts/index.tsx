@@ -4,11 +4,11 @@ import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import DashboardLayout from '@/layouts/Dashboard';
-import Home from '@/modules/Home';
+import NFTs from '@/modules/NFTs';
 
-const HomePage = () => <Home />;
+const NFTsPage = () => <NFTs />;
 
-export default HomePage;
+export default NFTsPage;
 
 export async function getStaticProps({
   locale,
@@ -21,6 +21,6 @@ export async function getStaticProps({
   };
 }
 
-HomePage.getLayout = function getLayout(page: React.ReactNode) {
+NFTsPage.getLayout = function getLayout(page: React.ReactNode) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

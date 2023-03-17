@@ -1,3 +1,6 @@
 export enum PathEnum {
-  Dashboard = '/dashboard',
+  HOME = '/',
+  TRADE = '/trade',
+  NFT = 'nfts',
+  STAKING = 'staking',
 }

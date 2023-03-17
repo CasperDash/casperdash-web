@@ -19,6 +19,9 @@ const styles = {
         transitionDuration: 'normal',
         lineHeight: 'base',
       },
+      a: {
+        color: props.colorMode === 'dark' ? 'teal.300' : 'gray.500',
+      },
       html: {
         fontFamily: 'Helvetica, sans-serif',
       },
