@@ -2,6 +2,7 @@ export default {
   primary: '#FA2852',
   secondary: '#E1372D',
   black: '#353945',
+  white: '#FCFCFD',
   whiteAlpha: {
     50: 'rgba(255, 255, 255, 0.04)',
     100: 'rgba(255, 255, 255, 0.06)',
@@ -83,7 +84,7 @@ export default {
     50: '#F0FFF4',
     100: '#C6F6D5',
     200: '#9AE6B4',
-    300: '#68D391',
+    300: '#58BD7D',
     400: '#48BB78',
     500: '#38A169',
     600: '#2F855A',
