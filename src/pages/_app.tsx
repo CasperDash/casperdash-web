@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ScriptProps } from 'next/script';
 import { NextPage } from 'next/types';
 import { appWithTranslation } from 'next-i18next';
 import { Toaster } from 'react-hot-toast';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 
 import store from '@/store';

@@ -4,38 +4,35 @@ import colors from '../foundations/colors';
 
 const Button: ComponentStyleConfig = {
   baseStyle: {
-    fontWeight: 600,
-    fontSize: 18,
+    fontWeight: 700,
+    fontSize: '14px',
 
-    bg: colors.primary,
-    background: colors.primary,
-    color: colors.black,
-
-    w: '100%',
-    minW: '100px',
+    minW: '120px',
     maxW: '360px',
-    h: '50px',
-    height: '50px',
     borderRadius: '90px',
-    padding: '0 30px',
-
-    _hover: {
-      filter: 'brightness(0.8)',
-      bg: colors.primary,
-      background: colors.primary,
-      color: colors.black,
-    },
-
-    _active: {
-      filter: 'brightness(0.9)',
-      bg: colors.primary,
-      background: colors.primary,
-      color: colors.black,
-    },
+    padding: '12px 16px',
   },
 
   variants: {
-    primary: {},
+    primary: {
+      bg: colors.primary,
+      background: colors.primary,
+      color: colors.white,
+
+      _hover: {
+        filter: 'brightness(0.8)',
+        bg: colors.primary,
+        background: colors.primary,
+        color: colors.black,
+      },
+
+      _active: {
+        filter: 'brightness(0.9)',
+        bg: colors.primary,
+        background: colors.primary,
+        color: colors.white,
+      },
+    },
 
     light: {
       bg: 'transparent',
