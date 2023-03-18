@@ -1,13 +1,17 @@
 import { extendTheme } from '@chakra-ui/react';
 
+// Components
 import Button from './components/button';
+import Heading from './components/heading';
 import Tabs from './components/tab';
+// Styles.
 import breakpoints from './foundations/breakpoints';
 import colors from './foundations/colors';
 import config from './foundations/config';
 import fonts from './foundations/fonts';
 import fontSizes from './foundations/fontSizes';
 import fontWeights from './foundations/fontWeights';
+import lineHeights from './foundations/lineHeights';
 import radii from './foundations/radii';
 import shadows from './foundations/shadows';
 import sizes from './foundations/sizes';
@@ -25,13 +29,16 @@ const customTheme = {
   shadows,
   breakpoints,
   zIndices,
+  lineHeights,
   radii,
   fontSizes,
   fontWeights,
   space,
+
   components: {
     Button,
     Tabs,
+    Heading,
   },
   styles,
 };

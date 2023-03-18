@@ -1,7 +1,7 @@
 import { Box, useColorModeValue } from '@chakra-ui/react';
 
 import Header from './Header';
-import MainContainer from '@/components/MainContainer';
+import MainContainer from '@/components/Common/MainContainer';
 
 export type Props = {
   children?: React.ReactNode;

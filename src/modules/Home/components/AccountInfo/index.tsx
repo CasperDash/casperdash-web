@@ -1,10 +1,12 @@
-import { Box, BoxProps, Flex } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, Heading } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 
 export type AccountInfoProps = BoxProps;
 
 const AccountInfo = (props: AccountInfoProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       {...props}
@@ -15,7 +17,11 @@ const AccountInfo = (props: AccountInfoProps) => {
       backgroundColor="white"
     >
       <Flex alignItems="center" justifyContent="space-between">
-        <Box>Account Info</Box>
+        <Box>
+          <Heading as="h3" size="xl">
+            {t('account_info')}
+          </Heading>
+        </Box>
         <Box>
           <ButtonConnectWallet />
         </Box>

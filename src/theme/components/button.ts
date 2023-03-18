@@ -34,16 +34,31 @@ const Button: ComponentStyleConfig = {
       },
     },
 
-    light: {
-      bg: 'transparent',
-      background: 'transparent',
+    'light-outline': {
+      bg: colors.white,
       color: colors.black,
       border: `2px solid ${colors.gray[200]}`,
     },
 
+    light: {
+      bg: colors.white,
+      color: colors.black,
+
+      _active: {
+        filter: 'brightness(0.9)',
+        bg: colors.primary,
+        color: colors.white,
+      },
+
+      _hover: {
+        filter: 'brightness(0.8)',
+        bg: colors.primary,
+        color: colors.white,
+      },
+    },
+
     circle: {
       bg: 'transparent',
-      background: 'transparent',
       color: colors.black,
       border: `2px solid ${colors.gray[200]}`,
     },
