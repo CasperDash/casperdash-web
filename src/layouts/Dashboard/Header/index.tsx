@@ -2,7 +2,7 @@ import { Box, Button, Flex, Image, Link } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
-import MainContainer from '@/components/MainContainer';
+import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums/path';
 import { BellIcon, MenuIcon } from '@/icons';
 
@@ -34,7 +34,7 @@ const Header = () => {
             <Box mr="8" paddingTop="2">
               <BellIcon />
             </Box>
-            <Button variant="light">{t('connect_wallet')}</Button>
+            <Button variant="light-outline">{t('connect_wallet')}</Button>
             <Box ml="3">
               <Button variant="circle">
                 <MenuIcon />

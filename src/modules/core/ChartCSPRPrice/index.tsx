@@ -1,4 +1,4 @@
-import { Badge, Box, BoxProps, Flex, Text } from '@chakra-ui/react';
+import { Badge, Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
 import { LineChart, Line } from 'recharts';
 
 import Paper from '@/components/Paper';
@@ -23,7 +23,9 @@ const ChartCSPRPrice = ({ ...restProps }: ChartCSPRPriceProps) => {
       <Flex direction="column" justifyContent="space-between">
         <Box>
           <Flex alignItems="center">
-            <Text>CSPR</Text>
+            <Text color="gray.500" fontWeight="semibold" fontSize="xl">
+              CSPR
+            </Text>
             <Badge
               ml="1"
               bgColor="green.300"
@@ -37,7 +39,7 @@ const ChartCSPRPrice = ({ ...restProps }: ChartCSPRPriceProps) => {
           </Flex>
         </Box>
         <Box mt="2">
-          <Text fontSize="xl">$ 1.00069787</Text>
+          <Heading fontSize="xl">$ 1.00069787</Heading>
         </Box>
         <Box mt="4">
           <LineChart

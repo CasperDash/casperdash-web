@@ -1,7 +1,7 @@
 export default {
   primary: '#FA2852',
   secondary: '#E1372D',
-  black: '#353945',
+  black: '#131313',
   white: '#FCFCFD',
   whiteAlpha: {
     50: 'rgba(255, 255, 255, 0.04)',

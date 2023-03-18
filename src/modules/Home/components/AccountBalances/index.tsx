@@ -1,7 +1,8 @@
 import { Box, BoxProps, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import TotalBalance from '@/components/TotalBalance';
+import TotalBalance from '@/components/Common/TotalBalance';
+import TextLight from '@/components/Typography/TextLight';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
 
 export type AccountBalancesProps = BoxProps;
@@ -12,18 +13,20 @@ const AccountBalances = (props: AccountBalancesProps) => {
   return (
     <Box {...props}>
       <Flex mb="2" alignItems="center" justifyContent="space-between">
-        <Box>{t('account_balances')}</Box>
+        <Box ml="8">
+          <TextLight>{t('account_balances')}</TextLight>
+        </Box>
         <Flex gap="2">
-          <Button variant="primary" w="30">
+          <Button variant="light" w="30">
             {t('send')}
           </Button>
-          <Button variant="primary" w="30">
+          <Button variant="light" w="30">
             {t('swap')}
           </Button>
-          <Button variant="primary" w="30">
+          <Button variant="light" w="30">
             {t('staking')}
           </Button>
-          <Button variant="primary" w="30">
+          <Button variant="light" w="30">
             {t('receive')}
           </Button>
         </Flex>

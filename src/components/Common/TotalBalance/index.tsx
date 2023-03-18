@@ -1,7 +1,7 @@
-import { Box, BoxProps, Flex, Text } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import Paper from '../Paper';
+import Paper from '../../Paper';
 
 export type TotalBalanceProps = {
   totalVolumeValue: string;
@@ -28,28 +28,35 @@ const TotalBalance = ({
           <Box>
             <Text>{t('total_balance')}</Text>
           </Box>
-          <Box>
-            <Text>1.00069787 CSPR</Text>
+          <Box mt="3">
+            <Heading variant="2xl">1.00069787 CSPR</Heading>
           </Box>
-          <Box>
-            <Text>$10,098.36</Text>
+          <Box mt="3">
+            <Text color="gray.500" lineHeight="6" fontSize="sm">
+              $10,098.36
+            </Text>
           </Box>
         </Flex>
         <Flex pos="relative" flex="1">
           <Box flex="1" pl="7" pt="8">
             <Text>{t('total_volume')}</Text>
-            <Box>${totalVolumeValue}</Box>
+            <Box mt="3">
+              <Heading variant="xl">${totalVolumeValue}</Heading>
+            </Box>
           </Box>
           <Box
             pos="absolute"
             left="50%"
-            height="183px"
+            height="162px"
             borderLeft="1px solid"
             borderColor="gray.200"
           ></Box>
           <Box flex="1" pl="7" pt="8">
             <Text>{t('24h_volume')}</Text>
-            <Box>${dayVolumeValue}</Box>
+            <Box mt="3">
+              {' '}
+              <Heading variant="xl">${dayVolumeValue}</Heading>
+            </Box>
           </Box>
         </Flex>
       </Flex>
