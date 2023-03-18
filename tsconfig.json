@@ -30,6 +30,8 @@
         "public/*"
       ]
     },
+    "pretty": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "incremental": true
   },
   "exclude": [
@@ -40,5 +42,6 @@
     "src/**/*",
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

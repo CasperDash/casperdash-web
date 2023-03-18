@@ -2,18 +2,19 @@
   "name": "casperdash-web",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next -p 3001",
-    "build": "next build",
-    "start": "next start -p 80",
-    "lint": "eslint src --max-warnings=0",
-    "typecheck": "tsc --project tsconfig.json --noEmit",
-    "test": "jest --maxWorkers=50%",
-    "test:watch": "jest --watch --maxWorkers=25%",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest --run",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc",
     "postinstall": "husky install && chmod +x .husky/pre-commit",
     "generate": "yarn plop --plopfile generators/plopfile.js",
     "storybook": "start-storybook -s ./public -p 6006",
-    "build-storybook": "build-storybook -s ./public",
-    "export": "next build && next export"
+    "build-storybook": "build-storybook -s ./public"
   },
   "husky": {
     "hooks": {
@@ -40,16 +41,17 @@
     "framer-motion": "^10.2.4",
     "i18next": "^22.4.11",
     "js-cookie": "^3.0.1",
-    "next": "13.2.4",
-    "next-i18next": "^13.2.2",
-    "next-pwa": "^5.6.0",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.32.1",
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^12.2.0",
     "react-redux": "^8.0.5",
-    "recharts": "^2.5.0"
+    "react-router-dom": "^6.9.0",
+    "recharts": "^2.5.0",
+    "sort-by": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -61,8 +63,10 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/react": "^6.2.9",
     "@svgr/webpack": "^5.5.0",
-    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.15.0",
@@ -71,6 +75,8 @@
     "@types/react-query": "^1.2.9",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
+    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react-swc": "^3.2.0",
     "babel-loader": "^9.1.2",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
@@ -83,8 +89,11 @@
     "lint-staged": "^11.0.0",
     "plop": "^2.7.4",
     "prettier": "^2.3.0",
-    "storybook-addon-next-router": "^2.0.4",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vite": "^4.2.0",
+    "vite-plugin-svgr": "^2.4.0",
+    "vite-tsconfig-paths": "^4.0.7",
+    "vitest": "^0.29.3"
   },
   "license": "MIT"
 }

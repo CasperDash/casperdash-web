@@ -1,12 +1,10 @@
-import { Box, Button, Flex } from '@chakra-ui/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Box, Button, Flex, Image, Link } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
+import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
 import MainContainer from '@/components/MainContainer';
 import { PathEnum } from '@/enums/path';
 import { BellIcon, MenuIcon } from '@/icons';
-import CasperDashLogoImg from '~/public/img/casperdash-logo.png';
 
 const Header = () => {
   const { t } = useTranslation();
