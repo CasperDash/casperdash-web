@@ -7,7 +7,7 @@ export type Props = {
   children?: React.ReactNode;
 };
 
-const DashboardLayout = ({ children }: Props) => {
+const BaseLayout = ({ children }: Props) => {
   const bg = useColorModeValue('gray.100', 'blackAlpha.900');
 
   return (
@@ -18,4 +18,4 @@ const DashboardLayout = ({ children }: Props) => {
   );
 };
 
-export default DashboardLayout;
+export default BaseLayout;

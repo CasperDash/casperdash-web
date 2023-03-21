@@ -2,7 +2,9 @@ import { GlobalStyleProps, mode } from '@chakra-ui/theme-tools';
 
 const styles = {
   global: {
-    'html, body': {},
+    'html, body': {
+      fontSize: '14px',
+    },
   },
   colors: {
     gray: {

@@ -9,12 +9,16 @@ const Heading = defineStyle({
 
   variants: {
     xl: {
-      fontSize: fontSizes['xl'],
+      fontSize: fontSizes.xl,
       lineHeight: lineHeights[8],
     },
     '2xl': {
       fontSize: fontSizes['2xl'],
       lineHeight: lineHeights[5],
+    },
+    '5xl': {
+      fontSize: fontSizes['5xl'],
+      lineHeight: lineHeights['12'],
     },
   },
 });

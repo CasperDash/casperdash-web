@@ -37,3 +37,5 @@ public/workbox-*.js
 
 # storybook
 storybook-static
+
+.eslintcache

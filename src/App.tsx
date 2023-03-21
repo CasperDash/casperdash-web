@@ -10,6 +10,8 @@ import { browserRouter } from './router';
 import store from '@/store';
 import theme from '@/theme';
 
+(window as unknown as Window & { global?: Window }).global = window;
+
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
 
@@ -18,7 +20,7 @@ const App = () => {
       <ChakraProvider resetCSS theme={theme}>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={browserRouter} />
-          <Toaster />
+          <Toaster position="top-right" />
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         </QueryClientProvider>
       </ChakraProvider>
