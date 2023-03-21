@@ -1,12 +1,12 @@
 import React from 'react';
 
-import DashboardLayout from '@/layouts/Dashboard';
+import BaseLayout from '@/layouts/Base';
 import Home from '@/modules/Home';
 
 const HomePage = () => (
-  <DashboardLayout>
+  <BaseLayout>
     <Home />
-  </DashboardLayout>
+  </BaseLayout>
 );
 
 export default HomePage;

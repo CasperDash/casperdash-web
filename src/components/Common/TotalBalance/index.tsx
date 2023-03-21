@@ -47,7 +47,7 @@ const TotalBalance = ({
           <Box
             pos="absolute"
             left="50%"
-            height="162px"
+            height="142px"
             borderLeft="1px solid"
             borderColor="gray.200"
           ></Box>

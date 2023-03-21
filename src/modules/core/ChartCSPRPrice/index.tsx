@@ -1,5 +1,5 @@
 import { Badge, Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
-import { LineChart, Line } from 'recharts';
+import { Area, AreaChart } from 'recharts';
 
 import Paper from '@/components/Paper';
 
@@ -42,19 +42,27 @@ const ChartCSPRPrice = ({ ...restProps }: ChartCSPRPriceProps) => {
           <Heading fontSize="xl">$ 1.00069787</Heading>
         </Box>
         <Box mt="4">
-          <LineChart
+          <AreaChart
             width={500}
             height={200}
             data={data}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            margin={{ top: 5, right: 20, bottom: 30, left: 0 }}
           >
-            <Line
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#58BD7D" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#58BD7D" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            {/* <Tooltip /> */}
+            <Area
               type="monotone"
               dataKey="value"
-              stroke="#8884d8"
-              dot={false}
+              stroke="#58BD7D"
+              fillOpacity={1}
+              fill="url(#colorUv)"
             />
-          </LineChart>
+          </AreaChart>
         </Box>
       </Flex>
     </Paper>
