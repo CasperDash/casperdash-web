@@ -39,3 +39,4 @@ public/workbox-*.js
 storybook-static
 
 .eslintcache
+tsconfig.tsbuildinfo
