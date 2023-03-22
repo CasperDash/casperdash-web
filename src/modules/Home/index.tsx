@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 
-import AccountBalances from './AccountBalances';
-import AccountInfo from './AccountInfo';
+import AccountBalances from './components/AccountBalances';
+import AccountInfo from './components/AccountInfo';
 import TableTransaction from '@/modules/core/TableTransaction';
 
 const Home = () => {

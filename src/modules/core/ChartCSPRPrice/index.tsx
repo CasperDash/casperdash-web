@@ -1,7 +1,9 @@
 import { Badge, Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
-import { Area, AreaChart } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
+import AreaChartPrice from './AreaChartPrice';
 import Paper from '@/components/Paper';
+import { useCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
 
 const data: { year: number; value: number }[] = [];
 
@@ -17,6 +19,47 @@ for (let i = 0; i < 7; i++) {
 
 type ChartCSPRPriceProps = BoxProps;
 
+const CoingeckoPriceText = () => {
+  const { t } = useTranslation();
+  const { data: coingeckoCoin } = useCoingeckoCoin();
+
+  return (
+    <Heading fontSize="xl">
+      {t('intlNumber', {
+        val: coingeckoCoin?.price,
+        minimumFractionDigits: 8,
+      })}
+    </Heading>
+  );
+};
+
+const BadgePercentageChange = () => {
+  const {
+    data: { priceChangePercentage24h } = { priceChangePercentage24h: 0 },
+  } = useCoingeckoCoin();
+  let color;
+  let text;
+  if (priceChangePercentage24h >= 0) {
+    color = `green.300`;
+    text = `+${priceChangePercentage24h.toFixed(2)}`;
+  } else {
+    color = `red.300`;
+    text = `${priceChangePercentage24h.toFixed(2)}`;
+  }
+  return (
+    <Badge
+      ml="1"
+      bgColor={color}
+      color="white"
+      borderRadius="3xl"
+      fontSize="xs"
+      p="1"
+    >
+      {text}%
+    </Badge>
+  );
+};
+
 const ChartCSPRPrice = ({ ...restProps }: ChartCSPRPriceProps) => {
   return (
     <Paper {...restProps} p="6">
@@ -26,43 +69,14 @@ const ChartCSPRPrice = ({ ...restProps }: ChartCSPRPriceProps) => {
             <Text color="gray.500" fontWeight="semibold" fontSize="xl">
               CSPR
             </Text>
-            <Badge
-              ml="1"
-              bgColor="green.300"
-              color="white"
-              borderRadius="3xl"
-              fontSize="xs"
-              p="1"
-            >
-              +12.96%
-            </Badge>
+            <BadgePercentageChange />
           </Flex>
         </Box>
         <Box mt="2">
-          <Heading fontSize="xl">$ 1.00069787</Heading>
+          <CoingeckoPriceText />
         </Box>
         <Box mt="4">
-          <AreaChart
-            width={500}
-            height={200}
-            data={data}
-            margin={{ top: 5, right: 20, bottom: 30, left: 0 }}
-          >
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#58BD7D" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#58BD7D" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            {/* <Tooltip /> */}
-            <Area
-              type="monotone"
-              dataKey="value"
-              stroke="#58BD7D"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-            />
-          </AreaChart>
+          <AreaChartPrice />
         </Box>
       </Flex>
     </Paper>

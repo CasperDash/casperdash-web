@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { EncryptionType, KeyFactory } from 'casper-storage';
+import { EncryptionType } from 'casper-storage';
 
 export interface IWallet {
   ready: boolean;
@@ -17,29 +17,10 @@ const initialState: IWallet = {
   encryptionType: EncryptionType.Ed25519,
 };
 
-const MAP_WORDS_LENGTH: Record<EncryptionType, number> = {
-  [EncryptionType.Ed25519]: 12,
-  [EncryptionType.Secp256k1]: 12,
-};
-
 export const walletSlice = createSlice({
   name: NAME_SPACE,
   initialState,
   reducers: {
-    updateEncryptionTypeAndGenerateMasterKey: (
-      state: IWallet,
-      action: PayloadAction<EncryptionType>
-    ) => {
-      const { payload: encryptionType } = action;
-      state.encryptionType = encryptionType;
-
-      const masterKey = KeyFactory.getInstance().generate(
-        MAP_WORDS_LENGTH[encryptionType]
-      );
-
-      state.ready = true;
-      state.masterKey = masterKey;
-    },
     updateEncryptionType: (
       state: IWallet,
       action: PayloadAction<EncryptionType>
@@ -52,7 +33,7 @@ export const walletSlice = createSlice({
       state.masterKey = masterKey;
     },
     updateEncryptionTypeAndMasterKey: (
-      _state: IWallet,
+      state: IWallet,
       action: PayloadAction<
         Required<Pick<IWallet, 'masterKey' | 'encryptionType'>>
       >
@@ -60,8 +41,8 @@ export const walletSlice = createSlice({
       const {
         payload: { masterKey, encryptionType },
       } = action;
-      walletSlice.actions.updateEncryptionType(encryptionType);
-      walletSlice.actions.updateMasterKey(masterKey);
+      state.masterKey = masterKey;
+      state.encryptionType = encryptionType;
     },
     updatePublicKeyAfterCreateWallet: (
       state: IWallet,
@@ -76,7 +57,6 @@ export const walletSlice = createSlice({
 });
 
 export const {
-  updateEncryptionTypeAndGenerateMasterKey,
   updateEncryptionType,
   updateMasterKey,
   updateEncryptionTypeAndMasterKey,

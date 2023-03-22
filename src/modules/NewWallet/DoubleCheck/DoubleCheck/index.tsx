@@ -61,7 +61,7 @@ const DoubleCheck = ({ ...restProps }: Props) => {
                   justifyContent="center"
                 >
                   <FormLabel>
-                    {t('select_word', { orderNumber: answer })} {answer + 1}
+                    {t('select_word', { orderNumber: answer + 1 })}
                   </FormLabel>
                   <Box mt="6">
                     <WordsCheckerController
