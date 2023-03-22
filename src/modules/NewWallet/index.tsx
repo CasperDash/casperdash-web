@@ -1,7 +1,7 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import RecoveryKeys from './RecoveryKeys';
+import RecoveryKeys from './components/RecoveryKeys';
 
 const NewWallet = () => {
   const { t } = useTranslation();

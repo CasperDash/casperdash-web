@@ -96,7 +96,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             <Input
               type="password"
               {...register('newPassword', {
-                required: 'new_password_required',
+                required: 'password_required',
               })}
             />
             {!!errors.newPassword && (
@@ -116,7 +116,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             <Input
               type="password"
               {...register('confirmPassword', {
-                required: 'new_password_required',
+                required: 'password_required',
                 validate: {
                   checkEqualNewPassword: (value: string): ValidateResult => {
                     const newPassword = watch('newPassword');
@@ -149,7 +149,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             variant="primary"
             isLoading={isSubmitting}
           >
-            {t('register')}
+            {t('re≥gister')}
           </Button>
         </Box>
       </form>

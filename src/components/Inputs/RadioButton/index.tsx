@@ -1,17 +1,12 @@
 import {
   Box,
-  Flex,
-  FlexProps,
   useRadio,
-  useRadioGroup,
-  UseRadioProps,
+  // useStyles,
 } from '@chakra-ui/react';
 
-type RadioCardProps = {
-  children: React.ReactNode;
-} & UseRadioProps;
+import { RadioCardProps } from './type';
 
-const RadioCard = (props: RadioCardProps) => {
+export const RadioButton = ({ sx, ...props }: RadioCardProps) => {
   const { getInputProps, getCheckboxProps } = useRadio(props);
 
   const input = getInputProps();
@@ -20,64 +15,11 @@ const RadioCard = (props: RadioCardProps) => {
   return (
     <Box as="label">
       <input {...input} />
-      <Box
-        {...checkbox}
-        cursor="pointer"
-        borderWidth="1px"
-        borderRadius="3xl"
-        boxShadow="md"
-        textAlign="center"
-        w="103px"
-        _checked={{
-          bg: 'blue.300',
-          color: 'white',
-          borderColor: 'blue.300',
-        }}
-        _focus={{
-          boxShadow: 'outline',
-        }}
-        px={5}
-        py={3}
-      >
+      <Box {...checkbox} sx={sx}>
         {props.children}
       </Box>
     </Box>
   );
 };
 
-type Props = {
-  onChange?: (nextValue: string) => void;
-  options: string[];
-  defaultValue?: string;
-  name?: string;
-} & FlexProps;
-const RadioButtons = ({
-  name,
-  onChange,
-  options,
-  defaultValue,
-  ...restProps
-}: Props) => {
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    name,
-    defaultValue,
-    onChange,
-  });
-
-  const group = getRootProps();
-
-  return (
-    <Flex gap="4" {...group} {...restProps}>
-      {options.map((value) => {
-        const radio = getRadioProps({ value });
-        return (
-          <RadioCard key={value} {...radio}>
-            {value}
-          </RadioCard>
-        );
-      })}
-    </Flex>
-  );
-};
-
-export default RadioButtons;
+export default RadioButton;

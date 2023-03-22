@@ -1,7 +1,8 @@
 import * as _ from 'lodash-es';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-import RadioButtons from '@/components/Inputs/RadioButton';
+import RadioButton from '@/components/Inputs/RadioButton';
+import RadioButtonGroup from '@/components/Inputs/RadioButton/RadioButtonGroup';
 
 type Props = {
   control: Control<FieldValues>;
@@ -26,11 +27,15 @@ const WordsCheckerController = ({ control, answer, words, options }: Props) => {
         },
       }}
       render={({ field: { onChange } }) => (
-        <RadioButtons
-          alignItems="center"
-          options={_.pullAt([...words], options)}
-          onChange={onChange}
-        />
+        <RadioButtonGroup alignItems="center" onChange={onChange}>
+          {_.pullAt([...words], options).map((value: string) => {
+            return (
+              <RadioButton key={`word-${value}`} value={value}>
+                {value}
+              </RadioButton>
+            );
+          })}
+        </RadioButtonGroup>
       )}
     />
   );

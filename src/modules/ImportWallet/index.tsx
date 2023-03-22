@@ -1,7 +1,7 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import SeedPhrases from './SeedPhrases';
+import SeedPhrases from './components/SeedPhrases';
 
 const ImportPhrase = () => {
   const { t } = useTranslation();

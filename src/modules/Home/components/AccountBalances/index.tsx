@@ -1,7 +1,7 @@
 import { Box, BoxProps, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import TotalBalance from '@/components/Common/TotalBalance';
+import AccountTotalBalances from './AccountTotalBalances';
 import TextLight from '@/components/Typography/TextLight';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
 
@@ -32,11 +32,7 @@ const AccountBalances = (props: AccountBalancesProps) => {
         </Flex>
       </Flex>
       <Flex gap="2" h="xs">
-        <TotalBalance
-          flex="1"
-          totalVolumeValue="156,039,746"
-          dayVolumeValue="3,906,096"
-        />
+        <AccountTotalBalances />
         <ChartCSPRPrice flex="1" />
       </Flex>
     </Box>

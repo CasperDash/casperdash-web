@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import Paper from '../../Paper';
 
 export type TotalBalanceProps = {
-  totalVolumeValue: string;
-  dayVolumeValue: string;
+  marketCapValue: number;
+  dayVolumeValue: number;
 } & BoxProps;
 const TotalBalance = ({
-  totalVolumeValue,
+  marketCapValue,
   dayVolumeValue,
   ...restProps
 }: TotalBalanceProps) => {
@@ -41,7 +41,11 @@ const TotalBalance = ({
           <Box flex="1" pl="7" pt="8">
             <Text>{t('total_volume')}</Text>
             <Box mt="3">
-              <Heading variant="xl">${totalVolumeValue}</Heading>
+              <Heading variant="xl">
+                {t('intlNumber', {
+                  val: marketCapValue,
+                })}
+              </Heading>
             </Box>
           </Box>
           <Box
@@ -54,8 +58,11 @@ const TotalBalance = ({
           <Box flex="1" pl="7" pt="8">
             <Text>{t('24h_volume')}</Text>
             <Box mt="3">
-              {' '}
-              <Heading variant="xl">${dayVolumeValue}</Heading>
+              <Heading variant="xl">
+                {t('intlNumber', {
+                  val: dayVolumeValue,
+                })}
+              </Heading>
             </Box>
           </Box>
         </Flex>

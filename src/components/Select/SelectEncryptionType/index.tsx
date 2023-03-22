@@ -20,7 +20,7 @@ const OPTIONS = [
 ];
 
 export type Props = {
-  onChange?: (newValue?: EncryptionType) => void;
+  onChange?: (newValue?: any) => void;
   value?: EncryptionType;
 } & Pick<SelectProps, 'mt'>;
 
