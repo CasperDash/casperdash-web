@@ -3,6 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 // Components
 import Button from './components/button';
 import Heading from './components/heading';
+import { Input } from './components/input';
 import RadioButtons from './components/radioButtons';
 import Tabs from './components/tab';
 // Styles.
@@ -41,6 +42,7 @@ const customTheme = {
     Tabs,
     Heading,
     RadioButtons,
+    Input,
   },
   styles,
 };

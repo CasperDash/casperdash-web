@@ -1,8 +1,10 @@
 import { Box, BoxProps, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import AccountTotalBalances from './AccountTotalBalances';
 import TextLight from '@/components/Typography/TextLight';
+import { PathEnum } from '@/enums';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
 
 export type AccountBalancesProps = BoxProps;
@@ -17,9 +19,11 @@ const AccountBalances = (props: AccountBalancesProps) => {
           <TextLight>{t('account_balances')}</TextLight>
         </Box>
         <Flex gap="2">
-          <Button variant="light" w="30">
-            {t('send')}
-          </Button>
+          <Link to={PathEnum.SEND}>
+            <Button variant="light" w="30">
+              {t('send')}
+            </Button>
+          </Link>
           <Button variant="light" w="30">
             {t('swap')}
           </Button>

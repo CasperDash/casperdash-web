@@ -10,6 +10,11 @@ export interface CoingeckoCoin {
   priceChangePercentage24h: number;
 }
 
+export interface CoingeckoHistory {
+  timestamp: number;
+  value: number;
+}
+
 export interface CoingeckoCurrentDataCoin {
   id: string;
   symbol: string;
