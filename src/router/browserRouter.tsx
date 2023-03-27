@@ -7,6 +7,7 @@ import ImportWalletPasswordPage from '@/pages/ImportWallet/NewPassword';
 import NewWalletPage from '@/pages/NewWallet';
 import NewWalletDoubleCheckPage from '@/pages/NewWallet/DoubleCheck';
 import NewWalletPasswordPage from '@/pages/NewWallet/NewPassword';
+import SendPage from '@/pages/Send';
 
 export const browserRouter = createBrowserRouter([
   {
@@ -32,5 +33,9 @@ export const browserRouter = createBrowserRouter([
   {
     path: PathEnum.IMPORT_WALLET_NEW_PASSWORD,
     element: <ImportWalletPasswordPage />,
+  },
+  {
+    path: PathEnum.SEND,
+    element: <SendPage />,
   },
 ]);

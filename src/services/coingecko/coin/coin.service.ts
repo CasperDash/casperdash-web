@@ -1,6 +1,10 @@
 import * as _ from 'lodash-es';
 
-import { CoingeckoCurrentDataCoin, CoingeckoCoin } from './type';
+import {
+  CoingeckoCurrentDataCoin,
+  CoingeckoCoin,
+  CoingeckoHistory,
+} from './type';
 import request from '../request';
 
 export const getCoin = async (): Promise<CoingeckoCoin> => {
@@ -29,4 +33,27 @@ export const getCoin = async (): Promise<CoingeckoCoin> => {
       0
     ),
   };
+};
+
+export const getCoinHistories = async (): Promise<CoingeckoHistory[]> => {
+  const data: { prices: [number, number][] } = await request.get(
+    '/coins/casper-network/market_chart',
+    {
+      params: {
+        vs_currency: 'usd',
+        days: 30,
+      },
+    }
+  );
+
+  if (_.isEmpty(data.prices)) {
+    return [];
+  }
+
+  return data.prices.map((coinData: [number, number]) => {
+    return {
+      timestamp: _.get(coinData, '[0]', 0),
+      value: _.get(coinData, '[1]', 0),
+    };
+  });
 };

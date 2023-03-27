@@ -149,7 +149,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             variant="primary"
             isLoading={isSubmitting}
           >
-            {t('re≥gister')}
+            {t('register')}
           </Button>
         </Box>
       </form>

@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EncryptionType } from 'casper-storage';
 
+import { StatusEnum } from '@/enums/status';
+
 export interface IWallet {
-  ready: boolean;
+  status: StatusEnum;
   masterKey?: string;
   publicKey?: string;
   encryptionType: EncryptionType;
@@ -12,7 +14,7 @@ export const NAME_SPACE = 'wallet';
 
 const initialState: IWallet = {
   publicKey: undefined,
-  ready: false,
+  status: StatusEnum.INACTIVE,
   masterKey: undefined,
   encryptionType: EncryptionType.Ed25519,
 };
@@ -31,6 +33,10 @@ export const walletSlice = createSlice({
     updateMasterKey: (state: IWallet, action: PayloadAction<string>) => {
       const { payload: masterKey } = action;
       state.masterKey = masterKey;
+    },
+    updatePublicKey: (state: IWallet, action: PayloadAction<string>) => {
+      const { payload: publicKey } = action;
+      state.publicKey = publicKey;
     },
     updateEncryptionTypeAndMasterKey: (
       state: IWallet,
@@ -51,6 +57,18 @@ export const walletSlice = createSlice({
       const { payload: publicKey } = action;
       state.publicKey = publicKey;
       state.masterKey = undefined;
+      state.status = StatusEnum.ACTIVE;
+    },
+    loginWallet: (
+      state: IWallet,
+      action: PayloadAction<Required<Pick<IWallet, 'publicKey'>>>
+    ) => {
+      const {
+        payload: { publicKey },
+      } = action;
+
+      state.publicKey = publicKey;
+      state.status = StatusEnum.ACTIVE;
     },
     reset: () => initialState,
   },
@@ -61,6 +79,7 @@ export const {
   updateMasterKey,
   updateEncryptionTypeAndMasterKey,
   updatePublicKeyAfterCreateWallet,
+  updatePublicKey,
   reset,
 } = walletSlice.actions;
 

@@ -110,6 +110,10 @@ class CasperUserUtil {
 
     return wallets;
   };
+
+  isUserExisted = () => {
+    return !!this.userService;
+  };
 }
 
 const casperUserUtil = new CasperUserUtil();
