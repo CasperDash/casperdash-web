@@ -17,7 +17,7 @@ export const buildTransferDeploy = ({
   amount,
   transferId,
   fee,
-}: BuildTransferDeployParams) => {
+}: BuildTransferDeployParams): DeployUtil.Deploy => {
   const fromPublicKey = CLPublicKey.fromHex(fromPublicKeyHex);
   const toPublicKey = CLPublicKey.fromHex(toPublicKeyHex);
 

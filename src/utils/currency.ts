@@ -32,14 +32,15 @@ export const toMotes = (amount: number): BigNumber | number => {
  * @param {Number|String} amount
  * @returns {BigNumberis|String} Return "-" if it's the invalid big number input.
  */
-export const toCSPR = (amount: number) => {
+export const toCSPR = (rawAmount: number) => {
   try {
-    const bigAmount = Big(amount)
+    const amount = Big(rawAmount)
       .div(MOTE_RATE)
       .round(0, Big.roundDown)
-      .toString();
-    return BigNumber.from(bigAmount);
+      .toNumber();
+
+    return amount;
   } catch (error) {
-    return '-';
+    return 0;
   }
 };

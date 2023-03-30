@@ -1,39 +1,63 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { SelectProps } from '@chakra-ui/react';
-import { EncryptionType } from 'casper-storage';
-import { OptionsOrGroups, Select, SingleValue } from 'chakra-react-select';
+import { Box, Flex, SelectProps } from '@chakra-ui/react';
+import {
+  OptionsOrGroups,
+  Select,
+  chakraComponents,
+  OptionProps,
+  OnChangeValue,
+  Props,
+} from 'chakra-react-select';
+import * as _ from 'lodash-es';
 
-type Option = {
+export type Option = {
   label: string;
   value: string;
+  icon: React.ReactNode;
+  amount: number;
 };
 
-const OPTIONS = [
-  {
-    label: 'CSPR',
-    value: 'cspr',
-  },
-  {
-    label: EncryptionType.Secp256k1,
-    value: EncryptionType.Secp256k1,
-  },
-];
+export type NewValue = OnChangeValue<Option, boolean>;
 
-export type Props = {
-  onChange?: (newValue?: any) => void;
-  value?: EncryptionType;
-} & Pick<SelectProps, 'mt'>;
+export type SelectIconProps = {
+  onChange?: (newValue: string | undefined) => void;
+  value?: string;
+  options: Option[];
+} & Pick<SelectProps, 'mt'> &
+  Partial<Pick<Props<Option, boolean>, 'components'>>;
 
-const SelectAsset = ({ onChange, value, ...restProps }: Props) => {
-  const foundOption = OPTIONS.find((option) => option.value === value);
+const customComponents = {
+  Option: ({ children, ...props }: OptionProps<Option>) => (
+    <chakraComponents.Option {...props}>
+      <Flex alignItems="center">
+        <Box mr="2">{props.data.icon}</Box>
+        {children}
+      </Flex>
+    </chakraComponents.Option>
+  ),
+};
+
+const SelectIcon = ({
+  onChange,
+  value,
+  options,
+  components,
+  ...restProps
+}: SelectIconProps) => {
+  const foundOption = options.find((option: Option) => option.value === value);
   return (
     <Select
       {...restProps}
       value={foundOption}
-      options={OPTIONS as OptionsOrGroups<Option, any>}
-      onChange={(newValue: SingleValue<Option>) => onChange?.(newValue?.value)}
+      options={options as OptionsOrGroups<Option, never>}
+      onChange={(newValue: NewValue) =>
+        onChange?.(_.get(newValue, 'value', undefined))
+      }
+      components={{
+        ...customComponents,
+        ...components,
+      }}
     />
   );
 };
 
-export default SelectAsset;
+export default SelectIcon;

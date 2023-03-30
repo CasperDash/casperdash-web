@@ -21,9 +21,13 @@ export const getEndString = (fullString: string, end: string | RegExp) => {
   }
 };
 
-export const startAndEnd = (str: string) => {
+export const startAndEnd = (str: string, startLength = 5, endLength = 4) => {
   if (str.length > 10) {
-    return str.slice(0, 5) + '...' + str.slice(str.length - 4, str.length);
+    return (
+      str.slice(0, startLength) +
+      '...' +
+      str.slice(str.length - endLength, str.length)
+    );
   }
   return str;
 };

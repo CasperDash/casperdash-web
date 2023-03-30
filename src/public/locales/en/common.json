@@ -38,9 +38,10 @@
   "transfer_amount": "Transfer Amount",
   "receiving_address": "Receiving Address",
   "transfer_id": "Transfer ID",
-  "network_fee": "Network Fee",
+  "network_fee": "Network Fee: {{ total }} {{ symbol }}",
   "confirm": "Confirm",
   "send_description": "Send your token the fastest and easy way.",
   "review": "Review",
-  "receiving_address_note": "Only send USDT to this address. Sending any other asset to this address may result in the loss of  your deposit!"
+  "receiving_address_note": "Only send USDT to this address. Sending any other asset to this address may result in the loss of  your deposit!",
+  "max": "Max"
 }

@@ -1,8 +1,18 @@
+import { hexToRgba } from '@/utils/color';
+
+const PRIMARY_COLOR = '#FA2852';
+
 export default {
-  primary: '#FA2852',
+  primary: PRIMARY_COLOR,
   secondary: '#E1372D',
   black: '#131313',
   white: '#FCFCFD',
+
+  primaryAlpha: {
+    50: hexToRgba(PRIMARY_COLOR, 0.04),
+    300: hexToRgba(PRIMARY_COLOR, 0.16),
+  },
+
   whiteAlpha: {
     50: 'rgba(255, 255, 255, 0.04)',
     100: 'rgba(255, 255, 255, 0.06)',

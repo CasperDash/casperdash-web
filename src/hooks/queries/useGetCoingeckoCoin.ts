@@ -4,7 +4,7 @@ import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { getCoin } from '@/services/coingecko/coin/coin.service';
 import { CoingeckoCoin } from '@/services/coingecko/coin/type';
 
-export const useCoingeckoCoin = (
+export const useGetCoingeckoCoin = (
   options?: Omit<
     UseQueryOptions<
       unknown,
