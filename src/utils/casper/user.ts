@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Keys } from 'casper-js-sdk';
 import {
   WalletDescriptor,
   User,
@@ -233,6 +234,38 @@ export class UserService {
 
   setSelectedWallet = (uid: string) => {
     this.selectedWalletUID = uid;
+  };
+
+  /**
+   * Return an AsymmetricKey keyPair from a public key and private key
+   * @returns AsymmetricKey
+   */
+  generateKeypair = async () => {
+    try {
+      let publicKey;
+      let privateKey;
+      const walletDetails = await this.getWalletDetails(this.selectedWalletUID);
+      if (walletDetails) {
+        publicKey = await walletDetails.getPublicKeyByteArray();
+        privateKey = walletDetails.getPrivateKeyByteArray();
+
+        // need to slice prefix
+        const trimmedPublicKey = publicKey.slice(1);
+        if (_.get(walletDetails, 'encryptionType') === EncryptionType.Ed25519) {
+          return Keys.Ed25519.parseKeyPair(trimmedPublicKey, privateKey);
+        } else {
+          return Keys.Secp256K1.parseKeyPair(
+            trimmedPublicKey,
+            privateKey,
+            'raw'
+          );
+        }
+      } else {
+        throw Error('Error on get Keys');
+      }
+    } catch (error) {
+      return undefined;
+    }
   };
 }
 

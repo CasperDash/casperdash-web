@@ -6,7 +6,7 @@ import SendForm from './components/SendForm';
 const Send = () => {
   const { t } = useTranslation();
   return (
-    <Flex justifyContent="center" w="100%" mt="30">
+    <Flex justifyContent="center" w="100%" mt="20">
       <Box>
         <Flex direction="column" alignItems="center">
           <Heading>{t('send')}</Heading>

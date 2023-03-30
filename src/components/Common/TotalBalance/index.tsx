@@ -1,7 +1,10 @@
 import { Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
+import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '../../Paper';
+import { useGetCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
+import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 
 export type TotalBalanceProps = {
   marketCapValue: number;
@@ -13,6 +16,8 @@ const TotalBalance = ({
   ...restProps
 }: TotalBalanceProps) => {
   const { t } = useTranslation();
+  const { data } = useGetCurrentAccount();
+  const { data: { price } = { price: 0 } } = useGetCoingeckoCoin();
 
   return (
     <Paper {...restProps} p="0" py="8">
@@ -29,11 +34,18 @@ const TotalBalance = ({
             <Text>{t('total_balance')}</Text>
           </Box>
           <Box mt="3">
-            <Heading variant="2xl">1.00069787 CSPR</Heading>
+            <Heading variant="2xl">
+              {t('intlAssetNumber', {
+                asset: 'CSPR',
+                val: data?.balance,
+              })}
+            </Heading>
           </Box>
           <Box mt="3">
             <Text color="gray.500" lineHeight="6" fontSize="sm">
-              $10,098.36
+              {t('intlNumber', {
+                val: _.get(data, 'balance', 0) * price,
+              })}
             </Text>
           </Box>
         </Flex>

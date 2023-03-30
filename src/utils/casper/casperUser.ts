@@ -1,4 +1,6 @@
+import { DeployUtil } from 'casper-js-sdk';
 import { User, EncryptionType } from 'casper-storage';
+import { JsonTypes } from 'typedjson';
 
 import UserService, { LoginOptions } from './user';
 import { CacheKeyEnum, localStorageUtil } from '../localStorage';
@@ -113,6 +115,36 @@ class CasperUserUtil {
 
   isUserExisted = () => {
     return !!this.userService;
+  };
+
+  signWithPrivateKey = async (
+    deploy: DeployUtil.Deploy
+  ): Promise<JsonTypes> => {
+    const isValidated = DeployUtil.validateDeploy(deploy);
+    if (!isValidated) {
+      throw new Error('Something went wrong with deploy');
+    }
+
+    const deployJSON = DeployUtil.deployToJson(deploy);
+
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    const asymKey = await this.userService.generateKeypair();
+    if (!asymKey) {
+      throw Error('Keypair can not generated');
+    }
+
+    const deployResult = DeployUtil.deployFromJson(deployJSON);
+
+    if (deployResult.err) {
+      console.log(deployResult.err);
+      throw Error('Something went wrong with deployResult');
+    }
+
+    const signedDeploy = deployResult.val.sign([asymKey]);
+    return DeployUtil.deployToJson(signedDeploy);
   };
 }
 

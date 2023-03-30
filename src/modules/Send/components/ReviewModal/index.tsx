@@ -16,6 +16,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { ReviewModalProps } from './type';
+import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { WalletContained } from '@/icons/wallet-contained';
 
 const ReviewModal = ({
@@ -60,11 +61,11 @@ const ReviewModal = ({
                 <Text fontWeight="medium">
                   {t('intlAssetNumber', {
                     val: values.transferAmount,
-                    asset: values.asset,
+                    asset: values.asset?.toUpperCase(),
                     minimumFractionDigits: 3,
                   })}
                 </Text>
-                <Text>
+                <Text color="gray.500">
                   {t('intlNumber', {
                     val: 300,
                     minimumFractionDigits: 3,
@@ -73,7 +74,7 @@ const ReviewModal = ({
               </Box>
             </Flex>
             <Flex direction="column" alignItems="center" mt="8">
-              <Text>{t('receiving_address')}</Text>
+              <Text fontWeight="medium">{t('receiving_address')}</Text>
               <Text textAlign="center" mt="3">
                 {t('receiving_address_note')}
               </Text>
@@ -86,19 +87,25 @@ const ReviewModal = ({
               borderRadius="base"
               justifyContent="center"
             >
-              <Text>{values.receivingAddress}</Text>
+              <Text>
+                <MiddleTruncatedText
+                  value={values.receivingAddress || ''}
+                  startLength={8}
+                  endLength={8}
+                />
+              </Text>
             </Flex>
+            {values.transferId ? (
+              <Flex direction="column" alignItems="center" mt="8">
+                <Text>{t('transfer_id')}</Text>
+                <Text mt="3.5">{values.transferId}</Text>
+              </Flex>
+            ) : null}
             <Flex direction="column" alignItems="center" mt="8">
-              <Text>{t('transfer_id')}</Text>
-              <Text mt="3.5">{values.transferId}</Text>
-            </Flex>
-            <Flex direction="column" alignItems="center" mt="8">
-              <Text>{t('network_fee')}</Text>
-              <Text mt="3.5">
-                {t('intlAssetNumber', {
-                  val: 0.1,
-                  asset: 'CSPR',
-                  minimumFractionDigits: 0,
+              <Text>
+                {t('network_fee', {
+                  total: 0.1,
+                  symbol: 'CSPR',
                 })}
               </Text>
             </Flex>
