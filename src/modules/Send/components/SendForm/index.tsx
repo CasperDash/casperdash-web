@@ -18,6 +18,7 @@ import SelectAssetField from './SelectAssetField';
 import ReviewModal from '../ReviewModal';
 import { useMutateSignDeploy } from '@/hooks/mutates/useMutateSignDeploy';
 import { useI18nToast } from '@/hooks/useI18nToast';
+import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 import { publicKeySelector } from '@/store/wallet';
 
 export type SubmitValues = {
@@ -143,13 +144,15 @@ const SendForm = () => {
           </Button>
         </Box>
       </form>
-      <ReviewModal
-        isOpen={isOpen}
-        onClose={onClose}
-        values={getValues()}
-        onSend={handleOnSend}
-        isLoading={isLoading}
-      />
+      <UnlockWalletPopupRequired>
+        <ReviewModal
+          isOpen={isOpen}
+          onClose={onClose}
+          values={getValues()}
+          onSend={handleOnSend}
+          isLoading={isLoading}
+        />
+      </UnlockWalletPopupRequired>
     </FormProvider>
   );
 };

@@ -35,7 +35,7 @@ const PasswordFormModal = ({
         <ModalContent borderRadius="2xl">
           <ModalHeader>
             <Heading textAlign="center" variant="xl">
-              {t('welcome_back')}
+              {t('password_required')}
             </Heading>
           </ModalHeader>
           <Divider />

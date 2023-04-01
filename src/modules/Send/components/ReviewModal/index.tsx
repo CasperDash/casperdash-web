@@ -13,10 +13,12 @@ import {
   Box,
   Button,
 } from '@chakra-ui/react';
+import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { ReviewModalProps } from './type';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import { useGetCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
 import { WalletContained } from '@/icons/wallet-contained';
 
 const ReviewModal = ({
@@ -27,6 +29,7 @@ const ReviewModal = ({
   isLoading = false,
 }: ReviewModalProps) => {
   const { t } = useTranslation();
+  const { data: { price } = { price: 0 } } = useGetCoingeckoCoin();
 
   const handleOnClick = () => {
     onSend?.(values);
@@ -67,7 +70,7 @@ const ReviewModal = ({
                 </Text>
                 <Text color="gray.500">
                   {t('intlNumber', {
-                    val: 300,
+                    val: price * _.get(values, 'transferAmount', 0),
                     minimumFractionDigits: 3,
                   })}
                 </Text>
