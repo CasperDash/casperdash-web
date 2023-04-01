@@ -17,21 +17,23 @@ import { useLoginWallet } from '@/hooks/useLoginWallet';
 
 type Props = BoxProps & {
   onSuccess?: () => void;
+  onError?: (error: unknown) => void;
 };
 
 type SubmitValues = {
   password: string;
 };
 
-const PasswordForm = ({ onSuccess, ...restProps }: Props) => {
+const PasswordForm = ({ onSuccess, onError, ...restProps }: Props) => {
   const { t } = useTranslation();
-  const { loginWallet } = useLoginWallet({
+  const { loginWallet, isLoading } = useLoginWallet({
     onSuccess,
+    onError,
   });
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       password: '',
@@ -71,7 +73,7 @@ const PasswordForm = ({ onSuccess, ...restProps }: Props) => {
             type="submit"
             w="100%"
             variant="primary"
-            isLoading={isSubmitting}
+            isLoading={isLoading}
           >
             {t('unlock')}
           </Button>

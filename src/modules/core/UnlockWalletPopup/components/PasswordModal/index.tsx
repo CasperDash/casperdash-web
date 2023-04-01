@@ -17,8 +17,15 @@ import PasswordForm from '../PasswordForm';
 type ModalConnectProps = {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
+  onError?: (error: unknown) => void;
 };
-const PasswordFormModal = ({ isOpen, onClose }: ModalConnectProps) => {
+const PasswordFormModal = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  onError,
+}: ModalConnectProps) => {
   const { t } = useTranslation();
 
   return (
@@ -37,11 +44,7 @@ const PasswordFormModal = ({ isOpen, onClose }: ModalConnectProps) => {
             <Text textAlign="center" fontSize={'md'}>
               {t('welcome_back_description')}
             </Text>
-            <PasswordForm
-              onSuccess={() => {
-                onClose();
-              }}
-            />
+            <PasswordForm onSuccess={onSuccess} onError={onError} />
           </ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>

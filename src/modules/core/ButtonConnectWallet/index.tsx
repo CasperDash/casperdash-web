@@ -2,7 +2,7 @@ import { Box, Button, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import ModalConnect from './Modal';
+import ModalConnectWallet from '../ModalConnectWallet';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useAppDispatch } from '@/store';
 import { reset, publicKeySelector } from '@/store/wallet';
@@ -24,7 +24,7 @@ const ButtonConnectWallet = () => {
           <Button variant="light-outline" onClick={() => onOpen()}>
             {t('connect_wallet')}
           </Button>
-          <ModalConnect isOpen={isOpen} onClose={onClose} />
+          <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
         </>
       )}
     </Box>

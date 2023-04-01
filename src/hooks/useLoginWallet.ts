@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react';
 
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
-import { useI18nToast } from './useI18nToast';
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
 import { useAppDispatch } from '@/store';
 import { updatePublicKey } from '@/store/wallet';
@@ -28,7 +27,6 @@ type Props = {
 
 export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
   const dispatch = useAppDispatch();
-  const { toastError } = useI18nToast();
   const { mutateAsync, isLoading, isSuccess } = useMutation<
     LoginWalletResponse,
     unknown,
@@ -45,7 +43,7 @@ export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
         password,
       });
       if (!result) {
-        toastError('can_not_validate_your_wallet');
+        throw new Error('can_not_validate_your_wallet');
 
         return;
       }

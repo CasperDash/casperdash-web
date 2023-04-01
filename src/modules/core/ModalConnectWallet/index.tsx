@@ -21,7 +21,7 @@ type ModalConnectProps = {
   isOpen: boolean;
   onClose: () => void;
 };
-const ModalConnect = ({ isOpen, onClose }: ModalConnectProps) => {
+const ModalConnectWallet = ({ isOpen, onClose }: ModalConnectProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -68,4 +68,4 @@ const ModalConnect = ({ isOpen, onClose }: ModalConnectProps) => {
   );
 };
 
-export default ModalConnect;
+export default ModalConnectWallet;
