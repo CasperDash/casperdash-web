@@ -50,12 +50,6 @@ export const useMutateSignDeploy = (
     },
     mutationKey: [MutationKeysEnum.SIGN_DEPLOY],
     onSuccess: (data, variables: DeployParams) => {
-      console.log('set cache: ', variables);
-      console.log('key: ', [
-        QueryKeysEnum.TRANSACTION_HISTORIES,
-        variables.fromPublicKeyHex,
-      ]);
-
       queryClient.setQueryData(
         [QueryKeysEnum.TRANSACTION_HISTORIES, variables.fromPublicKeyHex],
         (oldTransactionHistories?: TransactionHistory[]) => {
@@ -69,9 +63,7 @@ export const useMutateSignDeploy = (
             return [newTransactionHistory];
           }
 
-          oldTransactionHistories.push(newTransactionHistory);
-
-          return oldTransactionHistories;
+          return [newTransactionHistory, ...oldTransactionHistories];
         }
       );
     },
