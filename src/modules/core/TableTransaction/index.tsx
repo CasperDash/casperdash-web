@@ -1,84 +1,73 @@
-import { Box, BoxProps, Flex } from '@chakra-ui/react';
+import { Badge, Box, BoxProps, Link } from '@chakra-ui/react';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
+import dayjs from 'dayjs';
 
-import { Transaction } from './type';
+import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import Paper from '@/components/Paper';
 import { DataTable } from '@/components/Table/DataTable';
+import { useGetTransactionHistories } from '@/hooks/queries/useGetTransactionHistories';
+import i18n from '@/i18n';
+import { getDeployHashUrl } from '@/utils/url';
 
-const transactions: Transaction[] = [
-  {
-    name: 'John',
-    type: 'Withdrawal',
-    transactionHash: '0x98d5fb...',
-    transferId: 'TR5678',
-    value: '25.00',
-    status: 'Complete',
-    date: '2022-01-10',
-  },
-  {
-    name: 'Mary',
-    type: 'Deposit',
-    transactionHash: '0xdee5bc...',
-    transferId: 'TR1234',
-    value: '1000.00',
-    status: 'Pending',
-    date: '2022-01-11',
-  },
-  {
-    name: 'Bob',
-    type: 'Transfer',
-    transactionHash: '0xa1b2c3...',
-    transferId: 'TR9876',
-    value: '50.00',
-    status: 'Failed',
-    date: '2022-01-12',
-  },
-];
-const columnHelper = createColumnHelper<Transaction>();
+const columnHelper = createColumnHelper<TransactionHistory>();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const columns: ColumnDef<Transaction, any>[] = [
-  columnHelper.accessor('name', {
-    cell: (info) => info.getValue(),
-    header: 'Name',
-  }),
-  columnHelper.accessor('type', {
-    cell: (info) => info.getValue(),
-    header: 'Type',
-  }),
-  columnHelper.accessor('transactionHash', {
-    cell: (info) => info.getValue(),
-    header: 'Transaction Hash',
-  }),
+const columns: ColumnDef<TransactionHistory, any>[] = [
   columnHelper.accessor('transferId', {
     cell: (info) => info.getValue(),
-    header: 'Transfer ID',
+    header: () => i18n.t('transfer_id'),
   }),
-  columnHelper.accessor('value', {
-    cell: (info) => info.getValue(),
-    header: 'Value',
+  columnHelper.accessor('deployHash', {
+    cell: (info) => (
+      <Link href={getDeployHashUrl(info.getValue())} target="_blank">
+        <MiddleTruncatedText value={info.getValue()} />
+      </Link>
+    ),
+    header: () => i18n.t('deploy_hash'),
+  }),
+  columnHelper.accessor('fromPublicKeyHex', {
+    cell: (info) => <MiddleTruncatedText value={info.getValue()} />,
+    header: () => i18n.t('from_public_key'),
+  }),
+  columnHelper.accessor('toPublicKeyHex', {
+    cell: (info) => <MiddleTruncatedText value={info.getValue()} />,
+    header: () => i18n.t('to_public_key'),
   }),
   columnHelper.accessor('status', {
-    cell: (info) => info.getValue(),
+    cell: (info) => (
+      <Badge colorScheme="orange" p="1.5" borderRadius="md">
+        {info.getValue().toUpperCase()}
+      </Badge>
+    ),
     header: 'Status',
   }),
+  columnHelper.accessor('amount', {
+    cell: (info) =>
+      i18n.t('intlAssetNumber', {
+        val: info.getValue(),
+        asset: 'CSPR',
+        number: 3,
+      }),
+    header: () => i18n.t('amount'),
+  }),
   columnHelper.accessor('date', {
-    cell: (info) => info.getValue(),
-    header: 'Date',
+    cell: (info) => dayjs(info.getValue()).format('YYYY-MM-DDTHH:mm:ss'),
+    header: () => i18n.t('date'),
   }),
 ];
 
 type TableTransactionProps = BoxProps;
 
 const TableTransaction = ({ ...restProps }: TableTransactionProps) => {
+  const { data = [] } = useGetTransactionHistories();
+
   return (
     <Box {...restProps}>
       <Box>
-        <Flex></Flex>
         <Box></Box>
       </Box>
       <Paper py="5" px="8">
-        <DataTable columns={columns} data={transactions} />
+        <DataTable columns={columns} data={data} />
       </Paper>
     </Box>
   );

@@ -1,6 +1,13 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQueryClient,
+} from '@tanstack/react-query';
+import dayjs from 'dayjs';
 
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
+import { QueryKeysEnum } from '@/enums/queryKeys.enum';
+import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import { buildTransferDeploy } from '@/utils/casper/builder';
@@ -17,6 +24,7 @@ type DeployParams = {
 export const useMutateSignDeploy = (
   options?: UseMutationOptions<DeployResponse, unknown, DeployParams, unknown>
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     ...options,
     mutationFn: async ({
@@ -41,5 +49,31 @@ export const useMutateSignDeploy = (
       return deploy(signedDeploy);
     },
     mutationKey: [MutationKeysEnum.SIGN_DEPLOY],
+    onSuccess: (data, variables: DeployParams) => {
+      console.log('set cache: ', variables);
+      console.log('key: ', [
+        QueryKeysEnum.TRANSACTION_HISTORIES,
+        variables.fromPublicKeyHex,
+      ]);
+
+      queryClient.setQueryData(
+        [QueryKeysEnum.TRANSACTION_HISTORIES, variables.fromPublicKeyHex],
+        (oldTransactionHistories?: TransactionHistory[]) => {
+          const newTransactionHistory = {
+            ...variables,
+            deployHash: data.deployHash,
+            status: TransactionStatusEnum.PENDING,
+            date: dayjs().toISOString(),
+          };
+          if (!oldTransactionHistories) {
+            return [newTransactionHistory];
+          }
+
+          oldTransactionHistories.push(newTransactionHistory);
+
+          return oldTransactionHistories;
+        }
+      );
+    },
   });
 };
