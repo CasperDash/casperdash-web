@@ -2,7 +2,17 @@
 import * as React from 'react';
 
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
-import { Table, Thead, Tbody, Tr, Th, Td, chakra } from '@chakra-ui/react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  chakra,
+  Image,
+  Box,
+} from '@chakra-ui/react';
 import {
   useReactTable,
   flexRender,
@@ -11,6 +21,8 @@ import {
   SortingState,
   getSortedRowModel,
 } from '@tanstack/react-table';
+
+import EmptyImg from '@/assets/img/empty.png';
 
 export type DataTableProps<Data extends object> = {
   data: Data[];
@@ -33,8 +45,10 @@ export function DataTable<Data extends object>({
     },
   });
 
+  const rows = table.getRowModel().rows;
+
   return (
-    <Table>
+    <Table pos="relative">
       <Thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
@@ -67,21 +81,35 @@ export function DataTable<Data extends object>({
           </Tr>
         ))}
       </Thead>
-      <Tbody>
-        {table.getRowModel().rows.map((row) => (
-          <Tr key={row.id}>
-            {row.getVisibleCells().map((cell) => {
-              // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-              const meta: any = cell.column.columnDef.meta;
-              return (
-                <Td key={cell.id} isNumeric={meta?.isNumeric}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Td>
-              );
-            })}
-          </Tr>
-        ))}
-      </Tbody>
+      {rows && rows.length > 0 ? (
+        <Tbody>
+          {rows.map((row) => (
+            <Tr key={row.id}>
+              {row.getVisibleCells().map((cell) => {
+                // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                const meta: any = cell.column.columnDef.meta;
+                return (
+                  <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Td>
+                );
+              })}
+            </Tr>
+          ))}
+        </Tbody>
+      ) : (
+        <Box m="auto" h="200">
+          <Box
+            pos="absolute"
+            top="50%"
+            left="50%"
+            marginRight="-50%"
+            transform="translate(-50%, -50%)"
+          >
+            <Image src={EmptyImg} alt="empty" width="140" height="100" />
+          </Box>
+        </Box>
+      )}
     </Table>
   );
 }

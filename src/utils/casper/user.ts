@@ -226,12 +226,6 @@ export class UserService {
     return await this.prepareStorageData();
   };
 
-  getKeyphrase = async () => {
-    const user = this.instance;
-
-    return user.getHDWallet().keyPhrase;
-  };
-
   setSelectedWallet = (uid: string) => {
     this.selectedWalletUID = uid;
   };
