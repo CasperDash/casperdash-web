@@ -12,3 +12,7 @@ export type ReviewModalProps = {
   onSend?: (values: Partial<ReviewModalValues>) => void;
   values: Partial<ReviewModalValues>;
 };
+
+export type ReviewModalContentProps = {
+  onSubmit?: (values: Partial<ReviewModalValues>) => void;
+} & Pick<ReviewModalProps, 'values' | 'isLoading'>;

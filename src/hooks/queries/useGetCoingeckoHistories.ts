@@ -6,12 +6,7 @@ import { CoingeckoHistory } from '@/services/coingecko/coin/type';
 
 export const useGetCoingeckoHistories = (
   options?: Omit<
-    UseQueryOptions<
-      unknown,
-      unknown,
-      CoingeckoHistory[],
-      [QueryKeysEnum.COINGECKO_COIN_HISTORIES]
-    >,
+    UseQueryOptions<unknown, unknown, CoingeckoHistory[], [QueryKeysEnum]>,
     'queryKey' | 'queryFn'
   >
 ) => {

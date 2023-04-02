@@ -9,10 +9,12 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import _ from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { z } from 'zod';
 
 import SelectAssetField from './SelectAssetField';
 import ReviewModal from '../ReviewModal';
@@ -21,13 +23,15 @@ import { useI18nToast } from '@/hooks/useI18nToast';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 import { publicKeySelector } from '@/store/wallet';
 
-export type SubmitValues = {
-  asset: string;
-  transferAmount: number;
-  receivingAddress: string;
-  transferId: number;
-  maxAssetAmount?: number;
-};
+const transactionSchema = z.object({
+  asset: z.string(),
+  transferAmount: z.number().min(5).max(1000000000),
+  receivingAddress: z.string(),
+  transferId: z.number(),
+  maxAssetAmount: z.number().optional(),
+});
+
+export type SubmitValues = z.infer<typeof transactionSchema>;
 
 const SendForm = () => {
   const { t } = useTranslation();
@@ -36,6 +40,7 @@ const SendForm = () => {
   const { toastError, toastSuccess } = useI18nToast();
   const { mutateAsync, isLoading } = useMutateSignDeploy();
   const methods = useForm<SubmitValues>({
+    resolver: zodResolver(transactionSchema),
     defaultValues: {
       asset: 'cspr',
       maxAssetAmount: 0,

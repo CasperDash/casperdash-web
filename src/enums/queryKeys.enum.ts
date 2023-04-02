@@ -5,4 +5,5 @@ export enum QueryKeysEnum {
   CURRENT_ACCOUNT = 'current_account',
   ASSETS = 'assets',
   COIN_BALANCE = 'coin_balance',
+  TRANSACTION_HISTORIES = 'transaction_histories',
 }

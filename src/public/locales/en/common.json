@@ -44,5 +44,10 @@
   "review": "Review",
   "receiving_address_note": "Only send USDT to this address. Sending any other asset to this address may result in the loss of  your deposit!",
   "max": "Max",
-  "password_required": "Password Required"
+  "password_required": "Password Required",
+  "deploy_hash": "Deploy Hash",
+  "from_public_key": "From Public Key",
+  "to_public_key": "To Public Key",
+  "amount": "Amount",
+  "date": "Date"
 }
