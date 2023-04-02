@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Badge } from '@chakra-ui/react';
 
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';

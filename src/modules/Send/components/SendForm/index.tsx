@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import _ from 'lodash';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { NumericFormat, OnValueChange } from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 import { useSelector } from 'react-redux';
 import { z } from 'zod';
 
@@ -113,7 +113,7 @@ const SendForm = () => {
                   thousandSeparator=","
                   decimalSeparator="."
                   value={value}
-                  onValueChange={({ floatValue }: OnValueChange) => {
+                  onValueChange={({ floatValue }: { floatValue?: number }) => {
                     onChange(floatValue);
                   }}
                 />
