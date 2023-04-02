@@ -1,4 +1,4 @@
-import { Badge, Box, BoxProps, Link } from '@chakra-ui/react';
+import { Box, BoxProps, Link } from '@chakra-ui/react';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 
@@ -7,6 +7,7 @@ import Paper from '@/components/Paper';
 import { DataTable } from '@/components/Table/DataTable';
 import { useGetTransactionHistories } from '@/hooks/queries/useGetTransactionHistories';
 import i18n from '@/i18n';
+import { getDeployStatus } from '@/utils/deployStatus';
 import { getDeployHashUrl } from '@/utils/url';
 
 const columnHelper = createColumnHelper<TransactionHistory>();
@@ -34,11 +35,7 @@ const columns: ColumnDef<TransactionHistory, any>[] = [
     header: () => i18n.t('to_public_key'),
   }),
   columnHelper.accessor('status', {
-    cell: (info) => (
-      <Badge colorScheme="orange" p="1.5" borderRadius="md">
-        {info.getValue().toUpperCase()}
-      </Badge>
-    ),
+    cell: (info) => getDeployStatus(info.getValue()),
     header: 'Status',
   }),
   columnHelper.accessor('amount', {

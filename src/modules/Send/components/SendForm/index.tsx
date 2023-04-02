@@ -11,8 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import _ from 'lodash';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { NumericFormat, OnValueChange } from 'react-number-format';
 import { useSelector } from 'react-redux';
 import { z } from 'zod';
 
@@ -26,7 +27,7 @@ import { publicKeySelector } from '@/store/wallet';
 const transactionSchema = z.object({
   asset: z.string(),
   transferAmount: z.number().min(5).max(1000000000),
-  receivingAddress: z.string(),
+  receivingAddress: z.string().min(1),
   transferId: z.number(),
   maxAssetAmount: z.number().optional(),
 });
@@ -55,6 +56,7 @@ const SendForm = () => {
     formState: { errors, isSubmitting },
     getValues,
     setValue,
+    control,
   } = methods;
 
   const handleOnSubmit = (values: SubmitValues) => {
@@ -102,9 +104,20 @@ const SendForm = () => {
             <Text color="gray.500">{t('transfer_amount')}</Text>
           </FormLabel>
           <InputGroup>
-            <Input
-              type="number"
-              {...register('transferAmount', { required: true })}
+            <Controller
+              name="transferAmount"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  as={NumericFormat}
+                  thousandSeparator=","
+                  decimalSeparator="."
+                  value={value}
+                  onValueChange={({ floatValue }: OnValueChange) => {
+                    onChange(floatValue);
+                  }}
+                />
+              )}
             />
             <InputRightElement h="100%" mr="6">
               <Button
