@@ -7,7 +7,6 @@ import react from '@vitejs/plugin-react-swc';
 import { defineConfig, Plugin } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import svgr from 'vite-plugin-svgr';
-import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const resolve = (path: string) => pathResolve(__dirname, path);
 
@@ -30,9 +29,6 @@ export default defineConfig({
   },
   plugins: [
     removeShebangPlugin(),
-    viteTsConfigPaths({
-      root: './',
-    }),
     react(),
     svgr(),
     nodePolyfills({
