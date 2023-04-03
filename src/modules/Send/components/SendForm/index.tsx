@@ -80,7 +80,7 @@ const SendForm = () => {
       fee: 0.1,
       amount: values.transferAmount,
     });
-    toastSuccess('signed_successfully');
+    toastSuccess('send_asset', { asset: 'CSPR' });
 
     onClose();
   };
@@ -146,7 +146,19 @@ const SendForm = () => {
           <FormLabel>
             <Text color="gray.500">{t('transfer_id')}</Text>
           </FormLabel>
-          <Input type="number" {...register('transferId')} />
+          <Controller
+            name="transferId"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                as={NumericFormat}
+                value={value}
+                onValueChange={({ floatValue }: { floatValue?: number }) => {
+                  onChange(floatValue);
+                }}
+              />
+            )}
+          />
         </FormControl>
         <Box mt="8">
           <Text>{t('network_fee', { total: 0.1, symbol: 'CSPR' })}</Text>

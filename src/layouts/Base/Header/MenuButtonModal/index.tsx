@@ -15,7 +15,7 @@ const MenuButtonModal = () => {
   const handleDeleteAllData = () => {
     dispatch(reset());
     localStorageUtil.removeAll();
-    toastSuccess('delete_all_data_success');
+    toastSuccess('delete_all_data');
   };
 
   return (

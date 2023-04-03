@@ -18,7 +18,7 @@ const ButtonConnectWallet = () => {
   const handleOnSwap = () => {
     setValue(publicKey || '');
     onCopy();
-    toastSuccess('copy_public_key_success');
+    toastSuccess('copy_public_key');
   };
 
   return (
