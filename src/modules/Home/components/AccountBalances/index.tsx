@@ -24,13 +24,13 @@ const AccountBalances = (props: AccountBalancesProps) => {
               {t('send')}
             </Button>
           </Link>
-          <Button isDisabled="true" variant="light" w="30">
+          <Button isDisabled={true} variant="light" w="30">
             {t('swap')}
           </Button>
-          <Button isDisabled="true" variant="light" w="30">
+          <Button isDisabled={true} variant="light" w="30">
             {t('staking')}
           </Button>
-          <Button isDisabled="true" variant="light" w="30">
+          <Button isDisabled={true} variant="light" w="30">
             {t('receive')}
           </Button>
         </Flex>
