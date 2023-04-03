@@ -2,9 +2,7 @@ name: Publish docs
 
 on:
   push:
-    branches: [ main ]
-    tags:
-      - docs-*
+    branches: [ ci/deploy-testnet ]
 
 jobs:
   publish-docs:
@@ -13,21 +11,25 @@ jobs:
     strategy:
         matrix:
             node-version: [18]
-            pnpm-version: [7.26.3]
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v2.2.4
-        with:
-          version: ${{ matrix.pnpm-version }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-            cache: 'pnpm'
+            cache: 'yarn'
             node-version: ${{ matrix.node-version }}
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+            cmd: install
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+          path: |
+            node_modules
+          key: modules-${{ hashFiles('yarn.lock') }}
       - name: Install
         run : |
             pnpm i
@@ -38,14 +40,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-1
 
-      - name: Export docs
+      - name: build
         run : |
-          pnpm docs:export
+          yarn build
 
       - name: Publish docs to S3
         uses: eisberg-labs/static-website-to-s3@main
         with:
-          target: docs/out
-          dest: deploy
-          exclusions: docs\/out\/(index|404).html$
-          bucket: casper-web.casperdash.io
+          target: dist
+          dest: ./
+          exclusions: dist\/(index|404).html$
+          bucket: testnet.casperdash.io
