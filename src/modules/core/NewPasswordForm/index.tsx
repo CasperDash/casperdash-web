@@ -71,16 +71,20 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
       return;
     }
 
-    const { publicKey } = await casperUserUtil.createNewUser({
-      password: values.newPassword,
-      keyphrase: masterKey,
-      encryptionType,
-    });
+    try {
+      const { publicKey } = await casperUserUtil.createNewUser({
+        password: values.newPassword,
+        keyphrase: masterKey,
+        encryptionType,
+      });
 
-    toastSuccess('create_new_wallet_success');
-    dispatch(updatePublicKeyAfterCreateWallet(publicKey));
+      toastSuccess('create_new_wallet_success');
+      dispatch(updatePublicKeyAfterCreateWallet(publicKey));
 
-    navigate(PathEnum.HOME);
+      navigate(PathEnum.HOME);
+    } catch (err) {
+      toastError('please_try_other_password');
+    }
   };
 
   return (

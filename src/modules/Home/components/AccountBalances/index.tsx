@@ -1,25 +1,16 @@
-import { Box, BoxProps, Button, Flex, useClipboard } from '@chakra-ui/react';
+import { Box, BoxProps, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import AccountTotalBalances from './AccountTotalBalances';
 import TextLight from '@/components/Typography/TextLight';
 import { PathEnum } from '@/enums';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
-import { publicKeySelector } from '@/store/wallet';
 
 export type AccountBalancesProps = BoxProps;
 
 const AccountBalances = (props: AccountBalancesProps) => {
   const { t } = useTranslation();
-  const publicKey = useSelector(publicKeySelector);
-  const { onCopy, setValue } = useClipboard(publicKey || '');
-
-  const handleOnSwap = () => {
-    setValue(publicKey || '');
-    onCopy();
-  };
 
   return (
     <Box {...props}>
@@ -33,13 +24,13 @@ const AccountBalances = (props: AccountBalancesProps) => {
               {t('send')}
             </Button>
           </Link>
-          <Button variant="light" w="30" onClick={handleOnSwap}>
+          <Button isDisabled={true} variant="light" w="30">
             {t('swap')}
           </Button>
-          <Button variant="light" w="30">
+          <Button isDisabled={true} variant="light" w="30">
             {t('staking')}
           </Button>
-          <Button variant="light" w="30">
+          <Button isDisabled={true} variant="light" w="30">
             {t('receive')}
           </Button>
         </Flex>

@@ -1,22 +1,30 @@
-import { Box, Button, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, useClipboard, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import ModalConnectWallet from '../ModalConnectWallet';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import { useAppDispatch } from '@/store';
-import { reset, publicKeySelector } from '@/store/wallet';
+import { useI18nToast } from '@/hooks/useI18nToast';
+import { publicKeySelector } from '@/store/wallet';
 
 const ButtonConnectWallet = () => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const publicKey = useSelector(publicKeySelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { toastSuccess } = useI18nToast();
+
+  const { onCopy, setValue } = useClipboard(publicKey || '');
+
+  const handleOnSwap = () => {
+    setValue(publicKey || '');
+    onCopy();
+    toastSuccess('copy_public_key_success');
+  };
 
   return (
     <Box>
       {publicKey ? (
-        <Button onClick={() => dispatch(reset())}>
+        <Button onClick={handleOnSwap}>
           <MiddleTruncatedText value={publicKey} />
         </Button>
       ) : (
