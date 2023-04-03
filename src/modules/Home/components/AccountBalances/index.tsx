@@ -35,7 +35,13 @@ const AccountBalances = (props: AccountBalancesProps) => {
           </Button>
         </Flex>
       </Flex>
-      <Flex gap="2" h="xs">
+      <Flex
+        direction={{
+          base: 'column',
+          xl: 'row',
+        }}
+        gap="2"
+      >
         <AccountTotalBalances />
         <ChartCSPRPrice flex="1" />
       </Flex>
