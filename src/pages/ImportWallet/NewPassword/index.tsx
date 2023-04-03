@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BaseLayout from '@/layouts/Base';
+import LightLayout from '@/layouts/Light';
 import ImportWalletPassword from '@/modules/ImportWallet/NewPassword';
 
 const ImportWalletPasswordPage = () => (
-  <BaseLayout>
+  <LightLayout>
     <ImportWalletPassword />
-  </BaseLayout>
+  </LightLayout>
 );
 
 export default ImportWalletPasswordPage;

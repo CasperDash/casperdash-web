@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BaseLayout from '@/layouts/Base';
+import LightLayout from '@/layouts/Light';
 import Send from '@/modules/Send';
 
 const SendPage = () => (
-  <BaseLayout>
+  <LightLayout>
     <Send />
-  </BaseLayout>
+  </LightLayout>
 );
 
 export default SendPage;

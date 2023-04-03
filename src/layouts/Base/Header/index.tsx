@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, Image, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -9,11 +9,12 @@ import { PathEnum } from '@/enums/path';
 import { BellIcon } from '@/icons';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 
-const Header = () => {
+type HeaderProps = BoxProps;
+const Header = ({ bg }: HeaderProps) => {
   const { t } = useTranslation();
 
   return (
-    <Box backgroundColor="white" w="100%">
+    <Box bg={bg} w="100%">
       <MainContainer>
         <Flex py="7" justifyContent="space-between">
           <Flex alignItems="center">

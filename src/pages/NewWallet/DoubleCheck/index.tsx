@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BaseLayout from '@/layouts/Base';
+import LightLayout from '@/layouts/Light';
 import NewWalletDoubleCheck from '@/modules/NewWallet/DoubleCheck';
 
 const NewWalletDoubleCheckPage = () => (
-  <BaseLayout>
+  <LightLayout>
     <NewWalletDoubleCheck />
-  </BaseLayout>
+  </LightLayout>
 );
 
 export default NewWalletDoubleCheckPage;
