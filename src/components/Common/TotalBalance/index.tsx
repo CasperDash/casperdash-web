@@ -20,7 +20,7 @@ const TotalBalance = ({
   const { data: { price } = { price: 0 } } = useGetCoingeckoCoin();
 
   return (
-    <Paper {...restProps} p="0" py="8">
+    <Paper {...restProps} p="0" py="8" minH="xs">
       <Flex direction="column">
         <Flex
           borderBottom="1px solid"
