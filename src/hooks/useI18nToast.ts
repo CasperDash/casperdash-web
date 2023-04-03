@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 export const useI18nToast = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('message');
 
   const toastError = (messageKey: string) => {
     console.log('messageKey: ', messageKey);

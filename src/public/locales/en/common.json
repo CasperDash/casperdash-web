@@ -49,5 +49,6 @@
   "from_public_key": "From Public Key",
   "to_public_key": "To Public Key",
   "amount": "Amount",
-  "date": "Date"
+  "date": "Date",
+  "delete_all_data": "Delete All Data"
 }

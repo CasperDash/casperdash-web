@@ -13,6 +13,7 @@ import * as _ from 'lodash-es';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useI18nToast } from '@/hooks/useI18nToast';
 import { useLoginWallet } from '@/hooks/useLoginWallet';
 
 type Props = BoxProps & {
@@ -26,6 +27,7 @@ type SubmitValues = {
 
 const PasswordForm = ({ onSuccess, onError, ...restProps }: Props) => {
   const { t } = useTranslation();
+  const { toastError } = useI18nToast();
   const { loginWallet, isLoading } = useLoginWallet({
     onSuccess,
     onError,
@@ -42,7 +44,11 @@ const PasswordForm = ({ onSuccess, onError, ...restProps }: Props) => {
 
   const onSubmit = async (values: SubmitValues) => {
     const { password } = values;
-    await loginWallet(password);
+    try {
+      await loginWallet(password);
+    } catch (error) {
+      toastError('password_is_not_correct');
+    }
   };
 
   return (

@@ -1,11 +1,12 @@
-import { Box, Button, Flex, Image } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import MenuButtonModal from './MenuButtonModal';
 import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
 import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums/path';
-import { BellIcon, MenuIcon } from '@/icons';
+import { BellIcon } from '@/icons';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 
 const Header = () => {
@@ -29,9 +30,16 @@ const Header = () => {
             <Box mx={8} w="2px" h="40px" backgroundColor="gray.200" />
             <Flex gap="16">
               <Link to={PathEnum.HOME}>{t('home')}</Link>
-              <Link to={PathEnum.TRADE}>{t('trade')}</Link>
-              <Link to={PathEnum.NFT}>{t('nfts')}</Link>
-              <Link to={PathEnum.STAKING}>{t('staking')}</Link>
+              <Link to={PathEnum.TRADE}>
+                <Text color="gray.200">{t('trade')}</Text>
+              </Link>
+              <Link to={PathEnum.NFT}>
+                <Text color="gray.200">{t('nfts')}</Text>
+              </Link>
+              <Link to={PathEnum.STAKING}>
+                {' '}
+                <Text color="gray.200">{t('staking')}</Text>
+              </Link>
             </Flex>
           </Flex>
           <Flex>
@@ -40,9 +48,7 @@ const Header = () => {
             </Box>
             <ButtonConnectWallet />
             <Box ml="3">
-              <Button variant="circle">
-                <MenuIcon />
-              </Button>
+              <MenuButtonModal />
             </Box>
           </Flex>
         </Flex>
