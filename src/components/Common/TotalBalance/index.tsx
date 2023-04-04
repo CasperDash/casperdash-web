@@ -37,7 +37,7 @@ const TotalBalance = ({
             <Heading variant="2xl">
               {t('intlAssetNumber', {
                 asset: 'CSPR',
-                val: data?.balance,
+                val: data?.balance || 0,
               })}
             </Heading>
           </Box>
