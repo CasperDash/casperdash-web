@@ -1,4 +1,4 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
@@ -14,6 +14,8 @@ const SDKConnectWallet = ({ onSuccess }: Props) => {
   const { t } = useTranslation();
   const { toastError, toastSuccess } = useI18nToast();
 
+  const connectUrl = searchParams.get('originUrl');
+
   const { mutate } = useMutateSDKConnectUrl({
     onSuccess: () => {
       toastSuccess('succes');
@@ -25,7 +27,6 @@ const SDKConnectWallet = ({ onSuccess }: Props) => {
   });
 
   const handleOnConnectUrl = () => {
-    const connectUrl = searchParams.get('originUrl');
     if (!connectUrl) {
       toastError('connect_url_is_not_empty');
       return;
@@ -35,10 +36,15 @@ const SDKConnectWallet = ({ onSuccess }: Props) => {
   };
 
   return (
-    <Flex justifyContent="center" paddingTop="8">
-      <Button variant="primary" onClick={handleOnConnectUrl}>
-        {t('connect_your_wallet')}
-      </Button>
+    <Flex direction="column" justifyContent="space-between" paddingTop="20">
+      <Flex direction="column" alignItems="center">
+        <Text fontWeight="bold">{connectUrl}</Text>
+      </Flex>
+      <Flex mt="20" justifyContent="center">
+        <Button variant="primary" onClick={handleOnConnectUrl}>
+          {t('connect_your_wallet')}
+        </Button>
+      </Flex>
     </Flex>
   );
 };

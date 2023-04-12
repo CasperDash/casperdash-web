@@ -21,7 +21,7 @@
   "select_word": "Select word #{{ orderNumber }}",
   "double_check": "Double Check",
   "double_check_description": "You need to choose 8 correct words to complete",
-  "connect_your_wallet": "Connect Your Wallet",
+  "connect_your_wallet": "Connect With Your Wallet",
   "import_phrase": "Import phrase",
   "import_phrase_description": "Import your phrase",
   "create_new_wallet": "Create new wallet",
@@ -58,5 +58,10 @@
   "account": "Account",
   "timestamp": "Timestamp",
   "payment": "Payment",
-  "deploy_type": "Deploy Type"
+  "deploy_type": "Deploy Type",
+  "signature_request": "Signature Request",
+  "message": "Message",
+  "signing_key": "Signing Key",
+  "connect_with_your_site": "Connect with your site",
+  "connect_with_url": "Connect with URL"
 }

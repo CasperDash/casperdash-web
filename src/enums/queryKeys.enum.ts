@@ -7,5 +7,6 @@ export enum QueryKeysEnum {
   COIN_BALANCE = 'coin_balance',
   TRANSACTION_HISTORIES = 'transaction_histories',
   CONNECTED_URLS = 'connected_urls',
+  CONNECTED_URL = 'connected_url',
   PARSED_DEPLOY_DATA = 'parsed_deploy_data',
 }

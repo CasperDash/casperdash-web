@@ -3,7 +3,6 @@ import {
   UseMutationOptions,
   useQueryClient,
 } from '@tanstack/react-query';
-import * as _ from 'lodash-es';
 import { useSelector } from 'react-redux';
 
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
@@ -20,7 +19,6 @@ export const useMutateSDKConnectUrl = (
   options?: UseMutationOptions<boolean, Error, Variables, unknown>
 ) => {
   const publicKey = useSelector(publicKeySelector);
-  console.log('publicKey: ', publicKey);
   const queryClient = useQueryClient();
   return useMutation({
     ...options,
@@ -28,16 +26,7 @@ export const useMutateSDKConnectUrl = (
       if (!publicKey) {
         throw new Error('public_key_not_found');
       }
-      queryClient.setQueryData(
-        [QueryKeysEnum.CONNECTED_URLS, publicKey],
-        (oldUrls?: string[]) => {
-          if (!oldUrls) {
-            return [url];
-          }
-
-          return _.uniq([url, ...oldUrls]);
-        }
-      );
+      queryClient.setQueryData([QueryKeysEnum.CONNECTED_URL, publicKey], url);
 
       sendPostMessage({
         originUrl: url,

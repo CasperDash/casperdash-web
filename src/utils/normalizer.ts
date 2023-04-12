@@ -1,9 +1,9 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import * as _ from 'lodash-es';
-import { JsonTypes } from 'typedjson';
 
 import { toCSPR } from './currency';
 import { Account } from '@/services/casperdash/user';
+import { SignDeployParams, SignMessageParams } from '@/typings/signingParams';
 import { WalletAccount } from '@/typings/walletAccount';
 
 export const normalizeAccount = (account: Account): WalletAccount => {
@@ -15,20 +15,21 @@ export const normalizeAccount = (account: Account): WalletAccount => {
   };
 };
 
-type Result = {
-  deploy: {
-    deploy: JsonTypes;
-  };
-  signingPublicKeyHex: string;
-  targetPublicKeyHex: string;
-};
-
 export const normalizeSignDeployParams = (
   params: Record<string, string | undefined>
-): Result => {
+): SignDeployParams => {
   return {
     targetPublicKeyHex: _.get(params, 'targetPublicKeyHex', ''),
     signingPublicKeyHex: _.get(params, 'signingPublicKeyHex', ''),
     deploy: JSON.parse(_.get(params, 'deploy', '{}')),
+  };
+};
+
+export const normalizeSignMessageParams = (
+  params: Record<string, string | undefined>
+): SignMessageParams => {
+  return {
+    signingPublicKeyHex: _.get(params, 'signingPublicKeyHex', ''),
+    message: _.get(params, 'message', ''),
   };
 };

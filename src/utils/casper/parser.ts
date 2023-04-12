@@ -1,10 +1,15 @@
 /* eslint-disable */
-// @ts-nocheck
 import {
   CLAccountHash,
+  CLKey,
   CLList,
+  CLOption,
   CLPublicKey,
+  CLResult,
+  CLTuple3,
+  CLType,
   CLTypeTag,
+  CLURef,
   CLValue,
   DeployUtil,
   encodeBase16,
@@ -67,7 +72,7 @@ export function getDeployType(deploy: DeployUtil.Deploy) {
 }
 
 export function getDeployArgs(deploy: DeployUtil.Deploy, targetKey: string) {
-  let deployArgs = {};
+  let deployArgs: Record<string, unknown> = {};
 
   if (deploy.session.transfer) {
     deployArgs = parseTransferData(deploy.session.transfer, targetKey);
@@ -86,7 +91,7 @@ export function getDeployArgs(deploy: DeployUtil.Deploy, targetKey: string) {
   }
 
   const storedContract = getStoredContracts(deploy);
-  storedContract.args.args.forEach((argument, key) => {
+  storedContract.args.args.forEach((argument: CLValue, key: string) => {
     deployArgs[key] = parseDeployArg(argument);
   });
   deployArgs['entry_point'] = storedContract.entryPoint;
@@ -94,11 +99,14 @@ export function getDeployArgs(deploy: DeployUtil.Deploy, targetKey: string) {
   return deployArgs;
 }
 
-export const parseTransferData = (transferDeploy, providedTarget) => {
-  const transferArgs = {};
+export const parseTransferData = (transferDeploy: DeployUtil.Transfer, providedTarget: string) => {
+  const transferArgs: Record<string, unknown> = {};
   let targetFromDeployHex;
 
-  const targetFromDeploy = transferDeploy.getArgByName('target');
+  const targetFromDeploy = transferDeploy.getArgByName('target') as CLPublicKey;
+  if (!targetFromDeploy) {
+    return transferArgs;
+  }
   switch (targetFromDeploy.clType().tag) {
     case CLTypeTag.ByteArray:
       targetFromDeployHex = encodeBase16(targetFromDeploy.value());
@@ -112,11 +120,11 @@ export const parseTransferData = (transferDeploy, providedTarget) => {
       break;
     case CLTypeTag.PublicKey:
       targetFromDeployHex = targetFromDeploy.toHex();
-      // if (providedTarget && targetFromDeployHex !== providedTarget) {
-      //   throw new Error(
-      //     'The provided target public key does not match the one specified in the deploy.'
-      //   );
-      // }
+      if (providedTarget && targetFromDeployHex.toLowerCase() !== providedTarget.toLowerCase()) {
+        throw new Error(
+          'The provided target public key does not match the one specified in the deploy.'
+        );
+      }
       transferArgs['Recipient (Key)'] = targetFromDeployHex;
       break;
     default:
@@ -127,11 +135,11 @@ export const parseTransferData = (transferDeploy, providedTarget) => {
 
   transferArgs['Amount'] = transferDeploy
     .getArgByName('amount')
-    .value()
+    ?.value()
     .toString();
   transferArgs['Transfer ID'] = transferDeploy
     .getArgByName('id')
-    .value()
+    ?.value()
     .unwrap()
     .value()
     .toString();
@@ -139,8 +147,7 @@ export const parseTransferData = (transferDeploy, providedTarget) => {
   return transferArgs;
 };
 
-// eslint-disable-next-line complexity
-export function parseDeployArg(arg: CLValue) {
+export function parseDeployArg(arg: CLValue): string {
   if (!(arg instanceof CLValue)) {
     throw new Error('Argument should be a CLValue, received: ' + typeof arg);
   }
@@ -150,7 +157,7 @@ export function parseDeployArg(arg: CLValue) {
       return String('CLValue Unit');
 
     case CLTypeTag.Key: {
-      const key = arg;
+      const key = arg as CLKey;
       const value = key.value();
       if (key.isAccount() || key.isURef() || key.isHash()) {
         return parseDeployArg(value);
@@ -159,10 +166,10 @@ export function parseDeployArg(arg: CLValue) {
     }
 
     case CLTypeTag.URef:
-      return arg.toFormattedStr();
+      return (arg as CLURef).toFormattedStr();
 
     case CLTypeTag.Option: {
-      const option = arg;
+      const option = arg as CLOption<CLValue>;
       if (option.isSome()) {
         return parseDeployArg(option.value().unwrap());
       } else {
@@ -174,7 +181,7 @@ export function parseDeployArg(arg: CLValue) {
 
     case CLTypeTag.List: {
       const list = arg.value();
-      const parsedList = list.map((member) => {
+      const parsedList = list.map((member: CLValue) => {
         return sanitiseNestedLists(member);
       });
       return parsedList;
@@ -186,9 +193,9 @@ export function parseDeployArg(arg: CLValue) {
     }
 
     case CLTypeTag.Result: {
-      const result = arg;
+      const result = arg as CLResult<CLType, CLType>;
       const status = result.isOk() ? 'OK:' : 'ERR:';
-      const parsed = parseDeployArg(result.value().val);
+      const parsed: string = parseDeployArg(result.value().val);
       return `${status} ${parsed}`;
     }
 
@@ -200,10 +207,10 @@ export function parseDeployArg(arg: CLValue) {
 
     case CLTypeTag.Tuple2:
     case CLTypeTag.Tuple3:
-      return arg.value().map((member) => parseDeployArg(member));
+      return arg.value().map((member: CLTuple3) => parseDeployArg(member));
 
     case CLTypeTag.PublicKey:
-      return arg.toHex();
+      return (arg as CLPublicKey).toHex();
 
     default:
       if (arg instanceof CLAccountHash) {
@@ -214,7 +221,7 @@ export function parseDeployArg(arg: CLValue) {
   }
 }
 
-export function getStoredContracts(deploy) {
+export function getStoredContracts(deploy: DeployUtil.Deploy) {
   if (deploy.session.storedContractByHash) {
     return deploy.session.storedContractByHash;
   }

@@ -8,13 +8,13 @@ import { useSelector } from 'react-redux';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { publicKeySelector } from '@/store/wallet';
 
-export const useGetConnectedUrls = (
+export const useGetConnectedUrl = (
   options?: Omit<
     UseQueryOptions<
       unknown,
       unknown,
-      string[],
-      [QueryKeysEnum.CONNECTED_URLS, string | undefined]
+      string,
+      [QueryKeysEnum.CONNECTED_URL, string | undefined]
     >,
     'queryKey' | 'queryFn'
   >
@@ -23,15 +23,14 @@ export const useGetConnectedUrls = (
   const queryClient = useQueryClient();
 
   return useQuery(
-    [QueryKeysEnum.CONNECTED_URLS, publicKey],
+    [QueryKeysEnum.CONNECTED_URL, publicKey],
     async () => {
-      const connectedUrls =
-        queryClient.getQueryData<string[]>([
-          QueryKeysEnum.CONNECTED_URLS,
-          publicKey,
-        ]) || [];
+      const connectedUrl = queryClient.getQueryData<string>([
+        QueryKeysEnum.CONNECTED_URL,
+        publicKey,
+      ]);
 
-      return connectedUrls;
+      return connectedUrl;
     },
     {
       ...options,

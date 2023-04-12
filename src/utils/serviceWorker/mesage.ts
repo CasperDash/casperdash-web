@@ -2,8 +2,8 @@ import { PostMessageMethodEnums } from '@/enums/postMessageMethod';
 
 type SendPostMessage = {
   method: PostMessageMethodEnums;
-  originUrl: string;
-  params?: Record<string, string | undefined>;
+  originUrl?: string;
+  params?: Record<string, unknown>;
 };
 
 export const sendPostMessage = ({

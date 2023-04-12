@@ -19,7 +19,11 @@ import { RepliedMessageMethodEnums } from '@/enums/postMessageMethod';
 import { useWatchMessageEvent } from '@/hooks/useWatchMessageEvent';
 import SDKConnectWallet from '@/modules/SDK/ConnectWallet';
 import SDKSign from '@/modules/SDK/Sign';
-import { normalizeSignDeployParams } from '@/utils/normalizer';
+import SDKSignMessage from '@/modules/SDK/SignMessage';
+import {
+  normalizeSignDeployParams,
+  normalizeSignMessageParams,
+} from '@/utils/normalizer';
 
 const ModalSDKAction = () => {
   const { t } = useTranslation();
@@ -56,7 +60,9 @@ const ModalSDKAction = () => {
         <ModalContent borderRadius="2xl">
           <ModalHeader>
             <Heading variant="xl" textAlign="center">
-              {t('sdk')}
+              {currentMethod === RepliedMessageMethodEnums.CONNECT
+                ? t('connect_with_your_site')
+                : t('signature_request')}
             </Heading>
           </ModalHeader>
           <Divider />
@@ -70,11 +76,17 @@ const ModalSDKAction = () => {
                 [RepliedMessageMethodEnums.SIGN]: (
                   <SDKSign
                     params={normalizeSignDeployParams(currentParams)}
-                    onSuccess={onClose}
-                    onReject={onClose}
+                    onApproved={onClose}
+                    onRejected={onClose}
                   />
                 ),
-                [RepliedMessageMethodEnums.SIGN_MESSAGE]: null,
+                [RepliedMessageMethodEnums.SIGN_MESSAGE]: (
+                  <SDKSignMessage
+                    params={normalizeSignMessageParams(currentParams)}
+                    onApproved={onClose}
+                    onRejected={onClose}
+                  />
+                ),
                 [RepliedMessageMethodEnums.DISCONNECT]: null,
               }[currentMethod]
             }

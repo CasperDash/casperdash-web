@@ -1,4 +1,8 @@
-import { DeployUtil } from 'casper-js-sdk';
+import {
+  DeployUtil,
+  encodeBase16,
+  formatMessageWithHeaders,
+} from 'casper-js-sdk';
 import { User, EncryptionType } from 'casper-storage';
 import { JsonTypes } from 'typedjson';
 
@@ -169,6 +173,25 @@ class CasperUserUtil {
 
     const signedDeploy = deployResult.val.sign([asymKey]);
     return DeployUtil.deployToJson(signedDeploy);
+  };
+
+  signMessage = async (message: string) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    let messageBytes;
+    try {
+      messageBytes = formatMessageWithHeaders(message);
+    } catch (err) {
+      throw new Error('Could not format message: ' + err);
+    }
+
+    const result = await this.userService.signMessagePrivateKeyProcess({
+      messageBytes,
+    });
+
+    return encodeBase16(result);
   };
 }
 

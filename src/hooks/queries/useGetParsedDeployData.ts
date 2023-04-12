@@ -1,19 +1,11 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query';
-import { JsonTypes } from 'typedjson';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
+import { SignDeployParams } from '@/typings/signingParams';
 import { parseDeployData } from '@/utils/casper/parser';
 
-type Params = {
-  deploy: {
-    deploy: JsonTypes;
-  };
-  signingPublicKeyHex: string;
-  targetPublicKeyHex: string;
-};
-
 export const useGetParsedDeployData = (
-  params: Params,
+  params: SignDeployParams,
   options?: Omit<
     UseQueryOptions<
       unknown,
