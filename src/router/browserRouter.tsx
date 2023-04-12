@@ -7,6 +7,8 @@ import ImportWalletPasswordPage from '@/pages/ImportWallet/NewPassword';
 import NewWalletPage from '@/pages/NewWallet';
 import NewWalletDoubleCheckPage from '@/pages/NewWallet/DoubleCheck';
 import NewWalletPasswordPage from '@/pages/NewWallet/NewPassword';
+import SDKPage from '@/pages/SDK';
+import SDKConnectWalletPage from '@/pages/SDK/ConnectWallet';
 import SendPage from '@/pages/Send';
 
 export const browserRouter = createBrowserRouter([
@@ -37,5 +39,13 @@ export const browserRouter = createBrowserRouter([
   {
     path: PathEnum.SEND,
     element: <SendPage />,
+  },
+  {
+    path: PathEnum.SDK,
+    element: <SDKPage />,
+  },
+  {
+    path: PathEnum.SDK_CONNECT_WALLET,
+    element: <SDKConnectWalletPage />,
   },
 ]);

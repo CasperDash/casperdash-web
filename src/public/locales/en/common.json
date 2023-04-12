@@ -50,5 +50,13 @@
   "to_public_key": "To Public Key",
   "amount": "Amount",
   "date": "Date",
-  "delete_all_data": "Delete All Data"
+  "delete_all_data": "Delete All Data",
+  "sdk": "CasperDash Web",
+  "sign": "Sign",
+  "approve": "Approve",
+  "reject": "Reject",
+  "account": "Account",
+  "timestamp": "Timestamp",
+  "payment": "Payment",
+  "deploy_type": "Deploy Type"
 }

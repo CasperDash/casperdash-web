@@ -3,59 +3,67 @@ import {
   UseMutationOptions,
   useQueryClient,
 } from '@tanstack/react-query';
+import Big from 'big.js';
+import { motesToCSPR } from 'casper-js-sdk';
 import dayjs from 'dayjs';
+import * as _ from 'lodash-es';
+import { useSelector } from 'react-redux';
+import { JsonTypes } from 'typedjson';
 
-import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
-import { buildTransferDeploy } from '@/utils/casper/builder';
+import { publicKeySelector } from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
-
+import { parseDeployData } from '@/utils/casper/parser';
 type DeployParams = {
-  fromPublicKeyHex: string;
-  toPublicKeyHex: string;
-  amount: number;
-  transferId: number;
-  fee: number;
+  deploy: {
+    deploy: JsonTypes;
+  };
+  signingPublicKeyHex: string;
+  targetPublicKeyHex: string;
 };
 
 export const useMutateSignDeploy = (
   options?: UseMutationOptions<DeployResponse, unknown, DeployParams, unknown>
 ) => {
+  const publicKey = useSelector(publicKeySelector);
   const queryClient = useQueryClient();
   return useMutation({
     ...options,
     mutationFn: async ({
-      fromPublicKeyHex,
-      toPublicKeyHex,
-      amount,
-      transferId,
-      fee,
+      deploy: deployJson,
+      signingPublicKeyHex,
+      targetPublicKeyHex,
     }: DeployParams) => {
-      const buildedDeploy = buildTransferDeploy({
-        fromPublicKeyHex,
-        toPublicKeyHex,
-        amount,
-        transferId,
-        fee,
+      const signedDeploy = await casperUserUtil.signPrivateKeyProcess({
+        deployJSON: deployJson,
       });
 
-      const signedDeploy = await casperUserUtil.signWithPrivateKey(
-        buildedDeploy
-      );
+      const signedDeployJson = await deploy(signedDeploy);
+      const parsedDeployData = await parseDeployData({
+        deploy: deployJson,
+        signingPublicKeyHex: signingPublicKeyHex,
+        targetPublicKeyHex: targetPublicKeyHex,
+      });
 
-      return deploy(signedDeploy);
-    },
-    mutationKey: [MutationKeysEnum.SIGN_DEPLOY],
-    onSuccess: (data, variables: DeployParams) => {
       queryClient.setQueryData(
-        [QueryKeysEnum.TRANSACTION_HISTORIES, variables.fromPublicKeyHex],
+        [QueryKeysEnum.TRANSACTION_HISTORIES, publicKey],
         (oldTransactionHistories?: TransactionHistory[]) => {
           const newTransactionHistory = {
-            ...variables,
-            deployHash: data.deployHash,
+            fromPublicKeyHex: signingPublicKeyHex,
+            toPublicKeyHex: targetPublicKeyHex,
+            amount: motesToCSPR(
+              Big(_.get(parsedDeployData, `deployArgs["Amount"]`, 0)).toNumber()
+            ).toNumber(),
+            transferId: Big(
+              _.get(parsedDeployData, `deployArgs['Transfer Id']`, 0)
+            ).toNumber(),
+            fee: motesToCSPR(
+              Big(parsedDeployData.payment).toNumber()
+            ).toNumber(),
+            deployHash: _.get(parsedDeployData, 'deployHash', ''),
             status: TransactionStatusEnum.PENDING,
             date: dayjs().toISOString(),
           };
@@ -66,6 +74,7 @@ export const useMutateSignDeploy = (
           return [newTransactionHistory, ...oldTransactionHistories];
         }
       );
+      return signedDeployJson;
     },
   });
 };

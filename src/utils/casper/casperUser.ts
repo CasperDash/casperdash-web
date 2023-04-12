@@ -117,6 +117,30 @@ class CasperUserUtil {
     return !!this.userService;
   };
 
+  signPrivateKeyProcess = async ({
+    deployJSON,
+  }: {
+    deployJSON: { deploy: JsonTypes };
+  }) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    const asymKey = await this.userService.generateKeypair();
+    if (!asymKey) {
+      throw Error('Keypair can not generated');
+    }
+    const deployResult = DeployUtil.deployFromJson(deployJSON);
+
+    if (deployResult.err) {
+      throw Error('Something went wrong with deployResult');
+    }
+
+    const signedDeploy = deployResult.val.sign([asymKey]);
+
+    return DeployUtil.deployToJson(signedDeploy);
+  };
+
   signWithPrivateKey = async (
     deploy: DeployUtil.Deploy
   ): Promise<JsonTypes> => {

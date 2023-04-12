@@ -1,9 +1,12 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 import SendForm from './components/SendForm';
 
 const Send = () => {
+  const location = useLocation();
+  console.log(location);
   const { t } = useTranslation();
   return (
     <Flex justifyContent="center" w="100%" mt="20">

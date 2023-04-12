@@ -14,6 +14,9 @@ const MiddleTruncatedText = ({
   startLength = 5,
   endLength = 4,
 }: Props) => {
+  if (startLength + endLength === value.length) {
+    return <Text color="black">{value}</Text>;
+  }
   return (
     <Tooltip label={value}>
       <Text color="black">{startAndEnd(value, startLength, endLength)}</Text>
