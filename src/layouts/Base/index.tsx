@@ -3,6 +3,7 @@ import { Box, Divider, useColorModeValue } from '@chakra-ui/react';
 import Header from './Header';
 import MainContainer from '@/components/Common/MainContainer';
 import PopupAutoConnectWallet from '@/modules/PopupAutoConnectWallet';
+import PopupSDK from '@/modules/PopupSDK';
 
 export type Props = {
   children?: React.ReactNode;
@@ -24,6 +25,7 @@ const BaseLayout = ({
       <Divider />
       <MainContainer h="100vh">{children}</MainContainer>
       <PopupAutoConnectWallet />
+      <PopupSDK />
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Keys } from 'casper-js-sdk';
+import { Keys, signFormattedMessage } from 'casper-js-sdk';
 import {
   WalletDescriptor,
   User,
@@ -121,6 +121,19 @@ export class UserService {
       return undefined;
     }
   };
+
+  public async signMessagePrivateKeyProcess({
+    messageBytes,
+  }: {
+    messageBytes: Uint8Array;
+  }) {
+    const asymKey = await this.generateKeypair();
+    if (!asymKey) {
+      throw new Error('Can not generate key pair');
+    }
+
+    return signFormattedMessage(asymKey, messageBytes);
+  }
 
   /**
    * Return a pair of User login info after creating new User

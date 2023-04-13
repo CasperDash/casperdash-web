@@ -19,7 +19,7 @@ import { z } from 'zod';
 
 import SelectAssetField from './SelectAssetField';
 import ReviewModal from '../ReviewModal';
-import { useMutateSignDeploy } from '@/hooks/mutates/useMutateSignDeploy';
+import { useMutateSendAsset } from '@/hooks/mutates/useMutateSendAsset';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 import { publicKeySelector } from '@/store/wallet';
@@ -39,7 +39,7 @@ const SendForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const publicKey = useSelector(publicKeySelector);
   const { toastError, toastSuccess } = useI18nToast();
-  const { mutateAsync, isLoading } = useMutateSignDeploy();
+  const { mutateAsync, isLoading } = useMutateSendAsset();
   const methods = useForm<SubmitValues>({
     resolver: zodResolver(transactionSchema),
     defaultValues: {

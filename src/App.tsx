@@ -29,28 +29,31 @@ const persister = createSyncStoragePersister({
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <PersistQueryClientProvider
-        client={queryClient}
-        persistOptions={{
-          persister,
-          dehydrateOptions: {
-            shouldDehydrateQuery: ({ queryKey }: Query) => {
-              return [QueryKeysEnum.TRANSACTION_HISTORIES].includes(
-                _.first(queryKey) as unknown as QueryKeysEnum
-              );
+    <>
+      <Provider store={store}>
+        <PersistQueryClientProvider
+          client={queryClient}
+          persistOptions={{
+            persister,
+            dehydrateOptions: {
+              shouldDehydrateQuery: ({ queryKey }: Query) => {
+                return [
+                  QueryKeysEnum.TRANSACTION_HISTORIES,
+                  QueryKeysEnum.CONNECTED_URLS,
+                ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
+              },
             },
-          },
-        }}
-      >
-        <ChakraProvider resetCSS theme={theme}>
-          <RouterProvider router={browserRouter} />
-          <Toaster position="top-right" />
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        </ChakraProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </PersistQueryClientProvider>
-    </Provider>
+          }}
+        >
+          <ChakraProvider resetCSS theme={theme}>
+            <RouterProvider router={browserRouter} />
+            <Toaster position="top-right" />
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          </ChakraProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </PersistQueryClientProvider>
+      </Provider>
+    </>
   );
 };
 

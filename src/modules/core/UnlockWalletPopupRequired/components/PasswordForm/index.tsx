@@ -81,7 +81,7 @@ const PasswordForm = ({ onSuccess, onError, ...restProps }: Props) => {
             variant="primary"
             isLoading={isLoading}
           >
-            {t('unlock')}
+            {t('confirm')}
           </Button>
         </Box>
       </form>

@@ -11,4 +11,7 @@ export enum PathEnum {
   // Import wallet.
   IMPORT_WALLET = '/import',
   IMPORT_WALLET_NEW_PASSWORD = '/import/new-password',
+  // SDK.
+  SDK = '/sdk',
+  SDK_CONNECT_WALLET = '/sdk/connect-wallet',
 }
