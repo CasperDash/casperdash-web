@@ -1,15 +1,14 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 
+import { useAccount } from './useAccount';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { publicKeySelector } from '@/store/wallet';
 
 type Params = {
   url: string;
 };
 
 export const useIsConnectedUrl = ({ url }: Params) => {
-  const publicKey = useSelector(publicKeySelector);
+  const { publicKey } = useAccount();
   const queryClient = useQueryClient();
 
   const connectedUrls =

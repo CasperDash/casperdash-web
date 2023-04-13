@@ -1,15 +1,11 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import { resolve as pathResolve } from 'path';
-
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig, Plugin } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
-import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
-
-const resolve = (path: string) => pathResolve(__dirname, path);
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // remove shebeng from code (most often #!/usr/bin/env node)
 // vite recognizes the shebang as a comment and needs to be removed because it causes a parse error.
@@ -29,9 +25,6 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [
-    VitePWA({
-      injectRegister: 'auto',
-    }),
     removeShebangPlugin(),
     react(),
     svgr(),
@@ -39,20 +32,8 @@ export default defineConfig({
       // Whether to polyfill `node:` protocol imports.
       protocolImports: true,
     }),
+    tsconfigPaths(),
   ],
-  resolve: {
-    alias: {
-      '@': resolve('src'),
-      '~': resolve('public'),
-    },
-  },
-  test: {
-    globals: true,
-    watch: false,
-    environment: 'jsdom',
-    setupFiles: './vitest.setup.ts',
-    resolveSnapshotPath: (testPath, snapExtension) => testPath + snapExtension,
-  },
   define: {
     // By default, Vite doesn't include shims for NodeJS/
     // necessary for segment analytics lib to work

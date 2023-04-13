@@ -1,9 +1,8 @@
 import { UseQueryOptions } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 
 import { useGetAccount } from './useGetAccount';
+import { useAccount } from '../useAccount';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { publicKeySelector } from '@/store/wallet';
 import { WalletAccount } from '@/typings/walletAccount';
 
 export const useGetCurrentAccount = (
@@ -17,7 +16,7 @@ export const useGetCurrentAccount = (
     'queryKey' | 'queryFn'
   >
 ) => {
-  const publicKey = useSelector(publicKeySelector);
+  const { publicKey } = useAccount();
   return useGetAccount(
     {
       publicKey,

@@ -1,6 +1,6 @@
 const fonts = {
-  heading: "'Roboto', Arial, Helvetica, sans-serif",
-  body: "'Roboto', Arial, Helvetica, sans-serif",
+  heading: "'Poppins', 'Roboto', Arial, Helvetica, sans-serif",
+  body: "'Poppins', 'Roboto', Arial, Helvetica, sans-serif",
 };
 
 export default fonts;

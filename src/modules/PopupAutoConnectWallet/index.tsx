@@ -15,7 +15,6 @@ const PopupAutoConnectWallet = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    console.log('location: ', location);
     if (
       [
         PathEnum.IMPORT_WALLET,
@@ -36,6 +35,7 @@ const PopupAutoConnectWallet = () => {
     }
 
     onOpen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <ModalConnectWallet isOpen={isOpen} onClose={onClose} />;

@@ -31,9 +31,9 @@ export const useWatchMessageEvent = ({ onHandle }: Props) => {
     };
 
     window.addEventListener('message', handleMessage);
-
     return () => {
       window.removeEventListener('message', handleMessage);
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 };

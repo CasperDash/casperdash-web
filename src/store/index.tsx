@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
+import { reducers as sdkReducer } from './sdk';
 import { reducers as newWalletReducer } from './wallet';
 
 export const createStore = (preloadedState: Record<string, unknown>) =>
   configureStore({
     reducer: {
       ...newWalletReducer,
+      ...sdkReducer,
     },
     preloadedState,
   });

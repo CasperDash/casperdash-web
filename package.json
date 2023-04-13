@@ -16,17 +16,12 @@
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook -s ./public"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
-    "@chakra-ui/next-js": "^2.0.1",
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/poppins": "^4.5.10",
     "@noble/hashes": "1.1.2",
     "@reduxjs/toolkit": "^1.8.0",
     "@scure/bip39": "1.1.0",
@@ -106,11 +101,11 @@
     "prettier": "^2.3.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "typescript": "^4.9.5",
-    "vite": "^4.2.0",
-    "vite-plugin-node-polyfills": "^0.7.0",
+    "vite": "^4.2.1",
+    "vite-plugin-node-polyfills": "^0.8.1",
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-svgr": "^2.4.0",
-    "vite-tsconfig-paths": "^4.0.7",
+    "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.29.3"
   },
   "resolutions": {

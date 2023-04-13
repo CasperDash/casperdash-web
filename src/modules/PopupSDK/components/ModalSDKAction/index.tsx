@@ -16,6 +16,8 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
 import { RepliedMessageMethodEnums } from '@/enums/postMessageMethod';
+import { useAccount } from '@/hooks/useAccount';
+import { useAutoSetOriginUrl } from '@/hooks/useAutoSetOriginUrl';
 import { useWatchMessageEvent } from '@/hooks/useWatchMessageEvent';
 import SDKConnectWallet from '@/modules/SDK/ConnectWallet';
 import SDKSign from '@/modules/SDK/Sign';
@@ -26,6 +28,7 @@ import {
 } from '@/utils/normalizer';
 
 const ModalSDKAction = () => {
+  const { publicKey } = useAccount();
   const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentMethod, setCurrentMethod] = useState<RepliedMessageMethodEnums>(
@@ -33,6 +36,7 @@ const ModalSDKAction = () => {
   );
   const [currentParams, setCurrentParams] = useState({});
   const [searchParams] = useSearchParams();
+  useAutoSetOriginUrl();
 
   useWatchMessageEvent({
     onHandle: (
@@ -47,11 +51,11 @@ const ModalSDKAction = () => {
 
   useEffect(() => {
     const originUrl = searchParams.get('originUrl');
-    if (originUrl) {
+    if (originUrl && publicKey) {
       onOpen();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [publicKey]);
 
   return (
     <>
