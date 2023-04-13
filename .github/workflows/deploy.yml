@@ -2,7 +2,11 @@ name: Deploy Testnet
 
 on:
   push:
-    branches: [ ci/deploy-testnet ]
+    branches: [ ci/test-deploy ]
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
 
 jobs:
   deploy-testnet:
