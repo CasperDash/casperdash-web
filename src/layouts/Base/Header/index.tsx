@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, Image } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const Header = ({ bg }: HeaderProps) => {
             <Box mx={8} w="2px" h="40px" backgroundColor="gray.200" />
             <Flex gap="16">
               <Link to={PathEnum.HOME}>{t('home')}</Link>
-              <Link to={PathEnum.TRADE}>
+              {/* <Link to={PathEnum.TRADE}>
                 <Text color="gray.200">{t('trade')}</Text>
               </Link>
               <Link to={PathEnum.NFT}>
@@ -40,7 +40,7 @@ const Header = ({ bg }: HeaderProps) => {
               <Link to={PathEnum.STAKING}>
                 {' '}
                 <Text color="gray.200">{t('staking')}</Text>
-              </Link>
+              </Link> */}
             </Flex>
           </Flex>
           <Flex>

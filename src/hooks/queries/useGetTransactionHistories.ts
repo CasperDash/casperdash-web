@@ -4,13 +4,12 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import * as _ from 'lodash-es';
-import { useSelector } from 'react-redux';
 
+import { useAccount } from '../useAccount';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { getDeployStatuses } from '@/services/casperdash/deploysStatus/deploysStatus.service';
 import { DeployStatus } from '@/services/casperdash/deploysStatus/type';
-import { publicKeySelector } from '@/store/wallet';
 
 export const useGetTransactionHistories = (
   options?: Omit<
@@ -23,7 +22,7 @@ export const useGetTransactionHistories = (
     'queryKey' | 'queryFn'
   >
 ) => {
-  const publicKey = useSelector(publicKeySelector);
+  const { publicKey } = useAccount();
   const queryClient = useQueryClient();
 
   return useQuery(

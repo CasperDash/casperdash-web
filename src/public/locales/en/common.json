@@ -63,5 +63,8 @@
   "message": "Message",
   "signing_key": "Signing Key",
   "connect_with_your_site": "Connect with your site",
-  "connect_with_url": "Connect with URL"
+  "connect_with_url": "Connect with URL",
+  "warning_close_window": "'Closing this window will result in the disconnection from your DApp. Please ensure that you have saved all necessary data and completed all tasks before proceeding'",
+  "connect_url_is_not_empty": "Connect URL is not empty",
+  "public_key_is_not_empty": "Public Key is not empty"
 }

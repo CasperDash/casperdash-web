@@ -14,15 +14,14 @@ import _ from 'lodash';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NumericFormat } from 'react-number-format';
-import { useSelector } from 'react-redux';
 import { z } from 'zod';
 
 import SelectAssetField from './SelectAssetField';
 import ReviewModal from '../ReviewModal';
 import { useMutateSendAsset } from '@/hooks/mutates/useMutateSendAsset';
+import { useAccount } from '@/hooks/useAccount';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
-import { publicKeySelector } from '@/store/wallet';
 
 const transactionSchema = z.object({
   asset: z.string(),
@@ -37,7 +36,7 @@ export type SubmitValues = z.infer<typeof transactionSchema>;
 const SendForm = () => {
   const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const publicKey = useSelector(publicKeySelector);
+  const { publicKey } = useAccount();
   const { toastError, toastSuccess } = useI18nToast();
   const { mutateAsync, isLoading } = useMutateSendAsset();
   const methods = useForm<SubmitValues>({
