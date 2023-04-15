@@ -4,7 +4,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormLabel,
   Input,
   Text,
 } from '@chakra-ui/react';
@@ -15,10 +14,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import ListWords from '@/components/Common/ListWords';
-import RadioButton from '@/components/Inputs/RadioButton';
-import RadioButtonGroup from '@/components/Inputs/RadioButton/RadioButtonGroup';
 import SelectEncryptionType from '@/components/Select/SelectEncryptionType';
 import { PathEnum } from '@/enums';
+import { RadioLengthWords } from '@/modules/core/Controllers/RadioLengthWords';
 import { useAppDispatch } from '@/store';
 import { updateEncryptionTypeAndMasterKey } from '@/store/wallet';
 
@@ -83,33 +81,7 @@ const RecoveryKeys = ({ ...restProps }: Props) => {
             )}
           />
         </FormControl>
-        <Flex mt="6">
-          <FormLabel></FormLabel>
-          <Controller
-            control={control}
-            name="wordsLength"
-            render={({ field: { onChange } }) => (
-              <RadioButtonGroup
-                name="wordsLength"
-                alignItems="center"
-                variant={'primary'}
-                size="md"
-                defaultValue={'12'}
-                onChange={(value: string) => {
-                  const masterKey = KeyFactory.getInstance().generate(
-                    parseInt(value, 10)
-                  );
-                  setValue('masterKey', masterKey);
-
-                  onChange(value);
-                }}
-              >
-                <RadioButton value="12">{12}</RadioButton>
-                <RadioButton value="24">{24}</RadioButton>
-              </RadioButtonGroup>
-            )}
-          />
-        </Flex>
+        <RadioLengthWords control={control} setValue={setValue} />
         <Flex mt="9" gap="3" wrap={'wrap'} justifyContent="center">
           {_.chunk(
             currentMasterKeyWatched.split(' '),
