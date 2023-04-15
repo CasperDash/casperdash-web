@@ -26,7 +26,6 @@ const Header = ({ bg }: HeaderProps) => {
                   width={'119px'}
                   height={{
                     base: '20px',
-                    md: '29.16px',
                   }}
                 />
               </Link>

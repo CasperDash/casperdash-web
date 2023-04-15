@@ -11,13 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { EncryptionType } from 'casper-storage';
 import * as _ from 'lodash-es';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import Paper from '@/components/Paper';
 import SelectEncryptionType from '@/components/Select/SelectEncryptionType';
 import { PathEnum } from '@/enums';
+import { RadioLengthWords } from '@/modules/core/Controllers/RadioLengthWords';
 import { useAppDispatch } from '@/store';
 import { updateEncryptionType, updateMasterKey } from '@/store/wallet';
 
@@ -26,6 +27,7 @@ type Props = BoxProps;
 type SubmitValues = {
   encryptionType: EncryptionType;
   words: string[];
+  wordsLength: number;
 };
 
 const SeedPhrases = ({ ...restProps }: Props) => {
@@ -36,9 +38,13 @@ const SeedPhrases = ({ ...restProps }: Props) => {
     defaultValues: {
       encryptionType: EncryptionType.Ed25519,
       words: [],
+      wordsLength: 12,
     },
   });
-  const numberOfWords = 12;
+  const numberOfWords = useWatch({
+    control,
+    name: 'wordsLength',
+  });
 
   const pasteEventHandler = (event: React.ClipboardEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -85,19 +91,36 @@ const SeedPhrases = ({ ...restProps }: Props) => {
             )}
           />
         </FormControl>
-        <Flex mt="9" gap="3" wrap={'wrap'} justifyContent="center">
-          {_.chunk(_.range(1, 13), 4).map(
+        <RadioLengthWords control={control} setValue={setValue} />
+
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          maxH={{ base: numberOfWords === 24 ? '600px' : '300px', md: 'none' }}
+          mt="9"
+          gap="3"
+          wrap={'wrap'}
+          justifyContent="center"
+        >
+          {_.chunk(_.range(1, numberOfWords + 1), 4).map(
             (partWords: number[], index: number) => {
               const startIndex = index * 4 + 1;
               return (
-                <Paper key={`words-${index}`} borderRadius="2xl" w="170px">
-                  <OrderedList start={startIndex}>
+                <Paper
+                  key={`words-${index}`}
+                  borderRadius="2xl"
+                  w={{ base: '96px', md: '170px' }}
+                  px={{ base: 2, md: 8 }}
+                  py={{ base: 0, md: 8 }}
+                  border={{ base: 'none', md: '1px solid' }}
+                  borderColor={{ base: 'none', md: 'gray.200' }}
+                >
+                  <OrderedList start={startIndex} mb="-3">
                     {partWords.map((word: number, wordIndex: number) => {
                       const currentIndex = startIndex + wordIndex;
                       return (
                         <ListItem key={word} mt="3">
                           <Input
-                            {...register(`words.${currentIndex}` as never, {
+                            {...register(`words.${currentIndex}`, {
                               required: true,
                             })}
                             onPaste={pasteEventHandler}
@@ -111,7 +134,7 @@ const SeedPhrases = ({ ...restProps }: Props) => {
             }
           )}
         </Flex>
-        <Box mt="20">
+        <Box mt={{ base: 17, md: 20 }}>
           <Button type="submit" w="100%" variant="primary">
             {t('next')}
           </Button>
