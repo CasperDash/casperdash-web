@@ -37,9 +37,21 @@ const ModalConnectWallet = ({ isOpen, onClose }: ModalConnectProps) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent borderRadius="2xl">
+        <ModalContent
+          borderRadius="2xl"
+          m={{
+            base: '10',
+          }}
+        >
           <ModalHeader>
-            <Heading variant="xl">{t('connect_your_wallet')}</Heading>
+            <Heading
+              variant={{
+                base: 'sm',
+                md: 'xl',
+              }}
+            >
+              {t('connect_your_wallet')}
+            </Heading>
           </ModalHeader>
           <Divider />
           <ModalCloseButton />

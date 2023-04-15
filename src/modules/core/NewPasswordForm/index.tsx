@@ -97,7 +97,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
   };
 
   return (
-    <Box {...restProps}>
+    <Box {...restProps} w="340px">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex mt="9" direction="column" justifyContent="center">
           <FormControl isInvalid={!!errors.newPassword}>
@@ -155,16 +155,16 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             )}
           </FormControl>
         </Flex>
-        <Box mt="20">
+        <Flex mt="20" justifyContent="center">
           <Button
             type="submit"
-            w="100%"
+            w="80%"
             variant="primary"
             isLoading={isSubmitting}
           >
             {t('register')}
           </Button>
-        </Box>
+        </Flex>
       </form>
     </Box>
   );

@@ -23,13 +23,31 @@ const Header = ({ bg }: HeaderProps) => {
                 <Image
                   src={CasperDashLogoImg}
                   alt="logo"
-                  width="119"
-                  height="29.16"
+                  width={'119px'}
+                  height={{
+                    base: '20px',
+                    md: '29.16px',
+                  }}
                 />
               </Link>
             </Box>
-            <Box mx={8} w="2px" h="40px" backgroundColor="gray.200" />
-            <Flex gap="16">
+            <Box
+              mx={8}
+              w="2px"
+              h="40px"
+              backgroundColor="gray.200"
+              display={{
+                base: 'none',
+                md: 'flex',
+              }}
+            />
+            <Flex
+              gap="16"
+              display={{
+                base: 'none',
+                md: 'flex',
+              }}
+            >
               <Link to={PathEnum.HOME}>{t('home')}</Link>
               {/* <Link to={PathEnum.TRADE}>
                 <Text color="gray.200">{t('trade')}</Text>
@@ -47,7 +65,9 @@ const Header = ({ bg }: HeaderProps) => {
             <Box mr="8" paddingTop="2">
               <BellIcon />
             </Box>
-            <ButtonConnectWallet />
+            <Box display={{ base: 'none', md: 'block' }}>
+              <ButtonConnectWallet />
+            </Box>
             <Box ml="3">
               <MenuButtonModal />
             </Box>

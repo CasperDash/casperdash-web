@@ -18,7 +18,7 @@ const AccountInfo = (props: AccountInfoProps) => {
     >
       <Flex alignItems="center" justifyContent="space-between">
         <Box>
-          <Heading as="h3" size="xl">
+          <Heading as="h3" size={{ base: 'sm', md: 'xl' }}>
             {t('account_info')}
           </Heading>
         </Box>

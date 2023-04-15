@@ -49,7 +49,7 @@ const DoubleCheck = ({ ...restProps }: Props) => {
   };
 
   return (
-    <Box {...restProps}>
+    <Box {...restProps} maxW={{ base: 'xs', md: 'lg' }}>
       <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>
         <Flex mt="9" gap="7" alignItems="center" direction="column">
           {seedPhraseCheckers.map(({ answer, options }: SeedPhraseChecker) => {
@@ -76,8 +76,12 @@ const DoubleCheck = ({ ...restProps }: Props) => {
             );
           })}
         </Flex>
-        <Flex mt="20" justifyContent="center">
-          <Button type="submit" w="90%" variant="primary">
+        <Flex mt="20" mb="10" justifyContent="center">
+          <Button
+            type="submit"
+            w={{ base: '60%', md: '90%' }}
+            variant="primary"
+          >
             {t('next')}
           </Button>
         </Flex>

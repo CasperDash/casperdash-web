@@ -14,7 +14,13 @@ const NewWalletPassword = () => {
       alignItems="center"
     >
       <Flex direction="column" alignItems="center">
-        <Heading variant="5xl" as="h2">
+        <Heading
+          variant={{
+            base: '2xl',
+            md: '5xl',
+          }}
+          as="h2"
+        >
           {t('new_password')}
         </Heading>
         <Text color="gray.500" mt="4">

@@ -12,16 +12,17 @@ const NewWallet = () => {
       justifyContent="center"
       direction="column"
       alignItems="center"
+      p="6"
     >
       <Flex direction="column" alignItems="center">
-        <Heading variant="5xl" as="h2">
+        <Heading variant={{ base: '2xl', md: '5xl' }} as="h2">
           {t('recovery_phrase')}
         </Heading>
-        <Text color="gray.500" mt="4">
+        <Text color="gray.500" mt="4" textAlign="center">
           {t('recovery_phrase_description')}
         </Text>
       </Flex>
-      <RecoveryKeys mt="6" w="552px" />
+      <RecoveryKeys mt="6" w={{ base: '320px', md: '552px' }} />
     </Flex>
   );
 };
