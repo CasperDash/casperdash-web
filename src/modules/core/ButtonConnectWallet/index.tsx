@@ -1,4 +1,4 @@
-import { Box, Button, useClipboard, useDisclosure } from '@chakra-ui/react';
+import { Button, useClipboard, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -22,7 +22,7 @@ const ButtonConnectWallet = () => {
   };
 
   return (
-    <Box>
+    <>
       {publicKey ? (
         <Button onClick={handleOnSwap}>
           <MiddleTruncatedText value={publicKey} />
@@ -35,7 +35,7 @@ const ButtonConnectWallet = () => {
           <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
         </>
       )}
-    </Box>
+    </>
   );
 };
 

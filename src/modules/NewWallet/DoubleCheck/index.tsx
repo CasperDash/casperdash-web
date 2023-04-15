@@ -14,10 +14,10 @@ const NewWalletDoubleCheck = () => {
       alignItems="center"
     >
       <Flex direction="column" alignItems="center">
-        <Heading variant="5xl" as="h2">
+        <Heading variant={{ base: '2xl', md: '5xl' }} as="h2">
           {t('double_check')}
         </Heading>
-        <Text color="gray.500" mt="4">
+        <Text color="gray.500" mt="4" textAlign="center">
           {t('recovery_phrase_description')}
         </Text>
       </Flex>

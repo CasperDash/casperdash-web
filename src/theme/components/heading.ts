@@ -8,6 +8,10 @@ const Heading = defineStyle({
   fontWeight: fontWeights.semibold,
 
   variants: {
+    sm: {
+      fontSize: fontSizes.sm,
+      lineHeight: lineHeights[8],
+    },
     xl: {
       fontSize: fontSizes.xl,
       lineHeight: lineHeights[8],

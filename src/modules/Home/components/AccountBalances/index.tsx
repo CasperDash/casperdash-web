@@ -21,7 +21,13 @@ const AccountBalances = (props: AccountBalancesProps) => {
         <Box ml="8">
           <TextLight>{t('account_balances')}</TextLight>
         </Box>
-        <Flex gap="2">
+        <Flex
+          gap="2"
+          display={{
+            base: 'none',
+            md: 'flex',
+          }}
+        >
           <Link to={PathEnum.SEND}>
             <Button isDisabled={isDisabled} variant="light" w="30">
               {t('send')}
