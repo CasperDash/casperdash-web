@@ -13,6 +13,8 @@ import { browserRouter } from './router';
 import store from '@/store';
 import theme from '@/theme';
 
+import '@fontsource/poppins/400.css';
+
 (window as unknown as Window & { global?: Window }).global = window;
 
 const queryClient = new QueryClient({
@@ -39,7 +41,7 @@ const App = () => {
               shouldDehydrateQuery: ({ queryKey }: Query) => {
                 return [
                   QueryKeysEnum.TRANSACTION_HISTORIES,
-                  QueryKeysEnum.CONNECTED_URLS,
+                  QueryKeysEnum.CONNECTED_URL,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },

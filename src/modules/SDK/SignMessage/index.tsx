@@ -4,12 +4,10 @@ import { Button, Flex, Text, Textarea } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import { PostMessageMethodEnums } from '@/enums/postMessageMethod';
 import { useMutateSignMessage } from '@/hooks/mutates/useMutateSignMessage';
-import { useGetConnectedUrl } from '@/hooks/queries/useGetConnectedUrl';
+import { useRejectSignMessage } from '@/hooks/postMesasges/useRejectSignMessage';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import PasswordForm from '@/modules/core/UnlockWalletPopupRequired/components/PasswordForm';
-import { sendPostMessage } from '@/utils/serviceWorker/mesage';
 
 type Props = {
   params: {
@@ -22,9 +20,9 @@ type Props = {
 
 const SDKSignMessage = ({ params, onApproved, onRejected }: Props) => {
   const { toastSuccess } = useI18nToast();
-  const { data: connectedUrl = '' } = useGetConnectedUrl();
   const [isApproved, setIsApproved] = useState(false);
   const { t } = useTranslation();
+  const rejectSignMessage = useRejectSignMessage();
   const { mutate, isLoading } = useMutateSignMessage({
     onSuccess: () => {
       toastSuccess('success');
@@ -37,10 +35,7 @@ const SDKSignMessage = ({ params, onApproved, onRejected }: Props) => {
   };
 
   const handleOnReject = async () => {
-    sendPostMessage({
-      method: PostMessageMethodEnums.REJECTED_SIGN,
-      originUrl: connectedUrl,
-    });
+    rejectSignMessage();
 
     onRejected?.();
   };

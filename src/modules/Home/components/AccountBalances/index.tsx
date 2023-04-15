@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom';
 import AccountTotalBalances from './AccountTotalBalances';
 import TextLight from '@/components/Typography/TextLight';
 import { PathEnum } from '@/enums';
+import { useAccount } from '@/hooks/useAccount';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
 
 export type AccountBalancesProps = BoxProps;
 
 const AccountBalances = (props: AccountBalancesProps) => {
   const { t } = useTranslation();
+  const { publicKey } = useAccount();
+  const isDisabled = !publicKey;
 
   return (
     <Box {...props}>
@@ -20,7 +23,7 @@ const AccountBalances = (props: AccountBalancesProps) => {
         </Box>
         <Flex gap="2">
           <Link to={PathEnum.SEND}>
-            <Button variant="light" w="30">
+            <Button isDisabled={isDisabled} variant="light" w="30">
               {t('send')}
             </Button>
           </Link>

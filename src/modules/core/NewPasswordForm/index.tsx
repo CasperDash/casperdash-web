@@ -16,8 +16,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { PathEnum } from '@/enums';
+import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import { useAppDispatch } from '@/store';
+import { originUrlSelector } from '@/store/sdk';
 import {
   encryptionTypeSelector,
   masterKeySelector,
@@ -38,6 +40,9 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
   const masterKey = useSelector(masterKeySelector);
   const encryptionType = useSelector(encryptionTypeSelector);
   const { toastSuccess, toastError } = useI18nToast();
+  const connectToDApp = useConnectToDapp();
+  const originUrl = useSelector(originUrlSelector);
+
   const dispatch = useAppDispatch();
   const {
     handleSubmit,
@@ -78,8 +83,12 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
         encryptionType,
       });
 
-      toastSuccess('create_new_wallet_success');
       dispatch(updatePublicKeyAfterCreateWallet(publicKey));
+      if (originUrl) {
+        connectToDApp(originUrl, publicKey);
+      }
+
+      toastSuccess('create_new_wallet_success');
 
       navigate(PathEnum.HOME);
     } catch (err) {
@@ -111,7 +120,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
               </FormErrorMessage>
             )}
           </FormControl>
-          <FormControl isInvalid={!!errors.confirmPassword}>
+          <FormControl mt="5" isInvalid={!!errors.confirmPassword}>
             <FormLabel>
               <Text fontWeight="bold" mb="4">
                 {t('confirm_password')}

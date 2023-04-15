@@ -3,13 +3,11 @@ import {
   UseMutationOptions,
   useQueryClient,
 } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 
+import { useConnectToDapp } from '../postMesasges/useConnectToDapp';
+import { useAccount } from '../useAccount';
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
-import { PostMessageMethodEnums } from '@/enums/postMessageMethod';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { publicKeySelector } from '@/store/wallet';
-import { sendPostMessage } from '@/utils/serviceWorker/mesage';
 
 export type Variables = {
   url: string;
@@ -18,8 +16,9 @@ export type Variables = {
 export const useMutateSDKConnectUrl = (
   options?: UseMutationOptions<boolean, Error, Variables, unknown>
 ) => {
-  const publicKey = useSelector(publicKeySelector);
+  const { publicKey } = useAccount();
   const queryClient = useQueryClient();
+  const connect = useConnectToDapp();
   return useMutation({
     ...options,
     mutationFn: async ({ url }: Variables) => {
@@ -28,13 +27,7 @@ export const useMutateSDKConnectUrl = (
       }
       queryClient.setQueryData([QueryKeysEnum.CONNECTED_URL, publicKey], url);
 
-      sendPostMessage({
-        originUrl: url,
-        method: PostMessageMethodEnums.CONNECTED,
-        params: {
-          publicKey,
-        },
-      });
+      connect(url, publicKey);
 
       return true;
     },

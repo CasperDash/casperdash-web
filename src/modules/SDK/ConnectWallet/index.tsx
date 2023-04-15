@@ -2,7 +2,8 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
-import { useMutateSDKConnectUrl } from '@/hooks/mutates/useMutateSDKConnectUrl';
+import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
+import { useAccount } from '@/hooks/useAccount';
 import { useI18nToast } from '@/hooks/useI18nToast';
 
 type Props = {
@@ -10,29 +11,25 @@ type Props = {
 };
 
 const SDKConnectWallet = ({ onSuccess }: Props) => {
+  const { publicKey } = useAccount();
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
-  const { toastError, toastSuccess } = useI18nToast();
-
+  const { toastError } = useI18nToast();
+  const connect = useConnectToDapp();
   const connectUrl = searchParams.get('originUrl');
 
-  const { mutate } = useMutateSDKConnectUrl({
-    onSuccess: () => {
-      toastSuccess('succes');
-      onSuccess?.();
-    },
-    onError: (err: Error) => {
-      toastError(err.message);
-    },
-  });
-
   const handleOnConnectUrl = () => {
+    if (!publicKey) {
+      toastError('public_key_is_not_empty');
+      return;
+    }
     if (!connectUrl) {
       toastError('connect_url_is_not_empty');
       return;
     }
+    connect(connectUrl, publicKey);
 
-    mutate({ url: connectUrl });
+    onSuccess?.();
   };
 
   return (

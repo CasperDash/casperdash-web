@@ -6,13 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { JsonTypes } from 'typedjson';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import { PostMessageMethodEnums } from '@/enums/postMessageMethod';
 import { useMutateSignDeploy } from '@/hooks/mutates/useMutateSignDeploy';
-import { useGetConnectedUrl } from '@/hooks/queries/useGetConnectedUrl';
+import { useRejectSign } from '@/hooks/postMesasges/useRejectSign';
 import { useGetParsedDeployData } from '@/hooks/queries/useGetParsedDeployData';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import PasswordForm from '@/modules/core/UnlockWalletPopupRequired/components/PasswordForm';
-import { sendPostMessage } from '@/utils/serviceWorker/mesage';
 
 type Props = {
   params: {
@@ -58,10 +56,11 @@ const DEPLOY_PARAMS: DeployParam[] = [
 
 const SDKSign = ({ params, onApproved, onRejected }: Props) => {
   const { toastSuccess } = useI18nToast();
-  const { data: connectedUrl = '' } = useGetConnectedUrl();
   const [isApproved, setIsApproved] = useState(false);
   const { t } = useTranslation();
   const { data } = useGetParsedDeployData(params);
+  const rejectSign = useRejectSign();
+
   const { mutate, isLoading } = useMutateSignDeploy({
     onSuccess: () => {
       toastSuccess('success');
@@ -74,10 +73,7 @@ const SDKSign = ({ params, onApproved, onRejected }: Props) => {
   };
 
   const handleOnReject = async () => {
-    sendPostMessage({
-      method: PostMessageMethodEnums.REJECTED_SIGN,
-      originUrl: connectedUrl,
-    });
+    rejectSign();
 
     onRejected?.();
   };
