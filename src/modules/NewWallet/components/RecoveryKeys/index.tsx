@@ -45,6 +45,10 @@ const RecoveryKeys = ({ ...restProps }: Props) => {
     name: 'masterKey',
     control,
   });
+  const numberOfWords = useWatch({
+    control,
+    name: 'wordsLength',
+  });
 
   const handleOnSubmit = ({ masterKey, encryptionType }: SubmitValues) => {
     console.log(masterKey);
@@ -82,23 +86,40 @@ const RecoveryKeys = ({ ...restProps }: Props) => {
           />
         </FormControl>
         <RadioLengthWords control={control} setValue={setValue} />
-        <Flex mt="9" gap="3" wrap={'wrap'} justifyContent="center">
-          {_.chunk(
-            currentMasterKeyWatched.split(' '),
-            NUMBER_WORDS_PER_PAGE
-          ).map((partWords: string[], index: number) => {
-            return (
-              <ListWords
-                start={index * NUMBER_WORDS_PER_PAGE + 1}
-                w="175px"
-                key={`words-${index}`}
-                words={partWords}
-              />
-            );
-          })}
+        <Flex
+          mt="9"
+          flexWrap={'wrap'}
+          gap={{ base: '0', md: '3' }}
+          justifyContent="center"
+          alignItems="center"
+          border={{ base: '1px solid', md: 'none' }}
+          borderColor={{ base: 'gray.200', md: 'none' }}
+          borderRadius={{ base: '2xl', md: 'none' }}
+          p={{ base: '3', md: '0' }}
+          flexDirection={{ base: 'column', md: 'row' }}
+          maxHeight={{
+            base: numberOfWords === 12 ? '100px' : '230px',
+            md: 'auto',
+          }}
+        >
+          {_.chunk(currentMasterKeyWatched.split(' '), 4).map(
+            (partWords: string[], index: number) => {
+              return (
+                <ListWords
+                  start={index * NUMBER_WORDS_PER_PAGE + 1}
+                  w={{ base: '80px', md: '175px' }}
+                  key={`words-${index}`}
+                  words={partWords}
+                  border={{ base: 'none', md: '1px solid' }}
+                  borderColor={{ base: 'none', md: 'gray.200' }}
+                  p={{ base: '0', md: '8' }}
+                />
+              );
+            }
+          )}
         </Flex>
         <Input type="hidden" {...register('masterKey')} />
-        <Box mt="20">
+        <Box mt={{ base: 18, md: 30 }}>
           <Button type="submit" w="100%" variant="primary">
             {t('next')}
           </Button>

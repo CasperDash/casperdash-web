@@ -4,9 +4,9 @@ import { Query, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import * as _ from 'lodash-es';
-import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
+import { Toaster } from 'sonner';
 
 import { QueryKeysEnum } from './enums/queryKeys.enum';
 import { browserRouter } from './router';
@@ -49,7 +49,7 @@ const App = () => {
         >
           <ChakraProvider resetCSS theme={theme}>
             <RouterProvider router={browserRouter} />
-            <Toaster position="top-right" />
+            <Toaster position="top-center" richColors closeButton />
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={false} />

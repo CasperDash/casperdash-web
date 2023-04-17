@@ -12,7 +12,9 @@ const ListWords = ({ start, words, ...restProps }: Props) => {
     <Paper {...restProps} borderRadius="2xl">
       <OrderedList start={start}>
         {words.map((word: string) => (
-          <ListItem key={word}>{word}</ListItem>
+          <ListItem key={word} lineHeight="6">
+            {word}
+          </ListItem>
         ))}
       </OrderedList>
     </Paper>

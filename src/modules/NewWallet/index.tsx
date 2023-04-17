@@ -22,7 +22,7 @@ const NewWallet = () => {
           {t('recovery_phrase_description')}
         </Text>
       </Flex>
-      <RecoveryKeys mt="6" w={{ base: '320px', md: '552px' }} />
+      <RecoveryKeys mt="6" w={{ base: '100%', md: '552px' }} />
     </Flex>
   );
 };
