@@ -48,7 +48,7 @@ export function DataTable<Data extends object>({
   const rows = table.getRowModel().rows;
 
   return (
-    <Table pos="relative">
+    <Table pos="relative" w={{ base: '800px', md: '100%' }}>
       <Thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
