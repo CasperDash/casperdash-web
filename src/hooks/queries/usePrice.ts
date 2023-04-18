@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
@@ -29,7 +31,13 @@ export const usePriceHistories = (
     'queryKey' | 'queryFn'
   >
 ) => {
-  return useQuery([QueryKeysEnum.PRICE_HISTORIES], getPriceHistories, {
+  const query = useQuery([QueryKeysEnum.PRICE_HISTORIES], getPriceHistories, {
     ...options,
   });
+  const data = useMemo(
+    () =>
+      query.data?.map((datum) => ({ timestamp: datum[0], value: datum[1] })),
+    [query.data]
+  );
+  return { ...query, data };
 };

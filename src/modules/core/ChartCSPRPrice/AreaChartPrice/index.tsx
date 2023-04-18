@@ -8,7 +8,7 @@ import {
   TooltipProps,
 } from 'recharts';
 
-import { useGetCoingeckoHistories } from '@/hooks/queries/useGetCoingeckoHistories';
+import { usePriceHistories } from '@/hooks/queries/usePrice';
 
 const CustomTooltip = ({ active, payload }: TooltipProps<string, string>) => {
   if (active && payload && payload.length) {
@@ -24,7 +24,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps<string, string>) => {
 };
 
 const AreaChartPrice = () => {
-  const { data } = useGetCoingeckoHistories();
+  const { data } = usePriceHistories();
 
   return (
     <ResponsiveContainer height={200} width="100%">
