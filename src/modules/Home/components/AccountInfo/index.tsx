@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Heading } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import { useAccount } from '@/hooks/useAccount';
@@ -17,13 +17,13 @@ const AccountInfo = (props: AccountInfoProps) => {
       borderRadius="5xl"
       backgroundColor="white"
     >
-      <Flex alignItems="center" justifyContent="space-between">
-        <Box>
+      <Flex alignItems="center" justifyContent="space-between" gap="4">
+        <Box flex={'1 0 100px'}>
           <Heading as="h3" size={{ base: 'sm', md: 'xl' }}>
             {t('account_info')}
           </Heading>
         </Box>
-        {publicKey && <Box>{publicKey}</Box>}
+        {publicKey && <Text noOfLines={3}>{publicKey}</Text>}
       </Flex>
     </Box>
   );
