@@ -1,8 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-console.log(
-  '🚀 ~ file: request.ts:8 ~ import.meta.env.NEXT_PUBLIC_API_URL:',
-  import.meta.env
-);
 
 const request = axios.create({
   baseURL: import.meta.env.NEXT_PUBLIC_API_URL,
