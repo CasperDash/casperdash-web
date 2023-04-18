@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { PathEnum } from '@/enums';
-import HomePage from '@/pages/Home';
+import HomePage from '@/pages/home';
 import ImportWalletPage from '@/pages/ImportWallet';
 import ImportWalletPasswordPage from '@/pages/ImportWallet/NewPassword';
 import NewWalletPage from '@/pages/NewWallet';

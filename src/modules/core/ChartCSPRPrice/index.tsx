@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import AreaChartPrice from './AreaChartPrice';
 import Paper from '@/components/Paper';
-import { useGetCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
+import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 
 const data: { year: number; value: number }[] = [];
 
@@ -21,13 +21,13 @@ type ChartCSPRPriceProps = BoxProps;
 
 const CoingeckoPriceText = () => {
   const { t } = useTranslation();
-  const { data: coingeckoCoin } = useGetCoingeckoCoin();
+  const { data: price } = useGetCSPRMarketInfo();
 
   return (
     <Heading fontSize="xl">
       {t('intlNumber', {
-        val: coingeckoCoin?.price,
-        minimumFractionDigits: 8,
+        val: price?.price,
+        minimumFractionDigits: 4,
       })}
     </Heading>
   );
@@ -35,8 +35,10 @@ const CoingeckoPriceText = () => {
 
 const BadgePercentageChange = () => {
   const {
-    data: { priceChangePercentage24h } = { priceChangePercentage24h: 0 },
-  } = useGetCoingeckoCoin();
+    data: { price_change_percentage_24h: priceChangePercentage24h } = {
+      price_change_percentage_24h: 0,
+    },
+  } = useGetCSPRMarketInfo();
   let color;
   let text;
   if (priceChangePercentage24h >= 0) {
@@ -52,8 +54,8 @@ const BadgePercentageChange = () => {
       bgColor={color}
       color="white"
       borderRadius="3xl"
-      fontSize="xs"
-      p="1"
+      fontSize="sm"
+      px="2"
     >
       {text}%
     </Badge>

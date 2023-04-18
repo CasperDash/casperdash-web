@@ -1,20 +1,27 @@
 import { BoxProps } from '@chakra-ui/react';
 
 import TotalBalance from '@/components/Common/TotalBalance';
-import { useGetCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
+import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 
 export type AccountBalancesProps = BoxProps;
 
 const AccountTotalBalances = () => {
   const {
-    data: { marketCap, dailyVolume } = { marketCap: 0, dailyVolume: 0 },
-  } = useGetCoingeckoCoin();
+    data: { market_cap, volume_24h, circulating_supply, total_supply } = {
+      market_cap: 0,
+      volume_24h: 0,
+      circulating_supply: 0,
+      total_supply: 0,
+    },
+  } = useGetCSPRMarketInfo();
 
   return (
     <TotalBalance
       flex="1"
-      marketCapValue={marketCap}
-      dayVolumeValue={dailyVolume}
+      marketCapValue={market_cap}
+      dayVolumeValue={volume_24h}
+      circulatingSupply={circulating_supply}
+      totalSupply={total_supply}
     />
   );
 };

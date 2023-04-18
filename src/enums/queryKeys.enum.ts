@@ -9,4 +9,6 @@ export enum QueryKeysEnum {
   CONNECTED_URLS = 'connected_urls',
   CONNECTED_URL = 'connected_url',
   PARSED_DEPLOY_DATA = 'parsed_deploy_data',
+  CSPR_PRICE = 'cspr_price',
+  PRICE_HISTORIES = 'price_histories',
 }

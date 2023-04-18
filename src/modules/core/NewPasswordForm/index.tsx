@@ -134,7 +134,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
                   checkEqualNewPassword: (value: string): ValidateResult => {
                     const newPassword = watch('newPassword');
                     if (value !== newPassword) {
-                      return 'password_does_not_patch';
+                      return 'password_does_not_match';
                     }
 
                     return true;
