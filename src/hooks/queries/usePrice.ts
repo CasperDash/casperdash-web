@@ -20,7 +20,7 @@ export const useGetCSPRMarketInfo = (
   });
 };
 
-export const usePriceHistories = (
+export const useGetCSPRPriceHistories = (
   options?: Omit<
     UseQueryOptions<
       unknown,
