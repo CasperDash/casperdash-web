@@ -1,6 +1,6 @@
 import _snakeCase from 'lodash/snakeCase';
-import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 export const useI18nToast = () => {
   const { t, i18n } = useTranslation(['message']);
@@ -21,7 +21,6 @@ export const useI18nToast = () => {
     messageKey: string,
     options: Record<string, string | number> = {}
   ) => {
-    console.log('messageKey: ', messageKey);
     const tKey = `success.${_snakeCase(messageKey)}`;
     let currentKey = 'success.default';
     if (i18n.exists(`message:${tKey}`)) {
