@@ -20,14 +20,7 @@ const Header = ({ bg }: HeaderProps) => {
           <Flex alignItems="center">
             <Box>
               <Link to={PathEnum.HOME}>
-                <Image
-                  src={CasperDashLogoImg}
-                  alt="logo"
-                  width={'119px'}
-                  height={{
-                    base: '20px',
-                  }}
-                />
+                <Image src={CasperDashLogoImg} alt="logo" width={'160px'} />
               </Link>
             </Box>
             <Box

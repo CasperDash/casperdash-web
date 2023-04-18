@@ -23,7 +23,7 @@ const BaseLayout = ({
     <Box minHeight="100vh" bg={bg}>
       <Header bg={headerBg} />
       <Divider />
-      <MainContainer h="100vh">{children}</MainContainer>
+      <MainContainer>{children}</MainContainer>
       <PopupAutoConnectWallet />
       <PopupSDK />
     </Box>

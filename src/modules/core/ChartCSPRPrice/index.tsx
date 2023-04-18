@@ -21,13 +21,13 @@ type ChartCSPRPriceProps = BoxProps;
 
 const CoingeckoPriceText = () => {
   const { t } = useTranslation();
-  const { data: coingeckoCoin } = usePrice();
+  const { data: price } = usePrice();
 
   return (
     <Heading fontSize="xl">
       {t('intlNumber', {
-        val: coingeckoCoin?.price,
-        minimumFractionDigits: 8,
+        val: price?.price,
+        minimumFractionDigits: 4,
       })}
     </Heading>
   );
@@ -54,8 +54,8 @@ const BadgePercentageChange = () => {
       bgColor={color}
       color="white"
       borderRadius="3xl"
-      fontSize="xs"
-      p="1"
+      fontSize="sm"
+      px="2"
     >
       {text}%
     </Badge>

@@ -69,5 +69,7 @@
   "connect_with_url": "Connect with URL",
   "warning_close_window": "'Closing this window will result in the disconnection from your DApp. Please ensure that you have saved all necessary data and completed all tasks before proceeding'",
   "connect_url_is_not_empty": "Connect URL is not empty",
-  "public_key_is_not_empty": "Public Key is not empty"
+  "public_key_is_not_empty": "Public Key is not empty",
+  "password_does_not_match": "Password does not match",
+  "default_error_message": "Something went wrong. Please try again later."
 }

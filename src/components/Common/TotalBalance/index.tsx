@@ -54,7 +54,13 @@ const TotalBalance = ({
           </Box>
         </Flex>
         <Flex pos="relative" flex="1">
-          <Box flex="1" pl="7" pt="8">
+          <Box
+            flex="1"
+            pl="7"
+            pt="8"
+            borderRight={'1px'}
+            borderColor="gray.200"
+          >
             <Text>{t('market_cap')}</Text>
             <Box mt="3">
               <Heading variant="xl">
@@ -64,13 +70,6 @@ const TotalBalance = ({
               </Heading>
             </Box>
           </Box>
-          <Box
-            pos="absolute"
-            left="50%"
-            height="142px"
-            borderLeft="1px solid"
-            borderColor="gray.200"
-          ></Box>
           <Box flex="1" pl="7" pt="8">
             <Text>{t('24h_volume')}</Text>
             <Box mt="3">
@@ -83,7 +82,13 @@ const TotalBalance = ({
           </Box>
         </Flex>
         <Flex pos="relative" flex="1">
-          <Box flex="1" pl="7" pt="8">
+          <Box
+            flex="1"
+            pl="7"
+            pt="8"
+            borderRight={'1px'}
+            borderColor="gray.200"
+          >
             <Text>{t('circulating_supply')}</Text>
             <Box mt="3">
               <Heading variant="xl">
@@ -93,13 +98,6 @@ const TotalBalance = ({
               </Heading>
             </Box>
           </Box>
-          <Box
-            pos="absolute"
-            left="50%"
-            height="142px"
-            borderLeft="1px solid"
-            borderColor="gray.200"
-          ></Box>
           <Box flex="1" pl="7" pt="8">
             <Text>{t('total_supply')}</Text>
             <Box mt="3">

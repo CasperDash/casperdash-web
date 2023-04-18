@@ -60,10 +60,7 @@ const TableTransaction = ({ ...restProps }: TableTransactionProps) => {
 
   return (
     <Box {...restProps}>
-      <Box>
-        <Box></Box>
-      </Box>
-      <Paper py="5" px="8" overflowX={'scroll'}>
+      <Paper py="5" px="8" overflowX={'auto'}>
         <DataTable columns={columns} data={data} />
       </Paper>
     </Box>
