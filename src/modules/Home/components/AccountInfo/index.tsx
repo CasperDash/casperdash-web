@@ -1,14 +1,13 @@
 import { Box, BoxProps, Flex, Heading } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
-import { publicKeySelector } from '@/store/wallet';
+import { useAccount } from '@/hooks/useAccount';
 
 export type AccountInfoProps = BoxProps;
 
 const AccountInfo = (props: AccountInfoProps) => {
   const { t } = useTranslation();
-  const publicKey = useSelector(publicKeySelector);
+  const { publicKey } = useAccount();
   return (
     <Box
       {...props}

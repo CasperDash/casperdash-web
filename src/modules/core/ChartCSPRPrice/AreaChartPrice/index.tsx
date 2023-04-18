@@ -9,7 +9,7 @@ import {
   TooltipProps,
 } from 'recharts';
 
-import { usePriceHistories } from '@/hooks/queries/usePrice';
+import { useGetCSPRPriceHistories } from '@/hooks/queries/usePrice';
 
 const CustomTooltip = ({ active, payload }: TooltipProps<string, string>) => {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps<string, string>) => {
 };
 
 const AreaChartPrice = () => {
-  const { data } = usePriceHistories();
+  const { data } = useGetCSPRPriceHistories();
 
   return (
     <ResponsiveContainer height={200} width="100%">

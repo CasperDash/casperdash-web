@@ -1,7 +1,7 @@
 import { BoxProps } from '@chakra-ui/react';
 
 import TotalBalance from '@/components/Common/TotalBalance';
-import { usePrice } from '@/hooks/queries/usePrice';
+import { useGetCSPRMarketInfo } from '@/hooks/queries/useGetCSPRMarketInfo';
 
 export type AccountBalancesProps = BoxProps;
 
@@ -13,7 +13,7 @@ const AccountTotalBalances = () => {
       circulating_supply: 0,
       total_supply: 0,
     },
-  } = usePrice();
+  } = useGetCSPRMarketInfo();
 
   return (
     <TotalBalance

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import Paper from '../../Paper';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
-import { usePrice } from '@/hooks/queries/usePrice';
+import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 
 export type TotalBalanceProps = {
   marketCapValue: number;
@@ -21,7 +21,7 @@ const TotalBalance = ({
 }: TotalBalanceProps) => {
   const { t } = useTranslation();
   const { data } = useGetCurrentAccount();
-  const { data: { price } = { price: 0 } } = usePrice();
+  const { data: { price } = { price: 0 } } = useGetCSPRMarketInfo();
 
   return (
     <Paper {...restProps} p="0" py="8" minH="xs">

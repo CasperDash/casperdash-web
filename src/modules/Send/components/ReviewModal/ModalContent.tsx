@@ -15,7 +15,7 @@ import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import { ReviewModalContentProps } from './type';
-import { usePrice } from '@/hooks/queries/usePrice';
+import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 import { WalletContained } from '@/icons/wallet-contained';
 
 const ReviewModalContent = ({
@@ -24,7 +24,7 @@ const ReviewModalContent = ({
   isLoading = false,
 }: ReviewModalContentProps) => {
   const { t } = useTranslation();
-  const { data: { price } = { price: 0 } } = usePrice();
+  const { data: { price } = { price: 0 } } = useGetCSPRMarketInfo();
 
   const handleOnSubmit = () => {
     onSubmit?.(values);
