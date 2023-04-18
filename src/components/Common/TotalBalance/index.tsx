@@ -3,21 +3,25 @@ import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '../../Paper';
-import { useGetCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
+import { usePrice } from '@/hooks/queries/usePrice';
 
 export type TotalBalanceProps = {
   marketCapValue: number;
   dayVolumeValue: number;
+  circulatingSupply: number;
+  totalSupply: number;
 } & BoxProps;
 const TotalBalance = ({
   marketCapValue,
   dayVolumeValue,
+  circulatingSupply,
+  totalSupply,
   ...restProps
 }: TotalBalanceProps) => {
   const { t } = useTranslation();
   const { data } = useGetCurrentAccount();
-  const { data: { price } = { price: 0 } } = useGetCoingeckoCoin();
+  const { data: { price } = { price: 0 } } = usePrice();
 
   return (
     <Paper {...restProps} p="0" py="8" minH="xs">
@@ -51,7 +55,7 @@ const TotalBalance = ({
         </Flex>
         <Flex pos="relative" flex="1">
           <Box flex="1" pl="7" pt="8">
-            <Text>{t('total_volume')}</Text>
+            <Text>{t('market_cap')}</Text>
             <Box mt="3">
               <Heading variant="xl">
                 {t('intlNumber', {
@@ -73,6 +77,35 @@ const TotalBalance = ({
               <Heading variant="xl">
                 {t('intlNumber', {
                   val: dayVolumeValue,
+                })}
+              </Heading>
+            </Box>
+          </Box>
+        </Flex>
+        <Flex pos="relative" flex="1">
+          <Box flex="1" pl="7" pt="8">
+            <Text>{t('circulating_supply')}</Text>
+            <Box mt="3">
+              <Heading variant="xl">
+                {t('intlNumber', {
+                  val: circulatingSupply,
+                })}
+              </Heading>
+            </Box>
+          </Box>
+          <Box
+            pos="absolute"
+            left="50%"
+            height="142px"
+            borderLeft="1px solid"
+            borderColor="gray.200"
+          ></Box>
+          <Box flex="1" pl="7" pt="8">
+            <Text>{t('total_supply')}</Text>
+            <Box mt="3">
+              <Heading variant="xl">
+                {t('intlNumber', {
+                  val: totalSupply,
                 })}
               </Heading>
             </Box>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import AreaChartPrice from './AreaChartPrice';
 import Paper from '@/components/Paper';
-import { useGetCoingeckoCoin } from '@/hooks/queries/useGetCoingeckoCoin';
+import { usePrice } from '@/hooks/queries/usePrice';
 
 const data: { year: number; value: number }[] = [];
 
@@ -21,7 +21,7 @@ type ChartCSPRPriceProps = BoxProps;
 
 const CoingeckoPriceText = () => {
   const { t } = useTranslation();
-  const { data: coingeckoCoin } = useGetCoingeckoCoin();
+  const { data: coingeckoCoin } = usePrice();
 
   return (
     <Heading fontSize="xl">
@@ -35,8 +35,10 @@ const CoingeckoPriceText = () => {
 
 const BadgePercentageChange = () => {
   const {
-    data: { priceChangePercentage24h } = { priceChangePercentage24h: 0 },
-  } = useGetCoingeckoCoin();
+    data: { price_change_percentage_24h: priceChangePercentage24h } = {
+      price_change_percentage_24h: 0,
+    },
+  } = usePrice();
   let color;
   let text;
   if (priceChangePercentage24h >= 0) {
