@@ -21,7 +21,7 @@ const BaseLayout = ({
   const headerBg = useColorModeValue(defaultLightHeaderBg, 'blackAlpha.900');
 
   return (
-    <Box minHeight="100vh" bg={bg}>
+    <Box minHeight="100vh" bg={bg} pb="5">
       <Header bg={headerBg} />
       <Divider />
       <MainContainer>{children}</MainContainer>

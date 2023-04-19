@@ -31,7 +31,7 @@ const ReviewModalContent = ({
   };
 
   return (
-    <ModalContent borderRadius="2xl">
+    <ModalContent borderRadius="2xl" w={{ base: '3xl', md: 'xl' }}>
       <ModalHeader>
         <Heading variant="xl">{t('review')}</Heading>
       </ModalHeader>

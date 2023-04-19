@@ -1,4 +1,9 @@
-import { Button, useClipboard, useDisclosure } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonProps,
+  useClipboard,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -7,7 +12,9 @@ import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import { publicKeySelector } from '@/store/wallet';
 
-const ButtonConnectWallet = () => {
+type Props = ButtonProps;
+
+const ButtonConnectWallet = ({ ...buttonProps }: Props) => {
   const { t } = useTranslation();
   const publicKey = useSelector(publicKeySelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,12 +31,16 @@ const ButtonConnectWallet = () => {
   return (
     <>
       {publicKey ? (
-        <Button onClick={handleOnSwap}>
+        <Button onClick={handleOnSwap} {...buttonProps}>
           <MiddleTruncatedText value={publicKey} />
         </Button>
       ) : (
         <>
-          <Button variant="light-outline" onClick={() => onOpen()}>
+          <Button
+            variant="light-outline"
+            onClick={() => onOpen()}
+            {...buttonProps}
+          >
             {t('connect_wallet')}
           </Button>
           <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
