@@ -71,5 +71,9 @@
   "connect_url_is_not_empty": "Connect URL is not empty",
   "public_key_is_not_empty": "Public Key is not empty",
   "password_does_not_match": "Password does not match",
-  "default_error_message": "Something went wrong. Please try again later."
+  "default_error_message": "Something went wrong. Please try again later.",
+  "are_you_sure_delete_all_data": "Are you sure delete all data?",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "delete_all_data_description": "This action is irreversible and will result in the permanent loss of all data, including your private keys, public keys, transaction history, and any other information associated with your wallet."
 }
