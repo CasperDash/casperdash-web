@@ -2,6 +2,7 @@ import { Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import { useAccount } from '@/hooks/useAccount';
+import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 
 export type AccountInfoProps = BoxProps;
 
@@ -24,6 +25,7 @@ const AccountInfo = (props: AccountInfoProps) => {
           </Heading>
         </Box>
         {publicKey && <Text noOfLines={3}>{publicKey}</Text>}
+        <ButtonConnectWallet display={{ base: 'flex', md: 'none' }} />
       </Flex>
     </Box>
   );

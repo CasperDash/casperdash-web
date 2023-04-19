@@ -21,7 +21,7 @@ const ImportPhrase = () => {
           {t('import_phrase_description')}
         </Text>
       </Flex>
-      <SeedPhrases mt="6" w={{ base: '320px', md: '552px' }} />
+      <SeedPhrases mt="6" w={{ base: 'xs', md: 'lg' }} />
     </Flex>
   );
 };

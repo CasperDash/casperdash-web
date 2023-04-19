@@ -32,7 +32,7 @@ const PasswordFormModal = ({
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent borderRadius="2xl">
+        <ModalContent borderRadius="2xl" w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader>
             <Heading textAlign="center" variant="xl">
               {t('password_required')}

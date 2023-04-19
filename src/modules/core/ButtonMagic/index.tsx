@@ -20,6 +20,7 @@ import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import { HomeIcon, PlusIcon, SendIcon } from '@/icons';
 import colors from '@/theme/foundations/colors';
+import { hexToRgba } from '@/utils/color';
 
 export const ButtonMagic = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,6 +57,7 @@ export const ButtonMagic = () => {
         p="0"
         paddingInline={0}
         w="auto"
+        boxShadow={`0px 3px 10px ${hexToRgba(colors.primary, 0.4)}}`}
       >
         <PlusIcon height="35px" width="35px" color={colors.primary} />
       </Button>
