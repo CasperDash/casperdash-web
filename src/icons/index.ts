@@ -5,3 +5,5 @@ export * from './bell';
 export * from './menu';
 export * from './plus';
 export * from './import';
+export * from './home';
+export * from './send';

@@ -91,6 +91,9 @@ const Button: ComponentStyleConfig = {
       bg: 'transparent',
       color: colors.black,
       border: `2px solid ${colors.gray[200]}`,
+      borderRadius: '99px',
+      minW: 'auto',
+      padding: '10px',
     },
   },
 };

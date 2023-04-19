@@ -75,5 +75,6 @@
   "are_you_sure_delete_all_data": "Are you sure delete all data?",
   "cancel": "Cancel",
   "delete": "Delete",
-  "delete_all_data_description": "This action is irreversible and will result in the permanent loss of all data, including your private keys, public keys, transaction history, and any other information associated with your wallet."
+  "delete_all_data_description": "This action is irreversible and will result in the permanent loss of all data, including your private keys, public keys, transaction history, and any other information associated with your wallet.",
+  "action": "Actions"
 }

@@ -43,6 +43,7 @@ export const ButtonDeleteAllData = () => {
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
+        size={{ base: 'xs', md: 'xl' }}
       >
         <AlertDialogOverlay>
           <AlertDialogContent>

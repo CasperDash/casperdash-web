@@ -2,6 +2,7 @@ import { Box, Divider, useColorModeValue } from '@chakra-ui/react';
 
 import Header from './Header';
 import MainContainer from '@/components/Common/MainContainer';
+import { ButtonMagic } from '@/modules/core/ButtonMagic';
 import PopupAutoConnectWallet from '@/modules/PopupAutoConnectWallet';
 import PopupSDK from '@/modules/PopupSDK';
 
@@ -26,6 +27,7 @@ const BaseLayout = ({
       <MainContainer>{children}</MainContainer>
       <PopupAutoConnectWallet />
       <PopupSDK />
+      <ButtonMagic />
     </Box>
   );
 };
