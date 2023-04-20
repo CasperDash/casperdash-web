@@ -12,6 +12,7 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { INFTInfo } from '@/services/casperdash/nft/type';
@@ -22,6 +23,7 @@ export interface INFTDetailProps {
 }
 
 export const NFTDetail: FC<INFTDetailProps> = ({ nftDetail, onBack }) => {
+  const { t } = useTranslation();
   return (
     <Flex mt={{ base: 4 }} direction={{ base: 'column' }}>
       <Button
@@ -30,7 +32,7 @@ export const NFTDetail: FC<INFTDetailProps> = ({ nftDetail, onBack }) => {
         w={{ base: '28' }}
         onClick={onBack}
       >
-        Back
+        {t('back')}
       </Button>
       <Divider mt={{ base: '4' }} />
       <Flex
@@ -60,19 +62,21 @@ export const NFTDetail: FC<INFTDetailProps> = ({ nftDetail, onBack }) => {
         {/* <Text color={'gray.400'}>{nftDetail.}</Text> */}
         <Flex direction={'column'} alignSelf={{ base: 'flex-start' }}>
           <Text fontSize={'xl'} fontWeight={'bold'}>
-            Details
+            {t('details')}
           </Text>
           {!!nftDetail.totalSupply && (
-            <Text>Total Supply: {parseInt(nftDetail.totalSupply?.hex)}</Text>
+            <Text>
+              {t('total_supply')}: {parseInt(nftDetail.totalSupply?.hex)}
+            </Text>
           )}
           {!!nftDetail.contractName && (
             <Text>
-              Contract Name: <span>{nftDetail.contractName}</span>
+              {t('contract_name')}: <span>{nftDetail.contractName}</span>
             </Text>
           )}
           {!!nftDetail.contractAddress && (
             <Text>
-              Contract Address:{' '}
+              {t('contract_address')}:{' '}
               <MiddleTruncatedText value={nftDetail.contractAddress} />
             </Text>
           )}
@@ -84,7 +88,7 @@ export const NFTDetail: FC<INFTDetailProps> = ({ nftDetail, onBack }) => {
           mb={'4'}
         >
           <Text fontSize={'xl'} fontWeight={'bold'} mb={{ base: '2' }}>
-            Attributes
+            {t('attributes')}
           </Text>
           <Grid
             gridTemplateColumns={{

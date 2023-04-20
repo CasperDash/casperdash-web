@@ -17,6 +17,7 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 import { NFTDetail } from './NFTDetail';
 import { useGetNFTs } from '@/hooks/queries/useGetNFTs';
@@ -30,6 +31,7 @@ const NFTs = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [sort, setSort] = useState<TSortField>('nftName');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+  const { t } = useTranslation();
 
   const { filteredData } = useGetNFTs(publicKey, searchTerm, sort, order);
 
@@ -60,7 +62,7 @@ const NFTs = () => {
       justify={'center'}
       mt={{ base: '6', lg: '20' }}
     >
-      <Text fontWeight="700">My Collectible</Text>
+      <Text fontWeight="700">{t('my_collectibles')}</Text>
       <Flex
         direction={{ base: 'column', lg: 'row' }}
         width={{ base: '100%' }}
@@ -70,7 +72,7 @@ const NFTs = () => {
       >
         <InputGroup>
           <Input
-            placeholder="Search collectible"
+            placeholder={t('search_collectibles') || 'Search NFTs'}
             borderRadius={'40'}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -91,7 +93,7 @@ const NFTs = () => {
               )
             }
           >
-            Name
+            {t('name')}
           </Button>
           <Button
             width={{ base: '50%' }}
@@ -104,7 +106,7 @@ const NFTs = () => {
               )
             }
           >
-            Contract Name
+            {t('contract_name')}
           </Button>
         </ButtonGroup>
       </Flex>
@@ -136,9 +138,9 @@ const NFTs = () => {
                     />
                   </Box>
                   <Text fontWeight={'bold'} fontSize={'2xl'} mt={{ base: '4' }}>
-                    Eggforce Whitelist
+                    {item.nftName}
                   </Text>
-                  <Text color={'gray.500'}>Eggforce NFT</Text>
+                  <Text color={'gray.500'}>{item.contractName}</Text>
                 </CardBody>
               </Card>
               <Divider marginY={{ base: '4' }} />
