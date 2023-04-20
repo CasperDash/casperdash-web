@@ -38,6 +38,7 @@
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "framer-motion": "^10.2.4",
+    "fuse.js": "^6.6.2",
     "i18next": "^22.4.11",
     "js-cookie": "^3.0.1",
     "key-encoder": "^2.0.3",

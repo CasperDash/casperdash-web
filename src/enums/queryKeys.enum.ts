@@ -11,4 +11,5 @@ export enum QueryKeysEnum {
   PARSED_DEPLOY_DATA = 'parsed_deploy_data',
   CSPR_PRICE = 'cspr_price',
   PRICE_HISTORIES = 'price_histories',
+  NFTS = 'nfts',
 }

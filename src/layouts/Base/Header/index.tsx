@@ -41,6 +41,7 @@ const Header = ({ bg }: HeaderProps) => {
               }}
             >
               <Link to={PathEnum.HOME}>{t('home')}</Link>
+              <Link to={PathEnum.NFT}>{t('NFTs')}</Link>
               {/* <Link to={PathEnum.TRADE}>
                 <Text color="gray.200">{t('trade')}</Text>
               </Link>

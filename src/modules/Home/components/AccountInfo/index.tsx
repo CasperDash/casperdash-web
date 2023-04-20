@@ -24,6 +24,7 @@ const AccountInfo = (props: AccountInfoProps) => {
             {t('account_info')}
           </Heading>
         </Box>
+
         {publicKey && <Text noOfLines={3}>{publicKey}</Text>}
         <ButtonConnectWallet display={{ base: 'flex', md: 'none' }} />
       </Flex>
