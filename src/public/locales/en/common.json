@@ -76,5 +76,13 @@
   "cancel": "Cancel",
   "delete": "Delete",
   "delete_all_data_description": "This action is irreversible and will result in the permanent loss of all data, including your private keys, public keys, transaction history, and any other information associated with your wallet.",
-  "action": "Actions"
+  "action": "Actions",
+  "my_collectibles": "My Collectibles",
+  "search_collectibles": "Search collectibles",
+  "name": "Name",
+  "contract_name": "Contract Name",
+  "back": "Back",
+  "details": "Details",
+  "contract_address": "Contract Address",
+  "attributes": "Attributes"
 }

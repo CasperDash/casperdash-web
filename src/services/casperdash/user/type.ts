@@ -22,3 +22,8 @@ export type GetAccountsResponse = Account[];
 export type GetAccountsParams = {
   publicKeys: string[];
 };
+
+export type TBalance = {
+  hex: string;
+  type: string;
+};
