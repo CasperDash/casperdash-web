@@ -5,7 +5,8 @@
     "send_asset": "Success! Your {{asset}} tokens have been sent and confirmed. Please wait while we process your transaction.",
     "delete_all_data": "Success! All of your data has been deleted.",
     "account_created": "Your account created successfully",
-    "account_selected": "You have successfully selected {{ name }}"
+    "account_selected": "You have successfully selected {{ name }}",
+    "account_imported": "You have successfully imported"
   },
   "error": {
     "please_try_other_password": "We're sorry, the password you entered is incorrect. Please try again with a different password",
@@ -13,6 +14,7 @@
     "encryption_type_is_empty": "We're sorry, the encryption type you selected is empty. Please choose a valid encryption type to proceed.",
     "seed_phrase_is_not_correct": "We're sorry, the seed phrase you entered is not correct. Please double-check your seed phrase and try again.",
     "public_key_does_not_exist": "We're sorry, we were unable to retrieve the public key. Please try again later or re-import your wallet",
-    "password_is_not_correct": "The password you entered is not correct."
+    "password_is_not_correct": "The password you entered is not correct.",
+    "private_key_required": "Private key is required"
   }
 }

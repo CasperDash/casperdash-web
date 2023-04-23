@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
   InputGroup,
@@ -23,13 +24,21 @@ import { useAccount } from '@/hooks/useAccount';
 import { useI18nToast } from '@/hooks/useI18nToast';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 
-const transactionSchema = z.object({
-  asset: z.string(),
-  transferAmount: z.number().min(5).max(1000000000),
-  receivingAddress: z.string().min(1),
-  transferId: z.number(),
-  maxAssetAmount: z.number().optional(),
-});
+const transactionSchema = z
+  .object({
+    asset: z.string(),
+    transferAmount: z
+      .number()
+      .min(2.5, 'min_transfer_amount_required')
+      .max(1000000000),
+    receivingAddress: z.string().nonempty('receiving_address_required'),
+    transferId: z.number(),
+    maxAssetAmount: z.number().optional(),
+  })
+  .refine((data) => data.transferAmount <= (data.maxAssetAmount || 0), {
+    message: 'transfer_amount_is_not_enought',
+    path: ['transferAmount'],
+  });
 
 export type SubmitValues = z.infer<typeof transactionSchema>;
 
@@ -129,6 +138,13 @@ const SendForm = () => {
               </Button>
             </InputRightElement>
           </InputGroup>
+          {!!errors.transferAmount && (
+            <FormErrorMessage>
+              {t(
+                _.get(errors, 'transferAmount.message', 'default_error_message')
+              )}
+            </FormErrorMessage>
+          )}
         </FormControl>
         <FormControl mt="8" isInvalid={!!errors.receivingAddress}>
           <FormLabel>
@@ -140,6 +156,17 @@ const SendForm = () => {
               required: true,
             })}
           />
+          {!!errors.receivingAddress && (
+            <FormErrorMessage>
+              {t(
+                _.get(
+                  errors,
+                  'receivingAddress.message',
+                  'default_error_message'
+                )
+              )}
+            </FormErrorMessage>
+          )}
         </FormControl>
         <FormControl mt="8">
           <FormLabel>
