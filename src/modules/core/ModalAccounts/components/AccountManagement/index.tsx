@@ -1,9 +1,8 @@
-import { ViewIcon } from '@chakra-ui/icons';
-import { Button, Flex, Divider, Box } from '@chakra-ui/react';
+import { Button, Flex, Divider, Box, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import { ListAccounts } from './ListAccounts';
-import { ImportIcon, PlusIcon } from '@/icons';
+import { ImportIcon, KeyIcon, PlusIcon } from '@/icons';
 import { TypesEnum } from '@/modules/core/ModalAccounts/enum';
 
 type AccountManagementProps = {
@@ -29,30 +28,41 @@ export const AccountManagement = ({
         alignItems={'center'}
       >
         <Button
-          variant=""
-          leftIcon={<PlusIcon />}
-          w="fit-content"
+          variant="ghost"
+          w="150px"
           onClick={() => onChangeType(TypesEnum.CREATE_ACCOUNT)}
-          display="flex"
-          justifyContent={'space-between'}
         >
-          {t('create_account')}
+          <Flex justifyContent={'space-between'} alignItems={'center'} w="100%">
+            <Box>
+              <PlusIcon />
+            </Box>
+            <Text>{t('create_account')}</Text>
+          </Flex>
         </Button>
         <Button
-          variant=""
-          leftIcon={<ImportIcon />}
-          w="fit-content"
+          variant="ghost"
+          w="150px"
           onClick={() => onChangeType(TypesEnum.IMPORT_ACCOUNT)}
         >
-          {t('import_account')}
+          <Flex justifyContent={'space-between'} alignItems={'center'} w="100%">
+            <Box>
+              <ImportIcon />
+            </Box>
+            <Text>{t('import_account')}</Text>
+          </Flex>
         </Button>
         <Button
-          variant=""
-          leftIcon={<ViewIcon />}
-          w="fit-content"
+          variant="ghost"
+          w="160px"
           onClick={() => onChangeType(TypesEnum.VIEW_PRIVATE_KEY)}
+          ml="3"
         >
-          {t('view_private_key')}
+          <Flex justifyContent={'space-between'} alignItems={'center'} w="100%">
+            <Box>
+              <KeyIcon />
+            </Box>
+            <Text>{t('view_private_key')}</Text>
+          </Flex>
         </Button>
       </Flex>
     </Box>
