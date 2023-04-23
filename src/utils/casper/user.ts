@@ -6,6 +6,8 @@ import {
   EncryptionType,
   CasperLegacyWallet,
   WalletInfo,
+  IHDKey,
+  IWallet,
 } from 'casper-storage';
 import * as _ from 'lodash-es';
 
@@ -233,14 +235,24 @@ export class UserService {
     return <WalletInfo[]>(<unknown>walletInfos);
   };
 
+  getWalletByIndex = async (
+    index: number
+  ): Promise<IWallet<IHDKey> | undefined> => {
+    const user = this.instance;
+    const wallet = await user.getWalletAccount(index);
+
+    return wallet;
+  };
+
   addWalletAccount = async (index: number, description: WalletDescriptor) => {
     const user = this.instance;
     user.addWalletAccount(index, description);
     return await this.prepareStorageData();
   };
 
-  setSelectedWallet = (uid: string) => {
+  setSelectedWallet = async (uid: string) => {
     this.selectedWalletUID = uid;
+    await this.prepareStorageData();
   };
 
   /**

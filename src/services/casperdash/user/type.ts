@@ -13,7 +13,10 @@ export type Account = {
     deployment: number;
     keyManagement: number;
   };
-  balance: number;
+  balance: {
+    hex: string;
+    type: string;
+  };
   publicKey: string;
 };
 

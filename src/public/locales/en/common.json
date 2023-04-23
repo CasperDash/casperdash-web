@@ -84,5 +84,12 @@
   "back": "Back",
   "details": "Details",
   "contract_address": "Contract Address",
-  "attributes": "Attributes"
+  "attributes": "Attributes",
+  "my_accounts": "My Accounts",
+  "create_account": "Create account",
+  "accounts": "Accounts",
+  "create": "Create",
+  "import_account": "Import Account",
+  "name": "Name",
+  "account_name": "Account Name"
 }

@@ -6,12 +6,12 @@ import { Account } from '@/services/casperdash/user';
 import { SignDeployParams, SignMessageParams } from '@/typings/signingParams';
 import { WalletAccount } from '@/typings/walletAccount';
 
-export const normalizeAccount = (account: Account): WalletAccount => {
-  const balance = _.get(account, 'balance', 0);
+export const normalizeAccount = (account: Account): Partial<WalletAccount> => {
+  const balance = _.get(account, 'balance');
   return {
     publicKey: _.get(account, 'publicKey'),
     accountHash: _.get(account, '_accountHash'),
-    balance: toCSPR(BigNumber.from(balance).toNumber()),
+    balance: balance.hex ? toCSPR(BigNumber.from(balance.hex).toNumber()) : 0,
   };
 };
 

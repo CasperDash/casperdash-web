@@ -3,7 +3,7 @@ import {
   encodeBase16,
   formatMessageWithHeaders,
 } from 'casper-js-sdk';
-import { User, EncryptionType } from 'casper-storage';
+import { User, EncryptionType, WalletDescriptor } from 'casper-storage';
 import { JsonTypes } from 'typedjson';
 
 import UserService, { LoginOptions } from './user';
@@ -117,6 +117,14 @@ class CasperUserUtil {
     return wallets;
   };
 
+  getWalletByIndex = async (index: number) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    return this.userService.getWalletByIndex(index);
+  };
+
   isUserExisted = () => {
     return !!this.userService;
   };
@@ -192,6 +200,33 @@ class CasperUserUtil {
     });
 
     return encodeBase16(result);
+  };
+
+  addNewAccount = async ({
+    index,
+    description,
+  }: {
+    index: number;
+    description: Partial<WalletDescriptor>;
+  }) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    return this.userService.addWalletAccount(
+      index,
+      description as WalletDescriptor
+    );
+  };
+
+  setSelectedWallet = async (uid: string): Promise<string | undefined> => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    await this.userService.setSelectedWallet(uid);
+
+    return this.userService.getPublicKey(uid);
   };
 }
 

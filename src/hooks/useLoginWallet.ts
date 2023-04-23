@@ -2,9 +2,8 @@ import { useCallback, useEffect } from 'react';
 
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
+import { useUpdatePublicKey } from './useUpdatePublicKey';
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
-import { useAppDispatch } from '@/store';
-import { updatePublicKey } from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
 
 type LoginWalletResponse = {
@@ -26,8 +25,8 @@ type Props = {
 } & MutateOption;
 
 export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
-  const dispatch = useAppDispatch();
-  const { mutateAsync, isLoading, isSuccess } = useMutation<
+  const { updatePublicKey } = useUpdatePublicKey();
+  const { mutateAsync, mutate, isLoading, isSuccess } = useMutation<
     LoginWalletResponse,
     unknown,
     LoginWalletParams
@@ -44,11 +43,9 @@ export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
       });
       if (!result) {
         throw new Error('can_not_validate_your_wallet');
-
-        return;
       }
       const { publicKey } = result;
-      dispatch(updatePublicKey(publicKey));
+      updatePublicKey(publicKey);
 
       return {
         publicKey,
@@ -65,16 +62,24 @@ export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const loginWallet = useCallback(
+  const loginWalletAsync = useCallback(
     (password: string) => {
       return mutateAsync({ password });
     },
     [mutateAsync]
   );
 
+  const loginWallet = useCallback(
+    (password: string) => {
+      return mutate({ password });
+    },
+    [mutate]
+  );
+
   return {
     isLoading,
     isSuccess,
+    loginWalletAsync,
     loginWallet,
   };
 };

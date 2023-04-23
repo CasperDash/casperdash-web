@@ -7,7 +7,7 @@ export interface IWallet {
   status: StatusEnum;
   masterKey?: string;
   publicKey?: string;
-  encryptionType: EncryptionType;
+  encryptionType?: EncryptionType;
 }
 
 export const NAME_SPACE = 'wallet';
@@ -70,6 +70,10 @@ export const walletSlice = createSlice({
       state.publicKey = publicKey;
       state.status = StatusEnum.ACTIVE;
     },
+    updateIsActive(state: IWallet, action: PayloadAction<boolean>) {
+      const { payload: isActive } = action;
+      state.status = isActive ? StatusEnum.ACTIVE : StatusEnum.INACTIVE;
+    },
     reset: () => initialState,
   },
 });
@@ -80,6 +84,8 @@ export const {
   updateEncryptionTypeAndMasterKey,
   updatePublicKeyAfterCreateWallet,
   updatePublicKey,
+  loginWallet,
+  updateIsActive,
   reset,
 } = walletSlice.actions;
 
