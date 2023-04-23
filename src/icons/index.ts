@@ -7,3 +7,4 @@ export * from './plus';
 export * from './import';
 export * from './home';
 export * from './send';
+export * from './key';
