@@ -2,7 +2,7 @@ import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
 import { useAppDispatch } from '@/store';
-import { updatePublicKey } from '@/store/wallet';
+import { changeAccount } from '@/store/wallet';
 import { WalletAccount } from '@/typings/walletAccount';
 import casperUserUtil from '@/utils/casper/casperUser';
 
@@ -26,7 +26,12 @@ export const useMutateSelectAccount = (options: Options = {}) => {
         throw new Error('public_key_not_found');
       }
 
-      dispatch(updatePublicKey(publicKey));
+      dispatch(
+        changeAccount({
+          publicKey,
+          uid: account.uid,
+        })
+      );
 
       return account;
     },

@@ -108,7 +108,7 @@ const SeedPhrases = ({ ...restProps }: Props) => {
                 <Paper
                   key={`words-${index}`}
                   borderRadius="2xl"
-                  w={{ base: '96px', md: '170px' }}
+                  w={{ base: '96px', md: '160px' }}
                   px={{ base: 2, md: 8 }}
                   py={{ base: 0, md: 8 }}
                   border={{ base: 'none', md: '1px solid' }}

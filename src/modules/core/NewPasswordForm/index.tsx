@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { PathEnum } from '@/enums';
 import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
 import { useI18nToast } from '@/hooks/useI18nToast';
-import { useUpdatePublicKey } from '@/hooks/useUpdatePublicKey';
+import { useUpdateAccount } from '@/hooks/useUpdateAccount';
 import { originUrlSelector } from '@/store/sdk';
 import { encryptionTypeSelector, masterKeySelector } from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
@@ -39,7 +39,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
   const connectToDApp = useConnectToDapp();
   const originUrl = useSelector(originUrlSelector);
 
-  const { updatePublicKeyAfterCreateWallet } = useUpdatePublicKey();
+  const { updateAccount } = useUpdateAccount();
   const {
     handleSubmit,
     register,
@@ -73,13 +73,16 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
     }
 
     try {
-      const { publicKey } = await casperUserUtil.createNewUser({
+      const { publicKey, uid } = await casperUserUtil.createNewUser({
         password: values.newPassword,
         keyphrase: masterKey,
         encryptionType,
       });
 
-      updatePublicKeyAfterCreateWallet(publicKey);
+      updateAccount({
+        publicKey,
+        uid,
+      });
       if (originUrl) {
         connectToDApp(originUrl, publicKey);
       }
@@ -158,7 +161,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             variant="primary"
             isLoading={isSubmitting}
           >
-            {t('register')}
+            {t('confirm')}
           </Button>
         </Flex>
       </form>

@@ -5,6 +5,7 @@ import { StatusEnum } from '@/enums/status';
 
 export interface IWallet {
   status: StatusEnum;
+  uid?: string;
   masterKey?: string;
   publicKey?: string;
   encryptionType?: EncryptionType;
@@ -14,6 +15,7 @@ export const NAME_SPACE = 'wallet';
 
 const initialState: IWallet = {
   publicKey: undefined,
+  uid: undefined,
   status: StatusEnum.INACTIVE,
   masterKey: undefined,
   encryptionType: EncryptionType.Ed25519,
@@ -50,15 +52,6 @@ export const walletSlice = createSlice({
       state.masterKey = masterKey;
       state.encryptionType = encryptionType;
     },
-    updatePublicKeyAfterCreateWallet: (
-      state: IWallet,
-      action: PayloadAction<string>
-    ) => {
-      const { payload: publicKey } = action;
-      state.publicKey = publicKey;
-      state.masterKey = undefined;
-      state.status = StatusEnum.ACTIVE;
-    },
     loginWallet: (
       state: IWallet,
       action: PayloadAction<Required<Pick<IWallet, 'publicKey'>>>
@@ -74,6 +67,18 @@ export const walletSlice = createSlice({
       const { payload: isActive } = action;
       state.status = isActive ? StatusEnum.ACTIVE : StatusEnum.INACTIVE;
     },
+    changeAccount(
+      state: IWallet,
+      action: PayloadAction<Pick<IWallet, 'publicKey' | 'uid'>>
+    ) {
+      const {
+        payload: { publicKey, uid },
+      } = action;
+      state.publicKey = publicKey;
+      state.uid = uid;
+      state.status = StatusEnum.ACTIVE;
+      state.masterKey = undefined;
+    },
     reset: () => initialState,
   },
 });
@@ -82,11 +87,11 @@ export const {
   updateEncryptionType,
   updateMasterKey,
   updateEncryptionTypeAndMasterKey,
-  updatePublicKeyAfterCreateWallet,
   updatePublicKey,
   loginWallet,
   updateIsActive,
   reset,
+  changeAccount,
 } = walletSlice.actions;
 
 export const reducers = {

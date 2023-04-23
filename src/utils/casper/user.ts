@@ -170,7 +170,20 @@ export class UserService {
    * isLoad : no need to store data if loading user
    * @returns
    */
-  prepareStorageData = async (isLoad = false, uid?: string) => {
+  prepareStorageData = async (
+    isLoad = false,
+    uid?: string
+  ): Promise<{
+    publicKey: string;
+    uid: string;
+    userDetails: {
+      selectedWallet: {
+        descriptor: WalletDescriptor;
+        uid: string;
+        encryptionType: EncryptionType;
+      };
+    };
+  }> => {
     /**
      * Ignore removing `await` from Sonarcloud audit.
      * This will return user info with hash info
@@ -207,11 +220,17 @@ export class UserService {
 
     return {
       publicKey,
+      uid: wallet.uid,
       userDetails: {
         selectedWallet,
-        connectionType: this.connectionType,
       },
     };
+  };
+
+  getPrivateKeyPEM = async (uid: string) => {
+    const wallet = await this.getWalletDetails(uid);
+
+    return wallet?.getPrivateKeyInPEM();
   };
 
   addLegacyAccount = async (name: string, secretKey: string) => {

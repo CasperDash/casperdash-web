@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { AccountManagement } from './components/AccountManagement';
 import { CreateAccountForm } from './components/CreateAccountForm';
 import { ImportAccountForm } from './components/ImportAccountForm';
+import { ViewPrivateKey } from './components/ViewPrivateKey';
 import { TypesEnum } from './enum';
 
 type Props = {
@@ -69,6 +70,16 @@ export const ModalAccounts = ({ isOpen, onClose }: Props) => {
                     <Heading variant="xl">{t('import_account')}</Heading>
                   </Flex>
                 ),
+                [TypesEnum.VIEW_PRIVATE_KEY]: (
+                  <Flex alignItems="center">
+                    <ArrowBackIcon
+                      cursor="pointer"
+                      onClick={handleOnBack}
+                      mr="2"
+                    />
+                    <Heading variant="xl">{t('view_private_key')}</Heading>
+                  </Flex>
+                ),
               }[currentType]
             }
           </ModalHeader>
@@ -89,6 +100,7 @@ export const ModalAccounts = ({ isOpen, onClose }: Props) => {
                 [TypesEnum.IMPORT_ACCOUNT]: (
                   <ImportAccountForm onSuccess={handleOnBack} />
                 ),
+                [TypesEnum.VIEW_PRIVATE_KEY]: <ViewPrivateKey />,
               }[currentType]
             }
           </ModalBody>

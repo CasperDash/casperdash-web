@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
-import { useUpdatePublicKey } from './useUpdatePublicKey';
+import { useUpdateAccount } from './useUpdateAccount';
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
 import casperUserUtil from '@/utils/casper/casperUser';
 
@@ -25,7 +25,7 @@ type Props = {
 } & MutateOption;
 
 export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
-  const { updatePublicKey } = useUpdatePublicKey();
+  const { updateAccount } = useUpdateAccount();
   const { mutateAsync, mutate, isLoading, isSuccess } = useMutation<
     LoginWalletResponse,
     unknown,
@@ -44,8 +44,11 @@ export const useLoginWallet = ({ onLocked, ...options }: Props = {}) => {
       if (!result) {
         throw new Error('can_not_validate_your_wallet');
       }
-      const { publicKey } = result;
-      updatePublicKey(publicKey);
+      const { publicKey, uid } = result;
+      updateAccount({
+        publicKey,
+        uid,
+      });
 
       return {
         publicKey,

@@ -1,3 +1,4 @@
+import { ViewIcon } from '@chakra-ui/icons';
 import { Button, Flex, Divider, Box } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
@@ -32,6 +33,8 @@ export const AccountManagement = ({
           leftIcon={<PlusIcon />}
           w="fit-content"
           onClick={() => onChangeType(TypesEnum.CREATE_ACCOUNT)}
+          display="flex"
+          justifyContent={'space-between'}
         >
           {t('create_account')}
         </Button>
@@ -42,6 +45,14 @@ export const AccountManagement = ({
           onClick={() => onChangeType(TypesEnum.IMPORT_ACCOUNT)}
         >
           {t('import_account')}
+        </Button>
+        <Button
+          variant=""
+          leftIcon={<ViewIcon />}
+          w="fit-content"
+          onClick={() => onChangeType(TypesEnum.VIEW_PRIVATE_KEY)}
+        >
+          {t('view_private_key')}
         </Button>
       </Flex>
     </Box>
