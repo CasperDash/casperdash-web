@@ -117,6 +117,22 @@ class CasperUserUtil {
     return wallets;
   };
 
+  addLegacyAccount = async ({
+    privateKey,
+    name,
+  }: {
+    privateKey: string;
+    name: string;
+  }) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    const wallet = await this.userService.addLegacyAccount(name, privateKey);
+
+    return wallet;
+  };
+
   getWalletByIndex = async (index: number) => {
     if (!this.userService) {
       throw new Error('Missing UserService instance');

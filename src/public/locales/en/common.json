@@ -91,5 +91,10 @@
   "create": "Create",
   "import_account": "Import Account",
   "name": "Name",
-  "account_name": "Account Name"
+  "account_name": "Account Name",
+  "private_key": "Private Key",
+  "import": "Import",
+  "min_transfer_amount_required": "Min transfer amount required 2.5 CSPR",
+  "receiving_address_required": "Receiving address is required",
+  "transfer_amount_is_not_enought": "Transfer amount is not enough"
 }

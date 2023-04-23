@@ -86,7 +86,9 @@ export const ModalAccounts = ({ isOpen, onClose }: Props) => {
                 [TypesEnum.CREATE_ACCOUNT]: (
                   <CreateAccountForm onSuccess={handleOnBack} />
                 ),
-                [TypesEnum.IMPORT_ACCOUNT]: <ImportAccountForm />,
+                [TypesEnum.IMPORT_ACCOUNT]: (
+                  <ImportAccountForm onSuccess={handleOnBack} />
+                ),
               }[currentType]
             }
           </ModalBody>

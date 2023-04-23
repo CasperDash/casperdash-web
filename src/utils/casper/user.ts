@@ -8,6 +8,7 @@ import {
   WalletInfo,
   IHDKey,
   IWallet,
+  KeyParser,
 } from 'casper-storage';
 import * as _ from 'lodash-es';
 
@@ -211,6 +212,21 @@ export class UserService {
         connectionType: this.connectionType,
       },
     };
+  };
+
+  addLegacyAccount = async (name: string, secretKey: string) => {
+    const user = this.instance;
+    const keyParser = KeyParser.getInstance();
+    const keyValue = keyParser.convertPEMToPrivateKey(secretKey);
+    const wallet = new CasperLegacyWallet(
+      keyValue.key,
+      keyValue.encryptionType
+    );
+
+    user.addLegacyWallet(wallet, new WalletDescriptor(name));
+    const walletInfo = user.getWalletInfo(wallet.getReferenceKey());
+
+    return walletInfo;
   };
 
   getWallets = async (): Promise<WalletInfo[]> => {
