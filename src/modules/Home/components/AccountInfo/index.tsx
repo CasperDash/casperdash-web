@@ -1,13 +1,29 @@
-import { Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
+import {
+  Box,
+  BoxProps,
+  Flex,
+  Heading,
+  Text,
+  useClipboard,
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import { useAccount } from '@/hooks/useAccount';
+import { useI18nToast } from '@/hooks/useI18nToast';
 
 export type AccountInfoProps = BoxProps;
 
 const AccountInfo = (props: AccountInfoProps) => {
   const { t } = useTranslation();
-  const { publicKey } = useAccount();
+  const { publicKey = '' } = useAccount();
+  const { toastSuccess } = useI18nToast();
+  const { onCopy } = useClipboard(publicKey);
+
+  const handleOnCopy = () => {
+    onCopy();
+    toastSuccess('copy_public_key');
+  };
+
   return (
     <Box
       {...props}
@@ -24,7 +40,11 @@ const AccountInfo = (props: AccountInfoProps) => {
           </Heading>
         </Box>
 
-        {publicKey && <Text noOfLines={3}>{publicKey}</Text>}
+        {publicKey && (
+          <Text noOfLines={3} onClick={handleOnCopy}>
+            {publicKey}
+          </Text>
+        )}
       </Flex>
     </Box>
   );

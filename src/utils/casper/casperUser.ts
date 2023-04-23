@@ -21,32 +21,28 @@ class CasperUserUtil {
   };
 
   validateReturningUser = async ({ password }: { password: string }) => {
-    try {
-      const publicKey = localStorageUtil.get(CacheKeyEnum.PUBLIC_KEY);
-      const loginOptions = localStorageUtil.get(CacheKeyEnum.LOGIN_OPTIONS);
+    const publicKey = localStorageUtil.get(CacheKeyEnum.PUBLIC_KEY);
+    const loginOptions = localStorageUtil.get(CacheKeyEnum.LOGIN_OPTIONS);
 
-      const { userCache, selectedWallet } = await UserService.makeUserFromCache(
-        password,
-        {
-          publicKey,
-          loginOptions,
-        }
-      );
-
-      if (!userCache) {
-        throw Error('Missing User');
+    const { userCache, selectedWallet } = await UserService.makeUserFromCache(
+      password,
+      {
+        publicKey,
+        loginOptions,
       }
-      const user = new UserService(userCache, {
-        selectedWalletUID: selectedWallet.uid,
-      });
-      const result = await user.prepareStorageData(true);
+    );
 
-      this.userService = user;
-      return result;
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
+    if (!userCache) {
+      throw Error('Missing User');
     }
+    const user = new UserService(userCache, {
+      selectedWalletUID: selectedWallet.uid,
+    });
+    const result = await user.prepareStorageData(true);
+
+    this.userService = user;
+
+    return result;
   };
 
   createNewUser = async ({
@@ -244,8 +240,29 @@ class CasperUserUtil {
 
     return this.userService.getPublicKey(uid);
   };
-}
 
+  getPrivateKey = async ({ password }: { password: string }) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    try {
+      const { userDetails } = await this.validateReturningUser({ password });
+      return this.userService.getPrivateKeyPEM(userDetails.selectedWallet.uid);
+    } catch (error) {
+      console.error(error);
+      throw Error('Invalid password');
+    }
+  };
+
+  getPrivateKeyByUID = async ({ uid }: { uid: string }) => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    return this.userService.getPrivateKeyPEM(uid);
+  };
+}
 const casperUserUtil = new CasperUserUtil();
 
 export default casperUserUtil;

@@ -40,3 +40,7 @@ export const isWalletActiveSelector = createSelector(
   selectIsWalletActive,
   (isActive) => isActive
 );
+
+// UID
+const selectUID = (state: AppState) => state[NAME_SPACE].uid;
+export const uidSelector = createSelector(selectUID, (uid?: string) => uid);

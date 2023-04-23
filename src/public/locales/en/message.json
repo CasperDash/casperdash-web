@@ -2,6 +2,7 @@
   "success": {
     "default": "Success!",
     "copy_public_key": "The public key has been successfully copied to your clipboard.",
+    "copy_private_key": "The private key has been successfully copied to your clipboard.",
     "send_asset": "Success! Your {{asset}} tokens have been sent and confirmed. Please wait while we process your transaction.",
     "delete_all_data": "Success! All of your data has been deleted.",
     "account_created": "Your account created successfully",
@@ -15,6 +16,7 @@
     "seed_phrase_is_not_correct": "We're sorry, the seed phrase you entered is not correct. Please double-check your seed phrase and try again.",
     "public_key_does_not_exist": "We're sorry, we were unable to retrieve the public key. Please try again later or re-import your wallet",
     "password_is_not_correct": "The password you entered is not correct.",
-    "private_key_required": "Private key is required"
+    "private_key_required": "Private key is required",
+    "uid_is_empty": "UID is empty"
   }
 }

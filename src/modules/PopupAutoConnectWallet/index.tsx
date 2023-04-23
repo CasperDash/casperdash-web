@@ -5,12 +5,12 @@ import { useLocation } from 'react-router-dom';
 
 import ModalConnectWallet from '../core/ModalConnectWallet';
 import { PathEnum } from '@/enums';
-import { useUpdatePublicKey } from '@/hooks/useUpdatePublicKey';
+import { useUpdateAccount } from '@/hooks/useUpdateAccount';
 import { CacheKeyEnum, localStorageUtil } from '@/utils/localStorage';
 
 const PopupAutoConnectWallet = () => {
   const location = useLocation();
-  const { updatePublicKey } = useUpdatePublicKey();
+  const { updateAccount } = useUpdateAccount();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -28,7 +28,9 @@ const PopupAutoConnectWallet = () => {
     const publicKey = localStorageUtil.get(CacheKeyEnum.PUBLIC_KEY);
 
     if (publicKey) {
-      updatePublicKey(publicKey);
+      updateAccount({
+        publicKey,
+      });
 
       return;
     }

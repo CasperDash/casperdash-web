@@ -90,11 +90,13 @@
   "accounts": "Accounts",
   "create": "Create",
   "import_account": "Import Account",
-  "name": "Name",
   "account_name": "Account Name",
   "private_key": "Private Key",
   "import": "Import",
   "min_transfer_amount_required": "Min transfer amount required 2.5 CSPR",
   "receiving_address_required": "Receiving address is required",
-  "transfer_amount_is_not_enought": "Transfer amount is not enough"
+  "transfer_amount_is_not_enought": "Transfer amount is not enough",
+  "view_private_key": "View Private Key",
+  "this_is_your_private_key": "This is your private key (click to copy)",
+  "warning_private_key_message": "Keep this key confidential at all times. Revealing your private keys can enable anyone to pilfer any assets stored in your account."
 }

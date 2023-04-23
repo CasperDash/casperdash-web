@@ -98,17 +98,21 @@ export function DataTable<Data extends object>({
           ))}
         </Tbody>
       ) : (
-        <Box m="auto" h="200">
-          <Box
-            pos="absolute"
-            top="50%"
-            left="50%"
-            marginRight="-50%"
-            transform="translate(-50%, -50%)"
-          >
-            <Image src={EmptyImg} alt="empty" width="140" height="100" />
-          </Box>
-        </Box>
+        <Tbody>
+          <Tr>
+            <Box m="auto" h="200">
+              <Box
+                pos="absolute"
+                top="50%"
+                left="50%"
+                marginRight="-50%"
+                transform="translate(-50%, -50%)"
+              >
+                <Image src={EmptyImg} alt="empty" width="140" height="100" />
+              </Box>
+            </Box>
+          </Tr>
+        </Tbody>
       )}
     </Table>
   );

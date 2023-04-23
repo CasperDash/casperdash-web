@@ -6,12 +6,13 @@ import MenuButtonModal from './MenuButtonModal';
 import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
 import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums/path';
-import { BellIcon } from '@/icons';
+import { useAccount } from '@/hooks/useAccount';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 
 type HeaderProps = BoxProps;
 const Header = ({ bg }: HeaderProps) => {
   const { t } = useTranslation();
+  const { isConnected } = useAccount();
 
   return (
     <Box bg={bg} w="100%">
@@ -20,7 +21,11 @@ const Header = ({ bg }: HeaderProps) => {
           <Flex alignItems="center">
             <Box>
               <Link to={PathEnum.HOME}>
-                <Image src={CasperDashLogoImg} alt="logo" width={'160px'} />
+                <Image
+                  src={CasperDashLogoImg}
+                  alt="logo"
+                  width={{ base: '120px', md: '160px' }}
+                />
               </Link>
             </Box>
             <Box
@@ -55,15 +60,20 @@ const Header = ({ bg }: HeaderProps) => {
             </Flex>
           </Flex>
           <Flex>
-            <Box mr="8" paddingTop="2">
-              <BellIcon />
-            </Box>
-            <Box display={{ base: 'none', md: 'block' }}>
-              <ButtonConnectWallet />
-            </Box>
-            <Box ml="3">
-              <MenuButtonModal />
-            </Box>
+            {isConnected ? (
+              <>
+                {/* <Box mr="8" paddingTop="2">
+                  <BellIcon />
+                </Box> */}
+                <Box ml="3">
+                  <MenuButtonModal />
+                </Box>
+              </>
+            ) : (
+              <Box>
+                <ButtonConnectWallet />
+              </Box>
+            )}
           </Flex>
         </Flex>
       </MainContainer>
