@@ -4,7 +4,7 @@ import { Config } from '@/config';
 
 const casperDashRequest = axios.create({
   baseURL: Config.casperDashBaseUrl,
-  timeout: 30 * 1000,
+  timeout: 100 * 1000,
 });
 
 casperDashRequest.interceptors.response.use(

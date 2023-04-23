@@ -1,49 +1,64 @@
-import {
-  Button,
-  ButtonProps,
-  useClipboard,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import { ModalAccounts } from '../ModalAccounts';
 import ModalConnectWallet from '../ModalConnectWallet';
+import UnlockWalletPopupRequired from '../UnlockWalletPopupRequired';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import { useI18nToast } from '@/hooks/useI18nToast';
 import { publicKeySelector } from '@/store/wallet';
 
-type Props = ButtonProps;
-
-const ButtonConnectWallet = ({ ...buttonProps }: Props) => {
+export const ConnectWallet = () => {
   const { t } = useTranslation();
-  const publicKey = useSelector(publicKeySelector);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { toastSuccess } = useI18nToast();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { onCopy, setValue } = useClipboard(publicKey || '');
+  return (
+    <>
+      <Button
+        variant="light-outline"
+        onClick={() => onOpen()}
+        display={{ base: 'flex', md: 'none' }}
+      >
+        {t('connect_wallet')}
+      </Button>
+      <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
+    </>
+  );
+};
 
-  const handleOnSwap = () => {
-    setValue(publicKey || '');
-    onCopy();
-    toastSuccess('copy_public_key');
+type AccountManagementProps = {
+  publicKey: string;
+};
+
+const AccountManagement = ({ publicKey }: AccountManagementProps) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const handleOnClick = () => {
+    onOpen();
   };
 
   return (
     <>
+      <Button onClick={handleOnClick}>
+        <MiddleTruncatedText value={publicKey} />
+      </Button>
+      <UnlockWalletPopupRequired>
+        <ModalAccounts isOpen={isOpen} onClose={onClose} />
+      </UnlockWalletPopupRequired>
+    </>
+  );
+};
+
+const ButtonConnectWallet = () => {
+  const publicKey = useSelector(publicKeySelector);
+
+  return (
+    <>
       {publicKey ? (
-        <Button onClick={handleOnSwap} {...buttonProps}>
-          <MiddleTruncatedText value={publicKey} />
-        </Button>
+        <AccountManagement publicKey={publicKey} />
       ) : (
         <>
-          <Button
-            variant="light-outline"
-            onClick={() => onOpen()}
-            {...buttonProps}
-          >
-            {t('connect_wallet')}
-          </Button>
-          <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
+          <ConnectWallet />
         </>
       )}
     </>

@@ -51,7 +51,7 @@ const UnlockWalletPopupRequired = ({ children }: Props) => {
   };
 
   const handleOnError = () => {
-    toastError('error');
+    toastError('password_is_not_correct');
   };
 
   return (

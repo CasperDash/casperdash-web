@@ -18,13 +18,9 @@ import { useNavigate } from 'react-router-dom';
 import { PathEnum } from '@/enums';
 import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
 import { useI18nToast } from '@/hooks/useI18nToast';
-import { useAppDispatch } from '@/store';
+import { useUpdatePublicKey } from '@/hooks/useUpdatePublicKey';
 import { originUrlSelector } from '@/store/sdk';
-import {
-  encryptionTypeSelector,
-  masterKeySelector,
-  updatePublicKeyAfterCreateWallet,
-} from '@/store/wallet';
+import { encryptionTypeSelector, masterKeySelector } from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
 
 type Props = BoxProps;
@@ -43,7 +39,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
   const connectToDApp = useConnectToDapp();
   const originUrl = useSelector(originUrlSelector);
 
-  const dispatch = useAppDispatch();
+  const { updatePublicKeyAfterCreateWallet } = useUpdatePublicKey();
   const {
     handleSubmit,
     register,
@@ -83,7 +79,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
         encryptionType,
       });
 
-      dispatch(updatePublicKeyAfterCreateWallet(publicKey));
+      updatePublicKeyAfterCreateWallet(publicKey);
       if (originUrl) {
         connectToDApp(originUrl, publicKey);
       }
