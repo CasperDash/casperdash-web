@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useI18nToast } from './helpers/useI18nToast';
 import { useDisconnectToDapp } from './postMesasges/useDisconnectToDapp';
-import { useI18nToast } from './useI18nToast';
 import { PathEnum } from '@/enums';
 import { useAppDispatch } from '@/store';
 import { reset } from '@/store/wallet';
