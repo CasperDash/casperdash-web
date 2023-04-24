@@ -10,6 +10,7 @@ import {
   AlertDialogOverlay,
   useDisclosure,
   Button,
+  Text,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
@@ -35,8 +36,9 @@ export const ButtonDeleteAllData = () => {
         variant="ghost"
         borderRadius="xl"
         onClick={onOpen}
+        justifyContent="flex-start"
       >
-        {t('delete_all_data')}
+        <Text ml="1">{t('delete_all_data')}</Text>
       </Button>
 
       <AlertDialog

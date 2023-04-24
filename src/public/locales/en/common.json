@@ -107,5 +107,6 @@
   "symbol": "Symbol",
   "decimals": "Decimals",
   "transaction_histories": "Transaction Histories",
-  "balance": "Balance"
+  "balance": "Balance",
+  "view_recovery_phrase": "View Recovery Phrase"
 }

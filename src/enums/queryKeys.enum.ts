@@ -4,6 +4,7 @@ export enum QueryKeysEnum {
   ACCOUNT_PUBLIC_KEYS = 'account_public_keys',
   ACCOUNTS = 'accounts',
   ACCOUNT = 'account',
+  RECOVERY_PHRASE = 'recovery_phrase',
   MY_TOKENS = 'tokens',
   TOKEN = 'token',
   CURRENT_ACCOUNT = 'current_account',

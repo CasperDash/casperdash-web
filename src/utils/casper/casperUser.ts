@@ -104,6 +104,14 @@ class CasperUserUtil {
     localStorageUtil.removeAll();
   };
 
+  getKeyphrase = async () => {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    return await this.userService.getKeyphrase();
+  };
+
   getWallets = async () => {
     if (!this.userService) {
       throw new Error('Missing UserService instance');
