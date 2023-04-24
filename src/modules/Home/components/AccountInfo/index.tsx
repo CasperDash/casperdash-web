@@ -8,8 +8,8 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useAccount } from '@/hooks/useAccount';
-import { useI18nToast } from '@/hooks/useI18nToast';
 
 export type AccountInfoProps = BoxProps;
 

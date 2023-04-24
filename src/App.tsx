@@ -43,6 +43,7 @@ const App = () => {
                 return [
                   QueryKeysEnum.TRANSACTION_HISTORIES,
                   QueryKeysEnum.CONNECTED_URL,
+                  QueryKeysEnum.MY_TOKENS,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },
@@ -53,7 +54,7 @@ const App = () => {
             <Toaster position="top-center" richColors closeButton />
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           </ChakraProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools initialIsOpen={true} />
         </PersistQueryClientProvider>
       </Provider>
     </>

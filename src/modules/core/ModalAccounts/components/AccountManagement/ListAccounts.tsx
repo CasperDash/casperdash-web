@@ -2,10 +2,10 @@ import { Button, Flex, Spinner, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSelectAccount } from '@/hooks/mutates/useMutateSelectAccount';
 import { useGetAccounts } from '@/hooks/queries/useGetAccounts';
 import { useAccount } from '@/hooks/useAccount';
-import { useI18nToast } from '@/hooks/useI18nToast';
 import { WalletAccount } from '@/typings/walletAccount';
 
 type ListAccountsProps = {

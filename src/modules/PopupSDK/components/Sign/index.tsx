@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { JsonTypes } from 'typedjson';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSignDeploy } from '@/hooks/mutates/useMutateSignDeploy';
 import { useRejectSign } from '@/hooks/postMesasges/useRejectSign';
 import { useGetParsedDeployData } from '@/hooks/queries/useGetParsedDeployData';
-import { useI18nToast } from '@/hooks/useI18nToast';
 import PasswordForm from '@/modules/core/UnlockWalletPopupRequired/components/PasswordForm';
 
 type Props = {

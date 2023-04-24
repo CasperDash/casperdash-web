@@ -3,7 +3,7 @@ import { ReactElement, cloneElement, isValidElement, useEffect } from 'react';
 import { Box, useDisclosure } from '@chakra-ui/react';
 
 import PasswordFormModal from './components/PasswordModal';
-import { useI18nToast } from '@/hooks/useI18nToast';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 
 type Props = {
   children: React.ReactNode;

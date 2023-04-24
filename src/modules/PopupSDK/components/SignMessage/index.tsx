@@ -4,9 +4,9 @@ import { Button, Flex, Text, Textarea } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSignMessage } from '@/hooks/mutates/useMutateSignMessage';
 import { useRejectSignMessage } from '@/hooks/postMesasges/useRejectSignMessage';
-import { useI18nToast } from '@/hooks/useI18nToast';
 import PasswordForm from '@/modules/core/UnlockWalletPopupRequired/components/PasswordForm';
 
 type Props = {

@@ -19,9 +19,9 @@ import { z } from 'zod';
 
 import SelectAssetField from './SelectAssetField';
 import ReviewModal from '../ReviewModal';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSendAsset } from '@/hooks/mutates/useMutateSendAsset';
 import { useAccount } from '@/hooks/useAccount';
-import { useI18nToast } from '@/hooks/useI18nToast';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 
 const transactionSchema = z
