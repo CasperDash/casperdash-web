@@ -3,15 +3,12 @@ import { Button, ButtonProps, useDisclosure } from '@chakra-ui/react';
 import { ModalAccounts } from '../ModalAccounts';
 import UnlockWalletPopupRequired from '../UnlockWalletPopupRequired';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import { useAccount } from '@/hooks/useAccount';
 
-type MyAccountProps = {
-  publicKey?: string;
-} & ButtonProps;
+type MyAccountProps = ButtonProps;
 
-export const MyAccount = ({
-  publicKey = '',
-  ...buttonProps
-}: MyAccountProps) => {
+export const MyAccount = ({ ...buttonProps }: MyAccountProps) => {
+  const { publicKey = '' } = useAccount();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const handleOnClick = () => {

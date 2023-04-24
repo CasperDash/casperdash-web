@@ -10,11 +10,11 @@ import {
 import { useAccount } from '@/hooks/useAccount';
 import { MenuIcon } from '@/icons';
 import { ButtonDeleteAllData } from '@/modules/core/ButtonDeleteAllData';
+import ButtonViewRecoveryPhrase from '@/modules/core/ButtonViewRecoveryPhrase';
 import MyAccount from '@/modules/core/MyAccount';
 
 const MenuButtonModal = () => {
   const { isConnected } = useAccount();
-  const { publicKey } = useAccount();
 
   return (
     <Menu>
@@ -25,9 +25,12 @@ const MenuButtonModal = () => {
         {isConnected && (
           <>
             <MenuItem mt="3" p="0" borderRadius="xl">
-              <MyAccount w="100%" variant="ghost" publicKey={publicKey} />
+              <MyAccount w="100%" variant="ghost" />
             </MenuItem>
             <Divider mt="3" />
+            <MenuItem mt="3" p="0" borderRadius="xl">
+              <ButtonViewRecoveryPhrase />
+            </MenuItem>
             <MenuItem mt="3" p="0" borderRadius="xl">
               <ButtonDeleteAllData />
             </MenuItem>

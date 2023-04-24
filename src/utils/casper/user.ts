@@ -248,6 +248,12 @@ export class UserService {
     return walletInfo;
   };
 
+  getKeyphrase = async () => {
+    const user = this.instance;
+
+    return user.getHDWalletKeyPhrase();
+  };
+
   getWallets = async (): Promise<WalletInfo[]> => {
     const user = this.instance;
 
