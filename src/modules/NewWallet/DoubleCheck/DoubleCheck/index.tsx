@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 import WordsCheckerController from './WordsCheckerController';
 import { PathEnum } from '@/enums';
-import { useI18nToast } from '@/hooks/useI18nToast';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { wordsSelector } from '@/store/wallet';
 import {
   generateSeedPhraseCheckers,

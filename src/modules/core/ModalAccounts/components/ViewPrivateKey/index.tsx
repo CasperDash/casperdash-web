@@ -10,9 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetPrivateKey } from '@/hooks/queries/useGetPrivateKey';
 import { useAccount } from '@/hooks/useAccount';
-import { useI18nToast } from '@/hooks/useI18nToast';
 
 export const ViewPrivateKey = () => {
   const { t } = useTranslation();

@@ -13,9 +13,9 @@ import * as _ from 'lodash-es';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateAddAccount } from '@/hooks/mutates/useMutateAddAccount';
 import { useGetAccounts } from '@/hooks/queries/useGetAccounts';
-import { useI18nToast } from '@/hooks/useI18nToast';
 
 type SubmitValues = {
   name: string;

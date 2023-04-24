@@ -16,8 +16,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { PathEnum } from '@/enums';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
-import { useI18nToast } from '@/hooks/useI18nToast';
 import { useUpdateAccount } from '@/hooks/useUpdateAccount';
 import { originUrlSelector } from '@/store/sdk';
 import { encryptionTypeSelector, masterKeySelector } from '@/store/wallet';

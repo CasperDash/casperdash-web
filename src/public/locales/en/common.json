@@ -98,5 +98,14 @@
   "transfer_amount_is_not_enought": "Transfer amount is not enough",
   "view_private_key": "View Private Key",
   "this_is_your_private_key": "This is your private key (click to copy)",
-  "warning_private_key_message": "Keep this key confidential at all times. Revealing your private keys can enable anyone to pilfer any assets stored in your account."
+  "warning_private_key_message": "Keep this key confidential at all times. Revealing your private keys can enable anyone to pilfer any assets stored in your account.",
+  "my_tokens": "My Tokens",
+  "add_token": "Add Your Token",
+  "add_your_token": "Add Your Token",
+  "token_address": "Token Address",
+  "add": "Add",
+  "symbol": "Symbol",
+  "decimals": "Decimals",
+  "transaction_histories": "Transaction Histories",
+  "balance": "Balance"
 }

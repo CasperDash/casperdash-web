@@ -44,3 +44,16 @@ export const toCSPR = (rawAmount: number) => {
     return 0;
   }
 };
+
+export const formatBalanceFromHex = (
+  amount: string,
+  decimals = '0'
+): number => {
+  const decimalsNumber = Math.max(BigNumber.from(decimals).toNumber(), 1);
+
+  return (
+    BigNumber.from(amount)
+      .div(10 ** decimalsNumber)
+      .toNumber() || 0
+  );
+};
