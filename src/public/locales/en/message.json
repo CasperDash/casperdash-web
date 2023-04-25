@@ -3,6 +3,7 @@
     "default": "Success!",
     "copy_public_key": "The public key has been successfully copied to your clipboard.",
     "copy_private_key": "The private key has been successfully copied to your clipboard.",
+    "copy_recovery_phrases": "The recovery phrases have been successfully copied to your clipboard.",
     "send_asset": "Success! Your {{asset}} tokens have been sent and confirmed. Please wait while we process your transaction.",
     "delete_all_data": "Success! All of your data has been deleted.",
     "account_created": "Your account created successfully",

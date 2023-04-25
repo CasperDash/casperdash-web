@@ -1,7 +1,7 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import RecoveryKeys from './components/RecoveryKeys';
+import RecoveryKeysForm from './components/RecoveryKeysForm';
 
 const NewWallet = () => {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ const NewWallet = () => {
           {t('recovery_phrase_description')}
         </Text>
       </Flex>
-      <RecoveryKeys mt="6" w={{ base: '100%', md: '552px' }} />
+      <RecoveryKeysForm mt="6" w={{ base: '100%', md: '552px' }} />
     </Flex>
   );
 };

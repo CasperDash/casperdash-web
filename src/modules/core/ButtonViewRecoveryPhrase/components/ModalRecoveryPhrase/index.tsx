@@ -1,17 +1,17 @@
 import {
   Modal,
   ModalOverlay,
-  ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
   Heading,
   ModalFooter,
   Divider,
+  ModalContent,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import { useGetMyRecoveryPhrase } from '@/hooks/queries/useGetMyRecoveryPhrase';
+import RecoveryPhrasesContent from './RecoveryPhrasesContent';
 
 type ModalRecoveryPhraseProps = {
   isOpen: boolean;
@@ -20,8 +20,7 @@ type ModalRecoveryPhraseProps = {
 
 const ModalRecoveryPhrase = ({ isOpen, onClose }: ModalRecoveryPhraseProps) => {
   const { t } = useTranslation();
-  const { data: recoveryPhrase } = useGetMyRecoveryPhrase();
-  console.log('recoveryPhrase: ', recoveryPhrase);
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -38,13 +37,16 @@ const ModalRecoveryPhrase = ({ isOpen, onClose }: ModalRecoveryPhraseProps) => {
                 base: 'sm',
                 md: 'xl',
               }}
+              textAlign={'center'}
             >
               {t('recovery_phrase')}
             </Heading>
           </ModalHeader>
           <Divider />
           <ModalCloseButton />
-          <ModalBody></ModalBody>
+          <ModalBody>
+            <RecoveryPhrasesContent />
+          </ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
