@@ -30,7 +30,7 @@ type SubmitValues = {
   masterKey: string;
 };
 
-const RecoveryKeys = ({ ...restProps }: Props) => {
+const RecoveryKeysForm = ({ ...restProps }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -129,4 +129,4 @@ const RecoveryKeys = ({ ...restProps }: Props) => {
   );
 };
 
-export default RecoveryKeys;
+export default RecoveryKeysForm;

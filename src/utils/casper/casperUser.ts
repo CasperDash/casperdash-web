@@ -109,7 +109,7 @@ class CasperUserUtil {
       throw new Error('Missing UserService instance');
     }
 
-    return await this.userService.getKeyphrase();
+    return this.userService.getKeyphrase();
   };
 
   getWallets = async () => {

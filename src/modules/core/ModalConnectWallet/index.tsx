@@ -42,6 +42,7 @@ const ModalConnectWallet = ({ isOpen, onClose }: ModalConnectProps) => {
           m={{
             base: '10',
           }}
+          w={{ base: 'sm', md: 'xl' }}
         >
           <ModalHeader>
             <Heading

@@ -85,7 +85,7 @@ export class UserService {
       throw new Error('Encryption type not found');
     }
     // Set HDWallet info
-    user.setHDWallet(keyphrase, this.encryptionType);
+    await user.setHDWallet(keyphrase, this.encryptionType);
     await user.addWalletAccount(0, new WalletDescriptor('Account 1'));
     const wallets = user.getHDWallet().derivedWallets || [];
     const selectedWallet = wallets[0];
@@ -258,6 +258,7 @@ export class UserService {
     const user = this.instance;
 
     const wallets = user.getHDWallet().derivedWallets || [];
+    console.log('wallets', wallets);
     const legacyWallets = user.getLegacyWallets() || [];
     if (wallets.length === 0 && legacyWallets.length === 0) {
       return [];
@@ -287,7 +288,7 @@ export class UserService {
 
   addWalletAccount = async (index: number, description: WalletDescriptor) => {
     const user = this.instance;
-    user.addWalletAccount(index, description);
+    await user.addWalletAccount(index, description);
     return await this.prepareStorageData();
   };
 

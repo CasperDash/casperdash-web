@@ -108,5 +108,6 @@
   "decimals": "Decimals",
   "transaction_histories": "Transaction Histories",
   "balance": "Balance",
-  "view_recovery_phrase": "View Recovery Phrase"
+  "view_recovery_phrase": "View Recovery Phrase",
+  "copy": "Copy"
 }
