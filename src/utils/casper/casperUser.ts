@@ -112,6 +112,14 @@ class CasperUserUtil {
     return this.userService.getKeyphrase();
   };
 
+  public async getCurrentWalletDetails() {
+    if (!this.userService) {
+      throw new Error('Missing UserService instance');
+    }
+
+    return this.userService.getCurrentWalletDetails();
+  }
+
   getWallets = async () => {
     if (!this.userService) {
       throw new Error('Missing UserService instance');

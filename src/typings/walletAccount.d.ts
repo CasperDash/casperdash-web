@@ -1,7 +1,10 @@
 export type WalletAccount = {
   name: string;
-  balance?: number;
-  accountHash?: string;
-  uid?: string;
+  uid: string;
   publicKey: string;
+};
+
+export type WalletAccountBalance = {
+  publicKey: string;
+  balance: number;
 };

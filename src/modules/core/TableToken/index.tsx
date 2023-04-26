@@ -34,7 +34,7 @@ type TableTokenProps = BoxProps;
 
 const TableToken = ({ ...restProps }: TableTokenProps) => {
   const { data: tokens = [] } = useGetMyTokens();
-  console.log('tokens: ', tokens);
+
   return (
     <Box {...restProps}>
       <Paper py="5" px="8">

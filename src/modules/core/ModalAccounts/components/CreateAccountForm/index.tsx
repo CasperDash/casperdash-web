@@ -39,7 +39,7 @@ export const CreateAccountForm = ({ onSuccess }: CreateAccountFormProps) => {
     },
   });
   const { toastSuccess } = useI18nToast();
-  const { data: accounts } = useGetAccounts();
+  const { data: accounts = [] } = useGetAccounts();
   const { mutate, isLoading } = useMutateAddAccount({
     onSuccess: () => {
       toastSuccess('account_created');

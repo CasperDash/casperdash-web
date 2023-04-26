@@ -114,6 +114,20 @@ export class UserService {
     }
   };
 
+  getCurrentWalletDetails = async (): Promise<WalletInfo | null> => {
+    const fullWalletInfo = await this.getWalletDetails(this.selectedWalletUID);
+
+    if (!fullWalletInfo) {
+      return null;
+    }
+
+    const wallet = this.instance.getWalletInfo(
+      fullWalletInfo.getReferenceKey()
+    );
+
+    return wallet;
+  };
+
   getPublicKey = async (uid?: string): Promise<string | undefined> => {
     try {
       const wallet = await this.getWalletDetails(uid);
@@ -258,7 +272,6 @@ export class UserService {
     const user = this.instance;
 
     const wallets = user.getHDWallet().derivedWallets || [];
-    console.log('wallets', wallets);
     const legacyWallets = user.getLegacyWallets() || [];
     if (wallets.length === 0 && legacyWallets.length === 0) {
       return [];

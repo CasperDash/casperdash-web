@@ -44,6 +44,7 @@ const App = () => {
                   QueryKeysEnum.TRANSACTION_HISTORIES,
                   QueryKeysEnum.CONNECTED_URL,
                   QueryKeysEnum.MY_TOKENS,
+                  QueryKeysEnum.ACCOUNT,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },
