@@ -44,7 +44,7 @@ const columns: ColumnDef<Token, any>[] = [
     cell: () => {
       return (
         <Flex justifyContent={'flex-end'}>
-          <Button w="5xs" variant={'outline'}>
+          <Button w="5xs" variant={'light-outline'}>
             {i18n.t('send')}
           </Button>
         </Flex>
