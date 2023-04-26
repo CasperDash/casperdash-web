@@ -40,6 +40,11 @@ const Button: ComponentStyleConfig = {
       bg: colors.white,
       color: colors.black,
       border: `2px solid ${colors.gray[200]}`,
+
+      _hover: {
+        fontWeight: fontWeights.bold,
+        bg: colors.light,
+      },
     },
 
     'light-outline-icon': {
@@ -54,14 +59,12 @@ const Button: ComponentStyleConfig = {
       justifyContent: 'flex-start',
 
       _active: {
-        bg: hexToRgba(colors.primary, 0.8),
-        color: colors.white,
+        bg: colors.light,
         fontWeight: fontWeights.bold,
       },
 
       _hover: {
-        bg: hexToRgba(colors.primary, 0.8),
-        color: colors.white,
+        bg: colors.light,
         fontWeight: fontWeights.bold,
       },
 
@@ -75,15 +78,19 @@ const Button: ComponentStyleConfig = {
       color: colors.black,
 
       _active: {
-        bg: hexToRgba(colors.primary, 0.8),
-        color: colors.white,
+        bg: colors.light,
         fontWeight: fontWeights.bold,
       },
 
       _hover: {
-        bg: hexToRgba(colors.primary, 0.8),
-        color: colors.white,
+        bg: colors.light,
         fontWeight: fontWeights.bold,
+      },
+    },
+
+    ghost: {
+      _hover: {
+        color: colors.secondary,
       },
     },
 

@@ -4,7 +4,8 @@ const PRIMARY_COLOR = '#FA2852';
 
 export default {
   primary: PRIMARY_COLOR,
-  secondary: '#E1372D',
+  secondary: hexToRgba(PRIMARY_COLOR, 0.4),
+  light: '#fbd2d3',
   black: '#131313',
   white: '#FCFCFD',
 
@@ -246,7 +247,7 @@ export default {
     900: '#003F5E',
   },
 
-  light: {
+  lightAlpha: {
     50: '#58667e',
   },
 };
