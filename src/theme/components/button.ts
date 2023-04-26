@@ -87,6 +87,12 @@ const Button: ComponentStyleConfig = {
       },
     },
 
+    ghost: {
+      _hover: {
+        color: colors.secondary,
+      },
+    },
+
     circle: {
       bg: 'transparent',
       color: colors.black,

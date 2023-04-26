@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@chakra-ui/react';
+import { Box, BoxProps, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 
 import TableTokenHeader from './Header';
@@ -7,26 +7,50 @@ import { DataTable } from '@/components/Table/DataTable';
 import { useGetMyTokens } from '@/hooks/queries/useGetMyTokens';
 import i18n from '@/i18n';
 import { Token } from '@/typings/token';
+import { getBase64IdentIcon } from '@/utils/icon';
 
 const columnHelper = createColumnHelper<Token>();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const columns: ColumnDef<Token, any>[] = [
-  columnHelper.accessor('imageUrl', {
-    cell: (info) => info.getValue(),
-    header: () => '',
-  }),
   columnHelper.accessor('name', {
-    cell: (info) => info.getValue(),
+    cell: ({ cell }) => {
+      const { name, symbol, tokenAddress } = cell.row.original;
+      return (
+        <Flex>
+          <Box w="40px" h="40px" p="3" bg={'#fbd2d3'} borderRadius={'full'}>
+            <Image
+              src={getBase64IdentIcon(tokenAddress)}
+              width="20px"
+              height="20px"
+              ml="1px"
+            />
+          </Box>
+          <Flex ml="3" direction={'column'} justifyContent={'space-around'}>
+            <Text>{name}</Text>
+            <Text color="gray.500">{symbol}</Text>
+          </Flex>
+        </Flex>
+      );
+    },
     header: () => i18n.t('name'),
-  }),
-  columnHelper.accessor('symbol', {
-    cell: (info) => info.getValue(),
-    header: () => i18n.t('symbol'),
   }),
   columnHelper.accessor('balance', {
     cell: (info) => info.getValue(),
     header: () => i18n.t('balance'),
+  }),
+  columnHelper.accessor((row) => row, {
+    id: 'action',
+    cell: () => {
+      return (
+        <Flex justifyContent={'flex-end'}>
+          <Button w="5xs" variant={'outline'}>
+            {i18n.t('send')}
+          </Button>
+        </Flex>
+      );
+    },
+    header: () => '',
   }),
 ];
 
