@@ -26,7 +26,7 @@ const ButtonConnectWallet = () => {
   return (
     <>
       {publicKey ? (
-        <MyAccount publicKey={publicKey} />
+        <MyAccount />
       ) : (
         <>
           <ConnectWallet />
