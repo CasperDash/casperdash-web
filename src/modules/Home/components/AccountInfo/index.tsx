@@ -6,18 +6,16 @@ import {
   Text,
   useClipboard,
 } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
 
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
-import { useAccount } from '@/hooks/useAccount';
+import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 
 export type AccountInfoProps = BoxProps;
 
 const AccountInfo = (props: AccountInfoProps) => {
-  const { t } = useTranslation();
-  const { publicKey = '' } = useAccount();
+  const { data: { publicKey, name } = {} } = useGetCurrentAccount();
   const { toastSuccess } = useI18nToast();
-  const { onCopy } = useClipboard(publicKey);
+  const { onCopy } = useClipboard(publicKey || '');
 
   const handleOnCopy = () => {
     onCopy();
@@ -35,8 +33,8 @@ const AccountInfo = (props: AccountInfoProps) => {
     >
       <Flex alignItems="center" justifyContent="space-between" gap="4">
         <Box flex={'1 0 100px'}>
-          <Heading as="h3" size={{ base: 'sm', md: 'xl' }}>
-            {t('account_info')}
+          <Heading as="h4" size={{ base: 'sm', md: 'xl' }}>
+            {name}
           </Heading>
         </Box>
 

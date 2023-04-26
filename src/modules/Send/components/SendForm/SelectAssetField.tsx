@@ -4,8 +4,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import SelectIcon, { Option } from '@/components/Select/SelectIcon';
 import { useGetAssetOptions } from '@/hooks/queries/useGetAssetOptions';
-import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
-import { WalletAccount } from '@/typings/walletAccount';
+import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
+import { WalletAccountBalance } from '@/typings/walletAccount';
 
 const SelectAssetField = () => {
   const { data: options } = useGetAssetOptions();
@@ -24,22 +24,20 @@ const SelectAssetField = () => {
           options={options || []}
           components={{
             SingleValue: ({ children, ...props }: SingleValueProps<Option>) => {
-              const { data: account, isLoading } = useGetCurrentAccount({
-                onSuccess: (data: WalletAccount) => {
-                  setValue('maxAssetAmount', data?.balance);
-                },
-              });
+              const { data: { balance } = { balance: 0 }, isLoading } =
+                useGetCurrentBalance({
+                  onSuccess: (data: WalletAccountBalance) => {
+                    setValue('maxAssetAmount', data.balance);
+                  },
+                });
+
               return (
                 <chakraComponents.SingleValue {...props}>
                   <Flex alignItems="center">
                     <Box mr="2">{props.data.icon}</Box>
                     {children}
                     <Flex justifyContent="right" w="100%">
-                      {isLoading ? (
-                        <Spinner size="sm" />
-                      ) : (
-                        <Box>{account?.balance}</Box>
-                      )}
+                      {isLoading ? <Spinner size="sm" /> : <Box>{balance}</Box>}
                     </Flex>
                   </Flex>
                 </chakraComponents.SingleValue>

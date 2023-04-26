@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import Paper from '../../Paper';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
+import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 
 export type TotalBalanceProps = {
@@ -20,7 +21,13 @@ const TotalBalance = ({
   ...restProps
 }: TotalBalanceProps) => {
   const { t } = useTranslation();
-  const { data } = useGetCurrentAccount();
+  const { data } = useGetCurrentAccount({
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+  const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
+
   const { data: { price } = { price: 0 } } = useGetCSPRMarketInfo();
 
   return (
@@ -41,7 +48,7 @@ const TotalBalance = ({
             <Heading variant="2xl">
               {t('intlAssetNumber', {
                 asset: 'CSPR',
-                val: data?.balance || 0,
+                val: balance,
               })}
             </Heading>
           </Box>

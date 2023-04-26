@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import ModalConnectWallet from '../core/ModalConnectWallet';
 import { PathEnum } from '@/enums';
 import { useUpdateAccount } from '@/hooks/useUpdateAccount';
-import { CacheKeyEnum, localStorageUtil } from '@/utils/localStorage';
+import casperUserUtil from '@/utils/casper/casperUser';
 
 const PopupAutoConnectWallet = () => {
   const location = useLocation();
@@ -25,11 +25,13 @@ const PopupAutoConnectWallet = () => {
     ) {
       return;
     }
-    const publicKey = localStorageUtil.get(CacheKeyEnum.PUBLIC_KEY);
+    const publicKey = casperUserUtil.getCachedPublicKey();
+    const loginOptions = casperUserUtil.getCachedLoginOptions();
 
     if (publicKey) {
       updateAccount({
         publicKey,
+        uid: loginOptions?.selectedWallet.uid,
       });
 
       return;

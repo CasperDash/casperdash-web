@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSelectAccount } from '@/hooks/mutates/useMutateSelectAccount';
+import { useGetAccountBalances } from '@/hooks/queries/useGetAccountBalances';
 import { useGetAccounts } from '@/hooks/queries/useGetAccounts';
 import { useAccount } from '@/hooks/useAccount';
-import { WalletAccount } from '@/typings/walletAccount';
+import { WalletAccount, WalletAccountBalance } from '@/typings/walletAccount';
 
 type ListAccountsProps = {
   onSelectedAccount?: (account: WalletAccount) => void;
@@ -15,7 +16,10 @@ type ListAccountsProps = {
 export const ListAccounts = ({ onSelectedAccount }: ListAccountsProps) => {
   const { t } = useTranslation();
   const { toastSuccess } = useI18nToast();
-  const { data: accounts, isLoading } = useGetAccounts();
+  const { data: accounts = [], isLoading } = useGetAccounts();
+  const { data: accountBalances = [] } = useGetAccountBalances({
+    publicKeys: accounts?.map((account) => account.publicKey) || [],
+  });
   const { mutate } = useMutateSelectAccount({
     onSuccess: (selectedAccount) => {
       onSelectedAccount?.(selectedAccount);
@@ -40,43 +44,49 @@ export const ListAccounts = ({ onSelectedAccount }: ListAccountsProps) => {
         <Spinner />
       ) : (
         <>
-          {accounts?.map((account) => (
-            <Button
-              borderRadius="lg"
-              border="1px solid"
-              borderColor="gray.300"
-              backgroundColor={
-                activePublicKey === account.publicKey ? 'blue.50' : 'white'
-              }
-              key={account.publicKey}
-              variant="ghost"
-              p="9"
-              _hover={{ bg: 'blue.50' }}
-              w="90%"
-              onClick={() => handleOnSelectAccount(account)}
-            >
-              <Flex
-                w="100%"
-                justifyContent="space-between"
+          {accounts?.map((account) => {
+            const foundAccountBalance = accountBalances?.find(
+              (accountBalance: WalletAccountBalance) =>
+                accountBalance.publicKey === account.publicKey
+            );
+            return (
+              <Button
+                borderRadius="lg"
+                border="1px solid"
+                borderColor="gray.300"
+                backgroundColor={
+                  activePublicKey === account.publicKey ? 'blue.50' : 'white'
+                }
                 key={account.publicKey}
-                borderRadius="md"
-                alignItems="center"
+                variant="ghost"
+                p="9"
+                _hover={{ bg: 'blue.50' }}
+                w="90%"
+                onClick={() => handleOnSelectAccount(account)}
               >
-                <Flex direction="column" alignItems="start">
-                  <Text>{account.name}</Text>
-                  <Text mt="1" fontSize="sm" color="gray.700">
-                    {t('intlAssetNumber', {
-                      asset: 'CSPR',
-                      val: account?.balance || 0,
-                    })}
+                <Flex
+                  w="100%"
+                  justifyContent="space-between"
+                  key={account.publicKey}
+                  borderRadius="md"
+                  alignItems="center"
+                >
+                  <Flex direction="column" alignItems="start">
+                    <Text>{account.name}</Text>
+                    <Text mt="1" fontSize="sm" color="gray.700">
+                      {t('intlAssetNumber', {
+                        asset: 'CSPR',
+                        val: foundAccountBalance?.balance || 0,
+                      })}
+                    </Text>
+                  </Flex>
+                  <Text>
+                    <MiddleTruncatedText value={account.publicKey} />
                   </Text>
                 </Flex>
-                <Text>
-                  <MiddleTruncatedText value={account.publicKey} />
-                </Text>
-              </Flex>
-            </Button>
-          ))}
+              </Button>
+            );
+          })}
         </>
       )}
     </Flex>

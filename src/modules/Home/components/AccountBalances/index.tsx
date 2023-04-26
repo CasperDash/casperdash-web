@@ -3,24 +3,21 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import AccountTotalBalances from './AccountTotalBalances';
-import TextLight from '@/components/Typography/TextLight';
 import { PathEnum } from '@/enums';
-import { useAccount } from '@/hooks/useAccount';
+import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
 
 export type AccountBalancesProps = BoxProps;
 
 const AccountBalances = (props: AccountBalancesProps) => {
   const { t } = useTranslation();
-  const { publicKey } = useAccount();
+  const { data: { publicKey } = {} } = useGetCurrentAccount();
   const isDisabled = !publicKey;
 
   return (
     <Box {...props}>
       <Flex mb="2" alignItems="center" justifyContent="space-between">
-        <Box ml="8">
-          <TextLight>{t('account_balances')}</TextLight>
-        </Box>
+        <Box ml="8"></Box>
         <Flex
           gap="2"
           display={{

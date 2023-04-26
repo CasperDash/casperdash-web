@@ -1,11 +1,10 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { WalletInfo } from 'casper-storage';
 import * as _ from 'lodash-es';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { getAccounts } from '@/services/casperdash/user';
 import { WalletAccount } from '@/typings/walletAccount';
 import casperUserUtil from '@/utils/casper/casperUser';
-import { normalizeAccount } from '@/utils/normalizer';
 
 export const useGetAccounts = (
   options?: Omit<
@@ -22,25 +21,12 @@ export const useGetAccounts = (
     [QueryKeysEnum.ACCOUNTS],
     async () => {
       const wallets = await casperUserUtil.getWallets();
-      const publicKeys = wallets
-        .map((wallet) => _.get(wallet, 'publicKey', ''))
-        .filter((publicKey) => !!publicKey);
 
-      const accounts = await getAccounts({
-        publicKeys,
-      });
-      if (!accounts || accounts.length === 0) {
-        return [];
-      }
-
-      return accounts.map((account) => {
-        const foundWallet = wallets.find(
-          (wallet) => _.get(wallet, 'publicKey') === account.publicKey
-        );
+      return wallets.map((wallet: WalletInfo) => {
         return {
-          ...normalizeAccount(account),
-          name: _.get(foundWallet, 'descriptor.name', ''),
-          uid: foundWallet?.uid,
+          name: _.get(wallet, 'descriptor.name', ''),
+          uid: wallet?.uid,
+          publicKey: _.get(wallet, 'publicKey', ''),
         };
       });
     },

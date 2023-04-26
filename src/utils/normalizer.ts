@@ -4,14 +4,19 @@ import * as _ from 'lodash-es';
 import { toCSPR } from './currency';
 import { Account } from '@/services/casperdash/user';
 import { SignDeployParams, SignMessageParams } from '@/typings/signingParams';
-import { WalletAccount } from '@/typings/walletAccount';
+import { WalletAccountBalance } from '@/typings/walletAccount';
 
-export const normalizeAccount = (account: Account): Partial<WalletAccount> => {
+export const normalizeBalance = (account: Account): number => {
   const balance = _.get(account, 'balance');
+  return balance.hex ? toCSPR(BigNumber.from(balance.hex).toNumber()) : 0;
+};
+
+export const normalizeAccountBalance = (
+  account: Account
+): WalletAccountBalance => {
   return {
-    publicKey: _.get(account, 'publicKey'),
-    accountHash: _.get(account, '_accountHash'),
-    balance: balance.hex ? toCSPR(BigNumber.from(balance.hex).toNumber()) : 0,
+    publicKey: _.get(account, 'publicKey', ''),
+    balance: normalizeBalance(account),
   };
 };
 

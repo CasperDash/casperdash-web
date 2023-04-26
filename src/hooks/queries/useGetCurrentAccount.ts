@@ -16,10 +16,12 @@ export const useGetCurrentAccount = (
     'queryKey' | 'queryFn'
   >
 ) => {
-  const { publicKey } = useAccount();
+  const { publicKey, uid } = useAccount();
+
   return useGetAccount(
     {
       publicKey,
+      uid,
     },
     options
   );
