@@ -3,7 +3,6 @@ import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import Paper from '@/components/Paper';
 import { DataTable } from '@/components/Table/DataTable';
 import { useGetTransactionHistories } from '@/hooks/queries/useGetTransactionHistories';
 import i18n from '@/i18n';
@@ -59,10 +58,8 @@ const TableTransaction = ({ ...restProps }: TableTransactionProps) => {
   const { data = [] } = useGetTransactionHistories();
 
   return (
-    <Box {...restProps}>
-      <Paper py="5" px="8" overflowX={'auto'}>
-        <DataTable columns={columns} data={data} />
-      </Paper>
+    <Box {...restProps} overflowX={'auto'}>
+      <DataTable columns={columns} data={data} />
     </Box>
   );
 };

@@ -2,9 +2,9 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
 import { useAccount } from '@/hooks/useAccount';
-import { useI18nToast } from '@/hooks/useI18nToast';
 
 type Props = {
   onSuccess?: () => void;
