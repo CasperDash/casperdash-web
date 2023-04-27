@@ -30,6 +30,8 @@ const ReviewModalContent = ({
     onSubmit?.(values);
   };
 
+  // TODO: Display price of tokens in USD.
+
   return (
     <ModalContent borderRadius="2xl" w={{ base: '3xl', md: 'xl' }}>
       <ModalHeader>
@@ -60,18 +62,22 @@ const ReviewModalContent = ({
                 minimumFractionDigits: 3,
               })}
             </Text>
-            <Text color="gray.500">
-              {t('intlNumber', {
-                val: price * _.get(values, 'transferAmount', 0),
-                minimumFractionDigits: 3,
-              })}
-            </Text>
+            {values.asset === 'CSPR' && (
+              <Text color="gray.500">
+                {t('intlNumber', {
+                  val: price * _.get(values, 'transferAmount', 0),
+                  minimumFractionDigits: 3,
+                })}
+              </Text>
+            )}
           </Box>
         </Flex>
         <Flex direction="column" alignItems="center" mt="8">
           <Text fontWeight="medium">{t('receiving_address')}</Text>
           <Text textAlign="center" mt="3">
-            {t('receiving_address_note')}
+            {t('receiving_address_note', {
+              asset: values.asset?.toUpperCase(),
+            })}
           </Text>
         </Flex>
         <Flex

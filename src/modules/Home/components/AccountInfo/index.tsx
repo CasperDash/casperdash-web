@@ -8,6 +8,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 import { ModalAccounts } from '@/modules/core/ModalAccounts';
@@ -67,7 +68,12 @@ const AccountInfo = (props: AccountInfoProps) => {
           <AccountName />
         </Box>
         <Flex alignItems={'center'}>
-          <Text noOfLines={3}>{publicKey}</Text>
+          <Text noOfLines={4} display={{ base: 'none', md: 'block' }}>
+            {publicKey}
+          </Text>
+          <Box display={{ base: 'block', md: 'none' }}>
+            <MiddleTruncatedText value={publicKey || ''}></MiddleTruncatedText>
+          </Box>
           <CopyIcon ml="4" onClick={handleOnCopy} cursor="pointer" />
         </Flex>
       </Flex>

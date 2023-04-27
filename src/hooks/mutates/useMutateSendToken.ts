@@ -5,23 +5,25 @@ import {
 } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
+import { Config } from '@/config';
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
-import { buildTransferDeploy } from '@/utils/casper/builder';
+import { buildTransferTokenDeploy } from '@/utils/casper/builder';
 import casperUserUtil from '@/utils/casper/casperUser';
 
 type DeployParams = {
   fromPublicKeyHex: string;
   toPublicKeyHex: string;
   amount: number;
-  transferId: number;
+  contractHash: string;
   fee: number;
+  asset?: string;
 };
 
-export const useMutateSendAsset = (
+export const useMutateSendToken = (
   options?: UseMutationOptions<DeployResponse, unknown, DeployParams, unknown>
 ) => {
   const queryClient = useQueryClient();
@@ -30,35 +32,41 @@ export const useMutateSendAsset = (
     mutationFn: async ({
       fromPublicKeyHex,
       toPublicKeyHex,
+      contractHash,
       amount,
-      transferId,
       fee,
+      asset,
     }: DeployParams) => {
-      const buildedDeploy = buildTransferDeploy({
+      const buildedDeploy = buildTransferTokenDeploy({
         fromPublicKeyHex,
         toPublicKeyHex,
         amount,
-        transferId,
         fee,
+        contractHash,
+        network: Config.networkName,
       });
 
       const signedDeploy = await casperUserUtil.signWithPrivateKey(
         buildedDeploy
       );
 
-      return deploy(signedDeploy);
-    },
-    mutationKey: [MutationKeysEnum.SEND_ASSET],
-    onSuccess: (data, variables: DeployParams) => {
+      const result = await deploy(signedDeploy);
+
       queryClient.setQueryData(
-        [QueryKeysEnum.TRANSACTION_HISTORIES, variables.fromPublicKeyHex],
+        [QueryKeysEnum.TRANSACTION_HISTORIES, fromPublicKeyHex],
         (oldTransactionHistories?: TransactionHistory[]) => {
           const newTransactionHistory = {
-            ...variables,
-            deployHash: data.deployHash,
+            fromPublicKeyHex,
+            toPublicKeyHex,
+            contractHash,
+            amount,
+            fee,
+            deployHash: result.deployHash,
             status: TransactionStatusEnum.PENDING,
             date: dayjs().toISOString(),
+            asset,
           };
+
           if (!oldTransactionHistories) {
             return [newTransactionHistory];
           }
@@ -66,6 +74,9 @@ export const useMutateSendAsset = (
           return [newTransactionHistory, ...oldTransactionHistories];
         }
       );
+
+      return result;
     },
+    mutationKey: [MutationKeysEnum.SEND_ASSET],
   });
 };
