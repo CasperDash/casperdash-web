@@ -62,7 +62,10 @@ const ReviewModalContent = ({
             </Text>
             <Text color="gray.500">
               {t('intlNumber', {
-                val: price * _.get(values, 'transferAmount', 0),
+                val:
+                  values.asset === 'CSPR'
+                    ? price * _.get(values, 'transferAmount', 0)
+                    : 0,
                 minimumFractionDigits: 3,
               })}
             </Text>
@@ -71,7 +74,9 @@ const ReviewModalContent = ({
         <Flex direction="column" alignItems="center" mt="8">
           <Text fontWeight="medium">{t('receiving_address')}</Text>
           <Text textAlign="center" mt="3">
-            {t('receiving_address_note')}
+            {t('receiving_address_note', {
+              asset: values.asset?.toUpperCase(),
+            })}
           </Text>
         </Flex>
         <Flex

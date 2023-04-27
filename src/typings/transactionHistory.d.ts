@@ -2,9 +2,12 @@ type TransactionHistory = {
   fromPublicKeyHex: string;
   toPublicKeyHex: string;
   amount: number;
-  transferId: number;
+  transferId?: number;
   fee: number;
   deployHash: string;
   status: string;
   date: string;
+  contractHash?: string;
+  isCSPR?: boolean;
+  asset?: string;
 };
