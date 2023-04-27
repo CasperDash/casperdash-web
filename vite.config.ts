@@ -2,8 +2,9 @@
 /// <reference types="vite/client" />
 
 import react from '@vitejs/plugin-react-swc';
-import { defineConfig, Plugin } from 'vite';
+import { defineConfig, loadEnv, Plugin } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -20,23 +21,31 @@ export const removeShebangPlugin = (): Plugin => {
   };
 };
 
-export default defineConfig({
-  server: {
-    port: 3003,
-  },
-  plugins: [
-    removeShebangPlugin(),
-    react(),
-    svgr(),
-    nodePolyfills({
-      // Whether to polyfill `node:` protocol imports.
-      protocolImports: true,
-    }),
-    tsconfigPaths(),
-  ],
-  define: {
-    // By default, Vite doesn't include shims for NodeJS/
-    // necessary for segment analytics lib to work
-    // global: {},
-  },
-});
+export default ({ mode }: { mode: string }) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
+  return defineConfig({
+    base: process.env.VITE_CDN || '',
+    server: {
+      port: 3003,
+    },
+    plugins: [
+      removeShebangPlugin(),
+      react(),
+      svgr(),
+      nodePolyfills({
+        // Whether to polyfill `node:` protocol imports.
+        protocolImports: true,
+      }),
+      tsconfigPaths(),
+      VitePWA({
+        base: '/',
+      }),
+    ],
+    define: {
+      // By default, Vite doesn't include shims for NodeJS/
+      // necessary for segment analytics lib to work
+      // global: {},
+    },
+  });
+};
