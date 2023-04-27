@@ -1,9 +1,11 @@
 import { Box, BoxProps, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
+import { Link } from 'react-router-dom';
 
 import TableTokenHeader from './Header';
 import Paper from '@/components/Paper';
 import { DataTable } from '@/components/Table/DataTable';
+import { PathEnum } from '@/enums';
 import { useGetMyTokens } from '@/hooks/queries/useGetMyTokens';
 import i18n from '@/i18n';
 import { Token } from '@/typings/token';
@@ -41,12 +43,21 @@ const columns: ColumnDef<Token, any>[] = [
   }),
   columnHelper.accessor((row) => row, {
     id: 'action',
-    cell: () => {
+    cell: ({ cell }) => {
+      const { tokenAddress } = cell.row.original;
+
       return (
         <Flex justifyContent={'flex-end'}>
-          <Button w="5xs" variant={'light-outline'}>
-            {i18n.t('send')}
-          </Button>
+          <Link
+            to={{
+              pathname: PathEnum.SEND,
+              search: `?tokenAddress=${tokenAddress}`,
+            }}
+          >
+            <Button w={{ base: 'auto', md: '5xs' }} variant={'light-outline'}>
+              {i18n.t('send')}
+            </Button>
+          </Link>
         </Flex>
       );
     },
@@ -63,7 +74,7 @@ const TableToken = ({ ...restProps }: TableTokenProps) => {
     <Box {...restProps}>
       <Paper py="5" px="8">
         <TableTokenHeader />
-        <Box mt="4" overflowX={'auto'}>
+        <Box mt="4">
           <DataTable columns={columns} data={tokens} />
         </Box>
       </Paper>

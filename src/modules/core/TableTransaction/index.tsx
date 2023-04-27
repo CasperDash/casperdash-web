@@ -38,12 +38,15 @@ const columns: ColumnDef<TransactionHistory, any>[] = [
     header: 'Status',
   }),
   columnHelper.accessor('amount', {
-    cell: (info) =>
-      i18n.t('intlAssetNumber', {
+    cell: (info) => {
+      const { cell } = info;
+
+      return i18n.t('intlAssetNumber', {
         val: info.getValue(),
-        asset: 'CSPR',
+        asset: cell.row.original.asset,
         number: 3,
-      }),
+      });
+    },
     header: () => i18n.t('amount'),
   }),
   columnHelper.accessor('date', {
@@ -59,7 +62,11 @@ const TableTransaction = ({ ...restProps }: TableTransactionProps) => {
 
   return (
     <Box {...restProps} overflowX={'auto'}>
-      <DataTable columns={columns} data={data} />
+      <DataTable
+        columns={columns}
+        data={data}
+        w={{ base: '800px', md: '100%' }}
+      />
     </Box>
   );
 };

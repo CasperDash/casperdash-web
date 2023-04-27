@@ -12,6 +12,7 @@ import {
   chakra,
   Image,
   Box,
+  TableProps,
 } from '@chakra-ui/react';
 import {
   useReactTable,
@@ -27,11 +28,12 @@ import EmptyImg from '@/assets/img/empty.png';
 export type DataTableProps<Data extends object> = {
   data: Data[];
   columns: ColumnDef<Data, unknown>[];
-};
+} & TableProps;
 
 export function DataTable<Data extends object>({
   data,
   columns,
+  ...restProps
 }: DataTableProps<Data>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const table = useReactTable({
@@ -48,7 +50,7 @@ export function DataTable<Data extends object>({
   const rows = table.getRowModel().rows;
 
   return (
-    <Table pos="relative" w={{ base: '800px', md: '100%' }}>
+    <Table pos="relative" {...restProps}>
       <Thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
