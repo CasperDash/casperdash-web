@@ -11,6 +11,7 @@ import {
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
+import { useAccount } from '@/hooks/useAccount';
 import { ModalAccounts } from '@/modules/core/ModalAccounts';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 
@@ -41,7 +42,7 @@ const AccountName = () => {
 };
 
 const AccountInfo = (props: AccountInfoProps) => {
-  const { data: { publicKey } = {} } = useGetCurrentAccount();
+  const { publicKey } = useAccount();
   const { toastSuccess } = useI18nToast();
   const { onCopy } = useClipboard(publicKey || '');
 
