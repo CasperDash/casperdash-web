@@ -45,6 +45,7 @@ const App = () => {
                   QueryKeysEnum.CONNECTED_URL,
                   QueryKeysEnum.MY_TOKENS,
                   QueryKeysEnum.ACCOUNT,
+                  QueryKeysEnum.ACCOUNT_BALANCES,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },

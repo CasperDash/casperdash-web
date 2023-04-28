@@ -9,7 +9,6 @@ import { useAccount } from '../useAccount';
 import CSPRCoin from '@/assets/img/coins/cspr.png';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { Token } from '@/typings/token';
-import { getBase64IdentIcon } from '@/utils/icon';
 
 export type AssetOption = {
   label: string;
@@ -51,9 +50,7 @@ export const useGetAssetOptions = (
           ...tokens.map((token) => ({
             label: token.name,
             value: token.symbol,
-            icon: (
-              <Image src={getBase64IdentIcon(token.tokenAddress)} w="4" h="4" />
-            ),
+            icon: <Image src={token.icon} w="4" h="4" />,
             amount: token.balance,
             tokenAddress: token.tokenAddress,
             isToken: true,
@@ -65,6 +62,7 @@ export const useGetAssetOptions = (
     },
     {
       ...options,
+      networkMode: 'offlineFirst',
     }
   );
 };

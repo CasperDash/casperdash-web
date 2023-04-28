@@ -10,6 +10,7 @@ import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { getTokensInfo } from '@/services/casperdash/token';
 import { Token } from '@/typings/token';
 import { formatBalanceFromHex } from '@/utils/currency';
+import { getBase64IdentIcon } from '@/utils/icon';
 
 export const useGetMyTokens = (
   options?: Omit<
@@ -59,6 +60,7 @@ export const useGetMyTokens = (
             _.get(tokenInfo, 'total_supply.hex', '0'),
             _.get(tokenInfo, 'decimals.hex', '0')
           ),
+          icon: getBase64IdentIcon(token.tokenAddress),
         };
       });
     },
