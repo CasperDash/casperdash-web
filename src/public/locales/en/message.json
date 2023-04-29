@@ -9,7 +9,8 @@
     "account_created": "Your account created successfully",
     "account_selected": "You have successfully selected {{ name }}",
     "account_imported": "You have successfully imported",
-    "token_added": "You have successfully added {{ name }} token"
+    "token_added": "You have successfully added {{ name }} token",
+    "your_wallet_locked": "Your wallet locked successfully"
   },
   "error": {
     "please_try_other_password": "We're sorry, the password you entered is incorrect. Please try again with a different password",

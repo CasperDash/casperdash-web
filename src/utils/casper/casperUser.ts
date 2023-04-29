@@ -278,6 +278,10 @@ class CasperUserUtil {
 
     return this.userService.getPrivateKeyPEM(uid);
   };
+
+  lockWallet = async () => {
+    this.userService = undefined;
+  };
 }
 const casperUserUtil = new CasperUserUtil();
 
