@@ -21,7 +21,7 @@ const MenuItemWrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 const MenuButtonModal = () => {
-  const { isConnected } = useAccount();
+  const { isConnected, isLocked } = useAccount();
 
   return (
     <Menu>
@@ -35,12 +35,16 @@ const MenuButtonModal = () => {
               <MyAccount w="100%" variant="ghost" />
             </MenuItemWrapper>
             <Divider mt="3" />
-            <MenuItemWrapper>
-              <ButtonViewRecoveryPhrase />
-            </MenuItemWrapper>
-            <MenuItemWrapper>
-              <ButtonLockWallet />
-            </MenuItemWrapper>
+            {!isLocked && (
+              <>
+                <MenuItemWrapper>
+                  <ButtonViewRecoveryPhrase />
+                </MenuItemWrapper>
+                <MenuItemWrapper>
+                  <ButtonLockWallet />
+                </MenuItemWrapper>
+              </>
+            )}
             <MenuItemWrapper>
               <ButtonDeleteAllData />
             </MenuItemWrapper>

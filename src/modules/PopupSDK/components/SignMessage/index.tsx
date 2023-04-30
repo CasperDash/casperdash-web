@@ -7,7 +7,7 @@ import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSignMessage } from '@/hooks/mutates/useMutateSignMessage';
 import { useRejectSignMessage } from '@/hooks/postMesasges/useRejectSignMessage';
-import PasswordForm from '@/modules/core/UnlockWalletPopupRequired/components/PasswordForm';
+import PasswordForm from '@/modules/core/PasswordForm';
 
 type Props = {
   params: {

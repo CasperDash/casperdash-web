@@ -13,11 +13,14 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
+import { PathEnum } from '@/enums';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateLockWallet } from '@/hooks/mutates/useMutateLockWallet';
 
 const ButtonLockWallet = () => {
+  const navigate = useNavigate();
   const { toastSuccess } = useI18nToast();
   const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,6 +29,7 @@ const ButtonLockWallet = () => {
     onSuccess: () => {
       onClose();
       toastSuccess('your_wallet_locked');
+      navigate(PathEnum.HOME);
     },
   });
 

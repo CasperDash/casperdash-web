@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import PasswordForm from '../PasswordForm';
+import PasswordForm from '@/modules/core/PasswordForm';
 
 type ModalConnectProps = {
   isOpen: boolean;
