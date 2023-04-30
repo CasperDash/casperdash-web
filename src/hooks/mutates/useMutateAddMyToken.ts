@@ -20,6 +20,13 @@ export const useMutateAddMyToken = (
       queryClient.setQueryData(
         [QueryKeysEnum.MY_TOKENS, publicKey],
         (oldTokens: Token[] = []) => {
+          const foundOldToken = oldTokens.find(
+            (token) => token.tokenAddress === variables.tokenAddress
+          );
+          if (foundOldToken) {
+            return oldTokens;
+          }
+
           const newToken = {
             ...variables,
           };
@@ -27,7 +34,6 @@ export const useMutateAddMyToken = (
           return [newToken, ...oldTokens];
         }
       );
-      await queryClient.invalidateQueries([QueryKeysEnum.MY_TOKENS]);
 
       return variables;
     },

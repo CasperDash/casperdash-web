@@ -29,6 +29,7 @@ import { z } from 'zod';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateAddMyToken } from '@/hooks/mutates/useMutateAddMyToken';
 import { useGetToken } from '@/hooks/queries/useGetToken';
+import { useAccount } from '@/hooks/useAccount';
 import { GetTokenResponse } from '@/services/casperdash/token';
 import { Token } from '@/typings/token';
 
@@ -38,13 +39,14 @@ type TokenFormProps = {
 };
 
 const tokenSchema = z.object({
-  tokenAddress: z.string().nonempty('token_address_required'),
-  name: z.string().nonempty('name_required'),
-  symbol: z.string().nonempty('symbol_required'),
+  tokenAddress: z.string().nonempty('token_address_required').default(''),
+  name: z.string().nonempty('name_required').default(''),
+  symbol: z.string().nonempty('symbol_required').default(''),
   decimals: z
     .string()
     .transform((val) => parseInt(val, 10))
-    .refine((val) => val >= 0, 'decimals_required'),
+    .refine((val) => val >= 0, 'decimals_required')
+    .default('0'),
 });
 
 export type SubmitValues = z.infer<typeof tokenSchema>;
@@ -58,14 +60,8 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
     formState: { errors, isSubmitting },
     control,
     setValue,
-  } = useForm({
+  } = useForm<SubmitValues>({
     resolver: zodResolver(tokenSchema),
-    defaultValues: {
-      tokenAddress: '',
-      name: '',
-      symbol: '',
-      decimals: '0',
-    },
   });
   const tokenAddressTracked = useWatch({
     control,
@@ -211,6 +207,7 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
 };
 
 const TableTokenHeader = () => {
+  const { isConnected } = useAccount();
   const { t } = useTranslation();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -219,12 +216,14 @@ const TableTokenHeader = () => {
       <Text color="gray.500" fontSize="xl">
         {/* {t('my_tokens')} */}
       </Text>
-      <Box>
-        <Button variant={'outline'} leftIcon={<AddIcon />} onClick={onOpen}>
-          {t('add_token')}
-        </Button>
-        <TokenFormModal isOpen={isOpen} onClose={onClose} />
-      </Box>
+      {isConnected && (
+        <Box>
+          <Button variant={'outline'} leftIcon={<AddIcon />} onClick={onOpen}>
+            {t('add_token')}
+          </Button>
+          <TokenFormModal isOpen={isOpen} onClose={onClose} />
+        </Box>
+      )}
     </Flex>
   );
 };
