@@ -23,7 +23,14 @@ const columns: ColumnDef<Token, any>[] = [
       const { name, symbol, icon } = cell.row.original;
       return (
         <Flex>
-          <Box w="40px" h="40px" p="3" bg={'#fbd2d3'} borderRadius={'full'}>
+          <Box
+            w="40px"
+            h="40px"
+            minW="40px"
+            p="3"
+            bg={'#fbd2d3'}
+            borderRadius={'full'}
+          >
             <Image src={icon} width="20px" height="20px" ml="1px" />
           </Box>
           <Flex ml="3" direction={'column'} justifyContent={'space-around'}>
@@ -33,7 +40,9 @@ const columns: ColumnDef<Token, any>[] = [
         </Flex>
       );
     },
-    header: () => i18n.t('name'),
+    header: () => (
+      <Text display={{ base: 'none', md: 'block' }}>{i18n.t('name')}</Text>
+    ),
   }),
   columnHelper.accessor('balance', {
     cell: (info) => {
@@ -43,7 +52,9 @@ const columns: ColumnDef<Token, any>[] = [
         </Text>
       );
     },
-    header: () => i18n.t('balance'),
+    header: () => (
+      <Text display={{ base: 'none', md: 'block' }}>{i18n.t('balance')}</Text>
+    ),
   }),
   columnHelper.accessor((row) => row, {
     id: 'action',

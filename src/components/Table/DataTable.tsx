@@ -50,40 +50,40 @@ export function DataTable<Data extends object>({
   const rows = table.getRowModel().rows;
 
   return (
-    <Table pos="relative" {...restProps}>
-      <Thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <Tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-              const meta: any = header.column.columnDef.meta;
-              return (
-                <Th
-                  key={header.id}
-                  onClick={header.column.getToggleSortingHandler()}
-                  isNumeric={meta?.isNumeric}
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+    <Box pos="relative">
+      <Table {...restProps}>
+        <Thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <Tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                const meta: any = header.column.columnDef.meta;
+                return (
+                  <Th
+                    key={header.id}
+                    onClick={header.column.getToggleSortingHandler()}
+                    isNumeric={meta?.isNumeric}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
 
-                  <chakra.span pl="4">
-                    {header.column.getIsSorted() ? (
-                      header.column.getIsSorted() === 'desc' ? (
-                        <TriangleDownIcon aria-label="sorted descending" />
-                      ) : (
-                        <TriangleUpIcon aria-label="sorted ascending" />
-                      )
-                    ) : null}
-                  </chakra.span>
-                </Th>
-              );
-            })}
-          </Tr>
-        ))}
-      </Thead>
-      {rows && rows.length > 0 ? (
+                    <chakra.span pl="2">
+                      {header.column.getIsSorted() ? (
+                        header.column.getIsSorted() === 'desc' ? (
+                          <TriangleDownIcon aria-label="sorted descending" />
+                        ) : (
+                          <TriangleUpIcon aria-label="sorted ascending" />
+                        )
+                      ) : null}
+                    </chakra.span>
+                  </Th>
+                );
+              })}
+            </Tr>
+          ))}
+        </Thead>
         <Tbody>
           {rows.map((row) => (
             <Tr key={row.id}>
@@ -99,23 +99,21 @@ export function DataTable<Data extends object>({
             </Tr>
           ))}
         </Tbody>
-      ) : (
-        <Tbody>
-          <Tr>
-            <Box m="auto" h="200">
-              <Box
-                pos="absolute"
-                top="50%"
-                left="50%"
-                marginRight="-50%"
-                transform="translate(-50%, -50%)"
-              >
-                <Image src={EmptyImg} alt="empty" width="140" height="100" />
-              </Box>
+      </Table>
+      {!rows ||
+        (rows.length === 0 && (
+          <Box m="auto" h="200">
+            <Box
+              pos="absolute"
+              top="60%"
+              left="50%"
+              marginRight="-50%"
+              transform="translate(-50%, -50%)"
+            >
+              <Image src={EmptyImg} alt="empty" width="140" height="100" />
             </Box>
-          </Tr>
-        </Tbody>
-      )}
-    </Table>
+          </Box>
+        ))}
+    </Box>
   );
 }

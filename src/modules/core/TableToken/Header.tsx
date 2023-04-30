@@ -217,10 +217,10 @@ const TableTokenHeader = () => {
   return (
     <Flex justifyContent={'space-between'} alignItems={'center'}>
       <Text color="gray.500" fontSize="xl">
-        {t('my_tokens')}
+        {/* {t('my_tokens')} */}
       </Text>
       <Box>
-        <Button variant={'ghost'} leftIcon={<AddIcon />} onClick={onOpen}>
+        <Button variant={'outline'} leftIcon={<AddIcon />} onClick={onOpen}>
           {t('add_token')}
         </Button>
         <TokenFormModal isOpen={isOpen} onClose={onClose} />
