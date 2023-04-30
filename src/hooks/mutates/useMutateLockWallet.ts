@@ -15,7 +15,6 @@ export const useMutateLockWallet = (
     ...options,
     mutationFn: async () => {
       casperUserUtil.lockWallet();
-      await queryClient.invalidateQueries([QueryKeysEnum.ACCOUNT]);
       queryClient.setQueryData([QueryKeysEnum.LOCKED], true);
     },
     networkMode: 'offlineFirst',

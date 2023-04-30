@@ -64,7 +64,7 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
       tokenAddress: '',
       name: '',
       symbol: '',
-      decimals: 0,
+      decimals: '0',
     },
   });
   const tokenAddressTracked = useWatch({
