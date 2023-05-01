@@ -1,6 +1,6 @@
 import { Box, BoxProps, Flex, Image } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, NavLinkProps } from 'react-router-dom';
 
 import MenuButtonModal from './MenuButtonModal';
 import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
@@ -8,6 +8,24 @@ import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums/path';
 import { useAccount } from '@/hooks/useAccount';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
+
+type NavLinkWrapperProps = {
+  children: React.ReactNode;
+} & NavLinkProps;
+const NavLinkWrapper = ({ children, ...restProps }: NavLinkWrapperProps) => {
+  return (
+    <NavLink
+      style={({ isActive }) => {
+        return {
+          fontWeight: isActive ? 'bold' : '',
+        };
+      }}
+      {...restProps}
+    >
+      {children}
+    </NavLink>
+  );
+};
 
 type HeaderProps = BoxProps;
 const Header = ({ bg }: HeaderProps) => {
@@ -45,8 +63,8 @@ const Header = ({ bg }: HeaderProps) => {
                 md: 'flex',
               }}
             >
-              <Link to={PathEnum.HOME}>{t('home')}</Link>
-              <Link to={PathEnum.NFT}>{t('NFTs')}</Link>
+              <NavLinkWrapper to={PathEnum.HOME}>{t('home')}</NavLinkWrapper>
+              <NavLinkWrapper to={PathEnum.NFT}>{t('NFTs')}</NavLinkWrapper>
               {/* <Link to={PathEnum.TRADE}>
                 <Text color="gray.200">{t('trade')}</Text>
               </Link>

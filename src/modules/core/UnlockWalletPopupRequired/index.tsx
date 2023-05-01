@@ -3,7 +3,6 @@ import { ReactElement, cloneElement, isValidElement, useEffect } from 'react';
 import { Box, useDisclosure } from '@chakra-ui/react';
 
 import PasswordFormModal from './components/PasswordModal';
-import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +14,6 @@ type Props = {
  * @returns
  */
 const UnlockWalletPopupRequired = ({ children }: Props) => {
-  const { toastError } = useI18nToast();
   const {
     isOpen: isOpenPasswordRequired,
     onOpen: onOpenPasswordRequired,
@@ -50,10 +48,6 @@ const UnlockWalletPopupRequired = ({ children }: Props) => {
     onOpenChildren();
   };
 
-  const handleOnError = () => {
-    toastError('password_is_not_correct');
-  };
-
   return (
     <Box>
       {cloneElement(children as ReactElement, {
@@ -71,7 +65,6 @@ const UnlockWalletPopupRequired = ({ children }: Props) => {
           onClose();
         }}
         onSuccess={handleOnSuccess}
-        onError={handleOnError}
       />
     </Box>
   );

@@ -10,7 +10,7 @@ import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateSignDeploy } from '@/hooks/mutates/useMutateSignDeploy';
 import { useRejectSign } from '@/hooks/postMesasges/useRejectSign';
 import { useGetParsedDeployData } from '@/hooks/queries/useGetParsedDeployData';
-import PasswordForm from '@/modules/core/UnlockWalletPopupRequired/components/PasswordForm';
+import PasswordForm from '@/modules/core/PasswordForm';
 
 type Props = {
   params: {

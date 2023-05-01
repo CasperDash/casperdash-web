@@ -1,7 +1,7 @@
 export type Token = {
   name: string;
   tokenAddress: string;
-  icon: string;
+  icon?: string;
   symbol: string;
   decimals: number;
   balance?: number;

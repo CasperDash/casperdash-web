@@ -9,10 +9,13 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react';
+import { useQueryClient } from '@tanstack/react-query';
 import * as _ from 'lodash-es';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { QueryKeysEnum } from '@/enums/queryKeys.enum';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useLoginWallet } from '@/hooks/useLoginWallet';
 
 type Props = BoxProps & {
@@ -25,10 +28,18 @@ type SubmitValues = {
 };
 
 const PasswordForm = ({ onSuccess, onError, ...restProps }: Props) => {
+  const { toastError } = useI18nToast();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const { loginWallet, isLoading } = useLoginWallet({
-    onSuccess,
-    onError,
+    onSuccess: () => {
+      queryClient.setQueryData([QueryKeysEnum.LOCKED], false);
+      onSuccess?.();
+    },
+    onError: (error: unknown) => {
+      toastError('password_is_not_correct');
+      onError?.(error);
+    },
   });
   const {
     handleSubmit,

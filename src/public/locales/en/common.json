@@ -109,5 +109,9 @@
   "transaction_histories": "Transaction Histories",
   "balance": "Balance",
   "view_recovery_phrase": "View Recovery Phrase",
-  "copy": "Copy"
+  "copy": "Copy",
+  "lock_wallet_description": "We wanted to remind you of the importance of securing your wallet by locking it. Locking your wallet is a recommended security measure that can help protect your funds from unauthorized access or potential hacks.",
+  "lock": "Lock",
+  "are_you_sure_lock_wallet": "Are you sure lock your wallet?",
+  "lock_wallet": "Lock Wallet"
 }

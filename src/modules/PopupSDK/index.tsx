@@ -28,8 +28,8 @@ import {
 } from '@/utils/normalizer';
 
 const PopupSDK = () => {
-  const { publicKey } = useAccount();
   const { t } = useTranslation();
+  const { publicKey, isLocked } = useAccount();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentMethod, setCurrentMethod] = useState<RepliedMessageMethodEnums>(
     RepliedMessageMethodEnums.CONNECT
@@ -56,6 +56,10 @@ const PopupSDK = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey]);
+
+  if (isLocked) {
+    return null;
+  }
 
   return (
     <>
