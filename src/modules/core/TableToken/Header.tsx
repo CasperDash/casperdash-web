@@ -95,7 +95,7 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent w={{ base: 'sm', md: 'xl' }}>
         <ModalHeader>
           <Heading variant="xl" textAlign="center">
             {t('add_your_token')}
