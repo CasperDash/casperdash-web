@@ -1,4 +1,4 @@
-import { CopyIcon, EditIcon } from '@chakra-ui/icons';
+import { CheckIcon, CopyIcon, EditIcon } from '@chakra-ui/icons';
 import {
   Box,
   BoxProps,
@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 import { useAccount } from '@/hooks/useAccount';
 import { ModalAccounts } from '@/modules/core/ModalAccounts';
@@ -42,9 +41,10 @@ const AccountName = () => {
 };
 
 const AccountInfo = (props: AccountInfoProps) => {
-  const { publicKey } = useAccount();
-  const { toastSuccess } = useI18nToast();
-  const { onCopy } = useClipboard(publicKey || '');
+  const { publicKey = '' } = useAccount();
+  const { onCopy, hasCopied } = useClipboard(publicKey, {
+    timeout: 2000,
+  });
 
   if (!publicKey) {
     return null;
@@ -52,7 +52,6 @@ const AccountInfo = (props: AccountInfoProps) => {
 
   const handleOnCopy = () => {
     onCopy();
-    toastSuccess('copy_public_key');
   };
 
   return (
@@ -75,7 +74,11 @@ const AccountInfo = (props: AccountInfoProps) => {
           <Box display={{ base: 'block', md: 'none' }}>
             <MiddleTruncatedText value={publicKey || ''}></MiddleTruncatedText>
           </Box>
-          <CopyIcon ml="4" onClick={handleOnCopy} cursor="pointer" />
+          {hasCopied ? (
+            <CheckIcon ml="4" />
+          ) : (
+            <CopyIcon ml="4" onClick={handleOnCopy} cursor="pointer" />
+          )}
         </Flex>
       </Flex>
     </Box>
