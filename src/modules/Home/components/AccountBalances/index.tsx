@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 
 import AccountTotalBalances from './AccountTotalBalances';
 import { PathEnum } from '@/enums';
-import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
+import { useAccount } from '@/hooks/useAccount';
+import ButtonViewReceivingAddress from '@/modules/core/ButtonViewReceivingAddress';
 import ChartCSPRPrice from '@/modules/core/ChartCSPRPrice';
 
 export type AccountBalancesProps = BoxProps;
 
 const AccountBalances = (props: AccountBalancesProps) => {
   const { t } = useTranslation();
-  const { data: { publicKey } = {} } = useGetCurrentAccount();
-  const isDisabled = !publicKey;
+  const { isConnected } = useAccount();
+  const isDisabled = !isConnected;
 
   return (
     <Box {...props}>
@@ -38,9 +39,11 @@ const AccountBalances = (props: AccountBalancesProps) => {
               {t('NFTs')}
             </Button>
           </Link>
-          <Button isDisabled={true} variant="light" w="30">
-            {t('receive')}
-          </Button>
+          <ButtonViewReceivingAddress
+            variant="light"
+            w="30"
+            isDisabled={isDisabled}
+          />
         </Flex>
       </Flex>
       <Flex

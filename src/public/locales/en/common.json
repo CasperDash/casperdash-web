@@ -113,5 +113,8 @@
   "lock_wallet_description": "We wanted to remind you of the importance of securing your wallet by locking it. Locking your wallet is a recommended security measure that can help protect your funds from unauthorized access or potential hacks.",
   "lock": "Lock",
   "are_you_sure_lock_wallet": "Are you sure lock your wallet?",
-  "lock_wallet": "Lock Wallet"
+  "lock_wallet": "Lock Wallet",
+  "recieve": "Recieve",
+  "your_wallet_address": "Your wallet address",
+  "copy_wallet_address": "Copy Wallet Address"
 }

@@ -3,7 +3,6 @@ import type { ComponentStyleConfig } from '@chakra-ui/theme';
 import colors from '../foundations/colors';
 import fontWeights from '../foundations/fontWeights';
 import space from '../foundations/space';
-import { hexToRgba } from '@/utils/color';
 
 const Button: ComponentStyleConfig = {
   baseStyle: {
@@ -24,15 +23,24 @@ const Button: ComponentStyleConfig = {
       color: colors.white,
 
       _hover: {
-        bg: hexToRgba(colors.primary, 0.6),
+        bg: colors.light,
         color: colors.black,
         fontWeight: fontWeights.bold,
       },
 
       _active: {
-        bg: hexToRgba(colors.primary, 0.8),
+        bg: colors.light,
         color: colors.white,
         fontWeight: fontWeights.bold,
+      },
+    },
+    outline: {
+      bg: colors.white,
+      color: colors.black,
+      border: `2px solid ${colors.gray[200]}`,
+
+      _hover: {
+        bg: colors.light,
       },
     },
 
@@ -90,7 +98,7 @@ const Button: ComponentStyleConfig = {
 
     ghost: {
       _hover: {
-        color: colors.secondary,
+        bg: colors.light,
       },
     },
 
