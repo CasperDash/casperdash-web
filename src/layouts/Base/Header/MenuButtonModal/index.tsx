@@ -31,12 +31,12 @@ const MenuButtonModal = () => {
       <MenuList borderRadius="xl" p="4">
         {isConnected && (
           <>
-            <MenuItemWrapper>
-              <MyAccount w="100%" variant="ghost" />
-            </MenuItemWrapper>
-            <Divider mt="3" />
             {!isLocked && (
               <>
+                <MenuItemWrapper>
+                  <MyAccount w="100%" variant="ghost" />
+                </MenuItemWrapper>
+                <Divider mt="3" />
                 <MenuItemWrapper>
                   <ButtonViewRecoveryPhrase />
                 </MenuItemWrapper>

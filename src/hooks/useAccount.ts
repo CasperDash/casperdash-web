@@ -10,7 +10,7 @@ export const useAccount = () => {
 
   return {
     publicKey,
-    isConnected: !!publicKey,
+    isConnected: !!publicKey || isLocked,
     uid,
     isLocked,
   };

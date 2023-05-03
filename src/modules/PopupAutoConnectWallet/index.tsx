@@ -28,12 +28,16 @@ const PopupAutoConnectWallet = () => {
     const publicKey = casperUserUtil.getCachedPublicKey();
     const loginOptions = casperUserUtil.getCachedLoginOptions();
 
-    if (publicKey) {
+    if (publicKey && loginOptions?.selectedWallet?.uid) {
       updateAccount({
         publicKey,
         uid: loginOptions?.selectedWallet.uid,
       });
 
+      return;
+    }
+
+    if (!publicKey && loginOptions?.selectedWallet?.uid) {
       return;
     }
 
