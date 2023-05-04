@@ -230,6 +230,10 @@ export class UserService {
         selectedWallet,
         connectionType: this.connectionType,
       });
+    } else {
+      if (publicKey) {
+        localStorageUtil.set(CacheKeyEnum.PUBLIC_KEY, publicKey ?? '');
+      }
     }
 
     return {

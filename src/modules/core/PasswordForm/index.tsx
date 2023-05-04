@@ -32,8 +32,8 @@ const PasswordForm = ({ onSuccess, onError, ...restProps }: Props) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { loginWallet, isLoading } = useLoginWallet({
-    onSuccess: () => {
-      queryClient.setQueryData([QueryKeysEnum.LOCKED], false);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([QueryKeysEnum.LOCKED]);
       onSuccess?.();
     },
     onError: (error: unknown) => {

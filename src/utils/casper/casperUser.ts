@@ -280,6 +280,7 @@ class CasperUserUtil {
   };
 
   lockWallet = async () => {
+    localStorageUtil.remove(CacheKeyEnum.PUBLIC_KEY);
     this.userService = undefined;
   };
 }
