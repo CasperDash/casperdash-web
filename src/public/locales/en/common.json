@@ -116,5 +116,6 @@
   "lock_wallet": "Lock Wallet",
   "recieve": "Recieve",
   "your_wallet_address": "Your wallet address",
-  "copy_wallet_address": "Copy Wallet Address"
+  "copy_wallet_address": "Copy Wallet Address",
+  "swap_description": "Send your token the fastest and easy way."
 }

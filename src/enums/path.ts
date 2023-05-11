@@ -4,6 +4,7 @@ export enum PathEnum {
   NFT = '/nfts',
   STAKING = '/staking',
   SEND = '/send',
+  SWAP = '/swap',
   // New wallet.
   NEW_WALLET = '/create',
   NEW_PASSWORD = '/create/new-password',

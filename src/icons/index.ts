@@ -8,3 +8,5 @@ export * from './import';
 export * from './home';
 export * from './send';
 export * from './key';
+export * from './setting';
+export * from './refresh';

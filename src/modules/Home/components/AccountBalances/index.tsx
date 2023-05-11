@@ -34,9 +34,9 @@ const AccountBalances = (props: AccountBalancesProps) => {
           <Button isDisabled={true} variant="light" w="30">
             {t('staking')}
           </Button>
-          <Link to={PathEnum.NFT}>
+          <Link to={PathEnum.SWAP}>
             <Button isDisabled={isDisabled} variant="light" w="30">
-              {t('NFTs')}
+              {t('swap')}
             </Button>
           </Link>
           <ButtonViewReceivingAddress
