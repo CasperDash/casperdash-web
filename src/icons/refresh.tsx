@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 
 type Props = SVGProps<SVGSVGElement>;
 
-export const RefreshIcon = ({ color = '#353945', ...props }: Props) => {
+export const RefreshIcon = ({ ...props }: Props) => {
   return (
     <svg
       width="22"
@@ -10,7 +10,6 @@ export const RefreshIcon = ({ color = '#353945', ...props }: Props) => {
       viewBox="0 0 22 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      color={color}
       {...props}
     >
       <path

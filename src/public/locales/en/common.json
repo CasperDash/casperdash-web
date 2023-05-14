@@ -117,5 +117,11 @@
   "recieve": "Recieve",
   "your_wallet_address": "Your wallet address",
   "copy_wallet_address": "Copy Wallet Address",
-  "swap_description": "Send your token the fastest and easy way."
+  "swap_description": "Send your token the fastest and easy way.",
+  "search_token": "Search Token",
+  "token_list": "Token List",
+  "transaction_settings": "Transaction Settings",
+  "slippage_tolerance": "Slippage Tolerance",
+  "transaction_deadline": "Transaction Deadline",
+  "minutes": "Minutes"
 }

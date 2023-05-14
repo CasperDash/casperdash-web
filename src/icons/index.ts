@@ -10,3 +10,6 @@ export * from './send';
 export * from './key';
 export * from './setting';
 export * from './refresh';
+export * from './arrow-down';
+export * from './reverse';
+export * from './search';

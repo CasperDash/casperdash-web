@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 
 type Props = SVGProps<SVGSVGElement>;
 
-export const SettingIcon = ({ color = '#353945', ...props }: Props) => {
+export const SettingIcon = ({ ...props }: Props) => {
   return (
     <svg
       width="20"
@@ -10,7 +10,6 @@ export const SettingIcon = ({ color = '#353945', ...props }: Props) => {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      color={color}
       {...props}
     >
       <g clipPath="url(#clip0_1673_8145)">

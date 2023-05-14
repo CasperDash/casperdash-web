@@ -3,9 +3,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import RadioPercentSelect from './RadioPercentSelect';
-import SelectToken from './SelectToken';
+import SelectSwapFrom from './SelectSwapFrom';
+import SelectSwapTo from './SelectSwapTo';
+import Setting from './Setting';
 import Paper from '@/components/Paper';
-import { RefreshIcon, SettingIcon } from '@/icons';
+import CircleWrapper from '@/components/Surface/CircleWrapper';
+import { RefreshIcon, ReverseIcon } from '@/icons';
 
 const SwapForm = () => {
   const { t } = useTranslation();
@@ -17,18 +20,35 @@ const SwapForm = () => {
 
   return (
     <Box>
-      <Box>
-        <Flex>
-          <SettingIcon />
-          <RefreshIcon />
+      <Box mt="5">
+        <Flex justifyContent={'center'} alignItems="center" gap="4">
+          <Setting />
+          <CircleWrapper
+            backgroundColor={'gray.200'}
+            p="5px"
+            size={10}
+            cursor="pointer"
+            _hover={{ color: 'light' }}
+          >
+            <Box ml="1.2px" mt="1.7px">
+              <RefreshIcon width="24px" height="20px" />
+            </Box>
+          </CircleWrapper>
         </Flex>
       </Box>
-      <Paper>
+      <Paper mt="4" px="8" py="16">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
-            <SelectToken />
-            <RadioPercentSelect />
-            <SelectToken />
+            <SelectSwapFrom />
+            <Box mt="8">
+              <RadioPercentSelect />
+            </Box>
+            <Flex justifyContent={'center'} my="8">
+              <CircleWrapper size={11} p="9.6px" cursor="pointer">
+                <ReverseIcon />
+              </CircleWrapper>
+            </Flex>
+            <SelectSwapTo />
             <Flex justify={'center'}>
               <Button
                 variant="primary"
@@ -37,7 +57,7 @@ const SwapForm = () => {
                 w="100%"
                 mt="8"
               >
-                {t('swap')}
+                {t('confirm')}
               </Button>
             </Flex>
           </form>
