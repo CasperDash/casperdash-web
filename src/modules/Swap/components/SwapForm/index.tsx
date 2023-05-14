@@ -2,17 +2,23 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import ButtonReverse from './ButtonReverse';
 import RadioPercentSelect from './RadioPercentSelect';
 import SelectSwapFrom from './SelectSwapFrom';
 import SelectSwapTo from './SelectSwapTo';
 import Setting from './Setting';
 import Paper from '@/components/Paper';
 import CircleWrapper from '@/components/Surface/CircleWrapper';
-import { RefreshIcon, ReverseIcon } from '@/icons';
+import { RefreshIcon } from '@/icons';
 
 const SwapForm = () => {
   const { t } = useTranslation();
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      swapFrom: {},
+      swapTo: {},
+    },
+  });
 
   const handleOnSubmit = () => {
     console.log('submit');
@@ -43,11 +49,7 @@ const SwapForm = () => {
             <Box mt="8">
               <RadioPercentSelect />
             </Box>
-            <Flex justifyContent={'center'} my="8">
-              <CircleWrapper size={11} p="9.6px" cursor="pointer">
-                <ReverseIcon />
-              </CircleWrapper>
-            </Flex>
+            <ButtonReverse />
             <SelectSwapTo />
             <Flex justify={'center'}>
               <Button

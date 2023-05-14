@@ -6,4 +6,7 @@ export const Config = {
     VITE_CASPERDASH_BASE_API_URL || 'https://api.casperdash.io',
   networkName: VITE_NETWORK_NAME || 'casper',
   csprLiveUrl: 'https://testnet.cspr.live',
+  friendlyMarketUrl: 'https://api.friendly.market/api/v1',
+  tokenListUrl:
+    'https://raw.githubusercontent.com/FriendlyMarket/token-list/main/tokenlist.json',
 };

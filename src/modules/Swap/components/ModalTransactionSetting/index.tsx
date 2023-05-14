@@ -1,4 +1,11 @@
-import { Box, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -37,6 +44,11 @@ const ModalTransactionSetting = ({
           <FormLabel color="gray.500">{t('transaction_deadline')}</FormLabel>
           <Input {...register('deadline')} />
         </FormControl>
+        <Flex>
+          <Button variant={'primary'} mt="8" w="full" type="submit">
+            {t('save')}
+          </Button>
+        </Flex>
       </form>
     </Modal>
   );

@@ -1,13 +1,19 @@
-import { Box, Flex, Input, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Input, Text } from '@chakra-ui/react';
+import * as _ from 'lodash-es';
+import { useTranslation } from 'react-i18next';
 
 import CircleWrapper from '@/components/Surface/CircleWrapper';
 import { ArrowDownIcon } from '@/icons';
+import { Token } from '@/services/friendlyMarket/tokens';
 
 type SelectTokenProps = {
   onClick?: () => void;
+  value?: Token;
 };
 
-const SelectToken = ({ onClick }: SelectTokenProps) => {
+const SelectToken = ({ value, onClick }: SelectTokenProps) => {
+  const { t } = useTranslation();
+
   return (
     <Flex
       p="4"
@@ -28,8 +34,18 @@ const SelectToken = ({ onClick }: SelectTokenProps) => {
           _hover={{ color: 'light', cursor: 'pointer' }}
           onClick={onClick}
         >
-          <CircleWrapper />
-          <Text ml="3">CSPR</Text>
+          {!_.isEmpty(value) ? (
+            <>
+              <CircleWrapper p="6px">
+                <Image src={value.logoURI} width="16px" height="16px" />
+              </CircleWrapper>
+              <Text ml="3">{value.symbol}</Text>
+            </>
+          ) : (
+            <Text ml="3" minW="24">
+              {t('select_token')}
+            </Text>
+          )}
           <Box ml="3.5">
             <ArrowDownIcon />
           </Box>

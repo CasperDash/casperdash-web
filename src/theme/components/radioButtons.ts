@@ -91,6 +91,8 @@ const RadioButtons = helpers.defineMultiStyleConfig({
         gap: '2px',
       },
       item: {
+        border: 'none',
+        color: 'gray.500',
         flex: '0 0 100%',
         bg: 'blue.50',
         py: 2,

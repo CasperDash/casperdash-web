@@ -20,4 +20,6 @@ export enum QueryKeysEnum {
   PRICE_HISTORIES = 'price_histories',
   NFTS = 'nfts',
   PRIVATE_KEY_WITH_UID = 'private_key_with_uid',
+  // Swap
+  SWAP_TOKENS = 'swap_tokens',
 }

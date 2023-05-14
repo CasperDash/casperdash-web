@@ -8,7 +8,6 @@ import {
   ModalCloseButton,
   Heading,
   ModalFooter,
-  Divider,
   ModalContent,
 } from '@chakra-ui/react';
 
@@ -17,26 +16,29 @@ type ModalProps = {
   onClose: () => void;
   title?: string | null;
   children: ReactNode;
+  header?: ReactNode;
 };
 
-const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, title, children, header }: ModalProps) => {
   return (
     <>
       <ModalChakra isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius="2xl" m={10} w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader>
-            <Heading
-              variant={{
-                base: 'sm',
-                md: 'xl',
-              }}
-              textAlign={'center'}
-            >
-              {title}
-            </Heading>
+            {title && (
+              <Heading
+                variant={{
+                  base: 'sm',
+                  md: 'xl',
+                }}
+                textAlign={'center'}
+              >
+                {title}
+              </Heading>
+            )}
+            {header}
           </ModalHeader>
-          <Divider />
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
           <ModalFooter></ModalFooter>

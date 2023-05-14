@@ -123,5 +123,7 @@
   "transaction_settings": "Transaction Settings",
   "slippage_tolerance": "Slippage Tolerance",
   "transaction_deadline": "Transaction Deadline",
-  "minutes": "Minutes"
+  "minutes": "Minutes",
+  "save": "Save",
+  "select_token": "Select token"
 }
