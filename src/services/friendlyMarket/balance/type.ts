@@ -8,3 +8,8 @@ export type getErc20BalanceParams = {
   contractHash: string;
   network?: string;
 };
+
+export type GetBalanceResponse = {
+  balance?: number;
+  error?: string;
+};

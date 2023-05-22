@@ -1,14 +1,14 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 
 import CircleWrapper from '@/components/Surface/CircleWrapper';
+import { Token } from '@/services/friendlyMarket/tokens';
 
 type TokenItemProps = {
-  name: string;
-  imageUrl: string;
+  token: Token;
   onClick?: () => void;
 };
 
-const TokenItem = ({ name, imageUrl, onClick }: TokenItemProps) => {
+const TokenItem = ({ token, onClick }: TokenItemProps) => {
   return (
     <Flex
       cursor="pointer"
@@ -20,11 +20,11 @@ const TokenItem = ({ name, imageUrl, onClick }: TokenItemProps) => {
     >
       <Flex alignItems={'center'}>
         <CircleWrapper p="6px">
-          <Image src={imageUrl} width="16px" height="16px" />
+          <Image src={token.logoURI} width="16px" height="16px" />
         </CircleWrapper>
-        <Text ml="3">{name}</Text>
+        <Text ml="3">{token.name}</Text>
       </Flex>
-      <Text mr="4">0</Text>
+      <Text mr="4">{token.balance || 0}</Text>
     </Flex>
   );
 };

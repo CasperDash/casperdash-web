@@ -1,5 +1,9 @@
+import Big from 'big.js';
+
 import RadioButton from '@/components/Inputs/RadioButton';
 import RadioButtonGroup from '@/components/Inputs/RadioButton/RadioButtonGroup';
+import { useGetBalanceSelectedToken } from '@/modules/Swap/hooks/useGetBalanceSelectedToken';
+import { useSetValueSwapFrom } from '@/modules/Swap/hooks/useSetValueSwapFrom';
 
 const PERCENTS = [
   {
@@ -21,20 +25,24 @@ const PERCENTS = [
 ];
 
 const RadioPercentSelect = () => {
+  const { data } = useGetBalanceSelectedToken('swapFrom');
+  const setValueSwapFrom = useSetValueSwapFrom();
+
+  const handleSetAmount = (value: string) => {
+    const amount = Big(value)
+      .mul(data?.balance || 0)
+      .div(100)
+      .toNumber();
+    setValueSwapFrom(amount);
+  };
+
   return (
     <RadioButtonGroup
       name="wordsLength"
       alignItems="center"
       variant={'full-width'}
-      defaultValue={'12'}
-      // onChange={(value: string) => {
-      //   const masterKey = KeyFactory.getInstance().generate(
-      //     parseInt(value, 10)
-      //   );
-      //   setValue('masterKey', masterKey);
-
-      //   onChange(parseInt(value));
-      // }}
+      defaultValue={'0'}
+      onChange={handleSetAmount}
     >
       {PERCENTS.map((item) => {
         return (

@@ -26,6 +26,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
+import useDebounce from '@/hooks/helpers/useDebounce';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateAddMyToken } from '@/hooks/mutates/useMutateAddMyToken';
 import { useGetToken } from '@/hooks/queries/useGetToken';
@@ -67,9 +68,11 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
     control,
     name: 'tokenAddress',
   });
+
+  const tokenAddressDebounced = useDebounce<string>(tokenAddressTracked, 300);
   const { isFetching: isFetchingToken } = useGetToken(
     {
-      tokenAddress: tokenAddressTracked,
+      tokenAddress: tokenAddressDebounced,
     },
     {
       onSuccess: (tokenResponse: GetTokenResponse) => {

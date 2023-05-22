@@ -21,8 +21,13 @@ const ButtonReverse = () => {
   };
 
   return (
-    <Flex justifyContent={'center'} my="8" onClick={handleReverse}>
-      <CircleWrapper size={11} p="9.6px" cursor="pointer">
+    <Flex justifyContent={'center'} my="8">
+      <CircleWrapper
+        size={11}
+        p="9.6px"
+        cursor="pointer"
+        onClick={handleReverse}
+      >
         <ReverseIcon />
       </CircleWrapper>
     </Flex>

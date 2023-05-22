@@ -6,11 +6,31 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 
 import RadioPercentSlippage from './RadioPercentSlippage';
 import Modal from '@/components/Modal';
+import { useI18nToast } from '@/hooks/helpers/useI18nToast';
+import { useGetSwapSettings } from '@/modules/Swap/hooks/useGetSwapSettings';
+import { useMutateSwapSettings } from '@/modules/Swap/hooks/useMutateSwapSettings';
+
+const validationSchema = z.object({
+  slippage: z
+    .string()
+    .transform((val) => parseFloat(val))
+    .refine((val) => val >= 0, 'slippage_required')
+    .default('0'),
+  deadline: z
+    .string()
+    .transform((val) => parseFloat(val))
+    .refine((val) => val >= 0, 'deadline_required')
+    .default('0'),
+});
+
+export type SubmitValues = z.infer<typeof validationSchema>;
 
 type ModalTransactionSettingProps = {
   isOpen: boolean;
@@ -22,10 +42,26 @@ const ModalTransactionSetting = ({
   onClose,
 }: ModalTransactionSettingProps) => {
   const { t } = useTranslation();
-  const { handleSubmit, register } = useForm();
+  const { toastSuccess } = useI18nToast();
+  const { mutate, isLoading: isSubmitting } = useMutateSwapSettings({
+    onSuccess: () => {
+      toastSuccess('transaction_settings_saved');
+      onClose();
+    },
+  });
+  const { handleSubmit, register, setValue } = useForm<SubmitValues>({
+    resolver: zodResolver(validationSchema),
+  });
+  useGetSwapSettings({
+    onSuccess: (data) => {
+      setValue('slippage', data.slippage);
+      setValue('deadline', data.deadline);
+    },
+  });
 
-  const handleOnSubmit = () => {
-    console.log('submit');
+  const handleOnSubmit = (data: SubmitValues) => {
+    console.log('data: ', data);
+    mutate(data);
   };
 
   return (
@@ -42,10 +78,17 @@ const ModalTransactionSetting = ({
         </Box>
         <FormControl mt="8">
           <FormLabel color="gray.500">{t('transaction_deadline')}</FormLabel>
-          <Input {...register('deadline')} />
+          <Input type="number" {...register('deadline')} />
         </FormControl>
         <Flex>
-          <Button variant={'primary'} mt="8" w="full" type="submit">
+          <Button
+            variant={'primary'}
+            mt="8"
+            w="full"
+            type="submit"
+            isLoading={isSubmitting}
+            isDisabled={isSubmitting}
+          >
             {t('save')}
           </Button>
         </Flex>

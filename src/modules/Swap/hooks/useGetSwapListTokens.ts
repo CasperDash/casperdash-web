@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import * as _ from 'lodash-es';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
+import { useAccount } from '@/hooks/useAccount';
 import { getListTokens, Token } from '@/services/friendlyMarket/tokens';
 
 export const MAP_COINGECKO_IDS = {
@@ -14,7 +15,8 @@ export const MAP_COINGECKO_IDS = {
   frax: 'frax',
 };
 
-export const useGetListSwapTokens = (options = {}) => {
+export const useGetSwapListTokens = (options = {}) => {
+  const { publicKey = '' } = useAccount();
   return useQuery(
     [QueryKeysEnum.SWAP_TOKENS],
     async () => {
@@ -34,6 +36,9 @@ export const useGetListSwapTokens = (options = {}) => {
         };
       });
     },
-    options
+    {
+      ...options,
+      enabled: !!publicKey,
+    }
   );
 };

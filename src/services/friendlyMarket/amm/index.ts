@@ -1,11 +1,11 @@
-import { GetPairParams } from './type';
+import { GetPairParams, PairData, PairRouteData } from './type';
 import request from '../request';
 
 export const getPair = async ({
   fromContractHash,
   toContractHash,
-}: GetPairParams) => {
-  const { data = {} } = await request.get(
+}: GetPairParams): Promise<PairData | PairRouteData | undefined> => {
+  const { data } = await request.get(
     `/amm/pair/${fromContractHash}/${toContractHash}`
   );
 

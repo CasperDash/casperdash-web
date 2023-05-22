@@ -1,6 +1,5 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-import useDebounce from '../helpers/useDebounce';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { getToken, GetTokenResponse } from '@/services/casperdash/token';
 
@@ -20,13 +19,12 @@ export const useGetToken = (
     'queryKey' | 'queryFn'
   >
 ) => {
-  const tokenAddressDebounced = useDebounce<string>(tokenAddress, 300);
   return useQuery(
-    [QueryKeysEnum.TOKEN, tokenAddressDebounced],
-    () => getToken({ tokenAddress: tokenAddressDebounced }),
+    [QueryKeysEnum.TOKEN, tokenAddress],
+    () => getToken({ tokenAddress }),
     {
       ...options,
-      enabled: !!tokenAddressDebounced,
+      enabled: !!tokenAddress,
     }
   );
 };

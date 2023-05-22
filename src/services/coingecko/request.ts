@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Config } from '@/config';
 
 const request = axios.create({
-  baseURL: Config.friendlyMarketUrl,
+  baseURL: Config.coingeckoBaseUrl,
   timeout: 30 * 1000,
 });
 

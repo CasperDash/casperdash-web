@@ -125,5 +125,12 @@
   "transaction_deadline": "Transaction Deadline",
   "minutes": "Minutes",
   "save": "Save",
-  "select_token": "Select token"
+  "select_token": "Select token",
+  "transaction_settings_saved": "Transaction settings saved successfully",
+  "price": "Price",
+  "rate": "Rate",
+  "fee": "Fee",
+  "price_impact": "Price Impact",
+  "minimum": "Minimum",
+  "slippage": "Slippage"
 }
