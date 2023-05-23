@@ -1,15 +1,19 @@
+import { ReactNode } from 'react';
+
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Big from 'big.js';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import RoutePaths from './RoutePaths';
 import { useCalculateAmountOutMin } from '@/modules/Swap/hooks/useCalculateAmountOutMin';
 import { useGetCurrentAMMPair } from '@/modules/Swap/hooks/useGetCurrentAMMPair';
 import { useGetSwapSettings } from '@/modules/Swap/hooks/useGetSwapSettings';
 import { useSelectToken } from '@/modules/Swap/hooks/useSelectToken';
+import { PairRouteData } from '@/services/friendlyMarket/amm/type';
 import { Token } from '@/services/friendlyMarket/tokens';
 
-const Row = ({ label, value }: { label: string; value: string }) => {
+const Row = ({ label, value }: { label: string; value: ReactNode }) => {
   return (
     <Flex justifyContent="space-between" w="100%">
       <Text>{label}</Text>
@@ -34,8 +38,6 @@ const Receipt = () => {
     },
   });
   const amountOutMin = useCalculateAmountOutMin();
-
-  console.log('swapSettings: ', swapSettings);
 
   const fee = Big(swapFrom.amount || 0)
     .times(0.3)
@@ -63,7 +65,7 @@ const Receipt = () => {
     return null;
   }
 
-  const items = [
+  const items: { label: string; value: ReactNode }[] = [
     {
       label: t('rate'),
       value: `1 ${swapFrom.symbol} ~ ${
@@ -87,17 +89,25 @@ const Receipt = () => {
       value: `${swapSettings.slippage}%`,
     },
   ];
+  const pairRoute = pair as PairRouteData;
+
+  if (pairRoute.isUsingRouting) {
+    items.push({
+      label: t('route'),
+      value: <RoutePaths />,
+    });
+  }
 
   return (
     <VStack
       gap="1"
       alignItems="baseline"
-      mt="8"
+      mt="2"
       px="10"
-      py="2"
-      border="1px solid"
-      borderColor="gray.200"
-      borderRadius="md"
+      py="4"
+      // border="1px solid"
+      // borderColor="gray.200"
+      // borderRadius="md"
     >
       {items.map((item) => {
         return (

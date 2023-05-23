@@ -132,5 +132,6 @@
   "fee": "Fee",
   "price_impact": "Price Impact",
   "minimum": "Minimum",
-  "slippage": "Slippage"
+  "slippage": "Slippage",
+  "route": "Route"
 }

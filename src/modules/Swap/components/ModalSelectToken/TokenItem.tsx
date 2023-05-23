@@ -1,14 +1,20 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 
 import CircleWrapper from '@/components/Surface/CircleWrapper';
+import { useGetSwapTokenBalance } from '@/modules/Swap/hooks/useGetSwapTokenBalance';
 import { Token } from '@/services/friendlyMarket/tokens';
 
 type TokenItemProps = {
   token: Token;
+  publicKey?: string;
   onClick?: () => void;
 };
 
-const TokenItem = ({ token, onClick }: TokenItemProps) => {
+const TokenItem = ({ publicKey, token, onClick }: TokenItemProps) => {
+  const { data: { balance } = { balance: 0 } } = useGetSwapTokenBalance({
+    ...token,
+    publicKey,
+  });
   return (
     <Flex
       cursor="pointer"
@@ -24,7 +30,7 @@ const TokenItem = ({ token, onClick }: TokenItemProps) => {
         </CircleWrapper>
         <Text ml="3">{token.name}</Text>
       </Flex>
-      <Text mr="4">{token.balance || 0}</Text>
+      <Text mr="4">{balance || 0}</Text>
     </Flex>
   );
 };

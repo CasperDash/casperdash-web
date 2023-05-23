@@ -33,6 +33,7 @@ const useCalculateAmountOut = () => {
   const handleChangeAmount = useCallback(
     (value: number) => {
       if (!value) {
+        setValue('swapTo.amount', 0);
         return;
       }
       const pairRouting = <PairRouteData>pair;

@@ -29,6 +29,7 @@ export const useMutateSwapSettings = (
           ...newSettings,
         })
       );
+      await queryClient.prefetchQuery([QueryKeysEnum.SWAP_SETTINGS]);
 
       return newSettings;
     },

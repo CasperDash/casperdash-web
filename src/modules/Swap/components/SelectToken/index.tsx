@@ -55,6 +55,7 @@ const SelectToken = ({ value, onClick, onChangeAmount }: SelectTokenProps) => {
         </Flex>
         <Flex flexBasis={0} flexGrow={'9999'} w="100%">
           <Input
+            type="number"
             textAlign={'right'}
             variant="unstyled"
             border={'none'}

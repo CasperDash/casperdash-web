@@ -2,11 +2,12 @@ import { Input, Flex, Text } from '@chakra-ui/react';
 import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
-import { useGetBalanceTokens } from './hooks';
 import TokenItem from './TokenItem';
 import Modal from '@/components/Modal';
+import { useAccount } from '@/hooks/useAccount';
 import { useFuse } from '@/hooks/useFuse';
 import { SearchIcon } from '@/icons';
+import { useGetSwapListTokens } from '@/modules/Swap/hooks/useGetSwapListTokens';
 import { Token } from '@/services/friendlyMarket/tokens';
 
 type ModalReceivingAddressProps = {
@@ -21,7 +22,8 @@ const ModalSelectToken = ({
   onSelect,
 }: ModalReceivingAddressProps) => {
   const { t } = useTranslation();
-  const listTokens = useGetBalanceTokens();
+  const { publicKey } = useAccount();
+  const { data: listTokens = [] } = useGetSwapListTokens();
 
   const { hits, query, onSearch } = useFuse(listTokens, {
     keys: ['name'],
@@ -56,6 +58,7 @@ const ModalSelectToken = ({
       <Flex direction={'column'} mt="6" gap="4">
         {tokens?.map((token) => (
           <TokenItem
+            publicKey={publicKey}
             key={`${token.type}-${token.contractHash}`}
             token={token}
             onClick={() => onSelect?.(token)}

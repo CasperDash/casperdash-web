@@ -16,7 +16,11 @@ const PERCENTS = [
   },
 ];
 
-const RadioPercentSlippage = () => {
+type Props = {
+  onChange?: (value: number) => void;
+};
+
+const RadioPercentSlippage = ({ onChange }: Props) => {
   return (
     <RadioButtonGroup
       name="wordsLength"
@@ -25,14 +29,9 @@ const RadioPercentSlippage = () => {
       size="md"
       defaultValue={'12'}
       justifyContent={'start'}
-      // onChange={(value: string) => {
-      //   const masterKey = KeyFactory.getInstance().generate(
-      //     parseInt(value, 10)
-      //   );
-      //   setValue('masterKey', masterKey);
-
-      //   onChange(parseInt(value));
-      // }}
+      onChange={(value: string) => {
+        onChange?.(parseFloat(value));
+      }}
     >
       {PERCENTS.map((item) => {
         return (

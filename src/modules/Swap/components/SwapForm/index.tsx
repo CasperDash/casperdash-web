@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Divider, Flex } from '@chakra-ui/react';
 import Big from 'big.js';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -141,7 +141,7 @@ const SwapForm = () => {
           </CircleWrapper>
         </Flex>
       </Box>
-      <Paper mt="4" px="8" py="16">
+      <Paper mt="4" px="8" py="8">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
             <SelectSwapFrom />
@@ -160,6 +160,7 @@ const SwapForm = () => {
                 {t('confirm')}
               </Button>
             </Flex>
+            <Divider mt="6" w="100%" />
             <Receipt />
           </form>
         </FormProvider>
