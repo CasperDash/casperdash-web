@@ -22,6 +22,13 @@ type SwapTokensParams = {
   path: string[];
 };
 
+export const MAP_PAYMENT_AMOUNT = {
+  [FUNCTIONS.SWAP_EXACT_CSPR_FOR_TOKENS]: 10,
+  [FUNCTIONS.SWAP_TOKENS_FOR_EXACT_TOKENS]: 5,
+  [FUNCTIONS.SWAP_EXACT_TOKENS_FOR_CSPR]: 5,
+  [FUNCTIONS.SWAP_EXACT_TOKENS_FOR_TOKENS]: 15,
+};
+
 export const useMutateSwapTokens = (
   options: UseMutationOptions<string, unknown, SwapTokensParams, unknown> = {}
 ) => {
@@ -56,6 +63,7 @@ export const useMutateSwapTokens = (
               amountOutMin: amountOut,
               deadline: dayjs().add(deadlineInMinutes, 'minutes').valueOf(),
               path,
+              paymentAmount: MAP_PAYMENT_AMOUNT[functionType],
             }
           );
 
@@ -70,6 +78,7 @@ export const useMutateSwapTokens = (
               amountOut: amountOut,
               deadline: dayjs().add(deadlineInMinutes, 'minutes').valueOf(),
               path,
+              paymentAmount: MAP_PAYMENT_AMOUNT[functionType],
             }
           );
 
@@ -85,6 +94,7 @@ export const useMutateSwapTokens = (
               amountOutMin: amountOut,
               deadline: dayjs().add(deadlineInMinutes, 'minutes').valueOf(),
               path,
+              paymentAmount: MAP_PAYMENT_AMOUNT[functionType],
             }
           );
 
@@ -99,6 +109,7 @@ export const useMutateSwapTokens = (
               amountOutMin: amountOut,
               deadline: dayjs().add(deadlineInMinutes, 'minutes').valueOf(),
               path,
+              paymentAmount: MAP_PAYMENT_AMOUNT[functionType],
             }
           );
 

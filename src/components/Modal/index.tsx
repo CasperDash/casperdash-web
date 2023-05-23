@@ -17,14 +17,22 @@ type ModalProps = {
   title?: string | null;
   children: ReactNode;
   header?: ReactNode;
+  footer?: ReactNode;
 };
 
-const Modal = ({ isOpen, onClose, title, children, header }: ModalProps) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  header,
+  footer,
+}: ModalProps) => {
   return (
     <>
       <ModalChakra isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent borderRadius="2xl" m={10} w={{ base: 'sm', md: 'xl' }}>
+        <ModalContent borderRadius="2xl" m={16} w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader>
             {title && (
               <Heading
@@ -41,7 +49,7 @@ const Modal = ({ isOpen, onClose, title, children, header }: ModalProps) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
-          <ModalFooter></ModalFooter>
+          <ModalFooter>{footer}</ModalFooter>
         </ModalContent>
       </ModalChakra>
     </>

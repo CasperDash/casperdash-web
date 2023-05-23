@@ -133,5 +133,8 @@
   "price_impact": "Price Impact",
   "minimum": "Minimum",
   "slippage": "Slippage",
-  "route": "Route"
+  "route": "Route",
+  "swap_confirmation": "Swap Confirmation",
+  "contract_hash": "Contract Hash",
+  "payment_amount": "Payment Amount"
 }

@@ -3,21 +3,27 @@ import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
 import { useGetCurrentAMMPair } from '@/modules/Swap/hooks/useGetCurrentAMMPair';
 import { useGetSwapListTokens } from '@/modules/Swap/hooks/useGetSwapListTokens';
-import { PairRouteData } from '@/services/friendlyMarket/amm/type';
+import { PairData, PairRouteData } from '@/services/friendlyMarket/amm/type';
 
 const RoutePaths = () => {
-  const { data: pair = { isUsingRouting: false }, isLoading } =
-    useGetCurrentAMMPair();
+  const { data: pair = { isUsingRouting: false } } = useGetCurrentAMMPair();
   const { data: tokens = [] } = useGetSwapListTokens();
   const pairRoute = pair as PairRouteData;
 
-  if (!pairRoute.isUsingRouting || isLoading) {
-    return null;
+  let paths: string[] = [];
+  if (pairRoute.isUsingRouting) {
+    paths = pairRoute.path;
+  } else if (pair) {
+    const simplePair = pair as PairData;
+    paths = [
+      simplePair.token0Model.contractHash,
+      simplePair.token1Model.contractHash,
+    ];
   }
 
   return (
     <Flex gap="2">
-      {pairRoute.path.map((path, index) => {
+      {paths.map((path, index) => {
         const foundToken = tokens.find(
           (token) => token.contractHash === path.replace('hash-', '')
         );
@@ -35,7 +41,7 @@ const RoutePaths = () => {
               </Box>
               <Text>{foundToken?.symbol || ''}</Text>
             </Flex>
-            {index < pairRoute.path.length - 1 && (
+            {index < paths.length - 1 && (
               <Box>
                 <ArrowForwardIcon />
               </Box>

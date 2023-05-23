@@ -51,6 +51,7 @@ type BuldExactSwapCSPRForTokensDeployParams = {
   amountOutMin: number;
   path: string[];
   deadline: number;
+  paymentAmount: number;
 };
 
 type BuildSwapTokensForExactTokensDeployParams = {
@@ -60,6 +61,7 @@ type BuildSwapTokensForExactTokensDeployParams = {
   amountInMax: number;
   path: string[];
   deadline: number;
+  paymentAmount: number;
 };
 
 type BuildSwapExactTokensForTokensDeployParams = {
@@ -69,6 +71,7 @@ type BuildSwapExactTokensForTokensDeployParams = {
   amountOutMin: number;
   path: string[];
   deadline: number;
+  paymentAmount: number;
 };
 
 type BuildSwapExactTokensForTokensDeploy = {
@@ -78,6 +81,7 @@ type BuildSwapExactTokensForTokensDeploy = {
   amountOutMin: number;
   path: string[];
   deadline: number;
+  paymentAmount: number;
 };
 
 /**
@@ -110,7 +114,6 @@ export const buildExactSwapCSPRForTokensDeploy = async (
   contractHash: string,
   transactionDetail: BuldExactSwapCSPRForTokensDeployParams
 ) => {
-  console.log('contractHash: ', contractHash);
   const contractHashByteArray = contractHashToByteArray(contractHash);
   const fromPbKey = CLPublicKey.fromHex(transactionDetail.fromPublicKey);
   const toPbKey = CLPublicKey.fromHex(transactionDetail.toPublicKey);
@@ -138,7 +141,7 @@ export const buildExactSwapCSPRForTokensDeploy = async (
   return buildEntryPointModulBytesDeploy(
     fromPbKey,
     runtimeArgs,
-    toBigNumMotes(10)
+    toBigNumMotes(transactionDetail.paymentAmount)
   );
 };
 
@@ -173,7 +176,7 @@ export const buildSwapTokensForExactTokensDeploy = async (
     contractHash,
     FUNCTIONS.SWAP_TOKENS_FOR_EXACT_TOKENS,
     runtimeArgs,
-    toBigNumMotes(5)
+    toBigNumMotes(transactionDetail.paymentAmount)
   );
 };
 
@@ -205,7 +208,7 @@ export const buildSwapExactTokensForTokensDeploy = async (
     contractHash,
     FUNCTIONS.SWAP_EXACT_TOKENS_FOR_TOKENS,
     runtimeArgs,
-    toBigNumMotes(5)
+    toBigNumMotes(transactionDetail.paymentAmount)
   );
 };
 
@@ -233,7 +236,7 @@ export const buildSwapExactTokensForCSPRDeploy = async (
     contractHash,
     FUNCTIONS.SWAP_EXACT_TOKENS_FOR_CSPR,
     runtimeArgs,
-    toBigNumMotes(15)
+    toBigNumMotes(transactionDetail.paymentAmount)
   );
 };
 

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Flex, Text, VStack } from '@chakra-ui/react';
+import { Flex, StackProps, Text, VStack } from '@chakra-ui/react';
 import Big from 'big.js';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,10 @@ import { useSelectToken } from '@/modules/Swap/hooks/useSelectToken';
 import { PairRouteData } from '@/services/friendlyMarket/amm/type';
 import { Token } from '@/services/friendlyMarket/tokens';
 
+type ReceiptProps = {
+  isShowRoute?: boolean;
+} & StackProps;
+
 const Row = ({ label, value }: { label: string; value: ReactNode }) => {
   return (
     <Flex justifyContent="space-between" w="100%">
@@ -22,7 +26,7 @@ const Row = ({ label, value }: { label: string; value: ReactNode }) => {
   );
 };
 
-const Receipt = () => {
+const Receipt = ({ isShowRoute, ...props }: ReceiptProps) => {
   const { setValue } = useFormContext();
   const { t } = useTranslation();
   const swapFrom: Token = useSelectToken('swapFrom');
@@ -91,7 +95,7 @@ const Receipt = () => {
   ];
   const pairRoute = pair as PairRouteData;
 
-  if (pairRoute.isUsingRouting) {
+  if (isShowRoute && pairRoute.isUsingRouting) {
     items.push({
       label: t('route'),
       value: <RoutePaths />,
@@ -102,9 +106,7 @@ const Receipt = () => {
     <VStack
       gap="1"
       alignItems="baseline"
-      mt="2"
-      px="10"
-      py="4"
+      {...props}
       // border="1px solid"
       // borderColor="gray.200"
       // borderRadius="md"

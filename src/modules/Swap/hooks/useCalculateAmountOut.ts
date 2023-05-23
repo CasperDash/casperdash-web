@@ -19,16 +19,18 @@ const useCalculateAmountOut = () => {
   const { setValue } = useFormContext();
   const { data: pair = {} } = useGetCurrentAMMPair();
   const swapTo = useSelectToken('swapTo');
-  const calculatePrice = useCallback(
-    ({ value, reverseIn, reverseOut, decimals }: CalculatePriceParams) => {
-      const amount = Big(getAmountOut(reverseIn, reverseOut, value))
-        .round(decimals, 0)
-        .toNumber();
+  const calculatePrice = ({
+    value,
+    reverseIn,
+    reverseOut,
+    decimals,
+  }: CalculatePriceParams) => {
+    const amount = Big(getAmountOut(reverseIn, reverseOut, value))
+      .round(decimals, 0)
+      .toNumber();
 
-      setValue('swapTo.amount', amount);
-    },
-    [setValue]
-  );
+    setValue('swapTo.amount', amount);
+  };
 
   const handleChangeAmount = useCallback(
     (value: number) => {
@@ -58,7 +60,8 @@ const useCalculateAmountOut = () => {
         });
       }
     },
-    [calculatePrice, pair, swapTo.contractHash, swapTo.decimals]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pair, swapTo.contractHash, swapTo.decimals]
   );
 
   return handleChangeAmount;

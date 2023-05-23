@@ -17,7 +17,7 @@ const Setting = () => {
         _hover={{ color: 'light' }}
         onClick={onOpen}
       >
-        <Box mt="1px">
+        <Box mt="1px" ml="-0.5px">
           <SettingIcon width="24px" height="20px" />
         </Box>
       </CircleWrapper>
