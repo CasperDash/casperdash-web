@@ -35,12 +35,7 @@ const ModalTransactionSetting = ({
       onClose();
     },
   });
-  const {
-    handleSubmit,
-    setValue,
-    control,
-    formState: { errors },
-  } = useForm<SubmitValues>({
+  const { handleSubmit, setValue, control } = useForm<SubmitValues>({
     resolver: zodResolver(validationSchema),
   });
   useGetSwapSettings({
@@ -53,8 +48,6 @@ const ModalTransactionSetting = ({
   const handleOnSubmit = (data: SubmitValues) => {
     mutate(data);
   };
-
-  console.log('errors: ', errors);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={t('transaction_settings')}>

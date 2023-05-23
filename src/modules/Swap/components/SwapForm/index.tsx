@@ -1,8 +1,8 @@
-import { Box, Button, Divider, Flex, useDisclosure } from '@chakra-ui/react';
+import { Box, Divider, Flex, useDisclosure } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import ButtonReverse from './ButtonReverse';
+import { ButtonSwap } from './ButtonSwap';
 import ModalConfirm from './ModalConfirm';
 import RadioPercentSelect from './RadioPercentSelect';
 import Receipt from './Receipt';
@@ -16,7 +16,6 @@ import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired'
 import { FieldValues } from '@/modules/Swap/type';
 
 const SwapForm = () => {
-  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const methods = useForm<FieldValues>({
     defaultValues: {
@@ -62,9 +61,7 @@ const SwapForm = () => {
             <ButtonReverse />
             <SelectSwapTo />
             <Flex justify={'center'} mt="8">
-              <Button variant="primary" type="submit" w="100%">
-                {t('swap')}
-              </Button>
+              <ButtonSwap />
             </Flex>
             <Divider mt="6" w="100%" />
             <Receipt px="10" py="4" isShowRoute />

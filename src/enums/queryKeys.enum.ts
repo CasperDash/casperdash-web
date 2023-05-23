@@ -28,4 +28,7 @@ export enum QueryKeysEnum {
   SWAP_AMM_PAIR = 'swap_amm_pair',
   // Coingecko
   COINGECKO_COIN_MARKET_DATA = 'coingecko_coin_market_data',
+
+  // Utils
+  UTILS_VALIDATE_SWAP = 'utils_validate_swap',
 }
