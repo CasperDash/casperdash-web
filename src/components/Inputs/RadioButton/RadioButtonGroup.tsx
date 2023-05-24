@@ -48,15 +48,7 @@ export const RadioButtonGroup = ({
   const group = getRootProps();
 
   return (
-    <Flex
-      flexWrap="wrap"
-      maxW={{ base: 'xs', md: 'lg' }}
-      justifyContent="center"
-      gap="4"
-      {...group}
-      {...restProps}
-      __css={styles.radioButtons}
-    >
+    <Flex {...group} {...restProps} __css={styles.radioButtons}>
       {radios.map((child: ReactElement, index: number) => {
         const radioProps = getRadioProps({ value: child.props.value });
         return cloneElement(child, {

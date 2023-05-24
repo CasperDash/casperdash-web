@@ -1,6 +1,7 @@
 const fontSizes = {
-  xs: '0.75rem',
-  sm: '0.875rem',
+  tiny: '0.625rem', // 10px
+  xs: '0.75rem', // 12px
+  sm: '0.875rem', // 14px
   md: '1rem',
   lg: '1.125rem',
   xl: '1.25rem',

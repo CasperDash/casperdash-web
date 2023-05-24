@@ -1,4 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import Big from 'big.js';
 
 const MOTE_RATE = 1000000000;
@@ -24,6 +24,24 @@ export const toMotes = (amount: number): BigNumber | number => {
   } catch (error) {
     return 0;
   }
+};
+
+/**
+ * /**
+ * Conver CSPR to Motes.
+ *
+ * Inpsired from toWie implementation (https://github.com/ethjs/ethjs-unit/blob/master/src/index.js#L119)
+ * It will convert to String number | number to Big Number (We use big.js to cover the float numbers).
+ * After that multiple with mote rate 10⁸
+ *
+ * @param {Number|String} amount
+ */
+export const toBigNumMotes = (amount: number): BigNumberish => {
+  const bigAmount = Big(amount)
+    .times(MOTE_RATE)
+    .round(0, Big.roundDown)
+    .toString();
+  return BigNumber.from(bigAmount);
 };
 
 /**
@@ -56,4 +74,14 @@ export const formatBalanceFromHex = (
       .div(10 ** decimalsNumber)
       .toNumber() || 0
   );
+};
+
+// convert hex number to number
+export const hexToNumber = (
+  balanceHex: string,
+  decimalsHex: string
+): number => {
+  return new Big(parseInt(balanceHex, 16))
+    .div(new Big(10).pow(parseInt(decimalsHex, 16)))
+    .toNumber();
 };
