@@ -5,7 +5,11 @@ import { useFormContext } from 'react-hook-form';
 
 import { useGetCurrentAMMPair } from './useGetCurrentAMMPair';
 import { useSelectToken } from './useSelectToken';
-import { getAmountIn } from '../utils';
+import {
+  findReverseRouteIntToken1PairByContractHash,
+  findReverseRouteToken0IntPairByContractHash,
+  getAmountIn,
+} from '../utils';
 import { PairData, PairRouteData } from '@/services/friendlyMarket/amm/type';
 
 type CalculatePriceParams = {
@@ -19,6 +23,7 @@ const useCalculateAmountIn = () => {
   const { setValue } = useFormContext();
   const { data: pair = {} } = useGetCurrentAMMPair();
   const swapFrom = useSelectToken('swapFrom');
+  const swapTo = useSelectToken('swapTo');
   const calculatePrice = ({
     value,
     reverseIn,
@@ -31,6 +36,7 @@ const useCalculateAmountIn = () => {
 
     setValue('swapFrom.amount', amount);
   };
+
   const handleChangeAmount = useCallback(
     (value: number) => {
       if (!value) {
@@ -39,15 +45,23 @@ const useCalculateAmountIn = () => {
       }
       const pairRouting = <PairRouteData>pair;
       if (pairRouting.isUsingRouting) {
-        const bridgeAmount = getAmountIn(
-          pairRouting.intToken1Pair.reserve0,
-          pairRouting.intToken1Pair.reserve1,
-          value
-        );
+        const [reserve0, reserve1] =
+          findReverseRouteIntToken1PairByContractHash(
+            swapTo.contractHash,
+            pairRouting
+          );
+        const bridgeAmount = getAmountIn(reserve0, reserve1, value);
+
+        const [reserve0IntPair, reserve1IntPair] =
+          findReverseRouteToken0IntPairByContractHash(
+            swapFrom.contractHash,
+            pairRouting
+          );
+
         calculatePrice({
           value: bridgeAmount,
-          reverseIn: pairRouting.token0IntPair.reserve0,
-          reverseOut: pairRouting.token0IntPair.reserve1,
+          reverseIn: reserve0IntPair,
+          reverseOut: reserve1IntPair,
           decimals: swapFrom.decimals,
         });
       } else if (pair && swapFrom.contractHash) {

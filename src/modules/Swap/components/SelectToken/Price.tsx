@@ -13,7 +13,7 @@ const Price = ({ value }: PriceProps) => {
   const amountInUsd = useGetAmountInUsd({ token: value });
   return (
     <Text fontSize="sm" color="gray.500" ml="auto">
-      {t('price')}: {amountInUsd || 0}
+      {t('price')}: ${amountInUsd || 0}
     </Text>
   );
 };

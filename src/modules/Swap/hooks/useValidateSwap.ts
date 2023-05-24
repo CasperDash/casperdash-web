@@ -6,13 +6,11 @@ import { useSelectToken } from './useSelectToken';
 import { Token } from '@/services/friendlyMarket/tokens';
 
 export const useValidateSwap = () => {
-  const swapFrom: Token = useSelectToken('swapFrom');
-  const swapTo: Token = useSelectToken('swapTo');
+  const swapFrom: Token & { balance: number } = useSelectToken('swapFrom');
+  const swapTo: Token & { balance: number } = useSelectToken('swapTo');
   const { t } = useTranslation();
 
   const validateSwap = useCallback(() => {
-    console.log('swapFrom: ', swapFrom);
-    console.log('swapTo: ', swapTo);
     if (!swapFrom.contractHash || !swapTo.contractHash) {
       return {
         isValid: false,
@@ -28,6 +26,13 @@ export const useValidateSwap = () => {
     }
 
     if (!swapFrom.amount || swapFrom.amount <= 0) {
+      return {
+        isValid: false,
+        error: t('please_enter_amount'),
+      };
+    }
+
+    if (!swapTo.amount || swapTo.amount < 0) {
       return {
         isValid: false,
         error: t('please_enter_amount'),

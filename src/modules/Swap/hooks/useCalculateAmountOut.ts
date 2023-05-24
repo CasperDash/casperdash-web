@@ -5,7 +5,11 @@ import { useFormContext } from 'react-hook-form';
 
 import { useGetCurrentAMMPair } from './useGetCurrentAMMPair';
 import { useSelectToken } from './useSelectToken';
-import { getAmountOut } from '../utils';
+import {
+  findReverseRouteIntToken1PairByContractHash,
+  findReverseRouteToken0IntPairByContractHash,
+  getAmountOut,
+} from '../utils';
 import { PairData, PairRouteData } from '@/services/friendlyMarket/amm/type';
 
 type CalculatePriceParams = {
@@ -18,6 +22,7 @@ type CalculatePriceParams = {
 const useCalculateAmountOut = () => {
   const { setValue } = useFormContext();
   const { data: pair = {} } = useGetCurrentAMMPair();
+  const swapFrom = useSelectToken('swapFrom');
   const swapTo = useSelectToken('swapTo');
   const calculatePrice = ({
     value,
@@ -39,16 +44,24 @@ const useCalculateAmountOut = () => {
         return;
       }
       const pairRouting = <PairRouteData>pair;
+
       if (pairRouting.isUsingRouting) {
-        const bridgeAmount = getAmountOut(
-          pairRouting.token0IntPair.reserve0,
-          pairRouting.token0IntPair.reserve1,
-          value
-        );
+        const [reserve0, reserve1] =
+          findReverseRouteToken0IntPairByContractHash(
+            swapFrom.contractHash,
+            pairRouting
+          );
+        const bridgeAmount = getAmountOut(reserve0, reserve1, value);
+        const [reserve0IntPair, reserve1IntPair] =
+          findReverseRouteIntToken1PairByContractHash(
+            swapTo.contractHash,
+            pairRouting
+          );
+
         calculatePrice({
           value: bridgeAmount,
-          reverseIn: pairRouting.intToken1Pair.reserve0,
-          reverseOut: pairRouting.intToken1Pair.reserve1,
+          reverseIn: reserve0IntPair,
+          reverseOut: reserve1IntPair,
           decimals: swapTo.decimals,
         });
       } else if (pair && swapTo.contractHash) {
