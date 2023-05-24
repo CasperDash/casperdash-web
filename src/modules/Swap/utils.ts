@@ -8,6 +8,9 @@ export const getAmountIn = (
   if (!amountOut) {
     return 0;
   }
+  if (!reserveIn || !reserveOut) {
+    return 0;
+  }
   const numerator = Big(reserveIn).times(amountOut).times(1000);
   const denominator = Big(reserveOut).minus(amountOut).times(997);
 
@@ -22,6 +25,10 @@ export const getAmountOut = (
   if (!amountIn) {
     return 0;
   }
+  if (!reserveIn || !reserveOut) {
+    return 0;
+  }
+
   const amountInWithFee = Big(amountIn).times(997);
   const numerator = Big(amountInWithFee).times(reserveOut);
   const denominator = Big(reserveIn).times(1000).add(amountInWithFee);

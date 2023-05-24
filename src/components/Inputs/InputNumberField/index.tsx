@@ -1,26 +1,38 @@
 import { NumberInput, NumberInputField } from '@chakra-ui/react';
-import { Control, Controller, ControllerProps } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any, any>;
-  max?: number;
+  name: string;
+  onChange?: (value: number) => void;
   min?: number;
-} & Omit<ControllerProps, 'render' | 'control'>;
+  max?: number;
+};
 
-const InputNumberField = ({ min, max, name, ...restProps }: Props) => {
+const InputNumberField = ({
+  min,
+  max,
+  name,
+  control,
+  onChange,
+  ...restProps
+}: Props) => {
   return (
     <Controller
       name={name}
-      {...restProps}
-      render={({ field: { onChange, value, onBlur } }) => {
+      control={control}
+      render={({ field: { onChange: onChangeForm, value, onBlur } }) => {
         return (
           <NumberInput
+            {...restProps}
             value={value}
             min={min}
             max={max}
             onChange={(val: string) => {
-              onChange(parseFloat(val) || 0);
+              const valNumber = parseFloat(val) || 0;
+              onChangeForm(valNumber);
+              onChange?.(valNumber);
             }}
             onBlur={onBlur}
           >

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import RoutePaths from './RoutePaths';
 import { useCalculateAmountOutMin } from '@/modules/Swap/hooks/useCalculateAmountOutMin';
+import { useGetAmountInUsd } from '@/modules/Swap/hooks/useGetAmountInUsd';
 import { useGetCurrentAMMPair } from '@/modules/Swap/hooks/useGetCurrentAMMPair';
 import { useGetSwapSettings } from '@/modules/Swap/hooks/useGetSwapSettings';
 import { useSelectToken } from '@/modules/Swap/hooks/useSelectToken';
@@ -31,6 +32,8 @@ const Receipt = ({ isShowRoute, ...props }: ReceiptProps) => {
   const { t } = useTranslation();
   const swapFrom: Token = useSelectToken('swapFrom');
   const swapTo: Token = useSelectToken('swapTo');
+  const fromAmountInUsd = useGetAmountInUsd({ token: swapFrom });
+  const toAmountInUsd = useGetAmountInUsd({ token: swapTo });
   const { data: swapSettings = { slippage: 0 } } = useGetSwapSettings({
     onSuccess: (data) => {
       setValue('swapSettings', data);
@@ -48,11 +51,11 @@ const Receipt = ({ isShowRoute, ...props }: ReceiptProps) => {
     .div(100)
     .round(swapFrom.decimals, 0)
     .toNumber();
-  const priceImpact = swapTo.amountInUSD
+  const priceImpact = fromAmountInUsd
     ? Big(100)
         .minus(
-          Big(swapFrom.amountInUSD || 0)
-            .div(swapTo.amountInUSD || 1)
+          Big(fromAmountInUsd || 0)
+            .div(toAmountInUsd || 1)
             .times(100)
         )
         .round(4, 0)
