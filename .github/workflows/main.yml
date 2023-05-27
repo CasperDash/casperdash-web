@@ -1,0 +1,44 @@
+name: Main
+
+on:
+    push:
+    workflow_dispatch:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
+jobs:
+    lint:
+        name: Lint
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [18]
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  cache: 'yarn'
+                  node-version: ${{ matrix.node-version }}
+            - name: Run install
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install
+            - name: Cache node_modules
+              uses: actions/cache@v3
+              id: cache-node-modules
+              with:
+                path: |
+                  node_modules
+                key: modules-${{ hashFiles('yarn.lock') }}
+            - name: Install
+              run : |
+                  yarn
+            - name: Lint check
+              run : |
+                  yarn lint
