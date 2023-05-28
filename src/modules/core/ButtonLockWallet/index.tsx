@@ -24,6 +24,7 @@ const ButtonLockWallet = () => {
   const { toastSuccess } = useI18nToast();
   const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const cancelRef = useRef(null!);
   const { mutate, isLoading } = useMutateLockWallet({
     onSuccess: () => {

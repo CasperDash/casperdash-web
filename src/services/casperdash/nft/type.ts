@@ -3,6 +3,7 @@ import { TBalance } from '../user';
 export interface IMetadata {
   key: string;
   value: string;
+  name?: string;
 }
 
 export interface INFTInfo {
