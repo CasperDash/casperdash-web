@@ -5,14 +5,14 @@ const sizes = {
   max: 'max-content',
   min: 'min-content',
   full: '100%',
-  '5xs': '10rem',
+  '5xs': '10rem', // 160px
   '4xs': '12rem',
   '3xs': '14rem',
   '2xs': '16rem',
   xs: '20rem',
   sm: '24rem',
   md: '28rem',
-  lg: '34.5rem',
+  lg: '34.5rem', // 552px
   xl: '36rem',
   '2xl': '42rem',
   '3xl': '48rem',

@@ -2,27 +2,18 @@ import { useState } from 'react';
 
 import { ArrowDownIcon, ArrowUpIcon, SearchIcon } from '@chakra-ui/icons';
 import {
-  Text,
   Flex,
   Input,
   InputGroup,
   InputRightElement,
   ButtonGroup,
   Button,
-  Card,
-  CardBody,
-  Image,
-  Box,
-  Divider,
-  Grid,
-  GridItem,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import { NFTDetail } from './NFTDetail';
+import ListNFTs from './components/ListNFTs';
 import { useGetNFTs } from '@/hooks/queries/useGetNFTs';
 import { useAccount } from '@/hooks/useAccount';
-import { INFTInfo } from '@/services/casperdash/nft/type';
 
 type TSortField = 'nftName' | 'contractName';
 
@@ -33,9 +24,12 @@ const NFTs = () => {
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   const { t } = useTranslation();
 
-  const { filteredData } = useGetNFTs(publicKey, searchTerm, sort, order);
-
-  const [selectedNFT, setSelectedNFT] = useState<INFTInfo>();
+  const { data: nfts, isLoading } = useGetNFTs({
+    publicKey,
+    searchName: searchTerm,
+    sortBy: sort,
+    order,
+  });
 
   const onFilterWith = (type: TSortField) => {
     if (type !== sort) {
@@ -46,15 +40,6 @@ const NFTs = () => {
     }
   };
 
-  if (selectedNFT) {
-    return (
-      <NFTDetail
-        nftDetail={selectedNFT}
-        onBack={() => setSelectedNFT(undefined)}
-      />
-    );
-  }
-
   return (
     <Flex
       alignItems={'center'}
@@ -62,7 +47,6 @@ const NFTs = () => {
       justify={'center'}
       mt={{ base: '6', lg: '20' }}
     >
-      <Text fontWeight="700">{t('my_collectibles')}</Text>
       <Flex
         direction={{ base: 'column', lg: 'row' }}
         width={{ base: '100%' }}
@@ -75,8 +59,12 @@ const NFTs = () => {
             placeholder={t('search_collectibles') || 'Search NFTs'}
             borderRadius={'40'}
             onChange={(e) => setSearchTerm(e.target.value)}
+            _focus={{
+              outline: 'none',
+              boxShadow: 'none',
+            }}
           />
-          <InputRightElement mr={'2'}>
+          <InputRightElement mr={'2'} mt={'1'}>
             <SearchIcon color={'gray.400'} />
           </InputRightElement>
         </InputGroup>
@@ -110,44 +98,7 @@ const NFTs = () => {
           </Button>
         </ButtonGroup>
       </Flex>
-      <Grid
-        templateColumns={{
-          base: '1',
-          lg: 'repeat(3,1fr)',
-          md: 'repeat(2,1fr)',
-        }}
-        gap={6}
-        w={'100%'}
-      >
-        {filteredData?.map((item) => {
-          return (
-            <GridItem
-              key={`${item.contractAddress}-${item.contractName}-${item.tokenId}`}
-              onClick={() => setSelectedNFT(item)}
-            >
-              <Card mt={{ base: 4 }} w={{ base: '100%' }} p={4}>
-                <CardBody p={0}>
-                  <Box h={{ base: '200' }} w={{ base: '100%' }}>
-                    <Image
-                      src={item.image}
-                      alt="Green double couch with wooden legs"
-                      borderRadius="3xl"
-                      objectFit={'contain'}
-                      w={'100%'}
-                      h={'100%'}
-                    />
-                  </Box>
-                  <Text fontWeight={'bold'} fontSize={'2xl'} mt={{ base: '4' }}>
-                    {item.nftName}
-                  </Text>
-                  <Text color={'gray.500'}>{item.contractName}</Text>
-                </CardBody>
-              </Card>
-              <Divider marginY={{ base: '4' }} />
-            </GridItem>
-          );
-        })}
-      </Grid>
+      <ListNFTs nfts={nfts} isLoading={isLoading} />
     </Flex>
   );
 };
