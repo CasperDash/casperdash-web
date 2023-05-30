@@ -2,7 +2,7 @@ name: Deploy Testnet
 
 on:
     push:
-      branches: [ ci/test-deploy ]
+      branches: [ ci/test-deploy-testnet  ]
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -14,7 +14,7 @@ jobs:
 
     strategy:
         matrix:
-            node-version: [16.x]
+            node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v3
