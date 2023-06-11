@@ -117,5 +117,13 @@
   "recieve": "Recieve",
   "your_wallet_address": "Your wallet address",
   "copy_wallet_address": "Copy Wallet Address",
-  "description": "Description"
+  "description": "Description",
+  "hey_you": "Hey you",
+  "code": "Code",
+  "feedback": "Feedback",
+  "paste_your_public_key": "Paste your public key",
+  "feedback_min_required": "Feedback is too short (min 20 characters)",
+  "feedback_max_required": "Feedback is too long (max 1000 characters)",
+  "invalid_wallet_address": "Invalid wallet address",
+  "wallet_address_required": "Wallet address is required"
 }

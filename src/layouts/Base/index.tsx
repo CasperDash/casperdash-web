@@ -3,7 +3,9 @@ import { Box, Divider, Flex, useColorModeValue } from '@chakra-ui/react';
 import Header from './Header';
 import MainContainer from '@/components/Common/MainContainer';
 import { useGetLocked } from '@/hooks/queries/useGetLocked';
+import AirdropFeedback from '@/modules/AirdropFeedback';
 import { ButtonMagic } from '@/modules/core/ButtonMagic';
+import PopupAirdrop from '@/modules/PopupAirdrop';
 import PopupAutoConnectWallet from '@/modules/PopupAutoConnectWallet';
 import PopupSDK from '@/modules/PopupSDK';
 import UnlockWallet from '@/modules/UnlockWallet';
@@ -35,12 +37,14 @@ const BaseLayout = ({
   const headerBg = useColorModeValue(defaultLightHeaderBg, 'blackAlpha.900');
 
   return (
-    <Box minHeight="100vh" bg={bg} pb="5">
+    <Box minHeight="100vh" bg={bg} pb="5" position={'relative'}>
       <Header bg={headerBg} />
       <Divider />
       <BodyContent>{children}</BodyContent>
       <PopupAutoConnectWallet />
       <PopupSDK />
+      <PopupAirdrop />
+      <AirdropFeedback />
       <ButtonMagic />
     </Box>
   );
