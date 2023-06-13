@@ -125,7 +125,11 @@ const FeedbackForm = ({ onSuccess, ...restProps }: Props) => {
             <FormLabel>
               <Text mb="4">{t('feedback')}:</Text>
             </FormLabel>
-            <Textarea {...register('feedback')} rows={5} />
+            <Textarea
+              {...register('feedback')}
+              rows={5}
+              placeholder="You can either leave feedback on the form itself, write a Medium blog or create a YouTube video about it. If you use Medium or YouTube, please provide us with a link. Once you have submitted your feedback, please tweet your feedbacks also. Tag @casperdash_io and use the hashtag #CasperDash_Retroactive."
+            />
             {!!errors.feedback && (
               <FormErrorMessage>
                 {t(_.get(errors, 'feedback.message', 'default_error_message'))}

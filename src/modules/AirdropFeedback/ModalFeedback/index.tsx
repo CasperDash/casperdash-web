@@ -33,7 +33,7 @@ const ModalFeedback = ({ isOpen, onClose }: ModalAirdropProps) => {
         <ModalBody>
           <Flex direction={'column'}>
             <Text textAlign={'center'} fontWeight="bold" fontSize={'xl'}>
-              🌟 Register Aidrop & Share Your Feedback 🌟
+              🌟 Share Your Feedback 🌟
             </Text>
           </Flex>
           <FeedbackForm onSuccess={onClose} />

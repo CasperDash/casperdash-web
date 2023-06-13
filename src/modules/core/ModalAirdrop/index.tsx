@@ -40,16 +40,16 @@ const ModalAirdrop = ({ isOpen, onClose }: ModalAirdropProps) => {
           <ModalBody>
             <Flex direction={'column'}>
               <Text textAlign={'center'} fontWeight="bold" fontSize={'xl'}>
-                🌟 Get Your Airdrop Code on Telegram! 🌟
+                🌟 CasperDash Retroactive Program 🌟
               </Text>
 
               <Box mt="6">
                 <Text lineHeight="2">
-                  To receive your unique Airdrop code, follow these simple
-                  steps:
+                  You need to claim the unique Code to join the Retroactive
+                  program. Please follow these simple steps:
                 </Text>
                 <Text lineHeight="2">
-                  1️⃣ Join our official Telegram group:{' '}
+                  1️⃣ Join our official CasperDash Retroactive Bot:{' '}
                   <Link
                     href="https://t.me/cd_aidrop_bot"
                     isExternal
@@ -59,17 +59,10 @@ const ModalAirdrop = ({ isOpen, onClose }: ModalAirdropProps) => {
                   </Link>
                 </Text>
                 <Text lineHeight="2">
-                  2️⃣ Enter the code provided on our popup to join the testing
+                  2️⃣ Enter the code provided by CasperDash Retroactive Bot to
+                  join the testing
                 </Text>
               </Box>
-              <Text mt="2">
-                🚀 Participate in the Airdrop, earn rewards, and help shape the
-                future of CasperDash!
-              </Text>
-              <Text as="i" mt="4">
-                Don&apos;t miss out on the CasperDash Airdrop opportunity. Join
-                us on Telegram and grab your exclusive code now!
-              </Text>
             </Flex>
             <AirdropForm onSuccess={onClose} />
           </ModalBody>
