@@ -20,7 +20,7 @@ const AirdropFeedback = () => {
   return (
     <Flex position={'fixed'} right="10" bottom="10">
       <Button variant={'primary'} onClick={onOpen}>
-        Enroll in Airdrop
+        Give Feedback
       </Button>
       <ModalFeedback isOpen={isOpen} onClose={onClose} />
     </Flex>
