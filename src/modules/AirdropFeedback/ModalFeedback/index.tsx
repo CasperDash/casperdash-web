@@ -26,7 +26,7 @@ const ModalFeedback = ({ isOpen, onClose }: ModalAirdropProps) => {
         m={{
           base: '10',
         }}
-        w={'xxl'}
+        w={'xl'}
       >
         <ModalHeader></ModalHeader>
         <ModalCloseButton />
