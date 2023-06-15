@@ -10,6 +10,7 @@ import {
   Box,
   Link,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 import AirdropForm from './components/AirdropForm';
 
@@ -19,6 +20,8 @@ type ModalAirdropProps = {
 };
 
 const ModalAirdrop = ({ isOpen, onClose }: ModalAirdropProps) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Modal
@@ -40,16 +43,13 @@ const ModalAirdrop = ({ isOpen, onClose }: ModalAirdropProps) => {
           <ModalBody>
             <Flex direction={'column'}>
               <Text textAlign={'center'} fontWeight="bold" fontSize={'xl'}>
-                🌟 CasperDash Retroactive Program 🌟
+                {t('airdrop_title')}
               </Text>
 
               <Box mt="6">
+                <Text lineHeight="2">{t('airdrop_description_1')}</Text>
                 <Text lineHeight="2">
-                  You need to claim the unique Code to join the Retroactive
-                  program. Please follow these simple steps:
-                </Text>
-                <Text lineHeight="2">
-                  1️⃣ Join our official CasperDash Retroactive Bot:{' '}
+                  {t('airdrop_description_2')}{' '}
                   <Link
                     href="https://t.me/cd_aidrop_bot"
                     isExternal
@@ -58,10 +58,7 @@ const ModalAirdrop = ({ isOpen, onClose }: ModalAirdropProps) => {
                     https://t.me/cd_aidrop_bot
                   </Link>
                 </Text>
-                <Text lineHeight="2">
-                  2️⃣ Enter the code provided by CasperDash Retroactive Bot to
-                  join the testing
-                </Text>
+                <Text lineHeight="2">{t('airdrop_description_3')}</Text>
               </Box>
             </Flex>
             <AirdropForm onSuccess={onClose} />

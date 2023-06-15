@@ -9,6 +9,7 @@ import {
   Flex,
   ModalCloseButton,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 import FeedbackForm from './components/FeedbackForm';
 
@@ -18,6 +19,8 @@ type ModalAirdropProps = {
 };
 
 const ModalFeedback = ({ isOpen, onClose }: ModalAirdropProps) => {
+  const { t } = useTranslation();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="2xl">
       <ModalOverlay pointerEvents="none" />
@@ -33,7 +36,7 @@ const ModalFeedback = ({ isOpen, onClose }: ModalAirdropProps) => {
         <ModalBody>
           <Flex direction={'column'}>
             <Text textAlign={'center'} fontWeight="bold" fontSize={'xl'}>
-              🌟 Share Your Feedback 🌟
+              {t('feedback_title')}
             </Text>
           </Flex>
           <FeedbackForm onSuccess={onClose} />
