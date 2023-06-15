@@ -10,7 +10,8 @@
     "account_selected": "You have successfully selected {{ name }}",
     "account_imported": "You have successfully imported",
     "token_added": "You have successfully added {{ name }} token",
-    "your_wallet_locked": "Your wallet locked successfully"
+    "your_wallet_locked": "Your wallet locked successfully",
+    "airdrop_successfully_submitted": "Thanks for your valuable feedbacks. Enjoy your Defi journey with CasperDash."
   },
   "error": {
     "please_try_other_password": "We're sorry, the password you entered is incorrect. Please try again with a different password",
@@ -20,6 +21,8 @@
     "public_key_does_not_exist": "We're sorry, we were unable to retrieve the public key. Please try again later or re-import your wallet",
     "password_is_not_correct": "The password you entered is not correct.",
     "private_key_required": "Private key is required",
-    "uid_is_empty": "UID is empty"
+    "uid_is_empty": "UID is empty",
+    "invalid_airdrop_code": "Invalid retroactive code",
+    "airdrop_is_not_started": "Retroactive campaign has not been started yet"
   }
 }

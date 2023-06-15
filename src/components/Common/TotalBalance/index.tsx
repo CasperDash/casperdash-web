@@ -1,9 +1,7 @@
 import { Box, BoxProps, Flex, Heading, Text } from '@chakra-ui/react';
-import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '../../Paper';
-import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 
@@ -21,14 +19,9 @@ const TotalBalance = ({
   ...restProps
 }: TotalBalanceProps) => {
   const { t } = useTranslation();
-  const { data } = useGetCurrentAccount({
-    onError: (err) => {
-      console.error(err);
-    },
-  });
   const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
 
-  const { data: { price } = { price: 0 } } = useGetCSPRMarketInfo();
+  const { data: { price = 0 } = { price: 0 } } = useGetCSPRMarketInfo();
 
   return (
     <Paper {...restProps} p="0" py="8" minH="xs">
@@ -55,7 +48,7 @@ const TotalBalance = ({
           <Box mt="3">
             <Text color="gray.500" lineHeight="6" fontSize="sm">
               {t('intlNumber', {
-                val: _.get(data, 'balance', 0) * price,
+                val: balance * price,
               })}
             </Text>
           </Box>

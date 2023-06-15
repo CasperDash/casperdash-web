@@ -117,5 +117,20 @@
   "recieve": "Recieve",
   "your_wallet_address": "Your wallet address",
   "copy_wallet_address": "Copy Wallet Address",
-  "description": "Description"
+  "description": "Description",
+  "hey_you": "Hey you",
+  "code": "Code",
+  "feedback": "Feedback",
+  "paste_your_public_key": "Paste your public key",
+  "feedback_min_required": "Feedback is too short (min 20 characters)",
+  "feedback_max_required": "Feedback is too long (max 1000 characters)",
+  "invalid_wallet_address": "Invalid wallet address",
+  "wallet_address_required": "Wallet address is required",
+  "feedback_placeholder": "You can either leave feedback on the form itself, write a Medium blog or create a YouTube video about it. If you use Medium or YouTube, please provide us with a link. Once you have submitted your feedback, please tweet your feedbacks also. Tag @casperdash_io and use the hashtag #CasperDash_Retroactive.",
+  "feedback_title": "🌟 Share Your Feedback 🌟",
+  "give_feedback": "Give Feedback",
+  "airdrop_title": "🌟 CasperDash Retroactive Program 🌟",
+  "airdrop_description_1": "You need to claim the unique Code to join the Retroactive program. Please follow these simple steps:",
+  "airdrop_description_2": "1️⃣ Join our official CasperDash Retroactive Bot",
+  "airdrop_description_3": "2️⃣ Enter the code provided by CasperDash Retroactive Bot to join the testing"
 }
