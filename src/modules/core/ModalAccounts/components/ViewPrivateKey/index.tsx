@@ -6,11 +6,11 @@ import {
   Alert,
   AlertDescription,
   Text,
-  useClipboard,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
+import { useSafeClipboard } from '@/hooks/helpers/useSafeClipboard';
 import { useGetPrivateKey } from '@/hooks/queries/useGetPrivateKey';
 import { useAccount } from '@/hooks/useAccount';
 
@@ -21,7 +21,7 @@ export const ViewPrivateKey = () => {
   const { data: privateKey = '' } = useGetPrivateKey({
     uid,
   });
-  const { onCopy } = useClipboard(privateKey);
+  const { onCopy } = useSafeClipboard(privateKey);
 
   const handleOnCopy = () => {
     onCopy();
