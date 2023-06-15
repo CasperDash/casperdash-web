@@ -19,7 +19,7 @@
     "target": "es5",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "~/public/*": ["public/*"]
     },
     "pretty": true,
@@ -27,6 +27,6 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "src/**/*", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "./src/**/*", "**/*.ts", "**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -54,3 +54,5 @@ export const browserRouter = createBrowserRouter([
     element: <StakingPage />,
   },
 ]);
+
+export default browserRouter;
