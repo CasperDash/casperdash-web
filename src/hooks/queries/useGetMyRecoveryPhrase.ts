@@ -1,4 +1,10 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useEffect } from 'react';
+
+import {
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 import { useAccount } from '../useAccount';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
@@ -16,6 +22,14 @@ export const useGetMyRecoveryPhrase = (
   >
 ) => {
   const { publicKey } = useAccount();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries([QueryKeysEnum.RECOVERY_PHRASE, publicKey]);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return useQuery(
     [QueryKeysEnum.RECOVERY_PHRASE, publicKey],

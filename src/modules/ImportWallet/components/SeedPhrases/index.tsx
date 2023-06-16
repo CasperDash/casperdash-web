@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import {
   Box,
   BoxProps,
@@ -34,13 +36,15 @@ const SeedPhrases = ({ ...restProps }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { handleSubmit, control, register, setValue } = useForm<SubmitValues>({
-    defaultValues: {
-      encryptionType: EncryptionType.Ed25519,
-      words: [],
-      wordsLength: 12,
-    },
-  });
+  const { handleSubmit, control, register, setValue, reset } =
+    useForm<SubmitValues>({
+      defaultValues: {
+        encryptionType: EncryptionType.Ed25519,
+        words: [],
+        wordsLength: 12,
+      },
+    });
+
   const numberOfWords = useWatch({
     control,
     name: 'wordsLength',
@@ -63,6 +67,14 @@ const SeedPhrases = ({ ...restProps }: Props) => {
     );
     setValue('words', ['', ...filledWords]);
   };
+
+  useEffect(() => {
+    return () => {
+      // Reset all values when unmount for safe memory.
+      reset();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handelOnSubmit = (values: SubmitValues) => {
     const { encryptionType, words } = values;

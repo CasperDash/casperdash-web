@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import {
   Box,
@@ -30,9 +30,11 @@ const DoubleCheck = ({ ...restProps }: Props) => {
   const navigate = useNavigate();
   const { toastError } = useI18nToast();
   const { t } = useTranslation();
-  const { handleSubmit, control } = useForm();
+  const seedPhraseCheckersRef = useRef<SeedPhraseChecker[]>([]);
+  const { handleSubmit, control, reset } = useForm();
   const words = useSelector(wordsSelector);
-  const seedPhraseCheckers = useMemo(() => {
+
+  seedPhraseCheckersRef.current = useMemo(() => {
     if (words.length === 0) {
       return [];
     }
@@ -48,33 +50,43 @@ const DoubleCheck = ({ ...restProps }: Props) => {
     toastError('seed_phrase_is_not_correct');
   };
 
+  useEffect(() => {
+    return () => {
+      seedPhraseCheckersRef.current = [];
+      reset();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box {...restProps} maxW={{ base: 'xs', md: 'lg' }}>
       <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>
         <Flex mt="9" gap="7" alignItems="center" direction="column">
-          {seedPhraseCheckers.map(({ answer, options }: SeedPhraseChecker) => {
-            return (
-              <FormControl key={`double-check-${answer}`}>
-                <Flex
-                  direction="column"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <FormLabel>
-                    {t('select_word', { orderNumber: answer + 1 })}
-                  </FormLabel>
-                  <Box mt="6">
-                    <WordsCheckerController
-                      control={control}
-                      words={words}
-                      options={options}
-                      answer={answer}
-                    />
-                  </Box>
-                </Flex>
-              </FormControl>
-            );
-          })}
+          {seedPhraseCheckersRef.current.map(
+            ({ answer, options }: SeedPhraseChecker) => {
+              return (
+                <FormControl key={`double-check-${answer}`}>
+                  <Flex
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <FormLabel>
+                      {t('select_word', { orderNumber: answer + 1 })}
+                    </FormLabel>
+                    <Box mt="6">
+                      <WordsCheckerController
+                        control={control}
+                        words={words}
+                        options={options}
+                        answer={answer}
+                      />
+                    </Box>
+                  </Flex>
+                </FormControl>
+              );
+            }
+          )}
         </Flex>
         <Flex mt="20" mb="10" justifyContent="center">
           <Button

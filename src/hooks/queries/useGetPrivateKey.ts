@@ -1,4 +1,10 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useEffect } from 'react';
+
+import {
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import casperUserUtil from '@/utils/casper/casperUser';
@@ -19,6 +25,16 @@ export const useGetPrivateKey = (
     'queryKey' | 'queryFn'
   >
 ) => {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries([QueryKeysEnum.PRIVATE_KEY_WITH_UID, uid]);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return useQuery(
     [QueryKeysEnum.PRIVATE_KEY_WITH_UID, uid],
     async () => {
