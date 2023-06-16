@@ -1,14 +1,9 @@
-import {
-  OrderedList,
-  ListItem,
-  Flex,
-  Button,
-  useClipboard,
-} from '@chakra-ui/react';
+import { OrderedList, ListItem, Flex, Button } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import BlurredBox from '@/components/Common/BlurredBox';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
+import { useSafeClipboard } from '@/hooks/helpers/useSafeClipboard';
 import { useGetMyRecoveryPhrase } from '@/hooks/queries/useGetMyRecoveryPhrase';
 
 const RecoveryPhrasesContent = () => {
@@ -16,7 +11,7 @@ const RecoveryPhrasesContent = () => {
   const { data: recoveryPhrase = '' } = useGetMyRecoveryPhrase();
   const { toastSuccess } = useI18nToast();
 
-  const { onCopy } = useClipboard(recoveryPhrase);
+  const { onCopy } = useSafeClipboard(recoveryPhrase);
 
   const recoveryPhraseList = recoveryPhrase?.split(' ');
 

@@ -35,6 +35,7 @@
     "casper-js-sdk": "^2.11.1",
     "casper-storage": "1.2.0",
     "chakra-react-select": "^4.6.0",
+    "copy-to-clipboard": "^3.3.3",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "framer-motion": "^10.2.4",
