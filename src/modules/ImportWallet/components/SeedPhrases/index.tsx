@@ -7,7 +7,6 @@ import {
   Text,
   ListItem,
   OrderedList,
-  Input,
 } from '@chakra-ui/react';
 import { EncryptionType } from 'casper-storage';
 import * as _ from 'lodash-es';
@@ -15,6 +14,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import SecretInput from '@/components/Inputs/SecretInput';
 import Paper from '@/components/Paper';
 import SelectEncryptionType from '@/components/Select/SelectEncryptionType';
 import { PathEnum } from '@/enums';
@@ -119,10 +119,11 @@ const SeedPhrases = ({ ...restProps }: Props) => {
                       const currentIndex = startIndex + wordIndex;
                       return (
                         <ListItem key={word} mt="3">
-                          <Input
+                          <SecretInput
                             {...register(`words.${currentIndex}`, {
                               required: true,
                             })}
+                            type="password"
                             onPaste={pasteEventHandler}
                           />
                         </ListItem>
