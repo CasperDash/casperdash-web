@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
+import BlurredBox from '@/components/Common/BlurredBox';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetMyRecoveryPhrase } from '@/hooks/queries/useGetMyRecoveryPhrase';
 
@@ -26,26 +27,28 @@ const RecoveryPhrasesContent = () => {
 
   return (
     <>
-      <OrderedList
-        display={'flex'}
-        flexWrap="wrap"
-        flexDirection={'column'}
-        maxH={recoveryPhraseList.length > 12 ? '180px' : '100px'}
-        mt="10"
-        ml="10"
-      >
-        {recoveryPhraseList.map((word: string) => (
-          <ListItem
-            key={word}
-            lineHeight="6"
-            _before={{
-              color: 'red !important',
-            }}
-          >
-            {word}
-          </ListItem>
-        ))}
-      </OrderedList>
+      <BlurredBox>
+        <OrderedList
+          display={'flex'}
+          flexWrap="wrap"
+          flexDirection={'column'}
+          maxH={recoveryPhraseList.length > 12 ? '180px' : '100px'}
+          mt="10"
+          ml="10"
+        >
+          {recoveryPhraseList.map((word: string) => (
+            <ListItem
+              key={word}
+              lineHeight="6"
+              _before={{
+                color: 'red !important',
+              }}
+            >
+              {word}
+            </ListItem>
+          ))}
+        </OrderedList>
+      </BlurredBox>
       <Flex justifyContent={'center'} mt="10">
         <Button variant={'primary'} onClick={handleOnCopy} w="5xs">
           {t('copy')}

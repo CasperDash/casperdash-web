@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
+import BlurredBox from '@/components/Common/BlurredBox';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetPrivateKey } from '@/hooks/queries/useGetPrivateKey';
 import { useAccount } from '@/hooks/useAccount';
@@ -32,13 +33,15 @@ export const ViewPrivateKey = () => {
     <Flex direction="column">
       <FormControl>
         <FormLabel>{t('this_is_your_private_key')}</FormLabel>
-        <Textarea
-          value={privateKey}
-          mt="4"
-          rows={6}
-          readOnly
-          onClick={handleOnCopy}
-        />
+        <BlurredBox>
+          <Textarea
+            value={privateKey}
+            mt="4"
+            rows={6}
+            readOnly
+            onClick={handleOnCopy}
+          />
+        </BlurredBox>
       </FormControl>
       <Alert
         mt="6"
