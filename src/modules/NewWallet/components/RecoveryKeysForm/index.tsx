@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import {
   Box,
   BoxProps,
@@ -34,14 +36,16 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { handleSubmit, control, register, setValue } = useForm<SubmitValues>({
-    defaultValues: {
-      encryptionType: EncryptionType.Ed25519,
-      wordsLength: 12,
-      masterKey: KeyFactory.getInstance().generate(12),
-    },
-  });
-  const currentMasterKeyWatched = useWatch({
+  const masterKeyWatchedRef = useRef<string>('');
+  const { handleSubmit, control, register, setValue, reset } =
+    useForm<SubmitValues>({
+      defaultValues: {
+        encryptionType: EncryptionType.Ed25519,
+        wordsLength: 12,
+        masterKey: KeyFactory.getInstance().generate(12),
+      },
+    });
+  masterKeyWatchedRef.current = useWatch({
     name: 'masterKey',
     control,
   });
@@ -61,6 +65,14 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
 
     navigate(`${PathEnum.DOUBLE_CHECK}`);
   };
+
+  useEffect(() => {
+    return () => {
+      masterKeyWatchedRef.current = '';
+      reset();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box {...restProps}>
@@ -102,7 +114,7 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
             md: 'auto',
           }}
         >
-          {_.chunk(currentMasterKeyWatched.split(' '), 4).map(
+          {_.chunk(masterKeyWatchedRef.current.split(' '), 4).map(
             (partWords: string[], index: number) => {
               return (
                 <ListWords

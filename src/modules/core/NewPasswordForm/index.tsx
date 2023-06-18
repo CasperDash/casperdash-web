@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import {
   Box,
   BoxProps,
@@ -18,10 +20,12 @@ import { useNavigate } from 'react-router-dom';
 import { PathEnum } from '@/enums';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
+import { useSafeResetSensitive } from '@/hooks/useSafeResetSensitive';
 import { useUpdateAccount } from '@/hooks/useUpdateAccount';
 import { originUrlSelector } from '@/store/sdk';
 import { encryptionTypeSelector, masterKeySelector } from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
+import { isDebug } from '@/utils/env';
 
 type Props = BoxProps;
 
@@ -38,6 +42,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
   const { toastSuccess, toastError } = useI18nToast();
   const connectToDApp = useConnectToDapp();
   const originUrl = useSelector(originUrlSelector);
+  const { safeResetSensitive } = useSafeResetSensitive();
 
   const { updateAccount } = useUpdateAccount();
   const {
@@ -45,6 +50,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
     register,
     watch,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
     defaultValues: {
       newPassword: '',
@@ -88,12 +94,27 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
       }
 
       toastSuccess('create_new_wallet_success');
+      safeResetSensitive();
 
       navigate(PathEnum.HOME);
     } catch (err) {
       toastError('please_try_other_password');
     }
   };
+
+  useEffect(() => {
+    return () => {
+      // Reset form when unmount.
+      reset();
+
+      // Unmount run twice in strict mode.
+      if (!isDebug()) {
+        // Reset sensitive data when unmount.
+        safeResetSensitive();
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box {...restProps} w="340px">

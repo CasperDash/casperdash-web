@@ -13,8 +13,6 @@ const RecoveryPhrasesContent = () => {
 
   const { onCopy } = useSafeClipboard(recoveryPhrase);
 
-  const recoveryPhraseList = recoveryPhrase?.split(' ');
-
   const handleOnCopy = () => {
     onCopy();
     toastSuccess('copy_recovery_phrases');
@@ -27,11 +25,11 @@ const RecoveryPhrasesContent = () => {
           display={'flex'}
           flexWrap="wrap"
           flexDirection={'column'}
-          maxH={recoveryPhraseList.length > 12 ? '180px' : '100px'}
+          maxH={recoveryPhrase?.split(' ').length > 12 ? '180px' : '100px'}
           mt="10"
           ml="10"
         >
-          {recoveryPhraseList.map((word: string) => (
+          {recoveryPhrase?.split(' ').map((word: string) => (
             <ListItem
               key={word}
               lineHeight="6"

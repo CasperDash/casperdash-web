@@ -80,6 +80,12 @@ export const walletSlice = createSlice({
       state.masterKey = undefined;
     },
     reset: () => initialState,
+    safeResetSensitive: (state: IWallet) => {
+      return {
+        ...state,
+        masterKey: undefined,
+      };
+    },
   },
 });
 
@@ -92,6 +98,7 @@ export const {
   updateIsActive,
   reset,
   changeAccount,
+  safeResetSensitive,
 } = walletSlice.actions;
 
 export const reducers = {
