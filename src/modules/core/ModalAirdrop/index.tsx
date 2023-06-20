@@ -51,11 +51,11 @@ const ModalAirdrop = ({ isOpen, onClose }: ModalAirdropProps) => {
                 <Text lineHeight="2">
                   {t('airdrop_description_2')}{' '}
                   <Link
-                    href="https://t.me/cd_aidrop_bot"
+                    href="https://t.me/cd_airdrop_bot"
                     isExternal
                     color="primary"
                   >
-                    https://t.me/cd_aidrop_bot
+                    https://t.me/cd_airdrop_bot
                   </Link>
                 </Text>
                 <Text lineHeight="2">{t('airdrop_description_3')}</Text>

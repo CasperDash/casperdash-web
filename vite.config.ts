@@ -29,6 +29,15 @@ export default ({ mode }: { mode: string }) => {
     server: {
       port: 3003,
     },
+    build: {
+      rollupOptions: {
+        output: {
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`,
+        },
+      },
+    },
     plugins: [
       removeShebangPlugin(),
       react(),
