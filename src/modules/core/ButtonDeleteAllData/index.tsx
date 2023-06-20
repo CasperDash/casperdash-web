@@ -25,7 +25,7 @@ export const ButtonDeleteAllData = () => {
 
   const handleDelete = () => {
     deleteAllData();
-    close();
+    onClose();
   };
 
   return (
