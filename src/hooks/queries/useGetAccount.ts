@@ -34,6 +34,7 @@ export const useGetAccount = (
     },
     {
       ...options,
+      networkMode: 'offlineFirst',
       enabled: !!publicKey,
     }
   );
