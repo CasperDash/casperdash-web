@@ -36,6 +36,7 @@ export const useGetAccount = (
       ...options,
       networkMode: 'offlineFirst',
       enabled: !!publicKey,
+      staleTime: Infinity, // Keep stale data indefinitely
     }
   );
 };
