@@ -48,7 +48,23 @@ export default ({ mode }: { mode: string }) => {
       }),
       tsconfigPaths(),
       VitePWA({
-        base: '/',
+        // add this to cache all the imports
+        workbox: {
+          globPatterns: ['**/*'],
+        },
+        // add this to cache all the
+        // static assets in the public folder
+        includeAssets: ['**/*'],
+        manifest: {
+          theme_color: '#f69435',
+          background_color: '#f69435',
+          display: 'standalone',
+          scope: '/',
+          start_url: '/',
+          short_name: 'CasperDash Wallet',
+          description: 'CasperDash Wallet',
+          name: 'CasperDash Wallet',
+        },
       }),
     ],
     define: {
