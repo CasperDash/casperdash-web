@@ -14,6 +14,9 @@ import store from '@/store';
 import theme from '@/theme';
 
 import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
 
 (window as unknown as Window & { global?: Window }).global = window;
 
@@ -47,6 +50,7 @@ const App = () => {
                   QueryKeysEnum.ACCOUNT,
                   QueryKeysEnum.ACCOUNT_BALANCES,
                   QueryKeysEnum.AIRDROP_CODE,
+                  QueryKeysEnum.STAKING_TRANSACTION_HISTORIES,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },

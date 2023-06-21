@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import TableTokenHeader from './Header';
 import CSPRCoin from '@/assets/img/coins/cspr.png';
+import AssetText from '@/components/Common/AssetText';
 import Paper from '@/components/Paper';
 import { DataTable } from '@/components/Table/DataTable';
 import { PathEnum } from '@/enums';
@@ -55,9 +56,7 @@ const TableToken = ({ ...restProps }: TableTokenProps) => {
     columnHelper.accessor('balance', {
       cell: (info) => {
         return (
-          <Text>
-            {info.getValue()} {info.row.original.symbol}
-          </Text>
+          <AssetText value={info.getValue()} asset={info.row.original.symbol} />
         );
       },
       header: () => (

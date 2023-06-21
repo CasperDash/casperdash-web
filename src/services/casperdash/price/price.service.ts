@@ -8,5 +8,6 @@ export const getCSPRMarketInfo = async (): Promise<ILatestPrice> => {
 
 export const getCSPRPriceHistories = async (): Promise<number[][]> => {
   const data: number[][] = await request.get('/price/history');
+
   return data;
 };

@@ -65,7 +65,12 @@ const Header = ({ bg }: HeaderProps) => {
             >
               <NavLinkWrapper to={PathEnum.HOME}>{t('home')}</NavLinkWrapper>
               {isConnected && (
-                <NavLinkWrapper to={PathEnum.NFT}>{t('NFTs')}</NavLinkWrapper>
+                <>
+                  <NavLinkWrapper to={PathEnum.NFT}>{t('nfts')}</NavLinkWrapper>
+                  <NavLinkWrapper to={PathEnum.STAKING}>
+                    {t('staking')}
+                  </NavLinkWrapper>
+                </>
               )}
               {/* <Link to={PathEnum.TRADE}>
                 <Text color="gray.200">{t('trade')}</Text>
@@ -73,10 +78,7 @@ const Header = ({ bg }: HeaderProps) => {
               <Link to={PathEnum.NFT}>
                 <Text color="gray.200">{t('nfts')}</Text>
               </Link>
-              <Link to={PathEnum.STAKING}>
-                {' '}
-                <Text color="gray.200">{t('staking')}</Text>
-              </Link> */}
+             */}
             </Flex>
           </Flex>
           <Flex>

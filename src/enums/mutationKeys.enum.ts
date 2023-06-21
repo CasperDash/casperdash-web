@@ -5,4 +5,6 @@ export enum MutationKeysEnum {
   SDK_CONNECT_URL = 'sdk_connect_url',
   SDK_SIGN = 'sdk_sign',
   SELECT_ACCOUNT = 'select_account',
+  STAKE_DELEGATE = 'stake_delegate',
+  STAKE_UNDELEGATE = 'stake_undelegate',
 }

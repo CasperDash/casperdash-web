@@ -10,6 +10,7 @@ import NewWalletPasswordPage from '@/pages/NewWallet/NewPassword';
 import NFTsPage from '@/pages/NFTs';
 import NFTDetailPage from '@/pages/NFTs/NFTDetail';
 import SendPage from '@/pages/Send';
+import StakingPage from '@/pages/Staking';
 
 export const browserRouter = createBrowserRouter([
   {
@@ -47,5 +48,9 @@ export const browserRouter = createBrowserRouter([
   {
     path: PathEnum.NFT_DETAIL,
     element: <NFTDetailPage />,
+  },
+  {
+    path: PathEnum.STAKING,
+    element: <StakingPage />,
   },
 ]);
