@@ -1,15 +1,23 @@
+import { BigNumber } from '@ethersproject/bignumber';
 import { Buffer } from 'buffer/';
 import {
   CLAccountHash,
   CLKey,
   CLPublicKey,
+  CLValue,
   CLValueBuilder,
   DeployUtil,
   RuntimeArgs,
 } from 'casper-js-sdk';
 
 import { toMotes } from '../currency';
+import { getStakeAuctionHash } from '../stack';
 import { CasperConfigEnum } from '@/enums/casperConfig';
+
+export enum EntryPointsEnum {
+  STAKE_DELEGATE = 'delegate',
+  STAKE_UNDELEGATE = 'undelegate',
+}
 
 type BuildTransferDeployParams = {
   fromPublicKeyHex: string;
@@ -26,6 +34,22 @@ type BuildTransferTokenDeployParams = {
   amount: number;
   fee: number;
   contractHash: string;
+  network: string;
+};
+
+type BuildStakeDelegateDeployParams = {
+  fromAddress: string;
+  validator: string;
+  fee: number;
+  amount: number;
+  network: string;
+};
+
+type BuildStakeDeployParams = {
+  baseAccount: CLPublicKey;
+  entryPoint: string;
+  args: Record<string, CLValue>;
+  paymentAmount: BigNumber | number;
   network: string;
 };
 
@@ -91,4 +115,73 @@ export const buildTransferTokenDeploy = ({
     );
   const payment = DeployUtil.standardPayment(fee * CasperConfigEnum.MOTE_RATE);
   return DeployUtil.makeDeploy(deployParams, transferParams, payment);
+};
+
+export const buildStakeDelegateDeploy = ({
+  fromAddress,
+  validator,
+  fee,
+  amount,
+  network,
+}: BuildStakeDelegateDeployParams) => {
+  const fromAccPk = CLPublicKey.fromHex(fromAddress);
+  const validatorPk = CLPublicKey.fromHex(validator);
+
+  const args = {
+    delegator: fromAccPk,
+    validator: validatorPk,
+    amount: CLValueBuilder.u512(toMotes(amount)),
+  };
+
+  return buildStakeDeploy({
+    baseAccount: fromAccPk,
+    entryPoint: EntryPointsEnum.STAKE_DELEGATE,
+    args,
+    paymentAmount: toMotes(fee),
+    network,
+  });
+};
+
+export const buildStakeUndelegateDeploy = ({
+  fromAddress,
+  validator,
+  fee,
+  amount,
+  network,
+}: BuildStakeDelegateDeployParams) => {
+  const fromAccPk = CLPublicKey.fromHex(fromAddress);
+  const validatorPk = CLPublicKey.fromHex(validator);
+
+  const args = {
+    delegator: fromAccPk,
+    validator: validatorPk,
+    amount: CLValueBuilder.u512(toMotes(amount)),
+  };
+
+  return buildStakeDeploy({
+    baseAccount: fromAccPk,
+    entryPoint: EntryPointsEnum.STAKE_UNDELEGATE,
+    args,
+    paymentAmount: toMotes(fee),
+    network,
+  });
+};
+
+const buildStakeDeploy = ({
+  baseAccount,
+  entryPoint,
+  args,
+  paymentAmount,
+  network,
+}: BuildStakeDeployParams) => {
+  const deployParams = new DeployUtil.DeployParams(baseAccount, network);
+  const runTimeArgs = RuntimeArgs.fromMap(args);
+  const session = DeployUtil.ExecutableDeployItem.newStoredContractByHash(
+    getStakeAuctionHash().auction,
+    entryPoint,
+    runTimeArgs
+  );
+  const payment = DeployUtil.standardPayment(paymentAmount);
+
+  return DeployUtil.makeDeploy(deployParams, session, payment);
 };

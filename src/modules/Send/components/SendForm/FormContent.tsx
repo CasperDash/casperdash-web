@@ -123,7 +123,9 @@ const FormContent = () => {
         />
       </FormControl>
       <Box mt="8">
-        <Text>{t('network_fee', { total: 0.1, symbol: 'CSPR' })}</Text>
+        <Text>
+          {t('network_fee_with_asset', { total: 0.1, symbol: 'CSPR' })}
+        </Text>
       </Box>
       <Box mt="8">
         <Button

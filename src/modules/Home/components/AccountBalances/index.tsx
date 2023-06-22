@@ -27,15 +27,32 @@ const AccountBalances = (props: AccountBalancesProps) => {
           }}
         >
           <Link to={PathEnum.SEND}>
-            <Button isDisabled={isDisabled} variant="light" w="30">
+            <Button
+              isDisabled={isDisabled}
+              variant="light"
+              w="30"
+              color={'primary'}
+            >
               {t('send')}
             </Button>
           </Link>
-          <Button isDisabled={true} variant="light" w="30">
-            {t('staking')}
-          </Button>
+          <Link to={PathEnum.STAKING}>
+            <Button
+              isDisabled={isDisabled}
+              variant="light"
+              w="30"
+              color={'primary'}
+            >
+              {t('staking')}
+            </Button>
+          </Link>
           <Link to={PathEnum.NFT}>
-            <Button isDisabled={isDisabled} variant="light" w="30">
+            <Button
+              isDisabled={isDisabled}
+              variant="light"
+              w="30"
+              color={'primary'}
+            >
               {t('NFTs')}
             </Button>
           </Link>
@@ -43,6 +60,7 @@ const AccountBalances = (props: AccountBalancesProps) => {
             variant="light"
             w="30"
             isDisabled={isDisabled}
+            color={'primary'}
           />
         </Flex>
       </Flex>

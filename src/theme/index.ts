@@ -27,7 +27,6 @@ const customTheme = {
   useSystemColorMode: false,
   colors,
   sizes,
-  fonts,
   config,
   shadows,
   breakpoints,
@@ -47,6 +46,7 @@ const customTheme = {
     Drawer,
   },
   styles,
+  fonts,
 };
 
 export default extendTheme(customTheme);

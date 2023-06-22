@@ -100,7 +100,7 @@ const ReviewModalContent = ({
         ) : null}
         <Flex direction="column" alignItems="center" mt="8">
           <Text>
-            {t('network_fee', {
+            {t('network_fee_with_asset', {
               total: 0.1,
               symbol: 'CSPR',
             })}
