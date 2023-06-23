@@ -50,7 +50,7 @@ jobs:
 
               - name: Build
                 run : |
-                    yarn build
+                    yarn build:dev
               - name: Deploy to S3
                 run : |
                     aws s3 sync ./dist/ s3://testnet.casperdash.io/ --delete
