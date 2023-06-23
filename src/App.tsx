@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'sonner';
 
-import { QueryKeysEnum } from './enums/queryKeys.enum';
-import { browserRouter } from './router';
+import { QueryKeysEnum } from '@/enums/queryKeys.enum';
+import browserRouter from '@/router/browserRouter';
 import store from '@/store';
 import theme from '@/theme';
 
