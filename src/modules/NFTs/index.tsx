@@ -9,6 +9,7 @@ import {
   ButtonGroup,
   Button,
 } from '@chakra-ui/react';
+import * as _ from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 
 import ListNFTs from './components/ListNFTs';
@@ -40,6 +41,13 @@ const NFTs = () => {
     }
   };
 
+  const handleOnSearchTerm = _.debounce(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    300
+  );
+
   return (
     <Flex
       alignItems={'center'}
@@ -58,7 +66,7 @@ const NFTs = () => {
           <Input
             placeholder={t('search_collectibles') || 'Search NFTs'}
             borderRadius={'40'}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleOnSearchTerm}
             _focus={{
               outline: 'none',
               boxShadow: 'none',
