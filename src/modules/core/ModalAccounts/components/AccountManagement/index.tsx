@@ -20,19 +20,13 @@ export const AccountManagement = ({
     <Box>
       <ListAccounts onSelectedAccount={onClose} />
       <Divider mt="4" />
-      <Flex
-        mt="4"
-        justifyContent={'center'}
-        gap="4"
-        direction={'column'}
-        alignItems={'center'}
-      >
+      <Flex mt="4" justifyContent="start" gap="4" direction={'column'}>
         <Button
           variant="ghost"
-          w="150px"
+          w="100%"
           onClick={() => onChangeType(TypesEnum.CREATE_ACCOUNT)}
         >
-          <Flex justifyContent={'space-between'} alignItems={'center'} w="100%">
+          <Flex alignItems={'center'} gap="2">
             <Box>
               <PlusIcon />
             </Box>
@@ -41,10 +35,10 @@ export const AccountManagement = ({
         </Button>
         <Button
           variant="ghost"
-          w="150px"
+          w="100%"
           onClick={() => onChangeType(TypesEnum.IMPORT_ACCOUNT)}
         >
-          <Flex justifyContent={'space-between'} alignItems={'center'} w="100%">
+          <Flex justifyContent={'space-between'} alignItems={'center'} gap="2">
             <Box>
               <ImportIcon />
             </Box>
@@ -53,11 +47,10 @@ export const AccountManagement = ({
         </Button>
         <Button
           variant="ghost"
-          w="160px"
+          w="100%"
           onClick={() => onChangeType(TypesEnum.VIEW_PRIVATE_KEY)}
-          ml="3"
         >
-          <Flex justifyContent={'space-between'} alignItems={'center'} w="100%">
+          <Flex alignItems={'center'} gap="2">
             <Box>
               <KeyIcon />
             </Box>
