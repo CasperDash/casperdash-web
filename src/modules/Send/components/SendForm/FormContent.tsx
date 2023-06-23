@@ -16,6 +16,7 @@ import { NumericFormat } from 'react-number-format';
 
 import SelectAssetField from './SelectAssetField';
 import { FieldValues } from './validationSchema';
+import { useOnlineStatus } from '@/hooks/helpers/useOnlineStatus';
 
 const FormContent = () => {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ const FormContent = () => {
     setValue,
     control,
   } = useFormContext<FieldValues>();
+  const { offline } = useOnlineStatus();
   const assetWatched = useWatch({
     control,
     name: 'asset',
@@ -133,6 +135,7 @@ const FormContent = () => {
           w="100%"
           variant="primary"
           isLoading={isSubmitting}
+          isDisabled={offline}
         >
           {t('confirm')}
         </Button>

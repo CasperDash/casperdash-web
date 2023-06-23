@@ -19,11 +19,13 @@ import { FieldValues, validationSchema } from './validator';
 import SelectValidators from '../SelectValidators';
 import AssetText from '@/components/Common/AssetText';
 import InputNumber from '@/components/Inputs/InputNumber';
+import { useOnlineStatus } from '@/hooks/helpers/useOnlineStatus';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 
 const StakingForm: React.FC = () => {
   const { t } = useTranslation();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { offline } = useOnlineStatus();
 
   const methods = useForm<FieldValues>({
     defaultValues: {
@@ -109,6 +111,7 @@ const StakingForm: React.FC = () => {
             variant="primary"
             fontWeight={'semibold'}
             textTransform={'uppercase'}
+            isDisabled={offline}
           >
             {t('stake_now')}
           </Button>
