@@ -1,9 +1,9 @@
-import { Box, BoxProps, Flex, Image } from '@chakra-ui/react';
+import { Box, BoxProps, Flex } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink, NavLinkProps } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 
+import Logo from './Logo';
 import MenuButtonModal from './MenuButtonModal';
-import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
 import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums/path';
 import { useAccount } from '@/hooks/useAccount';
@@ -38,13 +38,7 @@ const Header = ({ bg }: HeaderProps) => {
         <Flex py="7" justifyContent="space-between">
           <Flex alignItems="center">
             <Box>
-              <Link to={PathEnum.HOME}>
-                <Image
-                  src={CasperDashLogoImg}
-                  alt="logo"
-                  width={{ base: '120px', md: '160px' }}
-                />
-              </Link>
+              <Logo />
             </Box>
             <Box
               mx={8}
