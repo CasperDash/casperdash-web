@@ -156,5 +156,6 @@
   "status": "Status",
   "total_staked": "Total Staked",
   "total_reward": "Total Reward",
-  "amount_too_big": "Amount too big"
+  "amount_too_big": "Amount too big",
+  "offline": "Offline"
 }
