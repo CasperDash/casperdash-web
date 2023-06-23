@@ -51,6 +51,12 @@ const App = () => {
                   QueryKeysEnum.ACCOUNT_BALANCES,
                   QueryKeysEnum.AIRDROP_CODE,
                   QueryKeysEnum.STAKING_TRANSACTION_HISTORIES,
+                  QueryKeysEnum.NFTS,
+                  QueryKeysEnum.VALIDATORS,
+                  QueryKeysEnum.VALIDATOR_DETAILS,
+                  QueryKeysEnum.ACCOUNT_DELEGATOR_REWARDS,
+                  QueryKeysEnum.ACCOUNT_TOTAL_REWARDS,
+                  QueryKeysEnum.ACCOUNT_DELEGATION,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },

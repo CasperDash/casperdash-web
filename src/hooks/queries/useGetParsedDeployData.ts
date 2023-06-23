@@ -24,5 +24,6 @@ export const useGetParsedDeployData = (
       return parsedDeployData;
     },
     enabled: !!params.deploy,
+    networkMode: 'offlineFirst',
   });
 };

@@ -109,6 +109,10 @@ export const useGetNFTs = (params: UseGetNFTsParams, options?: Options) => {
 
       return nfts;
     },
-    { enabled: !!publicKey, ...options }
+    {
+      networkMode: 'always',
+      enabled: !!publicKey,
+      ...options,
+    }
   );
 };
