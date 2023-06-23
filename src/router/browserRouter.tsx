@@ -2,15 +2,15 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { PathEnum } from '@/enums';
 import HomePage from '@/pages/HomePage';
-import ImportWalletPage from '@/pages/ImportWallet';
-import ImportWalletPasswordPage from '@/pages/ImportWallet/NewPassword';
-import NewWalletPage from '@/pages/NewWallet';
-import NewWalletDoubleCheckPage from '@/pages/NewWallet/DoubleCheck';
-import NewWalletPasswordPage from '@/pages/NewWallet/NewPassword';
-import NFTsPage from '@/pages/NFTs';
-import NFTDetailPage from '@/pages/NFTs/NFTDetail';
-import SendPage from '@/pages/Send';
-import StakingPage from '@/pages/Staking';
+import ImportWalletPage from '@/pages/ImportWalletPage';
+import ImportWalletPasswordPage from '@/pages/ImportWalletPage/NewPassword';
+import NewWalletPage from '@/pages/NewWalletPage';
+import NewWalletDoubleCheckPage from '@/pages/NewWalletPage/DoubleCheck';
+import NewWalletPasswordPage from '@/pages/NewWalletPage/NewPassword';
+import NFTsPage from '@/pages/NFTsPage';
+import NFTDetailPage from '@/pages/NFTsPage/NFTDetailPage';
+import SendPage from '@/pages/SendPage';
+import StakingPage from '@/pages/StakingPage';
 
 export const browserRouter = createBrowserRouter([
   {
