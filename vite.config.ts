@@ -53,6 +53,22 @@ export default ({ mode }: { mode: string }) => {
         workbox: {
           globPatterns: ['**/*'],
           maximumFileSizeToCacheInBytes: 4000000,
+          runtimeCaching: [
+            {
+              urlPattern: ({ url }) => {
+                return ['assets.casperdash.io', 'github.com'].includes(
+                  url.hostname
+                );
+              },
+              handler: 'CacheFirst' as const,
+              options: {
+                cacheName: 'asset-cache',
+                cacheableResponse: {
+                  statuses: [0, 302, 200],
+                },
+              },
+            },
+          ],
         },
         // add this to cache all the
         // static assets in the public folder
