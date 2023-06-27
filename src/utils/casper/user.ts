@@ -262,6 +262,7 @@ export class UserService {
 
     user.addLegacyWallet(wallet, new WalletDescriptor(name));
     const walletInfo = user.getWalletInfo(wallet.getReferenceKey());
+    await this.prepareStorageData();
 
     return walletInfo;
   };
