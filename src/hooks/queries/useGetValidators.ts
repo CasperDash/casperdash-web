@@ -81,19 +81,10 @@ export const useGetValidators = (
   return useQuery({
     queryKey: [QueryKeysEnum.VALIDATORS, { term: searchTermDebounced }],
     queryFn: async () => {
-      const cachedValidators = queryClient.getQueryData<IValidator[]>([
-        QueryKeysEnum.VALIDATORS,
-      ]);
-      let validators = [];
+      const validatorDetails = await getValidatorsDetail();
+      const rawValidators = await getValidators();
 
-      if (!cachedValidators) {
-        const validatorDetails = await getValidatorsDetail();
-        const rawValidators = await getValidators();
-
-        validators = massageValidators(rawValidators, validatorDetails);
-      } else {
-        validators = cachedValidators;
-      }
+      const validators = massageValidators(rawValidators, validatorDetails);
 
       queryClient.setQueryData([QueryKeysEnum.VALIDATORS], validators);
 

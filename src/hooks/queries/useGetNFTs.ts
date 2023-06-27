@@ -4,7 +4,7 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import Fuse from 'fuse.js';
-import { orderBy } from 'lodash-es';
+import { orderBy, isEmpty } from 'lodash-es';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { getNFTs } from '@/services/casperdash/nft/nft.service';
@@ -44,11 +44,16 @@ const getMetadataByKey = (metadata: IMetadata[], key: string) => {
   return data?.value || '';
 };
 
-/**
- *
- * @param param0
- * @returns
- */
+const isDefaultParams = ({ searchName, tokenId }: UseGetNFTsParams) => {
+  if (tokenId) {
+    return false;
+  }
+  if (isEmpty(searchName)) {
+    return true;
+  }
+
+  return false;
+};
 
 export const useGetNFTs = (params: UseGetNFTsParams, options?: Options) => {
   const { publicKey, searchName, sortBy, order, contractAddress, tokenId } =
@@ -66,7 +71,8 @@ export const useGetNFTs = (params: UseGetNFTsParams, options?: Options) => {
         publicKey,
       ]);
       let data = [];
-      if (!cachedData) {
+
+      if (!cachedData || isDefaultParams(params)) {
         data = await getNFTs(publicKey);
         queryClient.setQueryData<INFTInfo[]>(
           [QueryKeysEnum.NFTS, publicKey],
