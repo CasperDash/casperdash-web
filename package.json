@@ -1,6 +1,6 @@
 {
   "name": "casperdash-web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
