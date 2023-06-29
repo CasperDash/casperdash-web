@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "composite": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -9,5 +10,5 @@
       "~/public/*": ["public/*"]
     }
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "package.json"]
 }

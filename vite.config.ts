@@ -8,6 +8,10 @@ import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+import * as packageJson from './package.json';
+
+const version = packageJson.version;
+
 // remove shebeng from code (most often #!/usr/bin/env node)
 // vite recognizes the shebang as a comment and needs to be removed because it causes a parse error.
 export const removeShebangPlugin = (): Plugin => {
@@ -32,9 +36,9 @@ export default ({ mode }: { mode: string }) => {
     build: {
       rollupOptions: {
         output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
+          entryFileNames: `assets/[name].${version}.js`,
+          chunkFileNames: `assets/[name].${version}.js`,
+          assetFileNames: `assets/[name].${version}.[ext]`,
         },
       },
     },
