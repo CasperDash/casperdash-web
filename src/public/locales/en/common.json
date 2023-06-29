@@ -157,5 +157,7 @@
   "total_staked": "Total Staked",
   "total_reward": "Total Reward",
   "amount_too_big": "Amount too big",
-  "offline": "Offline"
+  "offline": "Offline",
+  "password_min_characters": "Password should be at least {{ val }} characters long.",
+  "password_include_letters": "Password must include at least one uppercase letter, one lowercase letter, one numeric digit, and one special character."
 }

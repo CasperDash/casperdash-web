@@ -11,23 +11,50 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import * as _ from 'lodash-es';
-import { useForm, ValidateResult } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 import { PathEnum } from '@/enums';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useConnectToDapp } from '@/hooks/postMesasges/useConnectToDapp';
 import { useSafeResetSensitive } from '@/hooks/useSafeResetSensitive';
 import { useUpdateAccount } from '@/hooks/useUpdateAccount';
+import i18n from '@/i18n';
 import { originUrlSelector } from '@/store/sdk';
 import { encryptionTypeSelector, masterKeySelector } from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
 import { isDebug } from '@/utils/env';
 
 type Props = BoxProps;
+
+const passwordSchema = z
+  .string()
+  .nonempty(i18n.t('password_required') as string)
+  .min(
+    10,
+    i18n.t('password_min_characters', {
+      val: 10,
+    }) as string
+  )
+  .regex(
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).*$/,
+    i18n.t('password_include_letters') as string
+  );
+
+const validationSchema = z
+  .object({
+    newPassword: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: i18n.t('password_does_not_match') as string,
+    path: ['confirmPassword'],
+  });
 
 type SubmitValues = {
   newPassword: string;
@@ -48,10 +75,10 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
+    resolver: zodResolver(validationSchema),
     defaultValues: {
       newPassword: '',
       confirmPassword: '',
@@ -134,8 +161,10 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
             />
             {!!errors.newPassword && (
               <FormErrorMessage>
-                {t(
-                  _.get(errors, 'newPassword.message', 'default_error_message')
+                {_.get(
+                  errors,
+                  'newPassword.message',
+                  t('default_error_message')
                 )}
               </FormErrorMessage>
             )}
@@ -150,26 +179,14 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
               type="password"
               {...register('confirmPassword', {
                 required: 'password_required',
-                validate: {
-                  checkEqualNewPassword: (value: string): ValidateResult => {
-                    const newPassword = watch('newPassword');
-                    if (value !== newPassword) {
-                      return 'password_does_not_match';
-                    }
-
-                    return true;
-                  },
-                },
               })}
             />
             {!!errors.confirmPassword && (
               <FormErrorMessage>
-                {t(
-                  _.get(
-                    errors,
-                    'confirmPassword.message',
-                    'default_error_message'
-                  )
+                {_.get(
+                  errors,
+                  'confirmPassword.message',
+                  t('default_error_message')
                 )}
               </FormErrorMessage>
             )}
