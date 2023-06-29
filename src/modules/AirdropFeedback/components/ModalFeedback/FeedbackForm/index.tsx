@@ -60,13 +60,18 @@ const FeedbackForm = ({ onSuccess, ...restProps }: Props) => {
   } = useForm<SubmitValues>({
     resolver: zodResolver(validationSchema),
   });
-
   const { toastSuccess } = useI18nToast();
 
   const submitAirdropCodeMutation = useMutateSubmitAirdropCode({
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       onSuccess?.();
       toastSuccess('airdrop_successfully_submitted');
+
+      window.open(
+        `https://twitter.com/intent/tweet?text=${variables.feedback}`,
+        '_blank',
+        'width=400,height=600'
+      );
     },
   });
   const { data } = useGetAirdropCode();
@@ -138,7 +143,12 @@ const FeedbackForm = ({ onSuccess, ...restProps }: Props) => {
           </FormControl>
         </Flex>
         <Flex mt="10">
-          <Button type="submit" w="100%" variant="primary">
+          <Button
+            type="submit"
+            w="100%"
+            variant="primary"
+            isLoading={submitAirdropCodeMutation.isLoading}
+          >
             {t('confirm')}
           </Button>
         </Flex>

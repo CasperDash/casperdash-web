@@ -11,14 +11,15 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import FeedbackForm from './components/FeedbackForm';
+import FeedbackForm from './FeedbackForm';
 
 type ModalAirdropProps = {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
 };
 
-const ModalFeedback = ({ isOpen, onClose }: ModalAirdropProps) => {
+const ModalFeedback = ({ isOpen, onClose, onSuccess }: ModalAirdropProps) => {
   const { t } = useTranslation();
 
   return (
@@ -39,7 +40,7 @@ const ModalFeedback = ({ isOpen, onClose }: ModalAirdropProps) => {
               {t('feedback_title')}
             </Text>
           </Flex>
-          <FeedbackForm onSuccess={onClose} />
+          <FeedbackForm onSuccess={onSuccess} />
         </ModalBody>
         <ModalFooter></ModalFooter>
       </ModalContent>

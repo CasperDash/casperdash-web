@@ -1,7 +1,7 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import ModalFeedback from './ModalFeedback';
+import ModalFeedback from './components/ModalFeedback';
 import { useGetAirdropCode } from '@/hooks/queries/useGetAirdropCode';
 import { useAccount } from '@/hooks/useAccount';
 import { AirdropStatusEnum } from '@/services/airdrop/user/type';
@@ -19,12 +19,20 @@ const AirdropFeedback = () => {
     return null;
   }
 
+  const handleOnSuccess = () => {
+    onClose();
+  };
+
   return (
     <Flex position={'fixed'} right="10" bottom="10">
       <Button variant={'primary'} onClick={onOpen}>
         {t('give_feedback')}
       </Button>
-      <ModalFeedback isOpen={isOpen} onClose={onClose} />
+      <ModalFeedback
+        isOpen={isOpen}
+        onClose={onClose}
+        onSuccess={handleOnSuccess}
+      />
     </Flex>
   );
 };
