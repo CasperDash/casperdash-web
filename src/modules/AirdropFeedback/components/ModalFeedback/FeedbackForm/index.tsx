@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as _ from 'lodash-es';
+import qs from 'qs';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { BsWallet2 } from 'react-icons/bs';
@@ -67,8 +68,13 @@ const FeedbackForm = ({ onSuccess, ...restProps }: Props) => {
       onSuccess?.();
       toastSuccess('airdrop_successfully_submitted');
 
+      const message = `${variables.feedback} @casperdash_io @Casper_Network #CasperDash_Retroactive`;
+      const params = qs.stringify({
+        text: message,
+      });
+
       window.open(
-        `https://twitter.com/intent/tweet?text=${variables.feedback}`,
+        `https://twitter.com/intent/tweet?${params}`,
         '_blank',
         'width=400,height=600'
       );
