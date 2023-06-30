@@ -31,12 +31,13 @@ const SelectAssetField = () => {
       setValue('maxAssetAmount', foundToken?.amount);
     },
   });
-  const { data: { balance } = { balance: 0 }, isLoading } =
+  const { data: { balance } = { balance: 0 }, isFetching } =
     useGetCurrentBalance({
       onSuccess: (data: WalletAccountBalance) => {
         setValue('maxAssetAmount', data.balance);
       },
     });
+
   return (
     <Controller
       control={control}
@@ -82,7 +83,7 @@ const SelectAssetField = () => {
                           <Box>{props.data.amount}</Box>
                         ) : (
                           <>
-                            {isLoading ? (
+                            {isFetching ? (
                               <Spinner size="sm" />
                             ) : (
                               <Box>{balance}</Box>
