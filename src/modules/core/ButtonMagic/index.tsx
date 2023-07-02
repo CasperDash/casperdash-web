@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
-import { HomeIcon, PlusIcon, SendIcon } from '@/icons';
+import { PlusIcon } from '@/icons';
 import colors from '@/theme/foundations/colors';
 import { hexToRgba } from '@/utils/color';
 
@@ -39,6 +39,16 @@ export const ButtonMagic = () => {
     onClose();
   };
 
+  const handleOnNfts = () => {
+    navigate(PathEnum.NFT);
+    onClose();
+  };
+
+  const handleOnStake = () => {
+    navigate(PathEnum.STAKING);
+    onClose();
+  };
+
   const handleOnHome = () => {
     navigate(PathEnum.HOME);
     onClose();
@@ -51,7 +61,7 @@ export const ButtonMagic = () => {
         ref={btnRef}
         onClick={onOpen}
         position="fixed"
-        bottom={10}
+        bottom={24}
         right="8"
         variant="none"
         p="0"
@@ -78,16 +88,16 @@ export const ButtonMagic = () => {
             <Divider />
             <Flex flexDirection="column" mt="4" gap="5">
               <Button w="100%" onClick={handleOnHome}>
-                <Flex justifyContent="space-between" w="50%">
-                  <HomeIcon height={'14px'} />
-                  {t('home')}
-                </Flex>
+                {t('home')}
               </Button>
               <Button w="100%" onClick={handleOnSend}>
-                <Flex justifyContent="space-between" w="50%">
-                  <SendIcon height={'14px'} />
-                  {t('send')}
-                </Flex>
+                {t('send')}
+              </Button>
+              <Button w="100%" onClick={handleOnNfts}>
+                {t('nfts')}
+              </Button>
+              <Button w="100%" onClick={handleOnStake}>
+                {t('staking')}
               </Button>
             </Flex>
           </DrawerBody>
