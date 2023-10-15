@@ -7,6 +7,10 @@ import ImportWalletPasswordPage from '@/pages/ImportWalletPage/NewPassword';
 import NewWalletPage from '@/pages/NewWalletPage';
 import NewWalletDoubleCheckPage from '@/pages/NewWalletPage/DoubleCheck';
 import NewWalletPasswordPage from '@/pages/NewWalletPage/NewPassword';
+import NFTMarketPage from '@/pages/NFTMarketPage';
+import ListNFTPage from '@/pages/NFTMarketPage/ListNFTPage';
+import MyListingsPage from '@/pages/NFTMarketPage/MyListingsPage';
+import NFTMarketDetailPage from '@/pages/NFTMarketPage/NFTMarketDetailPage';
 import NFTsPage from '@/pages/NFTsPage';
 import NFTDetailPage from '@/pages/NFTsPage/NFTDetailPage';
 import SendPage from '@/pages/SendPage';
@@ -52,6 +56,22 @@ export const browserRouter = createBrowserRouter([
   {
     path: PathEnum.STAKING,
     element: <StakingPage />,
+  },
+  {
+    path: PathEnum.NFT_MARKET,
+    element: <NFTMarketPage />,
+  },
+  {
+    path: PathEnum.NFT_MARKET_DETAIL,
+    element: <NFTMarketDetailPage />,
+  },
+  {
+    path: PathEnum.LIST_AN_NFT,
+    element: <ListNFTPage />,
+  },
+  {
+    path: PathEnum.MY_LISTINGS,
+    element: <MyListingsPage />,
   },
 ]);
 

@@ -57,6 +57,7 @@ const App = () => {
                   QueryKeysEnum.ACCOUNT_DELEGATOR_REWARDS,
                   QueryKeysEnum.ACCOUNT_TOTAL_REWARDS,
                   QueryKeysEnum.ACCOUNT_DELEGATION,
+                  QueryKeysEnum.NFT_TRANSACTION_HISTORY,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },
@@ -64,7 +65,7 @@ const App = () => {
         >
           <ChakraProvider resetCSS theme={theme}>
             <RouterProvider router={browserRouter} />
-            <Toaster position="top-center" richColors closeButton />
+            <Toaster position="bottom-right" richColors closeButton />
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={true} />
