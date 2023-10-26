@@ -53,7 +53,7 @@ const AccountBalances = (props: AccountBalancesProps) => {
               w="30"
               color={'primary'}
             >
-              {t('NFTs')}
+              {t('my_nfts')}
             </Button>
           </Link>
           <ButtonViewReceivingAddress

@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, Image, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, Flex, Image, Text } from '@chakra-ui/react';
 
 import NFTDefaultImg from '@/assets/img/nft-default.png';
 import { INFTInfo } from '@/services/casperdash/nft/type';
@@ -29,12 +29,19 @@ const CardItem = ({ item }: CardItemProps) => {
             h={'100%'}
           />
         </Box>
-        <Text fontWeight={'bold'} fontSize={'2xl'} mt={{ base: '4', md: '14' }}>
-          {item.nftName}
-        </Text>
-        <Text color={'gray.500'} mt="6">
-          {item.contractName}
-        </Text>
+        <Flex direction={'column'} alignItems="center">
+          <Flex mt={{ base: '4', md: '14' }} gap="2">
+            <Text fontWeight={'bold'} fontSize={'2xl'}>
+              {item.nftName}
+            </Text>
+            <Text fontWeight={'bold'} fontSize={'2xl'} color="gray.500">
+              #{item.tokenId}
+            </Text>
+          </Flex>
+          <Text color={'gray.500'} mt="6">
+            {item.contractName}
+          </Text>
+        </Flex>
       </CardBody>
     </Card>
   );

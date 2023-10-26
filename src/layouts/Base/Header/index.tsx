@@ -60,9 +60,14 @@ const Header = ({ bg }: HeaderProps) => {
               <NavLinkWrapper to={PathEnum.HOME}>{t('home')}</NavLinkWrapper>
               {isConnected && (
                 <>
-                  <NavLinkWrapper to={PathEnum.NFT}>{t('nfts')}</NavLinkWrapper>
+                  <NavLinkWrapper to={PathEnum.NFT}>
+                    {t('my_nfts')}
+                  </NavLinkWrapper>
                   <NavLinkWrapper to={PathEnum.STAKING}>
                     {t('staking')}
+                  </NavLinkWrapper>
+                  <NavLinkWrapper to={PathEnum.NFT_MARKET}>
+                    {t('market')}
                   </NavLinkWrapper>
                 </>
               )}

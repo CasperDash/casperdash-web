@@ -17,6 +17,7 @@ export enum QueryKeysEnum {
   CONNECTED_URLS = 'connected_urls',
   CONNECTED_URL = 'connected_url',
   PARSED_DEPLOY_DATA = 'parsed_deploy_data',
+  DEPLOY_STATUS = 'deploy_status',
   CSPR_PRICE = 'cspr_price',
   PRICE_HISTORIES = 'price_histories',
   NFTS = 'nfts',
@@ -27,4 +28,9 @@ export enum QueryKeysEnum {
   VALIDATORS = 'validators',
   ACCOUNT_DELEGATOR_REWARDS = 'account_delegator_rewards',
   ACCOUNT_TOTAL_REWARDS = 'total_rewards',
+  MARKET_NFTS = 'market_nfts',
+  CONTRACTS = 'contracts',
+  NFT_TRANSACTION_HISTORY = 'nft_transaction_history',
+  NFT_TRANSACTION = 'nft_transaction',
+  NFT_TRANSACTION_STATUS = 'nft_transaction_status',
 }

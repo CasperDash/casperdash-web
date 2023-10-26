@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { DeployTypesEnum } from '@/enums/deployTypes';
 import {
   CLAccountHash,
   CLKey,
@@ -62,13 +63,13 @@ export function getDeployPayment(deploy: DeployUtil.Deploy) {
 
 export function getDeployType(deploy: DeployUtil.Deploy) {
   return deploy.isTransfer()
-    ? 'Transfer'
+    ? DeployTypesEnum.TRANSFER
     : deploy.session.isModuleBytes()
-    ? 'WASM-Based Deploy'
+    ? DeployTypesEnum.WASM_BASED_DEPLOY
     : deploy.session.isStoredContractByHash() ||
       deploy.session.isStoredContractByName()
-    ? 'Contract Call'
-    : 'Contract Package Call';
+    ? DeployTypesEnum.CONTRACT_CALL
+    : DeployTypesEnum.CONTRACT_PACKAGE_CALL
 }
 
 export function getDeployArgs(deploy: DeployUtil.Deploy, targetKey: string) {
