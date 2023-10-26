@@ -15,15 +15,14 @@ type Params = {
 export const useGetDeployStatus = (
   { transactionHash }: Params,
   options?: Omit<
-    UseQueryOptions<Result, unknown, Result>,
-    'queryKey' | 'queryFn'
+    UseQueryOptions<unknown, unknown, Result, [string, string | undefined]>,
+    'queryKey'
   >
 ) => {
   return useQuery([QueryKeysEnum.DEPLOY_STATUS, transactionHash!], {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    ...options,
     queryFn: async () => {
       const deployStatuses = await getDeployStatuses({
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         deployHash: [transactionHash!],
       });
 
@@ -39,6 +38,5 @@ export const useGetDeployStatus = (
     },
     enabled: !!transactionHash,
     refetchInterval: 5000,
-    ...options,
   });
 };
