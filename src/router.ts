@@ -15,8 +15,7 @@ export type Path =
   | `/nfts`
   | `/nfts/:contractAddress/:tokenId`
   | `/send`
-  | `/staking`
-  | `/trade`;
+  | `/staking`;
 
 export type Params = {
   '/market/:contractAddress/:tokenId': {
