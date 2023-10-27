@@ -1,5 +1,4 @@
 import { Box, Flex, Tag, Text } from '@chakra-ui/react';
-import { motesToCSPR } from 'casper-js-sdk';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -9,6 +8,7 @@ import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useGetMarketContract } from '@/hooks/queries/useGetMarketContract';
 import { useCalculateCSPRToFiat } from '@/hooks/useCalculateCSPRToFiat';
 import { IMarketNFT } from '@/services/casperdash/market/type';
+import { toCSPR } from '@/utils/currency';
 
 type Props = {
   nft?: IMarketNFT;
@@ -22,7 +22,7 @@ const NFTInfoSection = ({ nft }: Props) => {
     tokenAddress: contractAddress!,
   });
 
-  const totalCSPR = motesToCSPR(nft?.listingAmount || 0).toNumber();
+  const totalCSPR = toCSPR(nft?.listingAmount || 0);
 
   const { totalFiat, isLoading } = useCalculateCSPRToFiat(totalCSPR);
 
