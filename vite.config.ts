@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
+import generouted from '@generouted/react-router/plugin';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig, loadEnv, Plugin } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -110,6 +111,7 @@ export default ({ mode }: { mode: string }) => {
           ],
         },
       }),
+      generouted(),
     ],
     define: {
       // By default, Vite doesn't include shims for NodeJS/
