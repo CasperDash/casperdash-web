@@ -18,6 +18,7 @@ import { useAccount } from '@/hooks/useAccount';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import casperUserUtil from '@/utils/casper/casperUser';
+import { toMotes } from '@/utils/currency';
 import { MarketContract } from '@/utils/marketContract/contract';
 
 type Params = {
@@ -56,7 +57,7 @@ export const useCreateNFTListing = (
       const buildedDeploy = await contract.listItem({
         token: contractPackageInfo.contract_hash,
         tokenId: String(params.tokenId),
-        amount: csprToMotes(params.amount),
+        amount: toMotes(params.amount),
         paymentAmount,
         fromPublicKeyHex: publicKey!,
       });

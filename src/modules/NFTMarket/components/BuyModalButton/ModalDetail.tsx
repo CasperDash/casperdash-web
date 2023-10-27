@@ -1,6 +1,5 @@
 import { Button, Box, Text, Flex, Image } from '@chakra-ui/react';
-import { BigNumber } from '@ethersproject/bignumber';
-import { motesToCSPR } from 'casper-js-sdk';
+import Big from 'big.js';
 import { useTranslation } from 'react-i18next';
 
 import { useBuyItem } from '../../hooks/useBuyItem';
@@ -9,6 +8,7 @@ import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import { useGetMarketContract } from '@/hooks/queries/useGetMarketContract';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
+import { toCSPR } from '@/utils/currency';
 
 type Props = {
   tokenId?: string;
@@ -59,7 +59,7 @@ const ModalDetail = ({
 
   console.log('balance: ', balance);
 
-  const totalPayment = BigNumber.from(motesToCSPR(listingAmount || 0))
+  const totalPayment = Big(toCSPR(listingAmount || 0))
     .add(feeNetwork)
     .toNumber();
   const isDisabled = balance < totalPayment;
@@ -95,7 +95,7 @@ const ModalDetail = ({
           <Text>{t('price')}</Text>
           <Text>
             {t('intlAssetNumber', {
-              val: motesToCSPR(listingAmount || 0).toNumber(),
+              val: toCSPR(listingAmount || 0),
               asset: 'CSPR',
             })}
           </Text>

@@ -7,11 +7,11 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
-import { motesToCSPR } from 'casper-js-sdk';
 
 import BuyModalButton from '../BuyModalButton';
 import NFTDefaultImg from '@/assets/img/nft-default.png';
 import { IMarketNFT } from '@/services/casperdash/market/type';
+import { toCSPR } from '@/utils/currency';
 
 type CardItemProps = {
   item: IMarketNFT;
@@ -54,7 +54,7 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
         </Flex>
         <Box mt="3">
           <Text textAlign={'center'} fontWeight={'bold'} color="gray.500">
-            Price: {motesToCSPR(item.listingAmount).toNumber()} CSPR
+            Price: {toCSPR(item.listingAmount)} CSPR
           </Text>
         </Box>
       </CardBody>
