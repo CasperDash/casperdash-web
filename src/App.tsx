@@ -1,15 +1,14 @@
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import { Routes } from '@generouted/react-router';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { Query, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import * as _ from 'lodash-es';
 import { Provider } from 'react-redux';
-import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'sonner';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import browserRouter from '@/router/browserRouter';
 import store from '@/store';
 import theme from '@/theme';
 
@@ -64,7 +63,7 @@ const App = () => {
           }}
         >
           <ChakraProvider resetCSS theme={theme}>
-            <RouterProvider router={browserRouter} />
+            <Routes />
             <Toaster position="bottom-right" richColors closeButton />
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           </ChakraProvider>
