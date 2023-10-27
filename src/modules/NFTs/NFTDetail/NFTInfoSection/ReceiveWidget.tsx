@@ -27,6 +27,8 @@ const ReceiveWidget = () => {
           .toFixed(4)
       : 0;
 
+  console.log('price: ', price);
+
   return (
     <Stack
       mt="6"
@@ -41,7 +43,7 @@ const ReceiveWidget = () => {
         <Text>
           {t('intlAssetNumber', {
             asset: 'CSPR',
-            val: price | 0,
+            val: price || 0,
           })}
         </Text>
       </Flex>
