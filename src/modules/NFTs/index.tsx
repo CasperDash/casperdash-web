@@ -61,6 +61,7 @@ const NFTs = () => {
         alignItems={'center'}
         marginTop={{ base: '4', lg: '10' }}
         gap={{ base: '4', lg: '10' }}
+        mb="10"
       >
         <InputGroup>
           <Input

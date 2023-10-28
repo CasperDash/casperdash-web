@@ -7,8 +7,8 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 
+import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useAccount } from '@/hooks/useAccount';
-import { MenuIcon } from '@/icons';
 import { ButtonDeleteAllData } from '@/modules/core/ButtonDeleteAllData';
 import ButtonLockWallet from '@/modules/core/ButtonLockWallet';
 import ButtonViewRecoveryPhrase from '@/modules/core/ButtonViewRecoveryPhrase';
@@ -21,12 +21,12 @@ const MenuItemWrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 const MenuButtonModal = () => {
-  const { isConnected, isLocked } = useAccount();
+  const { isConnected, isLocked, publicKey } = useAccount();
 
   return (
     <Menu>
       <MenuButton isDisabled={!isConnected} as={Button} variant="circle">
-        <MenuIcon />
+        <MiddleTruncatedText value={publicKey} />
       </MenuButton>
       <MenuList borderRadius="xl" p="4">
         {isConnected && (

@@ -6,7 +6,7 @@ import TableToken from '@/modules/core/TableToken';
 
 const Home = () => {
   return (
-    <Box>
+    <Box w="100%">
       <AccountInfo mt="8" background="gray.200" />
       <AccountBalances mt="8" />
       <TableToken mt="14" />
