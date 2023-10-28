@@ -1,11 +1,13 @@
 import {
   Button,
   Divider,
+  Flex,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
+import { PiUserCircleLight } from 'react-icons/pi';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useAccount } from '@/hooks/useAccount';
@@ -25,8 +27,17 @@ const MenuButtonModal = () => {
 
   return (
     <Menu>
-      <MenuButton isDisabled={!isConnected} as={Button} variant="circle">
-        <MiddleTruncatedText value={publicKey} />
+      <MenuButton
+        variant={'light'}
+        minW={48}
+        isDisabled={!isConnected}
+        as={Button}
+        h="80%"
+      >
+        <Flex justifyContent={'center'} alignItems="center" gap="4">
+          <MiddleTruncatedText value={publicKey} />
+          <PiUserCircleLight size={30} />
+        </Flex>
       </MenuButton>
       <MenuList borderRadius="xl" p="4">
         {isConnected && (

@@ -1,18 +1,17 @@
 import { Button, ButtonProps, useDisclosure } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
+import { AiOutlineQrcode } from 'react-icons/ai';
 
 import ModalReceivingAddress from './components/ModalReceivingAddress';
 
 type Props = ButtonProps;
 
 const ButtonViewReceivingAddress = ({ ...buttonProps }: Props) => {
-  const { t } = useTranslation();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
       <Button {...buttonProps} onClick={() => onOpen()}>
-        {t('receive')}
+        <AiOutlineQrcode />
       </Button>
       <ModalReceivingAddress isOpen={isOpen} onClose={onClose} />
     </>

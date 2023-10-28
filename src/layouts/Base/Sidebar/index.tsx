@@ -92,8 +92,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      shadow="sidebarShadow"
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -109,7 +108,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         }
 
         return (
-          <NavItem key={link.name} icon={link.icon} path={link.path}>
+          <NavItem
+            key={link.name}
+            icon={link.icon}
+            path={link.path}
+            onClick={onClose}
+          >
             {link.name}
           </NavItem>
         );
@@ -122,10 +126,11 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactNode;
   path: string;
+  onClick: () => void;
 }
-const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
   return (
-    <Link to={path}>
+    <Link to={path} onClick={() => onClick?.()}>
       <Box
         as="a"
         href="#"

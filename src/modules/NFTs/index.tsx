@@ -49,17 +49,11 @@ const NFTs = () => {
   );
 
   return (
-    <Flex
-      alignItems={'center'}
-      flexDir={'column'}
-      justify={'center'}
-      mt={{ base: '6', lg: '20' }}
-    >
+    <Flex alignItems={'center'} flexDir={'column'} justify={'center'}>
       <Flex
         direction={{ base: 'column', lg: 'row' }}
         width={{ base: '100%' }}
         alignItems={'center'}
-        marginTop={{ base: '4', lg: '10' }}
         gap={{ base: '4', lg: '10' }}
         mb="10"
       >
