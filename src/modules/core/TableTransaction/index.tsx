@@ -61,7 +61,7 @@ const TableTransaction = ({ ...restProps }: TableTransactionProps) => {
   const { data = [] } = useGetTransactionHistories();
 
   return (
-    <Box {...restProps} overflowX={'auto'}>
+    <Box {...restProps} overflowX={'auto'} background={'white'} p="8">
       <DataTable
         columns={columns}
         data={data}
