@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import BaseLayout from '@/layouts/Base';
+import PanelLayout from '@/layouts/Panel';
 
 const Layout = () => {
   return (
-    <BaseLayout>
+    <PanelLayout>
       <Outlet />
-    </BaseLayout>
+    </PanelLayout>
   );
 };
 

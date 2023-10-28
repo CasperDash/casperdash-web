@@ -23,6 +23,7 @@ const Send = () => {
             borderRadius="5xl"
             w={{ base: 'sm', md: 'lg' }}
             mb="0"
+            background={'white'}
           >
             <SendForm />
           </Box>

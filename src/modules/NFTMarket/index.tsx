@@ -4,7 +4,7 @@ import ListNFTs from './components/ListNFTs';
 
 const NFTMarket = () => {
   return (
-    <Box mt={{ base: '6', lg: '20' }}>
+    <Box>
       <Flex alignItems={'center'} flexDir={'column'} justify={'center'}>
         <ListNFTs />
       </Flex>

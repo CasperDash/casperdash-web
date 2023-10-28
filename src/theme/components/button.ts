@@ -109,6 +109,9 @@ const Button: ComponentStyleConfig = {
       borderRadius: '99px',
       minW: 'auto',
       padding: '10px',
+      _hover: {
+        bg: colors.light,
+      },
     },
   },
 };

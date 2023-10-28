@@ -9,6 +9,7 @@ const styles = {
       transitionDuration: 'normal',
       lineHeight: 'base',
       fontWeight: 400,
+      scrollbarGutter: 'stable',
     },
     a: {
       // color: props.colorMode === 'dark' ? 'teal.300' : 'gray.500',

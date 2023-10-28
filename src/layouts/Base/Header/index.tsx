@@ -1,103 +1,58 @@
-import { Box, BoxProps, Flex } from '@chakra-ui/react';
+import { Box, BoxProps, Button, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, NavLinkProps } from 'react-router-dom';
+import { BsSend } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
-import Logo from './Logo';
-import MenuButtonModal from './MenuButtonModal';
-import MainContainer from '@/components/Common/MainContainer';
-import { PathEnum } from '@/enums/path';
+import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
-
-type NavLinkWrapperProps = {
-  children: React.ReactNode;
-} & NavLinkProps;
-const NavLinkWrapper = ({ children, ...restProps }: NavLinkWrapperProps) => {
-  return (
-    <NavLink
-      style={({ isActive }) => {
-        return {
-          fontWeight: isActive ? 'bold' : '',
-        };
-      }}
-      {...restProps}
-    >
-      {children}
-    </NavLink>
-  );
-};
+import ButtonViewReceivingAddress from '@/modules/core/ButtonViewReceivingAddress';
+import MenuButtonModal from '@/modules/core/MenuButtonModal';
 
 type HeaderProps = BoxProps;
-const Header = ({ bg }: HeaderProps) => {
+const Header = ({ ...props }: HeaderProps) => {
   const { t } = useTranslation();
   const { isConnected } = useAccount();
 
   return (
-    <Box bg={bg} w="100%">
-      <MainContainer>
-        <Flex py="7" justifyContent="space-between">
-          <Flex alignItems="center">
-            <Box>
-              <Logo />
-            </Box>
-            <Box
-              mx={8}
-              w="2px"
-              h="40px"
-              backgroundColor="gray.200"
-              display={{
-                base: 'none',
-                md: 'flex',
-              }}
-            />
-            <Flex
-              gap="16"
-              display={{
-                base: 'none',
-                md: 'flex',
-              }}
-            >
-              <NavLinkWrapper to={PathEnum.HOME}>{t('home')}</NavLinkWrapper>
-              {isConnected && (
-                <>
-                  <NavLinkWrapper to={PathEnum.NFT}>
-                    {t('my_nfts')}
-                  </NavLinkWrapper>
-                  <NavLinkWrapper to={PathEnum.STAKING}>
-                    {t('staking')}
-                  </NavLinkWrapper>
-                  <NavLinkWrapper to={PathEnum.NFT_MARKET}>
-                    {t('market')}
-                  </NavLinkWrapper>
-                </>
-              )}
-              {/* <Link to={PathEnum.TRADE}>
-                <Text color="gray.200">{t('trade')}</Text>
-              </Link>
-              <Link to={PathEnum.NFT}>
-                <Text color="gray.200">{t('nfts')}</Text>
-              </Link>
-             */}
-            </Flex>
-          </Flex>
-          <Flex>
-            {isConnected ? (
-              <>
-                {/* <Box mr="8" paddingTop="2">
-                  <BellIcon />
-                </Box> */}
-                <Box ml="3">
-                  <MenuButtonModal />
+    <Box {...props} w="100%" bg="white" shadow={'headerShadow'}>
+      <Flex py="6" px="10" justifyContent="flex-end">
+        <Flex alignItems={'center'}>
+          {isConnected ? (
+            <Flex alignItems="center">
+              <Flex
+                gap="6"
+                mr="6"
+                display={{
+                  base: 'none',
+                  md: 'flex',
+                }}
+              >
+                <Link to={PathEnum.SEND}>
+                  <Button variant={'circle'} h="12">
+                    <BsSend />
+                  </Button>
+                  <Text mt="1" fontSize={'sm'} textAlign="center">
+                    {t('send')}
+                  </Text>
+                </Link>
+
+                <Box>
+                  <ButtonViewReceivingAddress variant={'circle'} h="12" />
+                  <Text mt="1" fontSize={'sm'} textAlign="center">
+                    {t('receive')}
+                  </Text>
                 </Box>
-              </>
-            ) : (
-              <Box>
-                <ButtonConnectWallet />
+              </Flex>
+              <Box ml="3" h="100%">
+                <MenuButtonModal />
               </Box>
-            )}
-          </Flex>
+            </Flex>
+          ) : (
+            <ButtonConnectWallet />
+          )}
         </Flex>
-      </MainContainer>
+      </Flex>
     </Box>
   );
 };
