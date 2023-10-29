@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
 
 import CancelListButton from './CancelListButton';
 import ListForSaleModal from './ListForSaleModal';
@@ -11,8 +11,14 @@ type Props = {
 };
 
 const NFTInfoSection = ({ nft }: Props) => {
-  const { data: marketNFT, refetch } = useGetCurrentMarketNFT();
-  const { data } = useGetCurrentMarketContract();
+  const {
+    data: marketNFT,
+    refetch,
+    isLoading: isLoadingNFT,
+  } = useGetCurrentMarketNFT();
+  const { data, isLoading: isLoadingContract } = useGetCurrentMarketContract({
+    retry: 0,
+  });
   const handleOnContinue = () => {
     refetch();
   };
@@ -36,20 +42,25 @@ const NFTInfoSection = ({ nft }: Props) => {
           mt="12"
           p="4"
         >
-          <Text textAlign={'center'}>This NFT is in your wallet</Text>
-          {!!data && (
-            <Box>
-              {marketNFT ? (
-                <CancelListButton
-                  contractAddress={nft.contractAddress}
-                  tokenId={nft.tokenId}
-                  onContinue={handleOnContinue}
-                />
-              ) : (
-                <ListForSaleModal onContinue={handleOnContinue} />
-              )}
-            </Box>
-          )}
+          <Skeleton
+            borderRadius="xl"
+            isLoaded={!isLoadingNFT && !isLoadingContract}
+          >
+            <Text textAlign={'center'}>This NFT is in your wallet</Text>
+            {!!data && (
+              <Box>
+                {marketNFT ? (
+                  <CancelListButton
+                    contractAddress={nft.contractAddress}
+                    tokenId={nft.tokenId}
+                    onContinue={handleOnContinue}
+                  />
+                ) : (
+                  <ListForSaleModal onContinue={handleOnContinue} />
+                )}
+              </Box>
+            )}
+          </Skeleton>
         </Box>
       </Flex>
     </>
