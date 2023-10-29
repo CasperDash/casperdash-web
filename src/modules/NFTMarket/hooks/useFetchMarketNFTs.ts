@@ -12,6 +12,7 @@ export const useFetchMarketNFTs = ({ limit }: Params) => {
     queryKey: [QueryKeysEnum.MARKET_NFTS],
     queryFn: ({ pageParam = 1 }) => getMarketNFTs({ page: pageParam, limit }),
     getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
+    refetchOnWindowFocus: true,
   });
 
   return {
