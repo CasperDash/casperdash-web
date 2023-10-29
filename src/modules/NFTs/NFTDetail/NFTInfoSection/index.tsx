@@ -2,6 +2,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import CancelListButton from './CancelListButton';
 import ListForSaleModal from './ListForSaleModal';
+import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
 import { useGetCurrentMarketNFT } from '../../hooks/useGetCurrentMarketNFT';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 
@@ -10,8 +11,8 @@ type Props = {
 };
 
 const NFTInfoSection = ({ nft }: Props) => {
-  const { data: marketNFT, isLoading, refetch } = useGetCurrentMarketNFT();
-
+  const { data: marketNFT, refetch } = useGetCurrentMarketNFT();
+  const { data } = useGetCurrentMarketContract();
   const handleOnContinue = () => {
     refetch();
   };
@@ -36,7 +37,7 @@ const NFTInfoSection = ({ nft }: Props) => {
           p="4"
         >
           <Text textAlign={'center'}>This NFT is in your wallet</Text>
-          {!isLoading && (
+          {!!data && (
             <Box>
               {marketNFT ? (
                 <CancelListButton
