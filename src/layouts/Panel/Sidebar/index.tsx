@@ -22,11 +22,13 @@ import {
   FiCompass,
   FiMenu,
   FiImage,
+  FiPieChart,
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import Header from '../Header';
 import Logo from '@/components/Common/Logo';
+import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import i18n from '@/i18n';
@@ -40,13 +42,20 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: i18n.t('home'), icon: FiHome, path: PathEnum.HOME },
+  { name: i18n.t('staking'), icon: FiTrendingUp, path: PathEnum.STAKING },
+  {
+    name: i18n.t('portfolio'),
+    icon: FiPieChart,
+    path: PathEnum.PORTFOLIO,
+    isConnected: true,
+  },
+
   {
     name: i18n.t('my_nfts'),
     icon: FiImage,
     path: PathEnum.NFT,
     isConnected: true,
   },
-  { name: i18n.t('staking'), icon: FiTrendingUp, path: PathEnum.STAKING },
   { name: i18n.t('market'), icon: FiCompass, path: PathEnum.NFT_MARKET },
 ];
 
@@ -76,9 +85,9 @@ export default function SimpleSidebar({ children }: Props) {
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
       <Header display={{ base: 'none', md: 'block' }} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <Flex ml={{ base: 0, md: 60 }}>
+        <MainContainer>{children}</MainContainer>
+      </Flex>
     </Box>
   );
 }

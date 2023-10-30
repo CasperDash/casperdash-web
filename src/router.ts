@@ -14,6 +14,7 @@ export type Path =
   | `/market/:contractAddress/:tokenId`
   | `/nfts`
   | `/nfts/:contractAddress/:tokenId`
+  | `/portfolio`
   | `/send`
   | `/staking`;
 

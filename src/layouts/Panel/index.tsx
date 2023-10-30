@@ -1,5 +1,4 @@
-import { Flex } from '@chakra-ui/react';
-
+import SimpleSidebar from './Sidebar';
 import BaseLayout from '../Base';
 
 export type Props = {
@@ -10,7 +9,7 @@ export type Props = {
 const PanelLayout = ({ children }: Props) => {
   return (
     <BaseLayout defaultLightBg="white" defaultLightHeaderBg="gray.50">
-      <Flex>{children}</Flex>
+      <SimpleSidebar>{children}</SimpleSidebar>
     </BaseLayout>
   );
 };

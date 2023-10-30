@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import LightLayout from '@/layouts/Light';
+import PanelLayout from '@/layouts/Panel';
 
 const Layout = () => {
   return (
-    <LightLayout>
+    <PanelLayout>
       <Outlet />
-    </LightLayout>
+    </PanelLayout>
   );
 };
 

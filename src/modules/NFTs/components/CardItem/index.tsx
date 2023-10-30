@@ -31,7 +31,7 @@ const CardItem = ({ item }: CardItemProps) => {
         </Box>
         <Flex direction={'column'} alignItems="center">
           <Flex mt={{ base: '4', md: '14' }} gap="2">
-            <Text fontWeight={'bold'} fontSize={'2xl'}>
+            <Text fontWeight={'bold'} fontSize={'2xl'} noOfLines={1}>
               {item.nftName}
             </Text>
             <Text fontWeight={'bold'} fontSize={'2xl'} color="gray.500">

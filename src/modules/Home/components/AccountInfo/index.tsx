@@ -68,11 +68,11 @@ const AccountInfo = (props: AccountInfoProps) => {
           <AccountName />
         </Box>
         <Flex alignItems={'center'}>
-          <Text noOfLines={4} display={{ base: 'none', md: 'block' }}>
+          <Text noOfLines={4} display={{ base: 'none', xl: 'block' }}>
             {publicKey}
           </Text>
-          <Box display={{ base: 'block', md: 'none' }}>
-            <MiddleTruncatedText value={publicKey || ''}></MiddleTruncatedText>
+          <Box display={{ base: 'block', xl: 'none' }}>
+            <MiddleTruncatedText value={publicKey || ''} />
           </Box>
           {hasCopied ? (
             <CheckIcon ml="4" />
