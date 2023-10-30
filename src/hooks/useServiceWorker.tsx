@@ -20,9 +20,8 @@ const useServiceWorker = () => {
           // registration failed :(
           console.log('ServiceWorker registration failed: ', err);
         }
-        navigator.serviceWorker.addEventListener('message', (event) => {
+        navigator.serviceWorker.addEventListener('message', () => {
           // console.log(event);
-          console.log(event.data.value);
         });
       }
     };
