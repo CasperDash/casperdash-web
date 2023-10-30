@@ -27,8 +27,6 @@ const ReceiveWidget = () => {
           .toFixed(4)
       : 0;
 
-  console.log('price: ', price);
-
   return (
     <Stack
       mt="6"

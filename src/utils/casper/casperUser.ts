@@ -203,7 +203,6 @@ class CasperUserUtil {
     const deployResult = DeployUtil.deployFromJson(deployJSON);
 
     if (deployResult.err) {
-      console.log(deployResult.err);
       throw Error('Something went wrong with deployResult');
     }
 

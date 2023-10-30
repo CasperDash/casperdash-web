@@ -5,8 +5,6 @@ import { Badge } from '@chakra-ui/react';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 
 export const getDeployStatus = (status: TransactionStatusEnum) => {
-  console.log(status);
-
   switch (status) {
     case TransactionStatusEnum.PENDING:
     case TransactionStatusEnum.UNDELEGATING:

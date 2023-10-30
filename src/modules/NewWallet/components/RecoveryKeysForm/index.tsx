@@ -55,7 +55,6 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
   });
 
   const handleOnSubmit = ({ masterKey, encryptionType }: SubmitValues) => {
-    console.log(masterKey);
     dispatch(
       updateEncryptionTypeAndMasterKey({
         encryptionType,

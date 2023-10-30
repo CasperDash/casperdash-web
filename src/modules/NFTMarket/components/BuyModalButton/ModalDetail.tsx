@@ -57,8 +57,6 @@ const ModalDetail = ({
     });
   };
 
-  console.log('balance: ', balance);
-
   const totalPayment = Big(toCSPR(listingAmount || 0))
     .add(feeNetwork)
     .toNumber();
