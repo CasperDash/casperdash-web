@@ -1,9 +1,12 @@
 export enum PathEnum {
   HOME = '/',
   TRADE = '/trade',
-  NFT = '/nfts',
   STAKING = '/staking',
+  PORTFOLIO = '/portfolio',
   SEND = '/send',
+
+  // My NFTs
+  NFT = '/nfts',
   NFT_DETAIL = '/nfts/:contractAddress/:tokenId',
 
   // NFT Market

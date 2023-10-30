@@ -1,7 +1,5 @@
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 
-import SimpleSidebar from './Sidebar';
-import MainContainer from '@/components/Common/MainContainer';
 import { useGetLocked } from '@/hooks/queries/useGetLocked';
 import PopupAutoConnectWallet from '@/modules/PopupAutoConnectWallet';
 import PopupSDK from '@/modules/PopupSDK';
@@ -20,24 +18,18 @@ const BodyContent = ({ children }: { children: React.ReactNode }) => {
     return <Flex h="100vh"></Flex>;
   }
 
-  return (
-    <MainContainer>{!isLocked ? children : <UnlockWallet />}</MainContainer>
-  );
+  return <Box>{!isLocked ? children : <UnlockWallet />}</Box>;
 };
 
 const BaseLayout = ({ children, defaultLightBg = 'gray.100' }: Props) => {
   const bg = useColorModeValue(defaultLightBg, 'blackAlpha.900');
 
   return (
-    <Flex minHeight="100vh" bg={bg} position={'relative'}>
-      <SimpleSidebar>
-        <Box>
-          <BodyContent>{children}</BodyContent>
-          <PopupAutoConnectWallet />
-          <PopupSDK />
-        </Box>
-      </SimpleSidebar>
-    </Flex>
+    <Box minHeight="100vh" bg={bg} position={'relative'}>
+      <BodyContent>{children}</BodyContent>
+      <PopupAutoConnectWallet />
+      <PopupSDK />
+    </Box>
   );
 };
 
