@@ -6,10 +6,14 @@ export type Props = {
   defaultLightBg?: string;
 };
 
+// MasterPanelLayout
 const PanelLayout = ({ children }: Props) => {
   return (
     <BaseLayout defaultLightBg="white" defaultLightHeaderBg="gray.50">
-      <SimpleSidebar>{children}</SimpleSidebar>
+      <SimpleSidebar>
+        <p>Duc</p>
+        {children}
+      </SimpleSidebar>
     </BaseLayout>
   );
 };

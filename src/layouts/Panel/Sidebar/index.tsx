@@ -67,6 +67,7 @@ export default function SimpleSidebar({ children }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" w="100%" bg={useColorModeValue('gray.100', 'gray.900')}>
+      <p>Sidebar</p>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -86,6 +87,7 @@ export default function SimpleSidebar({ children }: Props) {
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
       <Header display={{ base: 'none', md: 'block' }} />
       <Flex ml={{ base: 0, md: 60 }}>
+        <p>Flex</p>
         <MainContainer>{children}</MainContainer>
       </Flex>
     </Box>
@@ -203,6 +205,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           <Logo />
         </Box>
       </Flex>
+      <p>XXX</p>
       <MenuButtonModal />
     </Flex>
   );
