@@ -12,6 +12,7 @@ export enum QueryKeysEnum {
   CURRENT_ACCOUNT = 'current_account',
   ASSETS = 'assets',
   COIN_BALANCE = 'coin_balance',
+  TRANSACTIONS = 'transactions',
   TRANSACTION_HISTORIES = 'transaction_histories',
   STAKING_TRANSACTION_HISTORIES = 'staking_transaction_histories',
   CONNECTED_URLS = 'connected_urls',
@@ -33,4 +34,5 @@ export enum QueryKeysEnum {
   NFT_TRANSACTION_HISTORY = 'nft_transaction_history',
   NFT_TRANSACTION = 'nft_transaction',
   NFT_TRANSACTION_STATUS = 'nft_transaction_status',
+  PENDING_TOKEN_TRANSACTION = 'pending_token_transaction',
 }

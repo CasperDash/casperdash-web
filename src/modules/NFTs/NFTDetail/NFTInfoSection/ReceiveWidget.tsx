@@ -3,7 +3,7 @@ import Big from 'big.js';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useGetCurrentMarketContractAndItem } from '../../hooks/useGetCurrentMarketNFT';
+import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
 import { Config } from '@/config';
 
 const ReceiveWidget = () => {
@@ -13,17 +13,16 @@ const ReceiveWidget = () => {
     control,
     name: 'price',
   });
-  const { data = { contract: null, item: null } } =
-    useGetCurrentMarketContractAndItem();
+  const { data = null } = useGetCurrentMarketContract();
 
   const bigPlatformFee = price
     ? Big(price).times(Config.marketPlatformFeePercent).div(100)
     : 0;
 
   const receiveAmount =
-    price && data?.contract?.royaltyFee
+    price && data?.royaltyFee
       ? Big(price)
-          .minus(Big(price).times(Big(data?.contract?.royaltyFee).div(100)))
+          .minus(Big(price).times(Big(data?.royaltyFee).div(100)))
           .minus(bigPlatformFee)
           .toFixed(4)
       : 0;
@@ -51,7 +50,7 @@ const ReceiveWidget = () => {
         <Text>
           {t('intlAssetNumber', {
             asset: '%',
-            val: data?.contract?.royaltyFee,
+            val: data?.royaltyFee,
           })}
         </Text>
       </Flex>

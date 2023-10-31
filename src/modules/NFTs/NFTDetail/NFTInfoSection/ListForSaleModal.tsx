@@ -18,12 +18,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as _ from 'lodash-es';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { z } from 'zod';
 
 import ReceiveWidget from './ReceiveWidget';
 import { useCreateNFTListing } from '../../hooks/useCreateNFTListing';
 import { useGetCurrentNFT } from '../../hooks/useGetCurrentNFT';
+import { useGetPendingActionTransaction } from '../../hooks/useGetPendingActionTransaction';
 import InputNumber from '@/components/Inputs/InputNumber';
+import { DeployActionsEnum } from '@/enums/deployActions';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import i18n from '@/i18n';
@@ -42,28 +45,37 @@ type Props = {
 };
 
 const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
-  const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
-  const methods = useForm<SubmitValues>({
-    resolver: zodResolver(validationSchema),
-    defaultValues: {
-      price: 0,
-    },
-  });
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = methods;
+  const { contractAddress, tokenId } = useParams();
+  const { t } = useTranslation();
+  const { toastSuccess } = useI18nToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenTransaction,
     onOpen: onOpenTransaction,
     onClose: onCloseTransaction,
   } = useDisclosure();
+  const methods = useForm<SubmitValues>({
+    resolver: zodResolver(validationSchema),
+    defaultValues: {
+      price: 0,
+    },
+  });
 
-  const { t } = useTranslation();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = methods;
+
   const { nft } = useGetCurrentNFT();
-  const { toastSuccess } = useI18nToast();
+  const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
+  const { isPending, isLoading: isLoadingTransactions } =
+    useGetPendingActionTransaction({
+      tokenAddress: contractAddress,
+      tokenId: tokenId,
+      action: DeployActionsEnum.LIST_ITEM,
+    });
+
   const {
     mutate,
     isLoading: isLisiting,
@@ -103,7 +115,8 @@ const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
         w="100%"
         onClick={onOpen}
         fontWeight={'bold'}
-        isLoading={isLoading}
+        isLoading={isLoading || isPending || isLoadingTransactions}
+        loadingText={isPending && t('listing')}
       >
         {t('list_for_sale')}
       </Button>

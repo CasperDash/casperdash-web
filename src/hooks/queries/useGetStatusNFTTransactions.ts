@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { useGetNFTTransactions } from './useGetNFTTransactions';
+import { useGetTransactions } from './useGetTransactions';
+import { useAccount } from '../useAccount';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
@@ -18,7 +19,8 @@ export type NFTTransactionStatus = NFTTransactionHistory & {
 };
 
 export const useGetStatusNFTTransactions = (params: Params) => {
-  const { data: transactions, ...rest } = useGetNFTTransactions();
+  const { publicKey } = useAccount();
+  const { data: transactions, ...rest } = useGetTransactions(publicKey);
 
   const filteredTransactions = useMemo(() => {
     const foundTransactions = transactions?.filter(

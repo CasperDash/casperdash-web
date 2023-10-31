@@ -192,5 +192,7 @@
   "transaction_status": "Transaction Status",
   "transaction_sent": "Transaction sent",
   "transaction_sent_description": "Your transaction has been sent to the network. It may take a few minutes to be confirmed.",
-  "portfolio": "Portfolio"
+  "portfolio": "Portfolio",
+  "listing": "Listing...",
+  "delisting": "Delisting..."
 }
