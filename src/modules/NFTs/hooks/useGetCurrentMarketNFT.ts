@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { useGetContractPackageInfo } from '@/hooks/queries/useGetContractPackageInfo';
-import { getMarketNFT } from '@/services/casperdash/market/nft.service';
-import { IMarketNFT } from '@/services/casperdash/market/type';
+import { getMarketContractAndItemInfo } from '@/services/casperdash/market/nft.service';
+import { IMarketContractAndItem } from '@/services/casperdash/market/type';
 
-export const useGetCurrentMarketNFT = (
+export const useGetCurrentMarketContractAndItem = (
   options?: UseQueryOptions<
-    IMarketNFT,
+    IMarketContractAndItem,
     unknown,
-    IMarketNFT,
-    [string, Record<string, string | undefined>]
+    IMarketContractAndItem,
+    [string, Record<string, string | undefined>, string]
   >
 ) => {
   const { contractAddress, tokenId } = useParams();
@@ -29,13 +29,19 @@ export const useGetCurrentMarketNFT = (
         contractAddress: contractAddress,
         tokenId,
       },
+      'info',
     ],
     queryFn: async () => {
-      if (!contractAddress || !tokenId) {
+      if (!contractAddress || !tokenId || !contractPackageInfo) {
         throw new Error('Contract address or token id is not provided');
       }
 
-      return await getMarketNFT(contractPackageInfo!.contract_hash, tokenId);
+      const result = await getMarketContractAndItemInfo(
+        contractPackageInfo.contract_hash,
+        tokenId
+      );
+
+      return result;
     },
     enabled: !!contractAddress && !!tokenId && !!contractPackageInfo,
   });

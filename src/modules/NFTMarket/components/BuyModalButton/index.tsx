@@ -23,7 +23,6 @@ import { IMarketNFT } from '@/services/casperdash/market/type';
 
 type Props = {
   nft?: IMarketNFT;
-  royaltyFee?: number;
   isLoading?: boolean;
 } & ButtonProps;
 

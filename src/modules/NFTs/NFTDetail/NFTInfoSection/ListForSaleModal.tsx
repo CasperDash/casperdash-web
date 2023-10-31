@@ -22,7 +22,6 @@ import { z } from 'zod';
 
 import ReceiveWidget from './ReceiveWidget';
 import { useCreateNFTListing } from '../../hooks/useCreateNFTListing';
-import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
 import { useGetCurrentNFT } from '../../hooks/useGetCurrentNFT';
 import InputNumber from '@/components/Inputs/InputNumber';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
@@ -65,7 +64,6 @@ const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
   const { t } = useTranslation();
   const { nft } = useGetCurrentNFT();
   const { toastSuccess } = useI18nToast();
-  const { isLoading: isLoadingContract } = useGetCurrentMarketContract();
   const {
     mutate,
     isLoading: isLisiting,
@@ -105,7 +103,7 @@ const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
         w="100%"
         onClick={onOpen}
         fontWeight={'bold'}
-        isLoading={isLoading || isLoadingContract}
+        isLoading={isLoading}
       >
         {t('list_for_sale')}
       </Button>
@@ -157,7 +155,7 @@ const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
                         mr={3}
                         type="submit"
                         w="100%"
-                        isLoading={isLisiting || isLoadingContract}
+                        isLoading={isLisiting}
                         isDisabled={isDisabled}
                       >
                         {isDisabled ? t('insufficient_balance') : t('confirm')}

@@ -3,10 +3,10 @@ import Big from 'big.js';
 import { useTranslation } from 'react-i18next';
 
 import { useBuyItem } from '../../hooks/useBuyItem';
+import { useGetMarketNFT } from '../../hooks/useGetMarketNFT';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
-import { useGetMarketContract } from '@/hooks/queries/useGetMarketContract';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import { toCSPR } from '@/utils/currency';
 
@@ -27,8 +27,9 @@ const ModalDetail = ({
   image,
   onSuccessfulBuy,
 }: Props) => {
-  const { data, isLoading: isLoadingContract } = useGetMarketContract({
+  const { data, isLoading: isLoadingMarketNFT } = useGetMarketNFT({
     tokenAddress: tokenContractHash,
+    tokenId: tokenId,
   });
   const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
 
@@ -100,7 +101,9 @@ const ModalDetail = ({
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('royalties')}</Text>
-          <Text>{isLoadingContract ? '...' : `${data?.royaltyFee}%`}</Text>
+          <Text>
+            {isLoadingMarketNFT ? '...' : data?.tokenContract?.royaltyFee}%
+          </Text>
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('network_fee')}</Text>

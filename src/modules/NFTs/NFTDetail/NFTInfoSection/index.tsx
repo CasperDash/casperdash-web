@@ -2,8 +2,7 @@ import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
 
 import CancelListButton from './CancelListButton';
 import ListForSaleModal from './ListForSaleModal';
-import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
-import { useGetCurrentMarketNFT } from '../../hooks/useGetCurrentMarketNFT';
+import { useGetCurrentMarketContractAndItem } from '../../hooks/useGetCurrentMarketNFT';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 
 type Props = {
@@ -12,13 +11,10 @@ type Props = {
 
 const NFTInfoSection = ({ nft }: Props) => {
   const {
-    data: marketNFT,
+    data = { contract: null, item: null },
     refetch,
     isLoading: isLoadingNFT,
-  } = useGetCurrentMarketNFT();
-  const { data, isLoading: isLoadingContract } = useGetCurrentMarketContract({
-    retry: 0,
-  });
+  } = useGetCurrentMarketContractAndItem();
   const handleOnContinue = () => {
     refetch();
   };
@@ -42,14 +38,11 @@ const NFTInfoSection = ({ nft }: Props) => {
           mt="12"
           p="4"
         >
-          <Skeleton
-            borderRadius="xl"
-            isLoaded={!isLoadingNFT && !isLoadingContract}
-          >
+          <Skeleton borderRadius="xl" isLoaded={!isLoadingNFT}>
             <Text textAlign={'center'}>This NFT is in your wallet</Text>
-            {!!data && (
+            {!!data.contract && (
               <Box>
-                {marketNFT ? (
+                {data.item ? (
                   <CancelListButton
                     contractAddress={nft.contractAddress}
                     tokenId={nft.tokenId}
