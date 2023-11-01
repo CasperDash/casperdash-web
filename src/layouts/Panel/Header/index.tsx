@@ -15,7 +15,13 @@ const Header = ({ ...props }: HeaderProps) => {
   const { isConnected } = useAccount();
 
   return (
-    <Box {...props} w="100%" bg="white" shadow={'headerShadow'}>
+    <Box
+      {...props}
+      w="100%"
+      background={'panelBackground'}
+      shadow="panelShadow"
+      borderRadius={'lg'}
+    >
       <Flex py="6" px="10" justifyContent="flex-end">
         <Flex alignItems={'center'}>
           {isConnected ? (

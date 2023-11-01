@@ -62,15 +62,20 @@ const LinkItems: Array<LinkItemProps> = [
 export default function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box
+    <Flex
+      className="test"
+      direction={'column'}
       minH="100vh"
-      w={92}
+      // w={92}
+      pos="sticky"
+      top={100}
+      // h="full"
       // bg={useColorModeValue('gray.100', 'gray.900')}
-      bg="light01"
+      // bg="gray.300"
     >
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
+        display={{ base: 'none', md: 'flex' }}
       />
       <Drawer
         isOpen={isOpen}
@@ -90,7 +95,7 @@ export default function Sidebar() {
         <p>Flex</p>
         <MainContainer>{children}</MainContainer>
       </Flex> */}
-    </Box>
+    </Flex>
   );
 }
 
@@ -101,35 +106,37 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { isConnected } = useAccount();
   return (
-    <Box
-      shadow="sidebarShadow"
-      // bg={useColorModeValue('white', 'gray.900')}
-      // w={{ base: 'full', md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
-    >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+    <Flex className="xxx" direction="column" h="full" flex={1} {...rest}>
+      <Flex alignItems="center" mb={4} justifyContent="center">
         <Logo />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => {
-        if (link.isConnected && !isConnected) {
-          return null;
-        }
+      <Flex
+        direction="column"
+        background={'panelBackground'}
+        shadow="panelShadow"
+        flex="1"
+        justifyContent={'center'}
+        borderRadius={'lg'}
+      >
+        {LinkItems.map((link) => {
+          if (link.isConnected && !isConnected) {
+            return null;
+          }
 
-        return (
-          <NavItem
-            key={link.name}
-            icon={link.icon}
-            path={link.path}
-            onClick={onClose}
-          >
-            {link.name}
-          </NavItem>
-        );
-      })}
-    </Box>
+          return (
+            <NavItem
+              key={link.name}
+              icon={link.icon}
+              path={link.path}
+              onClick={onClose}
+            >
+              {link.name}
+            </NavItem>
+          );
+        })}
+      </Flex>
+    </Flex>
   );
 };
 

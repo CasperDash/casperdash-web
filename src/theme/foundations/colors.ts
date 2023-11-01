@@ -10,6 +10,8 @@ export default {
   black: '#131313',
   white: '#FCFCFD',
   light01: '#f8fbf8',
+  // panelBackground: '#ededed',
+  panelBackground: `linear-gradient(145deg, #e5e5e5, #fefefe)`,
 
   primaryAlpha: {
     50: hexToRgba(PRIMARY_COLOR, 0.04),
