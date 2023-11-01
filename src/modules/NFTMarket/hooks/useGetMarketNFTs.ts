@@ -1,5 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
+import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { getMarketNFTs } from '@/services/casperdash/market/nft.service';
 import { IMarketNFT } from '@/services/casperdash/market/type';
 
@@ -8,7 +9,7 @@ export const useGetMarketNFTs = (
 ) => {
   return useQuery({
     ...options,
-    queryKey: ['marketNFT'],
+    queryKey: [QueryKeysEnum.MARKET_NFTS],
     queryFn: async () => {
       const data = await getMarketNFTs();
 

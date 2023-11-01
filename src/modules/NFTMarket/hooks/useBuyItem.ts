@@ -10,24 +10,35 @@ import { Config } from '@/config';
 import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { DeployTypesEnum } from '@/enums/deployTypes';
+import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { useMutateAddTransaction } from '@/hooks/mutates/useMutateAddTransaction';
 import { useAccount } from '@/hooks/useAccount';
+import { useEstimateNetworkFee } from '@/hooks/useEstimateNetworkFee';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import casperUserUtil from '@/utils/casper/casperUser';
 import { BuyItemArgs, MarketContract } from '@/utils/marketContract/contract';
 
 type Params = Pick<BuyItemArgs, 'token' | 'tokenId' | 'amount'>;
-const FEE_NETWORK_IN_CSPR = 1;
+
+type UseBuyItemParams = {
+  tokenType?: MarketTokenTypesEnum;
+};
 
 export const useBuyItem = (
+  { tokenType }: UseBuyItemParams,
   options?: UseMutationOptions<DeployResponse, unknown, Params, unknown>
 ) => {
   const { publicKey } = useAccount();
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutateAddTransaction(publicKey);
+  const { fee } = useEstimateNetworkFee({
+    action: DeployActionsEnum.BUY_ITEM,
+    tokenType,
+  });
+
   const mutation = useMutation({
     ...options,
     mutationFn: async (params: Params) => {
@@ -42,7 +53,7 @@ export const useBuyItem = (
         }
       );
 
-      const paymentAmount = csprToMotes(FEE_NETWORK_IN_CSPR).toNumber();
+      const paymentAmount = csprToMotes(fee).toNumber();
 
       const buildedDeploy = await contract.buyItem({
         ...params,
@@ -85,6 +96,6 @@ export const useBuyItem = (
 
   return {
     ...mutation,
-    feeNetwork: FEE_NETWORK_IN_CSPR,
+    feeNetwork: fee,
   };
 };

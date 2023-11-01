@@ -11,9 +11,17 @@ import {
   CLPublicKey,
 } from 'casper-js-sdk';
 
+import ListItemCep78NumberWasm from './wasm/list-item-cep78-number.wasm';
 import ListItemWasm from './wasm/list-item.wasm';
 import BuyItemWasm from './wasm/market-buy-item.wasm';
 import { Contract } from '../contract';
+import { DeployActionsEnum } from '@/enums/deployActions';
+import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
+
+const MAPPED_WASM_FILES = {
+  [MarketTokenTypesEnum.CEP78Number]: ListItemCep78NumberWasm,
+  [MarketTokenTypesEnum.CEP47Number]: ListItemWasm,
+};
 
 class ContractUtils {
   public static contractToCLByteArray(hash: string) {
@@ -36,14 +44,6 @@ export interface DeployArgs {
  */
 export enum MarketOrderType {
   FixedAmount = 0,
-}
-
-export enum MarketTokenType {
-  Unknown = 0,
-  CEP47Number = 100000,
-  CEP47String = 110000,
-  CEP78Number = 200000,
-  CEP78String = 210000,
 }
 
 export class ContractInfo {
@@ -115,6 +115,7 @@ interface MarketDeployWithTokenArgs extends DeployArgs {
 
 export interface MarketListItemArgs extends MarketDeployWithTokenArgs {
   amount: number | BigNumber;
+  tokenType?: MarketTokenTypesEnum;
 }
 
 export type MarketCancelItemArgs = MarketDeployWithTokenArgs;
@@ -129,7 +130,7 @@ export interface MarketSetFeeArgs extends DeployArgs {
 
 export interface MarketRegisterTokenArgs extends DeployArgs {
   token: ContractInfo;
-  type: MarketTokenType;
+  type: MarketTokenTypesEnum;
 }
 
 export type MarketGetBalanceArgs = DeployArgs;
@@ -162,26 +163,70 @@ export class MarketContract extends Contract {
   }
 
   public async listItem(args: MarketListItemArgs) {
-    const runtimeArgs = RuntimeArgs.fromMap({
-      nft_contract_hash: CLValueBuilder.key(
-        CLValueBuilder.byteArray(ContractUtils.contractToByteArray(args.token))
-      ),
-      market_contract_hash: CLValueBuilder.key(
-        CLValueBuilder.byteArray(
-          ContractUtils.contractToByteArray(this.contractHash)
-        )
-      ),
-      spender: CLValueBuilder.key(
-        CLValueBuilder.byteArray(
-          ContractUtils.contractToByteArray(this.contractPackageHash)
-        )
-      ),
-      token_id: CLValueBuilder.string(args.tokenId),
-      amount: CLValueBuilder.u512(args.amount),
-    });
+    const { tokenType } = args;
+    if (!tokenType) {
+      throw new Error('Token type is required');
+    }
+
+    if (!MAPPED_WASM_FILES[tokenType as keyof typeof MAPPED_WASM_FILES]) {
+      throw new Error('Token type is not supported');
+    }
+    let wasm;
+    let runtimeArgs;
+
+    switch (tokenType) {
+      case MarketTokenTypesEnum.CEP78Number:
+        wasm = MAPPED_WASM_FILES[MarketTokenTypesEnum.CEP78Number];
+        runtimeArgs = RuntimeArgs.fromMap({
+          nft_contract_hash: CLValueBuilder.key(
+            CLValueBuilder.byteArray(
+              ContractUtils.contractToByteArray(args.token)
+            )
+          ),
+          market_contract_hash: CLValueBuilder.key(
+            CLValueBuilder.byteArray(
+              ContractUtils.contractToByteArray(this.contractHash)
+            )
+          ),
+          market_contract_package_hash: CLValueBuilder.key(
+            CLValueBuilder.byteArray(
+              ContractUtils.contractToByteArray(this.contractPackageHash)
+            )
+          ),
+          token_id: CLValueBuilder.string(args.tokenId),
+          amount: CLValueBuilder.u512(args.amount),
+        });
+
+        break;
+      case MarketTokenTypesEnum.CEP47Number:
+        wasm = MAPPED_WASM_FILES[MarketTokenTypesEnum.CEP47Number];
+        runtimeArgs = RuntimeArgs.fromMap({
+          nft_contract_hash: CLValueBuilder.key(
+            CLValueBuilder.byteArray(
+              ContractUtils.contractToByteArray(args.token)
+            )
+          ),
+          market_contract_hash: CLValueBuilder.key(
+            CLValueBuilder.byteArray(
+              ContractUtils.contractToByteArray(this.contractHash)
+            )
+          ),
+          spender: CLValueBuilder.key(
+            CLValueBuilder.byteArray(
+              ContractUtils.contractToByteArray(this.contractPackageHash)
+            )
+          ),
+          token_id: CLValueBuilder.string(args.tokenId),
+          amount: CLValueBuilder.u512(args.amount),
+        });
+
+        break;
+      default:
+        throw new Error('Token type is not supported');
+    }
 
     return this.callSessionWasm(
-      ListItemWasm,
+      wasm,
       runtimeArgs,
       String(args.paymentAmount),
       CLPublicKey.fromHex(args.fromPublicKeyHex),
@@ -224,3 +269,15 @@ export class MarketContract extends Contract {
     );
   }
 }
+
+export const getFeeByAction = (
+  action: DeployActionsEnum,
+  tokenType?: MarketTokenTypesEnum
+) => {
+  switch (action) {
+    case DeployActionsEnum.BUY_ITEM:
+      return tokenType === MarketTokenTypesEnum.CEP47Number ? 26 : 40;
+    default:
+      return 15;
+  }
+};

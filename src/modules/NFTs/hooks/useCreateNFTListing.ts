@@ -10,6 +10,7 @@ import { Config } from '@/config';
 import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { DeployTypesEnum } from '@/enums/deployTypes';
+import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { useMutateAddTransaction } from '@/hooks/mutates/useMutateAddTransaction';
@@ -24,6 +25,7 @@ import { MarketContract } from '@/utils/marketContract/contract';
 type Params = {
   tokenId: string;
   amount: number;
+  tokenType?: MarketTokenTypesEnum;
 };
 
 const FEE_NETWORK = 15;
@@ -60,6 +62,7 @@ export const useCreateNFTListing = (
         amount: toMotes(params.amount),
         paymentAmount,
         fromPublicKeyHex: publicKey!,
+        tokenType: params.tokenType,
       });
       const signedDeploy = await casperUserUtil.signWithPrivateKey(
         buildedDeploy

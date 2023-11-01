@@ -49,7 +49,6 @@ const LinkItems: Array<LinkItemProps> = [
     path: PathEnum.PORTFOLIO,
     isConnected: true,
   },
-
   {
     name: i18n.t('my_nfts'),
     icon: FiImage,

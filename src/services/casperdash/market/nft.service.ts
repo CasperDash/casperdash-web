@@ -48,6 +48,9 @@ export const getMarketContract = async (
   const data: ITokenContract = await request.get(
     `/v1/market/contracts/${tokenAddress}`
   );
+  if (!data) {
+    return data;
+  }
 
   return normalizeTokenContract(data);
 };

@@ -62,6 +62,7 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
         onClick={onOpen}
         fontWeight={'bold'}
         isLoading={isLoading || isPending || isLoadingTransactions}
+        loadingText={isPending && t('processing')}
       >
         {t('buy')}
       </Button>
