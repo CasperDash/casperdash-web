@@ -39,12 +39,17 @@ const ModalDetail = ({
     mutate,
     isLoading: isBuying,
     feeNetwork,
-  } = useBuyItem({
-    onSuccess: (deployResponse: DeployResponse) => {
-      toastSuccess('buy_success');
-      onSuccessfulBuy?.(deployResponse);
+  } = useBuyItem(
+    {
+      tokenType: data?.tokenContract?.tokenType,
     },
-  });
+    {
+      onSuccess: (deployResponse: DeployResponse) => {
+        toastSuccess('buy_success');
+        onSuccessfulBuy?.(deployResponse);
+      },
+    }
+  );
 
   const handleOnBuy = () => {
     if (!tokenId || !tokenContractHash || !listingAmount) {
