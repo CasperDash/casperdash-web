@@ -12,9 +12,15 @@ export const ConnectWallet = () => {
 
   return (
     <>
-      <Button variant="light-outline" onClick={() => onOpen()}>
+      <Button
+        size="md"
+        variant="solid"
+        colorScheme="red"
+        onClick={() => onOpen()}
+      >
         {t('connect_wallet')}
       </Button>
+
       <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
     </>
   );

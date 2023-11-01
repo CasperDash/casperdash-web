@@ -20,7 +20,10 @@ const PanelLayout = ({ children }: Props) => {
       <Box p={4} pl={2} flex="1">
         <Header />
         <Box>
-          <MainContainer>{children}</MainContainer>
+          <MainContainer>
+            {children}
+            <Box h={2000} bg={'teal'} />
+          </MainContainer>
         </Box>
       </Box>
 

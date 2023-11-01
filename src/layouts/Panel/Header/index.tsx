@@ -21,6 +21,9 @@ const Header = ({ ...props }: HeaderProps) => {
       background={'panelBackground'}
       shadow="panelShadow"
       borderRadius={'lg'}
+      position={'sticky'}
+      zIndex={5}
+      top={4}
     >
       <Flex py="6" px="10" justifyContent="flex-end">
         <Flex alignItems={'center'}>

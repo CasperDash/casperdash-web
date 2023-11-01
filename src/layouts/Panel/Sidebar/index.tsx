@@ -62,15 +62,12 @@ export default function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
-      className="test"
+      className="sidebar"
       direction={'column'}
       minH="100vh"
-      // w={92}
       pos="sticky"
-      top={100}
-      // h="full"
-      // bg={useColorModeValue('gray.100', 'gray.900')}
-      // bg="gray.300"
+      top={4}
+      zIndex={5}
     >
       <SidebarContent
         onClose={() => onClose}
