@@ -2,11 +2,11 @@ import { Button, Box, Text, Flex, Image } from '@chakra-ui/react';
 import Big from 'big.js';
 import { useTranslation } from 'react-i18next';
 
-import { useGetMarketNFT } from '../../../../hooks/queries/useGetMarketNFT';
 import { useBuyItem } from '../../hooks/useBuyItem';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
+import { useGetMarketNFT } from '@/hooks/queries/useGetMarketNFT';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import { toCSPR } from '@/utils/currency';
 

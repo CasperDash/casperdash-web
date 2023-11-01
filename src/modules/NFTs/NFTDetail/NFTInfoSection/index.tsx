@@ -23,9 +23,6 @@ const NFTInfoSection = ({ nft }: Props) => {
     refetch();
   };
 
-  console.log('data: ', data);
-  console.log('marketNFT: ', marketNFT);
-
   return (
     <>
       <Flex direction={'column'} w="100%">
