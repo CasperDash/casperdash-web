@@ -15,6 +15,7 @@ import {
   BoxProps,
   FlexProps,
 } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 import {
   FiHome,
@@ -24,7 +25,8 @@ import {
   FiImage,
   FiPieChart,
 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 // import Header from '../Header';
 import Logo from '@/components/Common/Logo';
@@ -64,7 +66,7 @@ export default function Sidebar() {
     <Flex
       className="sidebar"
       direction={'column'}
-      minH="100vh"
+      minH="calc(100vh - 36px)"
       pos="sticky"
       top={4}
       zIndex={5}
@@ -144,40 +146,54 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
   return (
-    <Link to={path} onClick={() => onClick?.()}>
-      <Box
-        as="a"
-        href="#"
-        style={{ textDecoration: 'none' }}
-        _focus={{ boxShadow: 'none' }}
+    <Link
+      as={ReactRouterLink}
+      to={path}
+      onClick={() => onClick?.()}
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+    >
+      <Flex
+        direction={'column'}
+        columnGap={4}
+        align="center"
+        p="4"
+        borderRadius="lg"
+        role="group"
+        cursor="pointer"
+        transitionDuration={'200ms'}
+        _hover={{
+          color: 'primary',
+        }}
+        {...rest}
       >
-        <Flex
-          direction={'column'}
-          align="center"
-          p="4"
-          mx="4"
-          borderRadius="lg"
-          role="group"
-          cursor="pointer"
-          _hover={{
-            bg: 'primary',
-            color: 'white',
-          }}
-          {...rest}
-        >
-          {icon && (
+        {icon && (
+          <Flex
+            transitionDuration={'200ms'}
+            borderRadius={'lg'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            background={'panelBackground'}
+            shadow="panelShadow"
+            mb={'4px'}
+            w={'56px'}
+            h={'56px'}
+            backgroundSize={'200% auto'}
+            _hover={{
+              backgroundPosition: 'right center',
+            }}
+          >
             <Icon
-              mr="4"
-              fontSize="16"
+              fontSize="30"
               _groupHover={{
-                color: 'white',
+                color: 'primary',
               }}
               as={icon}
             />
-          )}
-          {children}
-        </Flex>
-      </Box>
+          </Flex>
+        )}
+        {children}
+      </Flex>
     </Link>
   );
 };

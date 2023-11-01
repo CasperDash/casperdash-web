@@ -18,7 +18,7 @@ const Header = ({ ...props }: HeaderProps) => {
     <Box
       {...props}
       w="100%"
-      background={'panelBackground'}
+      background={'panelBackground02'}
       shadow="panelShadow"
       borderRadius={'lg'}
       position={'sticky'}
