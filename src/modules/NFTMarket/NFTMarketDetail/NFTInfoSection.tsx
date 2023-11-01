@@ -1,11 +1,10 @@
 import { Box, Flex, Tag, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 
 import BuyModalButton from '../components/BuyModalButton';
+import { useGetCurrentMarketNFT } from '../hooks/useGetCurrentMarketNFT';
 import { GradientAvatar } from '@/components/Common/GradientAvatar';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
-import { useGetMarketContract } from '@/hooks/queries/useGetMarketContract';
 import { useCalculateCSPRToFiat } from '@/hooks/useCalculateCSPRToFiat';
 import { IMarketNFT } from '@/services/casperdash/market/type';
 import { toCSPR } from '@/utils/currency';
@@ -15,14 +14,10 @@ type Props = {
 };
 
 const NFTInfoSection = ({ nft }: Props) => {
-  const { contractAddress } = useParams();
   const { t } = useTranslation();
-
-  const { data, isLoading: isLoadingContract } = useGetMarketContract({
-    tokenAddress: contractAddress!,
-  });
-
   const totalCSPR = toCSPR(nft?.listingAmount || 0);
+  const { data: nftDetail, isLoading: isLoadingMarketNFT } =
+    useGetCurrentMarketNFT();
 
   const { totalFiat, isLoading } = useCalculateCSPRToFiat(totalCSPR);
 
@@ -40,7 +35,7 @@ const NFTInfoSection = ({ nft }: Props) => {
         <Flex mt="4" gap="2">
           <Text>{t('royalties')}</Text>
           <Tag variant="solid" colorScheme="yellow">
-            {data?.royaltyFee}%
+            {nftDetail?.tokenContract?.royaltyFee}%
           </Tag>
         </Flex>
         <Flex mt="4">
@@ -81,8 +76,7 @@ const NFTInfoSection = ({ nft }: Props) => {
           <Box>
             <BuyModalButton
               nft={nft}
-              royaltyFee={data?.royaltyFee}
-              isLoading={isLoadingContract}
+              isLoading={isLoadingMarketNFT}
               variant="primary"
               mt="4"
               w="100%"

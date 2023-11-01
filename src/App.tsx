@@ -8,6 +8,7 @@ import * as _ from 'lodash-es';
 import { Provider } from 'react-redux';
 import { Toaster } from 'sonner';
 
+import BackgroundTransactions from './modules/BackgroundTransactions';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import store from '@/store';
 import theme from '@/theme';
@@ -56,7 +57,6 @@ const App = () => {
                   QueryKeysEnum.ACCOUNT_DELEGATOR_REWARDS,
                   QueryKeysEnum.ACCOUNT_TOTAL_REWARDS,
                   QueryKeysEnum.ACCOUNT_DELEGATION,
-                  QueryKeysEnum.NFT_TRANSACTION_HISTORY,
                 ].includes(_.first(queryKey) as unknown as QueryKeysEnum);
               },
             },
@@ -66,6 +66,7 @@ const App = () => {
             <Routes />
             <Toaster position="bottom-right" richColors closeButton />
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+            <BackgroundTransactions />
           </ChakraProvider>
           <ReactQueryDevtools initialIsOpen={true} />
         </PersistQueryClientProvider>

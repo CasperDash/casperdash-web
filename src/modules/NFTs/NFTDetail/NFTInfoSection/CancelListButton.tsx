@@ -14,6 +14,8 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { useCancelNFTListing } from '../../hooks/useCancelNFTListing';
+import { useGetPendingActionTransaction } from '../../hooks/useGetPendingActionTransaction';
+import { DeployActionsEnum } from '@/enums/deployActions';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import { ModalTransactionStatus } from '@/modules/core/ModalTransactionStatus';
@@ -27,7 +29,13 @@ type Props = {
 
 const CancelListButton = ({ contractAddress, tokenId, onContinue }: Props) => {
   const { toastSuccess } = useI18nToast();
+  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isPending, isLoading } = useGetPendingActionTransaction({
+    tokenAddress: contractAddress,
+    tokenId,
+    action: DeployActionsEnum.CANCEL_LIST_ITEM,
+  });
   const {
     isOpen: isOpenTransaction,
     onOpen: onOpenTransaction,
@@ -35,7 +43,6 @@ const CancelListButton = ({ contractAddress, tokenId, onContinue }: Props) => {
   } = useDisclosure();
   const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
 
-  const { t } = useTranslation();
   const {
     mutate,
     isLoading: isCancelListing,
@@ -48,6 +55,7 @@ const CancelListButton = ({ contractAddress, tokenId, onContinue }: Props) => {
       onOpenTransaction();
     },
   });
+
   const handleOnCancel = () => {
     onOpen();
   };
@@ -74,6 +82,8 @@ const CancelListButton = ({ contractAddress, tokenId, onContinue }: Props) => {
         w="100%"
         onClick={handleOnCancel}
         fontWeight={'bold'}
+        isLoading={isLoading || isPending}
+        loadingText={isPending && t('delisting')}
       >
         {t('cancel_listing')}
       </Button>

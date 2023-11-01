@@ -12,16 +12,19 @@ type Props = {
 
 const NFTInfoSection = ({ nft }: Props) => {
   const {
-    data: marketNFT,
+    data = null,
     refetch,
     isLoading: isLoadingNFT,
-  } = useGetCurrentMarketNFT();
-  const { data, isLoading: isLoadingContract } = useGetCurrentMarketContract({
-    retry: 0,
-  });
+  } = useGetCurrentMarketContract();
+  const { data: marketNFT, isLoading: isLoadingMarketNFT } =
+    useGetCurrentMarketNFT();
+
   const handleOnContinue = () => {
     refetch();
   };
+
+  console.log('data: ', data);
+  console.log('marketNFT: ', marketNFT);
 
   return (
     <>
@@ -42,12 +45,9 @@ const NFTInfoSection = ({ nft }: Props) => {
           mt="12"
           p="4"
         >
-          <Skeleton
-            borderRadius="xl"
-            isLoaded={!isLoadingNFT && !isLoadingContract}
-          >
+          <Skeleton borderRadius="xl" isLoaded={!isLoadingNFT}>
             <Text textAlign={'center'}>This NFT is in your wallet</Text>
-            {!!data && (
+            {!!data && !isLoadingMarketNFT && (
               <Box>
                 {marketNFT ? (
                   <CancelListButton
