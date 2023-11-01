@@ -53,7 +53,10 @@ const NFTInfoSection = ({ nft }: Props) => {
                     onContinue={handleOnContinue}
                   />
                 ) : (
-                  <ListForSaleModal onContinue={handleOnContinue} />
+                  <ListForSaleModal
+                    onContinue={handleOnContinue}
+                    tokenType={data?.tokenType}
+                  />
                 )}
               </Box>
             )}

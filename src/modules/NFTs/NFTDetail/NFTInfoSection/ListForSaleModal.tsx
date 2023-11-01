@@ -27,6 +27,7 @@ import { useGetCurrentNFT } from '../../hooks/useGetCurrentNFT';
 import { useGetPendingActionTransaction } from '../../hooks/useGetPendingActionTransaction';
 import InputNumber from '@/components/Inputs/InputNumber';
 import { DeployActionsEnum } from '@/enums/deployActions';
+import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import i18n from '@/i18n';
@@ -42,9 +43,10 @@ type SubmitValues = z.infer<typeof validationSchema>;
 type Props = {
   isLoading?: boolean;
   onContinue?: () => void;
+  tokenType?: MarketTokenTypesEnum;
 };
 
-const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
+const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
   const { contractAddress, tokenId } = useParams();
   const { t } = useTranslation();
   const { toastSuccess } = useI18nToast();
@@ -97,6 +99,7 @@ const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
     mutate({
       tokenId: nft.tokenId,
       amount: values.price,
+      tokenType: tokenType,
     });
   };
 
@@ -116,7 +119,7 @@ const ListForSaleModal = ({ isLoading, onContinue }: Props) => {
         onClick={onOpen}
         fontWeight={'bold'}
         isLoading={isLoading || isPending || isLoadingTransactions}
-        loadingText={isPending && t('listing')}
+        loadingText={isPending && t('processing')}
       >
         {t('list_for_sale')}
       </Button>
