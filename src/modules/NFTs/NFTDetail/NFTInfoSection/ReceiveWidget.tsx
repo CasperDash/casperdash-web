@@ -13,7 +13,7 @@ const ReceiveWidget = () => {
     control,
     name: 'price',
   });
-  const { data = { royaltyFee: 0 } } = useGetCurrentMarketContract();
+  const { data = null } = useGetCurrentMarketContract();
 
   const bigPlatformFee = price
     ? Big(price).times(Config.marketPlatformFeePercent).div(100)
@@ -22,7 +22,7 @@ const ReceiveWidget = () => {
   const receiveAmount =
     price && data?.royaltyFee
       ? Big(price)
-          .minus(Big(price).times(Big(data.royaltyFee).div(100)))
+          .minus(Big(price).times(Big(data?.royaltyFee).div(100)))
           .minus(bigPlatformFee)
           .toFixed(4)
       : 0;
@@ -50,7 +50,7 @@ const ReceiveWidget = () => {
         <Text>
           {t('intlAssetNumber', {
             asset: '%',
-            val: data.royaltyFee,
+            val: data?.royaltyFee,
           })}
         </Text>
       </Flex>

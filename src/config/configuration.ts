@@ -22,9 +22,9 @@ export const Config = {
   contracts: {
     vkMarketplace: {
       contractHash:
-        'hash-23d041e3b8ab6b0e6689c7110087d4ce585bab11dead46d21ce6b8909f229eec',
+        'hash-d626ddbab0e77b41d3db9a0d7542cf3e229ea94bd0d50140fa9f61e6c9d5aa26',
       contractPackageHash:
-        'hash-ed65995fd3f0cdf466ff2d1a0932552b85c245f9742907aca656ebcc648dd44b',
+        'hash-e7cf0e4796821217ae86e2b34848cc6e1ef610b87572bd0d0848762448f1b3f2',
     },
   },
   marketPlatformFeePercent: 2,

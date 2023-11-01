@@ -1,10 +1,11 @@
 import {
   GetMarketNFTsParams,
-  IMarketContract,
   IMarketNFT,
   IMarketNFTsResponse,
+  ITokenContract,
 } from './type';
 import request from '@/services/casperdash/request';
+import { normalizeTokenContract } from '@/utils/normalizer';
 
 export const getMarketNFTs = async ({
   page,
@@ -31,15 +32,22 @@ export const getMarketNFT = async (
     `/v1/market/nfts/${tokenAddress}/${tokenId}`
   );
 
-  return data;
+  if (!data) {
+    return data;
+  }
+
+  return {
+    ...data,
+    tokenContract: normalizeTokenContract(data?.tokenContract),
+  };
 };
 
-export const getMarketContractInfo = async (
+export const getMarketContract = async (
   tokenAddress: string
-): Promise<IMarketContract> => {
-  const data: IMarketContract = await request.get(
-    `/v1/market/nfts/${tokenAddress}`
+): Promise<ITokenContract> => {
+  const data: ITokenContract = await request.get(
+    `/v1/market/contracts/${tokenAddress}`
   );
 
-  return data;
+  return normalizeTokenContract(data);
 };

@@ -12,7 +12,7 @@ import { DeployContextEnum } from '@/enums/deployContext';
 import { DeployTypesEnum } from '@/enums/deployTypes';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
-import { useMutateAddNFTTransaction } from '@/hooks/mutates/useMutateAddNFTTransaction';
+import { useMutateAddTransaction } from '@/hooks/mutates/useMutateAddTransaction';
 import { useGetContractPackageInfo } from '@/hooks/queries/useGetContractPackageInfo';
 import { useAccount } from '@/hooks/useAccount';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
@@ -35,7 +35,7 @@ export const useCreateNFTListing = (
   const { publicKey } = useAccount();
   const { data: contractPackageInfo } =
     useGetContractPackageInfo(contractPackageHash);
-  const { mutateAsync } = useMutateAddNFTTransaction(publicKey!);
+  const { mutateAsync } = useMutateAddTransaction(publicKey);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -87,11 +87,17 @@ export const useCreateNFTListing = (
             contractPackageHash: contractPackageHash!,
           },
         });
-
-        await queryClient.invalidateQueries([QueryKeysEnum.NFT_TRANSACTION]);
       }
 
       return result;
+    },
+    onSuccess: async (data, variables, context) => {
+      await queryClient.invalidateQueries([
+        QueryKeysEnum.TRANSACTIONS,
+        publicKey,
+      ]);
+
+      options?.onSuccess?.(data, variables, context);
     },
   });
 

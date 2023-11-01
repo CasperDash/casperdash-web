@@ -15,6 +15,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 import ModalDetail from './ModalDetail';
+import { useGetPendingTokenTransaction } from '../../hooks/useGetPendingTokenTransaction';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { ModalTransactionStatus } from '@/modules/core/ModalTransactionStatus';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
@@ -23,7 +24,6 @@ import { IMarketNFT } from '@/services/casperdash/market/type';
 
 type Props = {
   nft?: IMarketNFT;
-  royaltyFee?: number;
   isLoading?: boolean;
 } & ButtonProps;
 
@@ -37,6 +37,11 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
   const { t } = useTranslation();
   const [transactionHash, setTransactionHash] = useState<string>('');
   const queryClient = useQueryClient();
+  const { isPending, isLoading: isLoadingTransactions } =
+    useGetPendingTokenTransaction({
+      tokenAddress: nft?.tokenContractHash,
+      tokenId: nft?.tokenId,
+    });
 
   const handleOnSuccessfulBuy = (deployResponse: DeployResponse) => {
     onClose();
@@ -56,7 +61,7 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
         {...buttonProps}
         onClick={onOpen}
         fontWeight={'bold'}
-        isLoading={isLoading}
+        isLoading={isLoading || isPending || isLoadingTransactions}
       >
         {t('buy')}
       </Button>

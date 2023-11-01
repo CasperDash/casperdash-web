@@ -1,7 +1,9 @@
 import { BigNumber } from '@ethersproject/bignumber';
+import Big from 'big.js';
 import * as _ from 'lodash-es';
 
 import { toCSPR } from './currency';
+import { ITokenContract } from '@/services/casperdash/market/type';
 import { Account } from '@/services/casperdash/user';
 import { SignDeployParams, SignMessageParams } from '@/typings/signingParams';
 import { WalletAccountBalance } from '@/typings/walletAccount';
@@ -36,5 +38,20 @@ export const normalizeSignMessageParams = (
   return {
     signingPublicKeyHex: _.get(params, 'signingPublicKeyHex', ''),
     message: _.get(params, 'message', ''),
+  };
+};
+
+export const normalizeTokenContract = (
+  tokenContract: ITokenContract
+): ITokenContract => {
+  if (!tokenContract) {
+    return tokenContract;
+  }
+
+  return {
+    ...tokenContract,
+    royaltyFee: Big(tokenContract?.royaltyFee || 0)
+      .div(10)
+      .toNumber(),
   };
 };

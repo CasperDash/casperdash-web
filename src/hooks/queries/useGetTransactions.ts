@@ -5,36 +5,36 @@ import {
 } from '@tanstack/react-query';
 import * as _ from 'lodash-es';
 
-import { useAccount } from '../useAccount';
+import { DeployContextEnum } from '@/enums/deployContext';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { getDeployStatuses } from '@/services/casperdash/deploysStatus/deploysStatus.service';
 import { DeployStatus } from '@/services/casperdash/deploysStatus/type';
 import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistoryStorage } from '@/utils/localForage/transactionHistory';
 
-export const useGetNFTTransactions = (
+export const useGetTransactions = (
+  publicKey?: string,
   options?: Omit<
     UseQueryOptions<
       unknown,
       unknown,
       NFTTransactionHistory[],
-      [QueryKeysEnum.NFT_TRANSACTION, string | undefined]
+      [QueryKeysEnum.TRANSACTIONS, string | undefined]
     >,
     'queryKey' | 'queryFn'
   >
 ) => {
-  const { publicKey } = useAccount();
-  const queryClient = useQueryClient();
+  const clientQuery = useQueryClient();
 
   return useQuery(
-    [QueryKeysEnum.NFT_TRANSACTION, publicKey],
+    [QueryKeysEnum.TRANSACTIONS, publicKey],
     async () => {
+      const transactionHistoryStorage = new TransactionHistoryStorage(
+        publicKey!
+      );
       const transactionHistories =
-        queryClient.getQueryData<NFTTransactionHistory[]>([
-          QueryKeysEnum.NFT_TRANSACTION_HISTORY,
-          publicKey,
-        ]) || [];
-
+        await transactionHistoryStorage.getTransactionHistories();
       const pendingTransactionHistories = transactionHistories.filter(
         (transactionHistory: NFTTransactionHistory) =>
           transactionHistory.status === TransactionStatusEnum.PENDING
@@ -45,6 +45,8 @@ export const useGetNFTTransactions = (
         const deployStatuses = await getDeployStatuses({
           deployHash: deployHashes,
         });
+
+        let trackingUpdatedDeploys: NFTTransactionHistory[] = [];
 
         const mappedTxHistories = _.map(
           transactionHistories,
@@ -59,17 +61,29 @@ export const useGetNFTTransactions = (
               return txHistory;
             }
 
+            const status = foundDeployStatus.status.toLowerCase();
+            if (status !== TransactionStatusEnum.PENDING) {
+              trackingUpdatedDeploys = [...trackingUpdatedDeploys, txHistory];
+            }
+
             return {
               ...txHistory,
-              status: foundDeployStatus.status.toLowerCase(),
+              status,
             };
           }
         );
 
-        queryClient.setQueryData(
-          [QueryKeysEnum.NFT_TRANSACTION_HISTORY, publicKey],
-          mappedTxHistories
+        await transactionHistoryStorage.setItem(mappedTxHistories);
+
+        const isUpdatedMarketNFTs = trackingUpdatedDeploys.some(
+          (trackingUpdatedDeploy: NFTTransactionHistory) =>
+            trackingUpdatedDeploy.context === DeployContextEnum.NFT
         );
+
+        if (isUpdatedMarketNFTs) {
+          console.log('invalidateQueries');
+          await clientQuery.invalidateQueries([QueryKeysEnum.MARKET_NFTS]);
+        }
 
         return mappedTxHistories;
       }

@@ -1,25 +1,52 @@
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
+import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { useGetContractPackageInfo } from '@/hooks/queries/useGetContractPackageInfo';
-import {
-  useGetMarketContract,
-  UseGetMarketContractOptions,
-} from '@/hooks/queries/useGetMarketContract';
+import { getMarketContract } from '@/services/casperdash/market/nft.service';
+import { ITokenContract } from '@/services/casperdash/market/type';
 
 export const useGetCurrentMarketContract = (
-  options?: UseGetMarketContractOptions
+  options?: UseQueryOptions<
+    ITokenContract,
+    unknown,
+    ITokenContract,
+    [string, Record<string, string | undefined>, string]
+  >
 ) => {
-  const { contractAddress } = useParams();
-  const { data: contractPackageInfo, isLoading } =
-    useGetContractPackageInfo(contractAddress);
+  const { contractAddress, tokenId } = useParams();
+  const {
+    data: contractPackageInfo,
+    isSuccess,
+    isLoading,
+  } = useGetContractPackageInfo(contractAddress);
 
-  const queryData = useGetMarketContract(
-    { tokenAddress: contractPackageInfo?.contract_hash },
-    options
-  );
+  const queryData = useQuery({
+    ...options,
+    queryKey: [
+      QueryKeysEnum.MARKET_NFTS,
+      {
+        contractAddress: contractAddress,
+      },
+      'contract',
+    ],
+    queryFn: async () => {
+      if (!contractAddress || !tokenId || !contractPackageInfo) {
+        throw new Error('Contract address or token id is not provided');
+      }
+
+      const result = await getMarketContract(contractPackageInfo.contract_hash);
+
+      console.log('result: ', result);
+
+      return result;
+    },
+    enabled: !!contractAddress && !!tokenId && !!contractPackageInfo,
+  });
 
   return {
     ...queryData,
-    isLoading: queryData.isLoading || isLoading || !contractAddress,
+    isSuccess: queryData.isSuccess && isSuccess,
+    isLoading: queryData.isLoading || isLoading,
   };
 };

@@ -10,6 +10,20 @@ export interface IMarketNFTAttribute {
   value: string;
 }
 
+export interface ITokenContract {
+  _id: string;
+  tokenContractHash: string;
+  tokenContractPackageHash: string;
+  tokenContractName: string;
+  tokenContractVersion: number;
+  tokenType: number;
+  owner: string;
+  royaltyFee: number;
+  deployTimestamp: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface IMarketNFT {
   image?: string;
   description?: string;
@@ -22,6 +36,7 @@ export interface IMarketNFT {
     name: string;
   };
   attributes: IMarketNFTAttribute[];
+  tokenContract: ITokenContract;
 }
 
 export interface IMarketContract {
@@ -34,3 +49,8 @@ export type GetMarketNFTsParams = {
   page: number;
   limit: number;
 };
+
+export interface IMarketContractAndItem {
+  contract: ITokenContract;
+  item: IMarketNFT;
+}
