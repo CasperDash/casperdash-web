@@ -26,9 +26,9 @@ import {
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import Header from '../Header';
+// import Header from '../Header';
 import Logo from '@/components/Common/Logo';
-import MainContainer from '@/components/Common/MainContainer';
+// import MainContainer from '@/components/Common/MainContainer';
 import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import i18n from '@/i18n';
@@ -59,14 +59,15 @@ const LinkItems: Array<LinkItemProps> = [
   { name: i18n.t('market'), icon: FiCompass, path: PathEnum.NFT_MARKET },
 ];
 
-type Props = {
-  children: ReactNode;
-};
-
-export default function SimpleSidebar({ children }: Props) {
+export default function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" w="100%" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box
+      minH="100vh"
+      w={92}
+      // bg={useColorModeValue('gray.100', 'gray.900')}
+      bg="light01"
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -84,11 +85,11 @@ export default function SimpleSidebar({ children }: Props) {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Header display={{ base: 'none', md: 'block' }} />
-      <Flex ml={{ base: 0, md: 60 }}>
+      {/* <Header display={{ base: 'none', md: 'block' }} /> */}
+      {/* <Flex ml={{ base: 0, md: 60 }}>
         <p>Flex</p>
         <MainContainer>{children}</MainContainer>
-      </Flex>
+      </Flex> */}
     </Box>
   );
 }
@@ -101,9 +102,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { isConnected } = useAccount();
   return (
     <Box
-      bg={useColorModeValue('white', 'gray.900')}
       shadow="sidebarShadow"
-      w={{ base: 'full', md: 60 }}
+      // bg={useColorModeValue('white', 'gray.900')}
+      // w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
@@ -148,6 +149,7 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
         _focus={{ boxShadow: 'none' }}
       >
         <Flex
+          direction={'column'}
           align="center"
           p="4"
           mx="4"
@@ -155,7 +157,7 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
           role="group"
           cursor="pointer"
           _hover={{
-            bg: 'light',
+            bg: 'primary',
             color: 'white',
           }}
           {...rest}

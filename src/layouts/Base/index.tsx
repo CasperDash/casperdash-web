@@ -19,9 +19,9 @@ const BodyContent = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <Box className="body-content">
+    <Flex className="body-content">
       {!isLocked ? children : <UnlockWallet />}
-    </Box>
+    </Flex>
   );
 };
 

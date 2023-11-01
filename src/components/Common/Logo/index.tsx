@@ -14,7 +14,7 @@ const Logo = () => {
       <Image
         src={CasperDashLogoImg}
         alt="logo"
-        width={{ base: '120px', md: '160px' }}
+        // width={{ base: '120px', md: '160px' }}
       />
       {offline && (
         <Badge mt="2" variant="outline">
