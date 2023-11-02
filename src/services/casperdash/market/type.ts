@@ -13,9 +13,7 @@ export interface IMarketNFTAttribute {
 export interface ITokenContract {
   _id: string;
   tokenContractHash: string;
-  tokenContractPackageHash: string;
-  tokenContractName: string;
-  tokenContractVersion: number;
+  tokenPackageHash: string;
   tokenType: number;
   owner: string;
   royaltyFee: number;
@@ -53,4 +51,13 @@ export type GetMarketNFTsParams = {
 export interface IMarketContractAndItem {
   contract: ITokenContract;
   item: IMarketNFT;
+}
+
+export interface IGetMarketContractsParams {
+  query?: Partial<ITokenContract>;
+  sort?: {
+    [key: string]: 'asc' | 'desc';
+  };
+  page?: number;
+  limit?: number;
 }
