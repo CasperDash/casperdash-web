@@ -194,6 +194,7 @@
   "transaction_sent_description": "Your transaction has been sent to the network. It may take a few minutes to be confirmed.",
   "portfolio": "Portfolio",
   "processing": "Processing...",
+  "deploying": "Deploying...",
   "listing": "Listing...",
   "delisting": "Delisting...",
   "buying": "Buying..."

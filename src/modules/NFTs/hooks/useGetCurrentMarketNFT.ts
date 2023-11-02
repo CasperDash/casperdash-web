@@ -7,24 +7,16 @@ import {
 
 type Options = UseGetMarketNFTOptions;
 
-type Params = {
-  tokenAddress: string;
-};
-
-export const useGetCurrentMarketNFT = (
-  { tokenAddress }: Params,
-  options?: Options
-) => {
-  const { tokenId } = useParams();
+export const useGetCurrentMarketNFT = (options?: Options) => {
+  const { tokenId, contractAddress } = useParams();
 
   const queryData = useGetMarketNFT(
     {
-      tokenAddress: tokenAddress,
-      tokenId: tokenId!,
+      tokenPackageHash: contractAddress,
+      tokenId: tokenId,
     },
     {
       ...options,
-      enabled: !!tokenAddress && !!tokenId,
     }
   );
 

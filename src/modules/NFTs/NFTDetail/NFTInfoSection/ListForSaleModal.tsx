@@ -119,7 +119,7 @@ const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
         onClick={onOpen}
         fontWeight={'bold'}
         isLoading={isLoading || isPending || isLoadingTransactions}
-        loadingText={isPending && t('processing')}
+        loadingText={isPending && t('deploying')}
       >
         {t('list_for_sale')}
       </Button>

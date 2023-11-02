@@ -14,6 +14,7 @@ const ReceiveWidget = () => {
     name: 'price',
   });
   const { data = null } = useGetCurrentMarketContract();
+  console.log('data', data);
 
   const bigPlatformFee = price
     ? Big(price).times(Config.marketPlatformFeePercent).div(100)
