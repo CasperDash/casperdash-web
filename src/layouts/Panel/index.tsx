@@ -22,15 +22,10 @@ const PanelLayout = ({ children }: Props) => {
         <Box>
           <MainContainer>
             {children}
-            <Box h={2000} bg={'teal'} />
+            {/* <Box h={2000} bg={'teal'} /> */}
           </MainContainer>
         </Box>
       </Box>
-
-      {/* <SimpleSidebar>
-        <p>Duc</p>
-        {children}
-      </SimpleSidebar> */}
     </BaseLayout>
   );
 };

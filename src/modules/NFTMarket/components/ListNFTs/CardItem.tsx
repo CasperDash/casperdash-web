@@ -11,6 +11,7 @@ import {
 import BuyModalButton from '../BuyModalButton';
 import NFTDefaultImg from '@/assets/img/nft-default.png';
 import { IMarketNFT } from '@/services/casperdash/market/type';
+import space from '@/theme/foundations/space';
 import { toCSPR } from '@/utils/currency';
 
 type CardItemProps = {
@@ -21,10 +22,15 @@ type CardItemProps = {
 const CardItem = ({ item, onClick }: CardItemProps) => {
   return (
     <Card
-      w={{ base: '100%', md: 'sm' }}
+      w={{ base: '100%' }}
+      transitionDuration={'200ms'}
+      transitionDelay={'200ms'}
       p={8}
       boxShadow={'none'}
       cursor={'pointer'}
+      borderRadius={space['6']}
+      bg="panelBackground"
+      shadow="panelShadow"
       _hover={{
         color: 'light',
       }}

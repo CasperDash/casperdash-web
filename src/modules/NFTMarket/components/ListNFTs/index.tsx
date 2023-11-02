@@ -69,10 +69,28 @@ const ListNFTs = () => {
       >
         {nfts?.map((item) => {
           return (
-            <GridItem key={`${item.tokenContractHash}-${item.tokenId}`}>
-              <CardItem item={item} onClick={() => handleOnClick(item)} />
-              <Divider marginY={{ base: '4' }} />
-            </GridItem>
+            <>
+              <GridItem key={`${item.tokenContractHash}-${item.tokenId}-1`}>
+                <CardItem item={item} onClick={() => handleOnClick(item)} />
+                <Divider marginY={{ base: '4' }} />
+              </GridItem>
+              <GridItem key={`${item.tokenContractHash}-${item.tokenId}-2`}>
+                <CardItem item={item} onClick={() => handleOnClick(item)} />
+                <Divider marginY={{ base: '4' }} />
+              </GridItem>
+              <GridItem key={`${item.tokenContractHash}-${item.tokenId}-3`}>
+                <CardItem item={item} onClick={() => handleOnClick(item)} />
+                <Divider marginY={{ base: '4' }} />
+              </GridItem>
+              <GridItem key={`${item.tokenContractHash}-${item.tokenId}-4`}>
+                <CardItem item={item} onClick={() => handleOnClick(item)} />
+                <Divider marginY={{ base: '4' }} />
+              </GridItem>
+              <GridItem key={`${item.tokenContractHash}-${item.tokenId}-5`}>
+                <CardItem item={item} onClick={() => handleOnClick(item)} />
+                <Divider marginY={{ base: '4' }} />
+              </GridItem>
+            </>
           );
         })}
       </Grid>

@@ -184,7 +184,7 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
             }}
           >
             <Icon
-              fontSize="30"
+              fontSize="24"
               _groupHover={{
                 color: 'primary',
               }}
