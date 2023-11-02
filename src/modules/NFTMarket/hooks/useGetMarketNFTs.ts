@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { getMarketNFTs } from '@/services/casperdash/market/nft.service';
+import { getMarketNFTs } from '@/services/casperdash/market/market.service';
 import { IMarketNFT } from '@/services/casperdash/market/type';
 
 export const useGetMarketNFTs = (
