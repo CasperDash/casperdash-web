@@ -33,7 +33,7 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
         <Box h={{ base: '200' }} w={{ base: '100%' }}>
           <Image
             src={item?.image || NFTDefaultImg}
-            alt="Green double couch with wooden legs"
+            alt="NFT image"
             objectFit={'contain'}
             mt="14"
             w={'100%'}
@@ -46,7 +46,7 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
           alignItems={'center'}
         >
           <Text textAlign={'center'} fontWeight={'bold'} fontSize={'2xl'}>
-            {item.metadata?.name}
+            {item?.name}
           </Text>
           <Text ml="2" fontSize={'2xl'} fontWeight={'bold'} color={'gray.400'}>
             #{item.tokenId}

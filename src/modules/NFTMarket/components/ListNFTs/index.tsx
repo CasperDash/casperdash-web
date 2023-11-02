@@ -28,9 +28,7 @@ const ListNFTs = () => {
     });
 
   const handleOnClick = (item: IMarketNFT) => {
-    navigate(
-      `${PathEnum.NFT_MARKET}/${item.tokenContractHash}/${item.tokenId}`
-    );
+    navigate(`${PathEnum.NFT_MARKET}/${item.tokenPackageHash}/${item.tokenId}`);
   };
 
   useEffect(() => {
@@ -69,7 +67,7 @@ const ListNFTs = () => {
       >
         {nfts?.map((item) => {
           return (
-            <GridItem key={`${item.tokenContractHash}-${item.tokenId}`}>
+            <GridItem key={`${item.tokenPackageHash}-${item.tokenId}`}>
               <CardItem item={item} onClick={() => handleOnClick(item)} />
               <Divider marginY={{ base: '4' }} />
             </GridItem>

@@ -39,7 +39,7 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
   const queryClient = useQueryClient();
   const { isPending, isLoading: isLoadingTransactions } =
     useGetPendingTokenTransaction({
-      tokenAddress: nft?.tokenContractHash,
+      tokenAddress: nft?.tokenContract?.tokenContractHash,
       tokenId: nft?.tokenId,
     });
 
@@ -62,7 +62,7 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
         onClick={onOpen}
         fontWeight={'bold'}
         isLoading={isLoading || isPending || isLoadingTransactions}
-        loadingText={isPending && t('processing')}
+        loadingText={isPending && t('deploying')}
       >
         {t('buy')}
       </Button>
@@ -74,14 +74,7 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
             <ModalHeader>{t('confirm_buy')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <ModalDetail
-                tokenContractHash={nft?.tokenContractHash}
-                tokenId={nft?.tokenId}
-                name={nft?.metadata?.name}
-                listingAmount={nft?.listingAmount}
-                image={nft?.image}
-                onSuccessfulBuy={handleOnSuccessfulBuy}
-              />
+              <ModalDetail nft={nft} onSuccessfulBuy={handleOnSuccessfulBuy} />
             </ModalBody>
           </ModalContent>
         </Modal>

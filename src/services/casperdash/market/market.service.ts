@@ -27,11 +27,11 @@ export const getMarketNFTs = async ({
 };
 
 export const getMarketNFT = async (
-  tokenAddress: string,
+  tokenPackageHash: string,
   tokenId: string
 ): Promise<IMarketNFT> => {
   const data: IMarketNFT = await request.get(
-    `/v1/market/nfts/${tokenAddress}/${tokenId}`
+    `/v1/market/nfts/${tokenPackageHash}/${tokenId}`
   );
 
   if (!data) {
@@ -93,5 +93,5 @@ export const getMarketContractByPackageHash = async (
     }
   );
 
-  return data;
+  return normalizeTokenContract(data);
 };

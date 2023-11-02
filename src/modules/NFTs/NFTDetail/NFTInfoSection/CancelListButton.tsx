@@ -83,7 +83,7 @@ const CancelListButton = ({ contractAddress, tokenId, onContinue }: Props) => {
         onClick={handleOnCancel}
         fontWeight={'bold'}
         isLoading={isLoading || isPending}
-        loadingText={isPending && t('processing')}
+        loadingText={isPending && t('deploying')}
       >
         {t('cancel_listing')}
       </Button>
