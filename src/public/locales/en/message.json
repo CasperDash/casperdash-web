@@ -17,6 +17,7 @@
     "buy_success": "Success! Your buy order has been submitted. Please wait while we process your transaction."
   },
   "error": {
+    "default": "We're sorry, something went wrong. Please try again later.",
     "please_try_other_password": "We're sorry, the password you entered is incorrect. Please try again with a different password",
     "master_key_is_empty": "We're sorry, the master key you provided is empty. Please enter a valid master key to proceed.",
     "encryption_type_is_empty": "We're sorry, the encryption type you selected is empty. Please choose a valid encryption type to proceed.",

@@ -6,42 +6,27 @@ import { useBuyItem } from '../../hooks/useBuyItem';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
-import { useGetMarketNFT } from '@/hooks/queries/useGetMarketNFT';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
+import { IMarketNFT } from '@/services/casperdash/market/type';
 import { toCSPR } from '@/utils/currency';
 
 type Props = {
-  tokenId?: string;
-  name?: string;
-  tokenContractHash?: string;
-  listingAmount?: number;
-  image?: string;
+  nft?: IMarketNFT;
   onSuccessfulBuy?: (deployResponse: DeployResponse) => void;
 };
 
-const ModalDetail = ({
-  tokenId,
-  name,
-  tokenContractHash,
-  listingAmount,
-  image,
-  onSuccessfulBuy,
-}: Props) => {
-  const { data, isLoading: isLoadingMarketNFT } = useGetMarketNFT({
-    tokenAddress: tokenContractHash,
-    tokenId: tokenId,
-  });
+const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
   const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
 
   const { t } = useTranslation();
-  const { toastSuccess } = useI18nToast();
+  const { toastSuccess, toastError } = useI18nToast();
   const {
     mutate,
     isLoading: isBuying,
     feeNetwork,
   } = useBuyItem(
     {
-      tokenType: data?.tokenContract?.tokenType,
+      tokenType: nft?.tokenContract?.tokenType,
     },
     {
       onSuccess: (deployResponse: DeployResponse) => {
@@ -52,18 +37,21 @@ const ModalDetail = ({
   );
 
   const handleOnBuy = () => {
-    if (!tokenId || !tokenContractHash || !listingAmount) {
+    const { tokenId, listingAmount } = nft || {};
+    console.log('nft', nft);
+    if (!tokenId || !listingAmount || !nft?.tokenContract?.tokenContractHash) {
+      toastError('invalid_nft');
       return;
     }
 
     mutate({
-      token: `hash-${tokenContractHash}`,
+      token: `hash-${nft?.tokenContract?.tokenContractHash}`,
       tokenId: tokenId,
       amount: listingAmount,
     });
   };
 
-  const totalPayment = Big(toCSPR(listingAmount || 0))
+  const totalPayment = Big(toCSPR(nft?.listingAmount || 0))
     .add(feeNetwork)
     .toNumber();
   const isDisabled = balance < totalPayment;
@@ -71,7 +59,7 @@ const ModalDetail = ({
   return (
     <>
       <Box>
-        <Image borderRadius={'2xl'} src={image} alt="NFT image" />
+        <Image borderRadius={'2xl'} src={nft?.image} alt="NFT image" />
       </Box>
       <Flex
         mt="4"
@@ -85,30 +73,28 @@ const ModalDetail = ({
       >
         <Flex justifyContent="space-between">
           <Text>{t('name')}</Text>
-          <Text>{name}</Text>
+          <Text>{nft?.name}</Text>
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('contract_hash')}</Text>
-          <MiddleTruncatedText value={tokenContractHash} />
+          <MiddleTruncatedText value={nft?.tokenContract.tokenContractHash} />
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('token_id')}</Text>
-          <Text>{tokenId}</Text>
+          <Text>{nft?.tokenId}</Text>
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('price')}</Text>
           <Text>
             {t('intlAssetNumber', {
-              val: toCSPR(listingAmount || 0),
+              val: toCSPR(nft?.listingAmount || 0),
               asset: 'CSPR',
             })}
           </Text>
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('royalties')}</Text>
-          <Text>
-            {isLoadingMarketNFT ? '...' : data?.tokenContract?.royaltyFee}%
-          </Text>
+          <Text>{nft?.tokenContract?.royaltyFee}%</Text>
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('network_fee')}</Text>
