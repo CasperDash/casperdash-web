@@ -38,7 +38,20 @@ const Header = ({ ...props }: HeaderProps) => {
                 }}
               >
                 <Link to={PathEnum.SEND}>
-                  <Button variant={'circle'} h="12">
+                  <Button
+                    background={'panelBackground'}
+                    shadow="panelShadow"
+                    _hover={{
+                      bg: 'primary',
+                      color: 'whiteAlpha.900',
+                    }}
+                    variant={'circle'}
+                    w="42px"
+                    h="42px"
+                    px={0}
+                    p={0}
+                    fontSize={'18px'}
+                  >
                     <BsSend />
                   </Button>
                   <Text mt="1" fontSize={'sm'} textAlign="center">
@@ -47,7 +60,20 @@ const Header = ({ ...props }: HeaderProps) => {
                 </Link>
 
                 <Box>
-                  <ButtonViewReceivingAddress variant={'circle'} h="12" />
+                  <ButtonViewReceivingAddress
+                    variant={'circle'}
+                    background={'panelBackground'}
+                    shadow="panelShadow"
+                    _hover={{
+                      bg: 'primary',
+                      color: 'whiteAlpha.900',
+                    }}
+                    w="42px"
+                    h="42px"
+                    px={0}
+                    p={0}
+                    fontSize={'18px'}
+                  />
                   <Text mt="1" fontSize={'sm'} textAlign="center">
                     {t('receive')}
                   </Text>
