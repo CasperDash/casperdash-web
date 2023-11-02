@@ -17,7 +17,9 @@ const NFTInfoSection = ({ nft }: Props) => {
     isLoading: isLoadingNFT,
   } = useGetCurrentMarketContract();
   const { data: marketNFT, isLoading: isLoadingMarketNFT } =
-    useGetCurrentMarketNFT();
+    useGetCurrentMarketNFT({
+      tokenAddress: nft.contractAddress,
+    });
 
   const handleOnContinue = () => {
     refetch();
