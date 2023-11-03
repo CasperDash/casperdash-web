@@ -14,6 +14,7 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
+  Text,
 } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 import {
@@ -29,6 +30,7 @@ import { Link } from 'react-router-dom';
 import Header from '../Header';
 import Logo from '@/components/Common/Logo';
 import MainContainer from '@/components/Common/MainContainer';
+import { Config } from '@/config';
 import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import i18n from '@/i18n';
@@ -126,6 +128,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </NavItem>
         );
       })}
+      <Box mx="8" h="full">
+        <Text pos={'absolute'} bottom="4" left="8" color="gray.500">
+          Version {Config.appVersion}
+        </Text>
+      </Box>
     </Box>
   );
 };
@@ -203,6 +210,11 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         </Box>
       </Flex>
       <MenuButtonModal />
+      <Box mx="8" h="full">
+        <Text pos={'absolute'} bottom="4" left="8" color="gray.500">
+          Version {Config.appVersion}
+        </Text>
+      </Box>
     </Flex>
   );
 };

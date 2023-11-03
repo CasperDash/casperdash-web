@@ -27,7 +27,11 @@ export const removeShebangPlugin = (): Plugin => {
 };
 
 export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  process.env = {
+    ...process.env,
+    ...loadEnv(mode, process.cwd()),
+    VITE_APP_VERSION: version,
+  };
 
   return defineConfig({
     base: process.env.VITE_CDN || '',
