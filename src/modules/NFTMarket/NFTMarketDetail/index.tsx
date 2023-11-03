@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { Box, Button, Divider, Flex, Image, Spinner } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +19,12 @@ const NFTMarketDetail = () => {
   const handleOnBack = () => {
     navigate(PathEnum.NFT_MARKET);
   };
+
+  useEffect(() => {
+    if (!nftDetail && !isLoading) {
+      navigate(PathEnum.NFT_MARKET);
+    }
+  }, [nftDetail, isLoading, navigate]);
 
   if (isLoading) {
     return (
