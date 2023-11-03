@@ -75,7 +75,8 @@ const NFTInfoSection = ({ nft }: Props) => {
           </Box>
           <Box>
             <BuyModalButton
-              nft={nft}
+              tokenId={nft?.tokenId}
+              tokenPackageHash={nft?.tokenPackageHash}
               isLoading={isLoadingMarketNFT}
               variant="primary"
               mt="4"

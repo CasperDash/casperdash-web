@@ -77,7 +77,7 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('contract_hash')}</Text>
-          <MiddleTruncatedText value={nft?.tokenContract.tokenContractHash} />
+          <MiddleTruncatedText value={nft?.tokenContract?.tokenContractHash} />
         </Flex>
         <Flex justifyContent="space-between">
           <Text>{t('token_id')}</Text>
