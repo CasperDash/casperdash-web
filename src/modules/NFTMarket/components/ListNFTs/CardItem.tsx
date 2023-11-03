@@ -60,7 +60,12 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
       </CardBody>
       <CardFooter>
         <Flex mt="4" w="100%" justifyContent={'center'}>
-          <BuyModalButton nft={item} w="30" variant="outline" />
+          <BuyModalButton
+            tokenId={item.tokenId}
+            tokenPackageHash={item.tokenPackageHash}
+            w="30"
+            variant="outline"
+          />
         </Flex>
       </CardFooter>
     </Card>
