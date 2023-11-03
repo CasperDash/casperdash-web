@@ -83,6 +83,7 @@ export const useGetTransactions = (
         if (isUpdatedMarketNFTs) {
           // TODO: Improve this logic to invalidate only the market nfts
           await clientQuery.invalidateQueries();
+          clientQuery.getQueryCache().clear();
         }
 
         return mappedTxHistories;

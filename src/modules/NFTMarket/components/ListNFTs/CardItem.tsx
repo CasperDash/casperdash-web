@@ -48,7 +48,12 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
           justifyContent="center"
           alignItems={'center'}
         >
-          <Text textAlign={'center'} fontWeight={'bold'} fontSize={'2xl'}>
+          <Text
+            textAlign={'center'}
+            fontWeight={'bold'}
+            fontSize={'2xl'}
+            noOfLines={1}
+          >
             {item?.name}
           </Text>
           <Text ml="2" fontSize={'2xl'} fontWeight={'bold'} color={'gray.400'}>
