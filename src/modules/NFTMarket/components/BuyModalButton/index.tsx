@@ -73,6 +73,7 @@ const BuyModalButton = ({
         fontWeight={'bold'}
         isLoading={isLoading || isPending || isLoadingTransactions}
         loadingText={isPending && t('deploying')}
+        minW="36"
       >
         {t('buy')}
       </Button>
