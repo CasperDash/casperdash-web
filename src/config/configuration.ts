@@ -6,9 +6,11 @@ const {
   VITE_AUCTION_HASH,
   VITE_CSPR_BASE_URL,
   VITE_CSPR_LIVE_URL,
+  VITE_APP_VERSION,
 } = import.meta.env;
 
 export const Config = {
+  appVersion: VITE_APP_VERSION || '0.0.0',
   casperDashBaseUrl:
     VITE_CASPERDASH_BASE_API_URL || 'https://api.casperdash.io',
   airdropBaseUrl: VITE_AIRDROP_BASE_URL || 'https://airdrop.casperdash.io/v1',
@@ -22,7 +24,7 @@ export const Config = {
   contracts: {
     vkMarketplace: {
       contractHash:
-        'hash-d626ddbab0e77b41d3db9a0d7542cf3e229ea94bd0d50140fa9f61e6c9d5aa26',
+        'hash-102847b3bf911abbd123cb66b0cc72e7e19619d9f49d52bc0bf1aeefb792bdec',
       contractPackageHash:
         'hash-e7cf0e4796821217ae86e2b34848cc6e1ef610b87572bd0d0848762448f1b3f2',
     },

@@ -12,7 +12,7 @@ export const useGetCurrentMarketNFT = (options?: Options) => {
 
   return useGetMarketNFT(
     {
-      tokenAddress: params.contractAddress!,
+      tokenPackageHash: params.contractAddress!,
       tokenId: params.tokenId!,
     },
     options

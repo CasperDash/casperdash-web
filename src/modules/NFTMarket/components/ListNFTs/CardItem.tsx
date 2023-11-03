@@ -39,11 +39,14 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
         <Box h={{ base: '200' }} w={{ base: '100%' }}>
           <Image
             src={item?.image || NFTDefaultImg}
-            alt="Green double couch with wooden legs"
+            alt="NFT image"
             objectFit={'contain'}
             mt="14"
             w={'100%'}
             h={'100%'}
+            onError={(e) => {
+              e.currentTarget.src = NFTDefaultImg;
+            }}
           />
         </Box>
         <Flex
@@ -51,8 +54,13 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
           justifyContent="center"
           alignItems={'center'}
         >
-          <Text textAlign={'center'} fontWeight={'bold'} fontSize={'2xl'}>
-            {item.metadata?.name}
+          <Text
+            textAlign={'center'}
+            fontWeight={'bold'}
+            fontSize={'2xl'}
+            noOfLines={1}
+          >
+            {item?.name}
           </Text>
           <Text ml="2" fontSize={'2xl'} fontWeight={'bold'} color={'gray.400'}>
             #{item.tokenId}
@@ -66,7 +74,12 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
       </CardBody>
       <CardFooter>
         <Flex mt="4" w="100%" justifyContent={'center'}>
-          <BuyModalButton nft={item} w="30" variant="outline" />
+          <BuyModalButton
+            tokenId={item.tokenId}
+            tokenPackageHash={item.tokenPackageHash}
+            w="30"
+            variant="outline"
+          />
         </Flex>
       </CardFooter>
     </Card>

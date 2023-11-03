@@ -1,8 +1,10 @@
 import {
   GetMarketNFTsParams,
+  IGetMarketContractsParams,
   IMarketNFT,
   IMarketNFTsResponse,
   ITokenContract,
+  ListResponse,
 } from './type';
 import request from '@/services/casperdash/request';
 import { normalizeTokenContract } from '@/utils/normalizer';
@@ -25,11 +27,11 @@ export const getMarketNFTs = async ({
 };
 
 export const getMarketNFT = async (
-  tokenAddress: string,
+  tokenPackageHash: string,
   tokenId: string
 ): Promise<IMarketNFT> => {
   const data: IMarketNFT = await request.get(
-    `/v1/market/nfts/${tokenAddress}/${tokenId}`
+    `/v1/market/nfts/${tokenPackageHash}/${tokenId}`
   );
 
   if (!data) {
@@ -51,6 +53,45 @@ export const getMarketContract = async (
   if (!data) {
     return data;
   }
+
+  return normalizeTokenContract(data);
+};
+
+export const getMarketContracts = async (
+  params?: IGetMarketContractsParams
+): Promise<ListResponse<ITokenContract>> => {
+  let normalizedParams: Record<string, string> | undefined;
+  if (params) {
+    normalizedParams = Object.keys(params).reduce((acc, key) => {
+      const value = (params as Record<string, unknown>)[key];
+      if (value) {
+        acc[key] = JSON.stringify(value);
+      }
+      return acc;
+    }, {} as Record<string, string>);
+  }
+
+  const data: ListResponse<ITokenContract> = await request.get(
+    `/v1/market/contracts`,
+    {
+      params: normalizedParams,
+    }
+  );
+
+  return data;
+};
+
+export const getMarketContractByPackageHash = async (
+  packageHash: string
+): Promise<ITokenContract> => {
+  const data: ITokenContract = await request.get(
+    `/v1/market/contracts/getByPackageHash`,
+    {
+      params: {
+        packageHash,
+      },
+    }
+  );
 
   return normalizeTokenContract(data);
 };

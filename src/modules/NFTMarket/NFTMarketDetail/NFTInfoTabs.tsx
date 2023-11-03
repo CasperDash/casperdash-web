@@ -22,7 +22,7 @@ type Props = {
 
 const NFT_INFO_ATTRIBUTES = [
   {
-    key: 'tokenContractHash',
+    key: 'tokenPackageHash',
     label: 'contract_address',
     isTruncate: true,
   },
@@ -88,11 +88,11 @@ const NFTInfoTabs = ({ nft }: Props) => {
             </Text>
             <Divider />
             <Flex flexWrap={'wrap'} mt="4" gap={{ base: '4' }}>
-              {nft?.attributes?.map((attribute, index) => {
+              {nft?.metadata?.map((attribute, index) => {
                 return (
                   <CardAttribute
                     key={index}
-                    attribute={attribute.trait_type}
+                    attribute={attribute.key}
                     value={attribute.value}
                   />
                 );

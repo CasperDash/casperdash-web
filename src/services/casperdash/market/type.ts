@@ -6,16 +6,14 @@ export interface ListResponse<T> {
 }
 
 export interface IMarketNFTAttribute {
-  trait_type: string;
+  key: string;
   value: string;
 }
 
 export interface ITokenContract {
   _id: string;
   tokenContractHash: string;
-  tokenContractPackageHash: string;
-  tokenContractName: string;
-  tokenContractVersion: number;
+  tokenPackageHash: string;
   tokenType: number;
   owner: string;
   royaltyFee: number;
@@ -25,17 +23,15 @@ export interface ITokenContract {
 }
 
 export interface IMarketNFT {
+  name?: string;
   image?: string;
   description?: string;
   tokenId: string;
-  tokenContractHash: string;
+  tokenPackageHash: string;
   status: string;
   listingAmount: number;
   sellerAccountHash: string;
-  metadata: {
-    name: string;
-  };
-  attributes: IMarketNFTAttribute[];
+  metadata: IMarketNFTAttribute[];
   tokenContract: ITokenContract;
 }
 
@@ -53,4 +49,13 @@ export type GetMarketNFTsParams = {
 export interface IMarketContractAndItem {
   contract: ITokenContract;
   item: IMarketNFT;
+}
+
+export interface IGetMarketContractsParams {
+  query?: Partial<ITokenContract>;
+  sort?: {
+    [key: string]: 'asc' | 'desc';
+  };
+  page?: number;
+  limit?: number;
 }

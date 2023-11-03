@@ -17,17 +17,23 @@ import { useTranslation } from 'react-i18next';
 import ModalDetail from './ModalDetail';
 import { useGetPendingTokenTransaction } from '../../hooks/useGetPendingTokenTransaction';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
+import { useGetMarketNFT } from '@/hooks/queries/useGetMarketNFT';
 import { ModalTransactionStatus } from '@/modules/core/ModalTransactionStatus';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
-import { IMarketNFT } from '@/services/casperdash/market/type';
 
 type Props = {
-  nft?: IMarketNFT;
+  tokenPackageHash?: string;
+  tokenId?: string;
   isLoading?: boolean;
 } & ButtonProps;
 
-const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
+const BuyModalButton = ({
+  tokenPackageHash,
+  tokenId,
+  isLoading,
+  ...buttonProps
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenTransaction,
@@ -37,10 +43,14 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
   const { t } = useTranslation();
   const [transactionHash, setTransactionHash] = useState<string>('');
   const queryClient = useQueryClient();
+  const { data } = useGetMarketNFT({
+    tokenPackageHash,
+    tokenId,
+  });
   const { isPending, isLoading: isLoadingTransactions } =
     useGetPendingTokenTransaction({
-      tokenAddress: nft?.tokenContractHash,
-      tokenId: nft?.tokenId,
+      tokenAddress: data?.tokenContract?.tokenContractHash,
+      tokenId: data?.tokenId,
     });
 
   const handleOnSuccessfulBuy = (deployResponse: DeployResponse) => {
@@ -62,7 +72,8 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
         onClick={onOpen}
         fontWeight={'bold'}
         isLoading={isLoading || isPending || isLoadingTransactions}
-        loadingText={isPending && t('processing')}
+        loadingText={isPending && t('deploying')}
+        minW="36"
       >
         {t('buy')}
       </Button>
@@ -74,14 +85,7 @@ const BuyModalButton = ({ nft, isLoading, ...buttonProps }: Props) => {
             <ModalHeader>{t('confirm_buy')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <ModalDetail
-                tokenContractHash={nft?.tokenContractHash}
-                tokenId={nft?.tokenId}
-                name={nft?.metadata?.name}
-                listingAmount={nft?.listingAmount}
-                image={nft?.image}
-                onSuccessfulBuy={handleOnSuccessfulBuy}
-              />
+              <ModalDetail nft={data} onSuccessfulBuy={handleOnSuccessfulBuy} />
             </ModalBody>
           </ModalContent>
         </Modal>

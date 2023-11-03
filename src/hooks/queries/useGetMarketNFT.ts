@@ -1,11 +1,11 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { getMarketNFT } from '@/services/casperdash/market/nft.service';
+import { getMarketNFT } from '@/services/casperdash/market/market.service';
 import { IMarketNFT } from '@/services/casperdash/market/type';
 
 type Params = {
-  tokenAddress?: string;
+  tokenPackageHash?: string;
   tokenId?: string;
 };
 
@@ -17,14 +17,14 @@ export type UseGetMarketNFTOptions = UseQueryOptions<
 >;
 
 export const useGetMarketNFT = (
-  { tokenAddress, tokenId }: Params,
+  { tokenPackageHash, tokenId }: Params,
   options?: UseGetMarketNFTOptions
 ) => {
   return useQuery({
     ...options,
-    queryKey: [QueryKeysEnum.MARKET_NFTS, tokenAddress, tokenId],
+    queryKey: [QueryKeysEnum.MARKET_NFTS, tokenPackageHash, tokenId],
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    queryFn: () => getMarketNFT(tokenAddress!, tokenId!),
-    enabled: !!tokenAddress && !!tokenId,
+    queryFn: () => getMarketNFT(tokenPackageHash!, tokenId!),
+    enabled: !!tokenPackageHash && !!tokenId,
   });
 };

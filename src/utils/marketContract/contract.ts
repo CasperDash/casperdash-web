@@ -188,11 +188,6 @@ export class MarketContract extends Contract {
               ContractUtils.contractToByteArray(this.contractHash)
             )
           ),
-          market_contract_package_hash: CLValueBuilder.key(
-            CLValueBuilder.byteArray(
-              ContractUtils.contractToByteArray(this.contractPackageHash)
-            )
-          ),
           token_id: CLValueBuilder.string(args.tokenId),
           amount: CLValueBuilder.u512(args.amount),
         });
@@ -276,7 +271,7 @@ export const getFeeByAction = (
 ) => {
   switch (action) {
     case DeployActionsEnum.BUY_ITEM:
-      return tokenType === MarketTokenTypesEnum.CEP47Number ? 26 : 40;
+      return tokenType === MarketTokenTypesEnum.CEP47Number ? 27 : 40;
     default:
       return 15;
   }

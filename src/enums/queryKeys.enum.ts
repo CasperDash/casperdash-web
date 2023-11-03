@@ -30,6 +30,7 @@ export enum QueryKeysEnum {
   ACCOUNT_DELEGATOR_REWARDS = 'account_delegator_rewards',
   ACCOUNT_TOTAL_REWARDS = 'total_rewards',
   MARKET_NFTS = 'market_nfts',
+  MARKET_CONTRACTS = 'market_contracts',
   CONTRACTS = 'contracts',
   NFT_TRANSACTION_HISTORY = 'nft_transaction_history',
   NFT_TRANSACTION = 'nft_transaction',

@@ -58,6 +58,7 @@ export const useBuyItem = (
       const buildedDeploy = await contract.buyItem({
         ...params,
         paymentAmount,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         fromPublicKeyHex: publicKey!,
       });
       const signedDeploy = await casperUserUtil.signWithPrivateKey(
@@ -68,6 +69,7 @@ export const useBuyItem = (
 
       if (result.deployHash) {
         await mutateAsync({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           fromPublicKeyHex: publicKey!,
           toPublicKeyHex: params.token,
           status: TransactionStatusEnum.PENDING,

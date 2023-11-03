@@ -26,7 +26,7 @@ const NFTInfoSection = ({ nft }: Props) => {
       <Flex direction={'column'} w="100%">
         <Flex alignItems={'center'}>
           <Text fontSize={'4xl'} fontWeight={'bold'}>
-            {nft?.metadata?.name}
+            {nft?.name}
           </Text>
           <Text ml="2" fontSize={'4xl'} fontWeight={'bold'} color={'gray.400'}>
             #{nft?.tokenId}
@@ -75,7 +75,8 @@ const NFTInfoSection = ({ nft }: Props) => {
           </Box>
           <Box>
             <BuyModalButton
-              nft={nft}
+              tokenId={nft?.tokenId}
+              tokenPackageHash={nft?.tokenPackageHash}
               isLoading={isLoadingMarketNFT}
               variant="primary"
               mt="4"

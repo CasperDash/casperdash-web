@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 
-import { useGetContractPackageInfo } from '@/hooks/queries/useGetContractPackageInfo';
 import {
   useGetMarketNFT,
   UseGetMarketNFTOptions,
@@ -9,28 +8,19 @@ import {
 type Options = UseGetMarketNFTOptions;
 
 export const useGetCurrentMarketNFT = (options?: Options) => {
-  const params = useParams();
-  const { contractAddress, tokenId } = useParams();
-  const {
-    data: contractPackageInfo,
-    isSuccess,
-    isLoading,
-  } = useGetContractPackageInfo(contractAddress);
+  const { tokenId, contractAddress } = useParams();
 
   const queryData = useGetMarketNFT(
     {
-      tokenAddress: contractPackageInfo?.contract_hash,
-      tokenId: params.tokenId!,
+      tokenPackageHash: contractAddress,
+      tokenId: tokenId,
     },
     {
       ...options,
-      enabled: !!contractAddress && !!tokenId && !!contractPackageInfo,
     }
   );
 
   return {
     ...queryData,
-    isSuccess: queryData.isSuccess && isSuccess,
-    isLoading: queryData.isLoading || isLoading,
   };
 };
