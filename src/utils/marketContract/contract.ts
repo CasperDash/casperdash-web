@@ -188,11 +188,6 @@ export class MarketContract extends Contract {
               ContractUtils.contractToByteArray(this.contractHash)
             )
           ),
-          market_contract_package_hash: CLValueBuilder.key(
-            CLValueBuilder.byteArray(
-              ContractUtils.contractToByteArray(this.contractPackageHash)
-            )
-          ),
           token_id: CLValueBuilder.string(args.tokenId),
           amount: CLValueBuilder.u512(args.amount),
         });

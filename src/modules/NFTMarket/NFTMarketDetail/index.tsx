@@ -57,6 +57,9 @@ const NFTMarketDetail = () => {
             objectFit={'contain'}
             w={'100%'}
             h={'100%'}
+            onError={(e) => {
+              e.currentTarget.src = NFTDefaultImg;
+            }}
           />
           <Box mt="12">
             <NFTInfoTabs nft={nftDetail} />
