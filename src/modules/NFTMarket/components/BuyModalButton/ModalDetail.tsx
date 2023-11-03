@@ -3,6 +3,7 @@ import Big from 'big.js';
 import { useTranslation } from 'react-i18next';
 
 import { useBuyItem } from '../../hooks/useBuyItem';
+import NFTDefaultImg from '@/assets/img/nft-default.png';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
@@ -59,7 +60,14 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
   return (
     <>
       <Box>
-        <Image borderRadius={'2xl'} src={nft?.image} alt="NFT image" />
+        <Image
+          borderRadius={'2xl'}
+          src={nft?.image}
+          alt="NFT image"
+          onError={(e) => {
+            e.currentTarget.src = NFTDefaultImg;
+          }}
+        />
       </Box>
       <Flex
         mt="4"

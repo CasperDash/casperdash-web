@@ -38,6 +38,9 @@ const CardItem = ({ item, onClick }: CardItemProps) => {
             mt="14"
             w={'100%'}
             h={'100%'}
+            onError={(e) => {
+              e.currentTarget.src = NFTDefaultImg;
+            }}
           />
         </Box>
         <Flex
