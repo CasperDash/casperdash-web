@@ -6,9 +6,11 @@ const {
   VITE_AUCTION_HASH,
   VITE_CSPR_BASE_URL,
   VITE_CSPR_LIVE_URL,
+  VITE_APP_VERSION,
 } = import.meta.env;
 
 export const Config = {
+  appVersion: VITE_APP_VERSION || '0.0.0',
   casperDashBaseUrl:
     VITE_CASPERDASH_BASE_API_URL || 'https://api.casperdash.io',
   airdropBaseUrl: VITE_AIRDROP_BASE_URL || 'https://airdrop.casperdash.io/v1',
