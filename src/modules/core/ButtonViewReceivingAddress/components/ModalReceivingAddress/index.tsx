@@ -26,7 +26,7 @@ const ModalReceivingAddress = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent borderRadius="2xl" m={10} w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader>

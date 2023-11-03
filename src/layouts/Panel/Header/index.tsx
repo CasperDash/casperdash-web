@@ -7,6 +7,7 @@ import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 import ButtonViewReceivingAddress from '@/modules/core/ButtonViewReceivingAddress';
+import MarketHeaderStats from '@/modules/core/MarketHeaderStats';
 import MenuButtonModal from '@/modules/core/MenuButtonModal';
 
 type HeaderProps = BoxProps;
@@ -25,8 +26,11 @@ const Header = ({ ...props }: HeaderProps) => {
       zIndex={5}
       top={4}
     >
-      <Flex py="6" px="10" justifyContent="flex-end">
-        <Flex alignItems={'center'}>
+      <Flex py="4" px="4" width="full">
+        <Flex display={{ base: 'none', md: 'flex' }} alignItems={'center'}>
+          <MarketHeaderStats />
+        </Flex>
+        <Flex ml="auto" alignItems={'center'}>
           {isConnected ? (
             <Flex alignItems="center">
               <Flex

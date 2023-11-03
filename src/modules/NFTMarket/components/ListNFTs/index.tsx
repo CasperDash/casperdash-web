@@ -61,8 +61,8 @@ const ListNFTs = () => {
       <Grid
         templateColumns={{
           base: '1',
-          lg: 'repeat(3,1fr)',
           md: 'repeat(2,1fr)',
+          lg: 'repeat(3,1fr)',
         }}
         gap={6}
         w={'100%'}
