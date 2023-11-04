@@ -1,4 +1,5 @@
 import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 import CancelListButton from './CancelListButton';
 import ListForSaleModal from './ListForSaleModal';
@@ -18,6 +19,7 @@ const NFTInfoSection = ({ nft }: Props) => {
   } = useGetCurrentMarketContract();
   const { data: marketNFT, isLoading: isLoadingMarketNFT } =
     useGetCurrentMarketNFT();
+  const { t } = useTranslation();
 
   const handleOnContinue = () => {
     refetch();
@@ -42,23 +44,32 @@ const NFTInfoSection = ({ nft }: Props) => {
           mt="12"
           p="4"
         >
-          <Skeleton borderRadius="xl" isLoaded={!isLoadingNFT}>
-            <Text textAlign={'center'}>This NFT is in your wallet</Text>
+          <Skeleton borderRadius="xl" isLoaded={!isLoadingNFT} minH="40px">
+            {!data && !isLoadingMarketNFT && (
+              <Text textAlign={'center'} fontSize="sm">
+                {t('nft_not_listed')}
+              </Text>
+            )}
             {!!data && !isLoadingMarketNFT && (
-              <Box>
-                {marketNFT ? (
-                  <CancelListButton
-                    contractAddress={nft.contractAddress}
-                    tokenId={nft.tokenId}
-                    onContinue={handleOnContinue}
-                  />
-                ) : (
-                  <ListForSaleModal
-                    onContinue={handleOnContinue}
-                    tokenType={data?.tokenType}
-                  />
-                )}
-              </Box>
+              <>
+                <Text textAlign={'center'} fontSize="sm">
+                  {t('nft_can_list')}
+                </Text>
+                <Box>
+                  {marketNFT ? (
+                    <CancelListButton
+                      contractAddress={nft.contractAddress}
+                      tokenId={nft.tokenId}
+                      onContinue={handleOnContinue}
+                    />
+                  ) : (
+                    <ListForSaleModal
+                      onContinue={handleOnContinue}
+                      tokenType={data?.tokenType}
+                    />
+                  )}
+                </Box>
+              </>
             )}
           </Skeleton>
         </Box>
