@@ -197,5 +197,8 @@
   "deploying": "Deploying...",
   "listing": "Listing...",
   "delisting": "Delisting...",
-  "buying": "Buying..."
+  "buying": "Buying...",
+  "nft_in_your_wallet": "This NFT is in your wallet",
+  "nft_not_listed": "This NFT collection has not supported for listing. Please contact our Admin for more details.",
+  "nft_can_list": "This NFT collection has supported for listing. You can list your NFT now."
 }
