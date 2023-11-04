@@ -52,19 +52,14 @@ const NFTMarketDetail = () => {
         justifyContent={{ base: 'center' }}
         w="100%"
       >
-        <Box
-          h={{ base: '200', md: '400' }}
-          mt={{ base: '4' }}
-          mb={{ base: 0, md: 5 }}
-          maxW={'md'}
-        >
+        <Box mt={{ base: '4' }} mb={{ base: 0, md: 5 }} maxW={'md'}>
           <Image
             src={nftDetail?.image || NFTDefaultImg}
             alt="NFT image"
             borderRadius="3xl"
             objectFit={'contain'}
-            w={'100%'}
-            h={'100%'}
+            w={'360px'}
+            h={'360px'}
             onError={(e) => {
               e.currentTarget.src = NFTDefaultImg;
             }}
