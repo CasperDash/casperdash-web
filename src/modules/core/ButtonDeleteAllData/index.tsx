@@ -38,6 +38,7 @@ export const ButtonDeleteAllData = () => {
         borderRadius="xl"
         onClick={onOpen}
         justifyContent="flex-start"
+        colorScheme="red"
       >
         <Text ml="1">{t('delete_all_data')}</Text>
       </Button>

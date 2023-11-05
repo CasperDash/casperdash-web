@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -17,15 +17,20 @@ const PanelLayout = ({ children }: Props) => {
       <Box p={4} pr={2} w={'calc(92px + 32px)'}>
         <Sidebar />
       </Box>
-      <Box p={4} pl={2} flex="1">
-        <Header />
-        <Box>
+      <Flex direction={'column'} rowGap={4} p={4} pl={2} flex="1">
+        <Header className="master--header" />
+        <Box
+          className="master--body"
+          background={'panelBackground02'}
+          shadow="panelShadow"
+          borderRadius={'lg'}
+        >
           <MainContainer>
             {children}
             {/* <Box h={2000} bg={'teal'} /> */}
           </MainContainer>
         </Box>
-      </Box>
+      </Flex>
     </BaseLayout>
   );
 };
