@@ -14,11 +14,11 @@ import {
 import { PiUserCircleLight } from 'react-icons/pi';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import { Config } from '@/config';
 import { useAccount } from '@/hooks/useAccount';
 import { ButtonDeleteAllData } from '@/modules/core/ButtonDeleteAllData';
 import ButtonLockWallet from '@/modules/core/ButtonLockWallet';
 import ButtonViewRecoveryPhrase from '@/modules/core/ButtonViewRecoveryPhrase';
-// import MyAccount from '@/modules/core/MyAccount';
 
 const AccountSidebar = () => {
   const { isConnected, isLocked, publicKey } = useAccount();
@@ -64,20 +64,21 @@ const AccountSidebar = () => {
               /> */}
             </Flex>
           </DrawerHeader>
-          <DrawerBody>
-            <Flex direction={'column'}>
-              {isConnected && (
+          <DrawerBody pt={4} pb={4}>
+            <Flex rowGap={2} direction={'column'} height="full">
+              {isConnected && !isLocked && (
                 <>
-                  {!isLocked && (
-                    <>
-                      <ButtonViewRecoveryPhrase />
-                      <ButtonLockWallet />
-                    </>
-                  )}
-                  <Divider mt="3" />
-                  <ButtonDeleteAllData />
+                  <ButtonViewRecoveryPhrase />
+                  <ButtonLockWallet />
                 </>
               )}
+              <Box mt="auto">
+                <Divider mt="3" />
+                <ButtonDeleteAllData />
+                <Text bottom="4" left="8" color="gray.500">
+                  Version {Config.appVersion}
+                </Text>
+              </Box>
             </Flex>
           </DrawerBody>
         </DrawerContent>

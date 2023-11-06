@@ -15,6 +15,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import ButtonMenuItem from '@/components/Common/ButtonMenuItem';
 import { PathEnum } from '@/enums';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateLockWallet } from '@/hooks/mutates/useMutateLockWallet';
@@ -40,17 +41,14 @@ const ButtonLockWallet = () => {
 
   return (
     <>
-      <Button
-        leftIcon={<LockIcon />}
-        p="6"
-        w="100%"
-        variant="ghost"
-        borderRadius="xl"
+      <ButtonMenuItem
+        leftIcon={<LockIcon w={'16px'} h={'16px'} />}
         onClick={onOpen}
-        justifyContent="flex-start"
       >
-        <Text ml="1">{t('lock_wallet')}</Text>
-      </Button>
+        <Text fontSize={'sm'} ml="1">
+          {t('lock_wallet')}
+        </Text>
+      </ButtonMenuItem>
 
       <AlertDialog
         isOpen={isOpen}

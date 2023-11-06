@@ -179,9 +179,9 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
             borderRadius={'lg'}
             alignItems={'center'}
             justifyContent={'center'}
+            mb={'4px'}
             background={'panelBackground'}
             shadow="panelShadow"
-            mb={'4px'}
             w={'56px'}
             h={'56px'}
             backgroundSize={'200% auto'}
