@@ -10,7 +10,6 @@ const ButtonMenuItem = (props: ButtonMenuItemProps) => {
     <Button
       transitionDuration={'200ms'}
       background={'panelBackground'}
-      // shadow="panelShadow"
       p="6"
       w="100%"
       borderRadius="lg"

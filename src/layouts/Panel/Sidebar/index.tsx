@@ -26,10 +26,9 @@ import {
   FiImage,
   FiPieChart,
 } from 'react-icons/fi';
-// import { Link } from 'react-router-dom';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
-// import Header from '../Header';
+import DownloadSocialButton from '@/components/Common/DownloadSocialButton';
 import Logo from '@/components/Common/Logo';
 import { Config } from '@/config';
 import { PathEnum } from '@/enums';
@@ -135,9 +134,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           );
         })}
         <Box mx="8" h="full">
-          <Text pos={'absolute'} bottom="4" left="8" color="gray.500">
-            Version {Config.appVersion}
-          </Text>
+          <Box
+            pos={'absolute'}
+            bottom="4"
+            left="50%"
+            transform={'translateX(-50%)'}
+          >
+            <DownloadSocialButton />
+          </Box>
         </Box>
       </Flex>
     </Flex>
