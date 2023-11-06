@@ -26,10 +26,12 @@ const MarketHeaderStats = () => {
     },
   } = useGetCSPRMarketInfo();
 
+  const cirSupply = new Intl.NumberFormat().format(circulating_supply);
   const formatValue = useCallback(
-    (value: any) => {
+    (value: any, opt = {}) => {
       return t('intlNumber', {
         val: value,
+        ...opt,
       });
     },
     [t]
@@ -38,15 +40,18 @@ const MarketHeaderStats = () => {
     <HStack spacing={10} alignItems={'flex-end'}>
       <StatCompact
         label="Circulating Supply"
-        value={`${new Intl.NumberFormat().format(circulating_supply)} CSPR`}
+        value={<CSPRValue value={cirSupply} />}
       />
       <StatCompact label="Volume (24H)" value={formatValue(volume_24h)} />
+      <StatCompact label="Market Cap" value={formatValue(market_cap)} />
       <StatCompact
-        label="Market Cap"
-        value={formatValue(market_cap)}
-        // diff="23.76"
+        label="Casper Market Price"
+        value={formatValue(price, {
+          minimumFractionDigits: 6,
+        })}
+        diff={price_change_percentage_24h.toFixed(2)}
       />
-      <CSPRValue value={price.toFixed(6)} diff={price_change_percentage_24h} />
+      {/* <CSPRValue value={price.toFixed(6)} diff={price_change_percentage_24h} /> */}
     </HStack>
   );
 };

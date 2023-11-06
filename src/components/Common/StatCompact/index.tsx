@@ -3,7 +3,7 @@ import { VStack, HStack, Text } from '@chakra-ui/react';
 
 interface StatProps {
   label?: string;
-  value?: string;
+  value?: string | React.ReactNode;
   diff?: string;
 }
 
@@ -17,19 +17,23 @@ const StatCompact = ({ label, value, diff = undefined }: StatProps) => {
       </Text>
       <HStack spacing={2}>
         <HStack spacing={1}>
-          <Text fontWeight={500}>{value}</Text>
+          {typeof value === 'string' ? (
+            <Text fontWeight={500}>{value}</Text>
+          ) : (
+            <>{value}</>
+          )}
         </HStack>
         {diffNumber && (
           <HStack spacing={1}>
             {diffNumber < 0 ? (
-              <TriangleDownIcon boxSize={'14px'} color={'red.300'} />
+              <TriangleDownIcon boxSize={'14px'} color={'red.500'} />
             ) : (
-              <TriangleUpIcon boxSize={'14px'} color={'green.300'} />
+              <TriangleUpIcon boxSize={'14px'} color={'green.500'} />
             )}
             <Text
               fontWeight={500}
               fontSize="sm"
-              color={diffNumber < 0 ? 'red.300' : 'green.300'}
+              color={diffNumber < 0 ? 'red.500' : 'green.500'}
             >
               {diff}%
             </Text>
