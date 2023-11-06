@@ -75,9 +75,11 @@ const AccountSidebar = () => {
               <Box mt="auto">
                 <Divider mt="3" />
                 <ButtonDeleteAllData />
-                <Text bottom="4" left="8" color="gray.500">
-                  Version {Config.appVersion}
-                </Text>
+                <Flex justifyContent={'center'} py={2}>
+                  <Text fontSize={'sm'} bottom="4" left="8" color="gray.500">
+                    Version {Config.appVersion}
+                  </Text>
+                </Flex>
               </Box>
             </Flex>
           </DrawerBody>
