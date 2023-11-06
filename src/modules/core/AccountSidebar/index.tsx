@@ -41,11 +41,7 @@ const AccountSidebar = () => {
       <Drawer placement={'right'} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader
-            background={'panelBackground'}
-            // shadow="panelShadow"
-            borderBottomWidth="1px"
-          >
+          <DrawerHeader background={'panelBackground'} borderBottomWidth="1px">
             <Flex>
               <Box>
                 <Text fontSize={'18px'}>Account 1</Text>

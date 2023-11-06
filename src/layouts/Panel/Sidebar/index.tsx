@@ -3,18 +3,12 @@
 import React, { ReactNode } from 'react';
 
 import {
-  IconButton,
   Box,
-  CloseButton,
   Flex,
   Icon,
-  useColorModeValue,
-  Drawer,
-  DrawerContent,
   useDisclosure,
   BoxProps,
   FlexProps,
-  Text,
 } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
@@ -22,7 +16,6 @@ import {
   FiHome,
   FiTrendingUp,
   FiCompass,
-  FiMenu,
   FiImage,
   FiPieChart,
 } from 'react-icons/fi';
@@ -30,11 +23,9 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 
 import DownloadSocialButton from '@/components/Common/DownloadSocialButton';
 import Logo from '@/components/Common/Logo';
-import { Config } from '@/config';
 import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import i18n from '@/i18n';
-import MenuButtonModal from '@/modules/core/MenuButtonModal';
 
 interface LinkItemProps {
   name: string;
@@ -42,7 +33,7 @@ interface LinkItemProps {
   path: string;
   isConnected?: boolean;
 }
-const LinkItems: Array<LinkItemProps> = [
+export const LinkItems: Array<LinkItemProps> = [
   { name: i18n.t('home'), icon: FiHome, path: PathEnum.HOME },
   { name: i18n.t('staking'), icon: FiTrendingUp, path: PathEnum.STAKING },
   {
@@ -61,7 +52,7 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 export default function Sidebar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
   return (
     <Flex
       className="sidebar"
@@ -73,26 +64,8 @@ export default function Sidebar() {
     >
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: 'none', md: 'flex' }}
+        display={{ base: 'none', sm: 'flex' }}
       />
-      <Drawer
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full"
-      >
-        <DrawerContent>
-          <SidebarContent onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
-      <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      {/* <Header display={{ base: 'none', md: 'block' }} /> */}
-      {/* <Flex ml={{ base: 0, md: 60 }}>
-        <p>Flex</p>
-        <MainContainer>{children}</MainContainer>
-      </Flex> */}
     </Flex>
   );
 }
@@ -118,7 +91,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         justifyContent="center"
       >
         <Logo />
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       <Flex
         direction="column"
@@ -216,42 +188,5 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Link>
-  );
-};
-
-interface MobileProps extends FlexProps {
-  onOpen: () => void;
-}
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 24 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent="space-between"
-      {...rest}
-    >
-      <Flex flex="1" alignItems={'center'}>
-        <IconButton
-          variant="outline"
-          onClick={onOpen}
-          aria-label="open menu"
-          icon={<FiMenu />}
-        />
-        <Box ml="4">
-          <Logo />
-        </Box>
-      </Flex>
-      <MenuButtonModal />
-      <Box mx="8" h="full">
-        <Text pos={'absolute'} bottom="4" left="8" color="gray.500">
-          Version {Config.appVersion}
-        </Text>
-      </Box>
-    </Flex>
   );
 };

@@ -3,13 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { BsSend } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
+import Logo from '@/components/Common/Logo';
 import { PathEnum } from '@/enums';
 import { useAccount } from '@/hooks/useAccount';
 import AccountSidebar from '@/modules/core/AccountSidebar';
 import ButtonConnectWallet from '@/modules/core/ButtonConnectWallet';
 import ButtonViewReceivingAddress from '@/modules/core/ButtonViewReceivingAddress';
 import MarketHeaderStats from '@/modules/core/MarketHeaderStats';
-// import MenuButtonModal from '@/modules/core/MenuButtonModal';
+import MobileSidebar from '@/modules/core/MobileSidebar';
+
 type HeaderProps = BoxProps;
 const Header = ({ ...props }: HeaderProps) => {
   const { t } = useTranslation();
@@ -27,6 +29,10 @@ const Header = ({ ...props }: HeaderProps) => {
       top={4}
     >
       <Flex py="4" px="4" width="full">
+        <Flex display={{ base: 'flex', sm: 'none' }} alignItems={'center'}>
+          <Logo />
+          <MobileSidebar />
+        </Flex>
         <Flex display={{ base: 'none', md: 'flex' }} alignItems={'center'}>
           <MarketHeaderStats />
         </Flex>
@@ -84,7 +90,6 @@ const Header = ({ ...props }: HeaderProps) => {
                 </Box>
               </Flex>
               <Box ml="3" h="100%">
-                {/* <MenuButtonModal /> */}
                 <AccountSidebar />
               </Box>
             </Flex>

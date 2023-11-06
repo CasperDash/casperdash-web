@@ -14,10 +14,23 @@ export type Props = {
 const PanelLayout = ({ children }: Props) => {
   return (
     <BaseLayout defaultLightBg="white" defaultLightHeaderBg="gray.50">
-      <Box p={4} pr={2} w={'calc(92px + 32px)'}>
+      <Box
+        className="primary--sidebar"
+        display={{ base: 'none', sm: 'block' }}
+        p={4}
+        pr={2}
+        w={'calc(92px + 32px)'}
+      >
         <Sidebar />
       </Box>
-      <Flex direction={'column'} rowGap={4} p={4} pl={2} flex="1">
+      <Flex
+        className="primary--body"
+        direction={'column'}
+        rowGap={4}
+        p={4}
+        pl={2}
+        flex="1"
+      >
         <Header className="master--header" />
         <Box
           className="master--body"
