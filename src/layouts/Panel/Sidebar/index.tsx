@@ -104,8 +104,19 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const { isConnected } = useAccount();
   return (
-    <Flex className="xxx" direction="column" h="full" flex={1} {...rest}>
-      <Flex alignItems="center" mb={4} justifyContent="center">
+    <Flex
+      className="sidebar-content"
+      direction="column"
+      h="full"
+      flex={1}
+      {...rest}
+    >
+      <Flex
+        position={'relative'}
+        alignItems="center"
+        mb={4}
+        justifyContent="center"
+      >
         <Logo />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
