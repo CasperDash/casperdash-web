@@ -34,6 +34,7 @@ const AccountSidebar = () => {
           <MiddleTruncatedText
             textProps={{ fontWeight: 500 }}
             value={publicKey}
+            placement={'auto-start'}
           />
           <PiUserCircleLight size={30} />
         </Flex>
