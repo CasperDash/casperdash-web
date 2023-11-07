@@ -29,6 +29,8 @@ import {
   BsGooglePlay,
 } from 'react-icons/bs';
 
+import URLs from '@/config/URLs';
+
 const InstallButton = ({ url }: { url: string }) => {
   return (
     <Popover closeOnBlur={false} trigger="hover">
@@ -117,6 +119,10 @@ const DownloadSocialButton = () => {
                         store
                       </Text>
                       <Button
+                        as={'a'}
+                        href={URLs.extension}
+                        rel="nofollow noopener noreferrer"
+                        target="_blank"
                         w="space.5"
                         background={'panelBackground'}
                         shadow="panelShadow"
@@ -145,7 +151,7 @@ const DownloadSocialButton = () => {
                       <Text fontSize={'sm'} mb={4}>
                         Get the CasperDash wallet app from the Apple store
                       </Text>
-                      <InstallButton url="url" />
+                      <InstallButton url={URLs.appleStore} />
                     </Box>
                   </HStack>
                 </CardBody>
@@ -163,7 +169,7 @@ const DownloadSocialButton = () => {
                       <Text fontSize={'sm'} mb={4}>
                         Get the CasperDash wallet app from the Google Play.
                       </Text>
-                      <InstallButton url="url" />
+                      <InstallButton url={URLs.googlePlay} />
                     </Box>
                   </HStack>
                 </CardBody>
