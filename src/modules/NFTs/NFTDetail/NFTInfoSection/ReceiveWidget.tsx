@@ -14,19 +14,17 @@ const ReceiveWidget = () => {
     name: 'price',
   });
   const { data = null } = useGetCurrentMarketContract();
-  console.log('data', data);
 
   const bigPlatformFee = price
     ? Big(price).times(Config.marketPlatformFeePercent).div(100)
     : 0;
 
-  const receiveAmount =
-    price && data?.royaltyFee
-      ? Big(price)
-          .minus(Big(price).times(Big(data?.royaltyFee).div(100)))
-          .minus(bigPlatformFee)
-          .toFixed(4)
-      : 0;
+  const receiveAmount = price
+    ? Big(price)
+        .minus(Big(price).times(Big(data?.royaltyFee || 0).div(100)))
+        .minus(bigPlatformFee)
+        .toFixed(4)
+    : 0;
 
   return (
     <Stack
