@@ -2,7 +2,7 @@ import { Badge, Image } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import CasperDashLogoImg from '@/assets/img/casperdash-logo.png';
+import CasperDashLogoImg from '@/assets/img/casperdash.webp';
 import { PathEnum } from '@/enums';
 import { useOnlineStatus } from '@/hooks/helpers/useOnlineStatus';
 
@@ -11,11 +11,7 @@ const Logo = () => {
   const { offline } = useOnlineStatus();
   return (
     <Link to={PathEnum.HOME}>
-      <Image
-        src={CasperDashLogoImg}
-        alt="logo"
-        width={{ base: '120px', md: '160px' }}
-      />
+      <Image src={CasperDashLogoImg} alt="logo" width={{ base: '84px' }} />
       {offline && (
         <Badge mt="2" variant="outline">
           {t('offline')}

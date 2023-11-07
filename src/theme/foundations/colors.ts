@@ -1,6 +1,6 @@
 import { hexToRgba } from '@/utils/color';
 
-const PRIMARY_COLOR = '#FA2852';
+const PRIMARY_COLOR = '#fa2852';
 
 export default {
   primary: PRIMARY_COLOR,
@@ -8,6 +8,11 @@ export default {
   light: '#fbd2d3',
   black: '#131313',
   white: '#FCFCFD',
+  light01: '#f8fbf8',
+  // panelBackground: '#ededed',
+  panelBackground: `linear-gradient(145deg, #e5e5e5, #fefefe)`,
+  panelBackground02: `linear-gradient(300deg, #e5e5e5, #fefefe)`,
+  panelBackground03: `linear-gradient(45deg, #e5e5e5, #fefefe)`,
 
   primaryAlpha: {
     50: hexToRgba(PRIMARY_COLOR, 0.04),
@@ -53,16 +58,16 @@ export default {
   },
 
   red: {
-    50: '#FFF5F5',
-    100: '#FED7D7',
-    200: '#FEB2B2',
-    300: '#FC8181',
-    400: '#F56565',
-    500: '#E53E3E',
-    600: '#C53030',
-    700: '#9B2C2C',
-    800: '#822727',
-    900: '#63171B',
+    50: '#fff1f2',
+    100: '#ffe3e6',
+    200: '#ffcbd3',
+    300: '#ffa1b0',
+    400: '#ff6c86',
+    500: '#fa2852',
+    600: '#e8164a',
+    700: '#c40c3e',
+    800: '#a40d3b',
+    900: '#8c0f39',
   },
 
   orange: {

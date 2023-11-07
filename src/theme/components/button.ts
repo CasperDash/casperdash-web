@@ -6,7 +6,7 @@ import space from '../foundations/space';
 
 const Button: ComponentStyleConfig = {
   baseStyle: {
-    fontWeight: fontWeights.normal,
+    fontWeight: fontWeights.medium,
     fontSize: '14px',
     h: 'auto',
 
@@ -14,6 +14,21 @@ const Button: ComponentStyleConfig = {
     maxW: '1000px',
     borderRadius: '90px',
     padding: '12px 16px',
+  },
+
+  sizes: {
+    xs: {
+      height: '24px',
+    },
+    sm: {
+      height: '32px',
+    },
+    md: {
+      height: '40px',
+    },
+    lg: {
+      height: '48px',
+    },
   },
 
   variants: {

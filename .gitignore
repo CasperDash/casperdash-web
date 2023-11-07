@@ -42,3 +42,4 @@ storybook-static
 tsconfig.tsbuildinfo
 
 dist
+.vscode/settings.json

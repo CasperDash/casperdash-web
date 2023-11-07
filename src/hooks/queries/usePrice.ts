@@ -15,9 +15,10 @@ export const useGetCSPRMarketInfo = (
     'queryKey' | 'queryFn'
   >
 ) => {
-  return useQuery([QueryKeysEnum.CSPR_PRICE], getCSPRMarketInfo, {
+  const result = useQuery([QueryKeysEnum.CSPR_PRICE], getCSPRMarketInfo, {
     ...options,
   });
+  return result;
 };
 
 export const useGetCSPRPriceHistories = (

@@ -1,9 +1,10 @@
-import { Button, Image, useDisclosure } from '@chakra-ui/react';
+import { Text, Image, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import ModalRecoveryPhrase from './components/ModalRecoveryPhrase';
 import UnlockWalletPopupRequired from '../UnlockWalletPopupRequired';
 import BackupImg from '@/assets/img/ic-backup.png';
+import ButtonMenuItem from '@/components/Common/ButtonMenuItem';
 
 const ButtonViewRecoveryPhrase = () => {
   const { t } = useTranslation();
@@ -11,19 +12,14 @@ const ButtonViewRecoveryPhrase = () => {
 
   return (
     <>
-      <Button
-        variant="ghost"
-        leftIcon={
-          <Image src={BackupImg} alt="empty" width="10px" height="10px" />
-        }
-        p="6"
-        w="100%"
-        borderRadius="xl"
-        onClick={() => onOpen()}
-        justifyContent="flex-start"
+      <ButtonMenuItem
+        leftIcon={<Image src={BackupImg} alt="empty" w={'16px'} h={'16px'} />}
+        onClick={onOpen}
       >
-        {t('recovery_phrase')}
-      </Button>
+        <Text fontSize={'sm'} ml="1">
+          {t('recovery_phrase')}
+        </Text>
+      </ButtonMenuItem>
       <UnlockWalletPopupRequired>
         <ModalRecoveryPhrase isOpen={isOpen} onClose={onClose} />
       </UnlockWalletPopupRequired>

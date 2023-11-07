@@ -4,7 +4,7 @@ import ListNFTs from './components/ListNFTs';
 
 const NFTMarket = () => {
   return (
-    <Box>
+    <Box className="duc-test">
       <Flex alignItems={'center'} flexDir={'column'} justify={'center'}>
         <ListNFTs />
       </Flex>

@@ -2,6 +2,7 @@ import { Box, Card, CardBody, Flex, Image, Text } from '@chakra-ui/react';
 
 import NFTDefaultImg from '@/assets/img/nft-default.png';
 import { INFTInfo } from '@/services/casperdash/nft/type';
+import space from '@/theme/foundations/space';
 
 type CardItemProps = {
   item: INFTInfo;
@@ -11,9 +12,14 @@ const CardItem = ({ item }: CardItemProps) => {
   return (
     <Card
       w={{ base: '100%', md: 'sm' }}
+      transitionDuration={'200ms'}
+      transitionDelay={'200ms'}
       p={8}
       boxShadow={'none'}
       cursor={'pointer'}
+      borderRadius={space['6']}
+      bg="panelBackground"
+      shadow="panelShadow"
       _hover={{
         color: 'light',
       }}

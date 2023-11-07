@@ -108,10 +108,15 @@ const StakingForm: React.FC = () => {
           <Button
             type="submit"
             mt={{ base: 6 }}
-            variant="primary"
+            variant="solid"
+            colorScheme="red"
             fontWeight={'semibold'}
             textTransform={'uppercase'}
             isDisabled={offline}
+            w={'50%'}
+            ml="auto"
+            mr="auto"
+            size={'lg'}
           >
             {t('stake_now')}
           </Button>

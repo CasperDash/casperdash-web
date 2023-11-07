@@ -46,6 +46,7 @@ const NFTMarketDetail = () => {
       </Button>
       <Divider mt={{ base: '4' }} />
       <Flex
+        className="nft-market-detail--wrapper"
         direction={{ base: 'column', md: 'row' }}
         mt={{ base: '6', md: '8' }}
         gap={{ base: '16' }}

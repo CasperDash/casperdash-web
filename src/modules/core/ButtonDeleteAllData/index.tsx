@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
+import ButtonMenuItem from '@/components/Common/ButtonMenuItem';
 import { useDeleteAllData } from '@/hooks/useDeleteAllData';
 
 export const ButtonDeleteAllData = () => {
@@ -30,17 +31,21 @@ export const ButtonDeleteAllData = () => {
 
   return (
     <>
-      <Button
+      <ButtonMenuItem
         leftIcon={<DeleteIcon />}
-        p="6"
-        w="100%"
-        variant="ghost"
-        borderRadius="xl"
         onClick={onOpen}
-        justifyContent="flex-start"
+        background="transparent"
+        borderColor={'red.500'}
+        variant="outline"
+        color={'red.500'}
+        _hover={{
+          background: 'red.500',
+          color: 'white',
+        }}
+        mb={4}
       >
         <Text ml="1">{t('delete_all_data')}</Text>
-      </Button>
+      </ButtonMenuItem>
 
       <AlertDialog
         isOpen={isOpen}
