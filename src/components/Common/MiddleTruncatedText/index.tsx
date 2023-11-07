@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { Text, TextProps, Tooltip } from '@chakra-ui/react';
+import {
+  PlacementWithLogical,
+  Text,
+  TextProps,
+  Tooltip,
+} from '@chakra-ui/react';
 
 import { startAndEnd } from '@/utils/format';
 
@@ -9,12 +14,14 @@ type Props = {
   startLength?: number;
   endLength?: number;
   textProps?: TextProps;
+  placement?: PlacementWithLogical;
 };
 const MiddleTruncatedText = ({
   value,
   startLength = 5,
   endLength = 4,
   textProps,
+  placement,
 }: Props) => {
   if (!value) {
     return null;
@@ -23,7 +30,7 @@ const MiddleTruncatedText = ({
     return <Text {...textProps}>{value}</Text>;
   }
   return (
-    <Tooltip label={value}>
+    <Tooltip label={value} placement={placement}>
       <Text {...textProps}>{startAndEnd(value, startLength, endLength)}</Text>
     </Tooltip>
   );

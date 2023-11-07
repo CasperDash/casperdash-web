@@ -1,7 +1,7 @@
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import DoubleCheck from './DoubleCheck';
+import DoubleCheckContent from './DoubleCheckContent';
 
 const NewWalletDoubleCheck = () => {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const NewWalletDoubleCheck = () => {
           {t('recovery_phrase_description')}
         </Text>
       </Flex>
-      <DoubleCheck mt="6" w="552px" />
+      <DoubleCheckContent mt="6" w="552px" />
     </Flex>
   );
 };
