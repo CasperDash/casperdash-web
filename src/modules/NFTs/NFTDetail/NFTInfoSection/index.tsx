@@ -43,6 +43,7 @@ const NFTInfoSection = ({ nft }: Props) => {
           borderColor="gray.400"
           mt="12"
           p="4"
+          bg="gray.300"
         >
           <Skeleton borderRadius="xl" isLoaded={!isLoadingNFT} minH="40px">
             {!data && !isLoadingMarketNFT && (

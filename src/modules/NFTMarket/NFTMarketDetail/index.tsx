@@ -53,21 +53,18 @@ const NFTMarketDetail = () => {
         justifyContent={{ base: 'center' }}
         w="100%"
       >
-        <Box mt={{ base: '4' }} mb={{ base: 0, md: 5 }} maxW={'md'}>
+        <Box mt={{ base: '4' }} mb={{ base: 0, md: 5 }} maxW={'520px'}>
           <Image
+            bg="panelBackground"
+            shadow="panelShadow"
             src={nftDetail?.image || NFTDefaultImg}
             alt="NFT image"
             borderRadius="3xl"
             objectFit={'contain'}
-            w={'360px'}
-            h={'360px'}
             onError={(e) => {
               e.currentTarget.src = NFTDefaultImg;
             }}
           />
-          <Box mt="12">
-            <NFTInfoTabs nft={nftDetail} />
-          </Box>
         </Box>
 
         <Flex
@@ -77,8 +74,12 @@ const NFTMarketDetail = () => {
           flexGrow={0}
           p={{ base: '4' }}
           justifyContent={'center'}
+          direction="column"
         >
           <NFTInfoSection nft={nftDetail} />
+          <Box mt="12">
+            <NFTInfoTabs nft={nftDetail} />
+          </Box>
         </Flex>
       </Flex>
     </Flex>
