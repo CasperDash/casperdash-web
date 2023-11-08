@@ -32,7 +32,8 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
   const { isTransfarable = false, status = '' } = item;
   return (
     <Card
-      w={{ base: '100%', md: 'sm' }}
+      w={{ base: '100%' }}
+      maxWidth={'sm'}
       transitionDuration={'200ms'}
       transitionDelay={'200ms'}
       p={4}
