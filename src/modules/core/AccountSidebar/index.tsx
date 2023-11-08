@@ -33,11 +33,7 @@ const AccountSidebar = () => {
         onClick={onOpen}
       >
         <Flex justifyContent={'center'} alignItems="center" gap="4">
-          <MiddleTruncatedText
-            textProps={{ fontWeight: 500 }}
-            value={publicKey}
-            placement={'auto-start'}
-          />
+          <Text>{name}</Text>
           <PiUserCircleLight size={30} />
         </Flex>
       </Button>
