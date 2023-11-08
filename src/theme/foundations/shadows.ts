@@ -7,7 +7,9 @@ const shadows = {
   sidebarShadow: `0 0 15px 0 ${colors.blackAlpha[200]}`,
   panelShadow: `20px 20px 60px #e5e5e5, -20px -20px 60px #ffffff`,
   panelShadow03: `40px -40px 80px #e5e5e5, -40px 40px 80px #ffffff`,
-  redShadow: `box-shadow:  20px 20px 60px #d92527, -20px -20px 60px #ff3335`,
+  redShadow: `20px 20px 60px #d92527, -20px -20px 60px #ff3335`,
+  insetShadow: `-20px -20px 60px #c8c8c8,
+             20px 20px 60px #ffffff`,
 };
 
 export default shadows;

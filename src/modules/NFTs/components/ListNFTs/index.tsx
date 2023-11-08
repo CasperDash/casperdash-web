@@ -8,8 +8,9 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-import CardItem from '../CardItem';
+// import CardItem from '../CardItem';
 import EmptyImg from '@/assets/img/empty.png';
+import NFTCardItem from '@/components/Common/NFTCardItem';
 import { PathEnum } from '@/enums';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 
@@ -56,7 +57,7 @@ const ListNFTs = ({ nfts = [], isLoading = false }: Props) => {
             key={`${item.contractAddress}-${item.contractName}-${item.tokenId}`}
             onClick={() => handleOnClick(item)}
           >
-            <CardItem item={item} />
+            <NFTCardItem item={item} />
             <Divider marginY={{ base: '4' }} />
           </GridItem>
         );
