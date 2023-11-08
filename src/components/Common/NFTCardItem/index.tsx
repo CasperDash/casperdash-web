@@ -18,8 +18,6 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
       boxShadow={'none'}
       cursor={'pointer'}
       borderRadius={space['6']}
-      // bg="insetPanelBackground"
-      // shadow="insetShadow"
       bg="panelBackground"
       shadow="panelShadow"
     >
@@ -27,8 +25,6 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
         <Box
           h={{ base: '200', sm: '280' }}
           w={{ base: '100%' }}
-          // bg="insetPanelBackground"
-          // shadow="insetShadow"
           borderRadius={space['4']}
         >
           <Image
@@ -45,14 +41,12 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
               {item.contractName}
             </Text>
             <Text mb={0} fontWeight={'bold'} fontSize={'xl'} noOfLines={1}>
-              EggForce {item.nftName}
+              {item.nftName}
             </Text>
           </Flex>
           <Text fontWeight={'500'} fontSize={'md'} color="gray.500">
             Token ID #{item.tokenId}
           </Text>
-          {/* <Flex mt={{ base: '4', md: '14' }} gap="2">
-          </Flex> */}
         </Flex>
       </CardBody>
     </Card>
