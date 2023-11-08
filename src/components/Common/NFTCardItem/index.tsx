@@ -1,4 +1,16 @@
-import { Box, Card, CardBody, Flex, Image, Text } from '@chakra-ui/react';
+import { WarningIcon } from '@chakra-ui/icons';
+import {
+  Box,
+  Card,
+  CardBody,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  Icon,
+  VStack,
+} from '@chakra-ui/react';
+import { AiOutlineShop } from 'react-icons/ai';
 
 import NFTDefaultImg from '@/assets/img/nft-default.png';
 import { INFTInfo } from '@/services/casperdash/nft/type';
@@ -9,6 +21,7 @@ type NFTCardItemProps = {
 };
 
 const NFTCardItem = ({ item }: NFTCardItemProps) => {
+  const { isTransfarable = false, status = '' } = item;
   return (
     <Card
       w={{ base: '100%', md: 'sm' }}
@@ -21,7 +34,38 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
       bg="panelBackground"
       shadow="panelShadow"
     >
-      <CardBody p={0}>
+      <CardBody p={0} position="relative">
+        <Box position={'absolute'} left={2} top={2}>
+          {!isTransfarable && (
+            <VStack alignItems={'flex-end'}>
+              <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
+                <WarningIcon boxSize={4} />
+                <Text fontSize={'sm'}>Cannot transfer</Text>
+              </HStack>
+            </VStack>
+          )}
+        </Box>
+        <Box position={'absolute'} right={2} top={2}>
+          <VStack alignItems={'flex-end'}>
+            <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
+              <WarningIcon boxSize={4} />
+              <Text fontSize={'sm'}>Cannot list</Text>
+            </HStack>
+            {status === 'listing' && (
+              <HStack
+                bgColor="green.200"
+                color="green.900"
+                fontWeight={400}
+                p={1}
+                px={3}
+                borderRadius="16px"
+              >
+                <Icon as={AiOutlineShop} boxSize={4} />
+                <Text fontSize={'sm'}>Listing</Text>
+              </HStack>
+            )}
+          </VStack>
+        </Box>
         <Box
           h={{ base: '200', sm: '280' }}
           w={{ base: '100%' }}

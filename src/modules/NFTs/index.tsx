@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { Heading, Box } from '@chakra-ui/react';
 
 import ListNFTs from './components/ListNFTs';
 import { useGetNFTs } from '@/hooks/queries/useGetNFTs';
@@ -15,6 +16,9 @@ const NFTs = () => {
 
   return (
     <Flex alignItems={'center'} flexDir={'column'} justify={'center'}>
+      <Box mb={16} textAlign="left">
+        <Heading>My NFTs</Heading>
+      </Box>
       <ListNFTs nfts={nfts} isLoading={isLoading} />
     </Flex>
   );

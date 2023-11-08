@@ -45,8 +45,11 @@ const ListNFTs = ({ nfts = [], isLoading = false }: Props) => {
     <Grid
       templateColumns={{
         base: '1',
-        lg: 'repeat(3,1fr)',
+        sm: 'repeat(2,1fr)',
         md: 'repeat(2,1fr)',
+        lg: 'repeat(3,1fr)',
+        xl: 'repeat(4,1fr)',
+        '2xl': 'repeat(4,1fr)',
       }}
       gap={6}
       w={'100%'}
