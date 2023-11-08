@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import StatCompact from '@/components/Common/StatCompact';
 import { CSPRValue } from '@/components/Common/TokenValue';
 import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
+import { formatI18Value } from '@/utils/format';
 
 const MarketHeaderStats = () => {
   const { t } = useTranslation();
@@ -26,7 +27,6 @@ const MarketHeaderStats = () => {
     },
   } = useGetCSPRMarketInfo();
 
-  const cirSupply = new Intl.NumberFormat().format(circulating_supply);
   const formatValue = useCallback(
     (value: any, opt = {}) => {
       return t('intlNumber', {
@@ -40,7 +40,7 @@ const MarketHeaderStats = () => {
     <HStack spacing={10} alignItems={'flex-end'}>
       <StatCompact
         label="Circulating Supply"
-        value={<CSPRValue value={cirSupply} />}
+        value={<CSPRValue value={formatI18Value(circulating_supply)} />}
       />
       <StatCompact label="Volume (24H)" value={formatValue(volume_24h)} />
       <StatCompact label="Market Cap" value={formatValue(market_cap)} />

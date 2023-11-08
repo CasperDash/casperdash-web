@@ -3,21 +3,26 @@ import {
   Box,
   Card,
   CardBody,
-  CardFooter,
   Flex,
   HStack,
   Image,
   Text,
   Icon,
   VStack,
+  IconButton,
 } from '@chakra-ui/react';
 import { AiOutlineShop } from 'react-icons/ai';
+import { PiShoppingCart } from 'react-icons/pi';
 
 import NFTDefaultImg from '@/assets/img/nft-default.png';
-import BuyModalButton from '@/modules/NFTMarket/components/BuyModalButton';
+import StatCompact from '@/components/Common/StatCompact';
+import { CSPRValue } from '@/components/Common/TokenValue';
+// import BuyModalButton from '@/modules/NFTMarket/components/BuyModalButton';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 import space from '@/theme/foundations/space';
 import { toCSPR } from '@/utils/currency';
+import { formatI18Value } from '@/utils/format';
+
 type NFTCardItemProps = {
   item: INFTInfo;
   isMarketPage?: boolean;
@@ -31,7 +36,6 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
       transitionDuration={'200ms'}
       transitionDelay={'200ms'}
       p={4}
-      boxShadow={'none'}
       cursor={'pointer'}
       borderRadius={space['6']}
       bg="panelBackground"
@@ -72,7 +76,7 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
           </VStack>
         </Box>
         <Box
-          h={{ base: '200', sm: '280' }}
+          h={{ base: '240', sm: '320' }}
           w={{ base: '100%' }}
           borderRadius={space['4']}
         >
@@ -96,27 +100,40 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
           <Text fontWeight={'500'} fontSize={'md'} color="gray.500">
             Token ID #{item.tokenId}
           </Text>
-          {isMarketPage && (
-            <Box mt="3">
-              <Text textAlign={'center'} fontWeight={'bold'} color="gray.500">
-                Price: {toCSPR(item.listingAmount)} CSPR
-              </Text>
-            </Box>
-          )}
         </Flex>
-      </CardBody>
-      <CardFooter>
         {isMarketPage && (
-          <Flex mt="4" w="100%" justifyContent={'center'}>
-            <BuyModalButton
-              tokenId={item.tokenId}
-              tokenPackageHash={item.tokenPackageHash}
-              w="30"
-              variant="outline"
+          <Flex
+            mt="6"
+            // bg="insetPanelBackground02"
+            bg="whiteAlpha.300"
+            shadow="insetShadow"
+            padding={4}
+            borderRadius="md"
+          >
+            <StatCompact
+              label="Price"
+              value={
+                <CSPRValue value={formatI18Value(toCSPR(item.listingAmount))} />
+              }
+            />
+            <IconButton
+              ml="auto"
+              isRound={true}
+              variant="solid"
+              aria-label="Done"
+              w="46px"
+              h="46px"
+              fontSize="24px"
+              shadow="shadow01"
+              _hover={{
+                bgColor: 'red.500',
+                color: 'white',
+              }}
+              icon={<PiShoppingCart />}
             />
           </Flex>
         )}
-      </CardFooter>
+      </CardBody>
     </Card>
   );
 };
