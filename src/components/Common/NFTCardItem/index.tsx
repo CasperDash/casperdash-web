@@ -45,7 +45,13 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
         <Box position={'absolute'} left={2} top={2}>
           {!isMarketPage && !isTransfarable && (
             <VStack alignItems={'flex-end'}>
-              <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
+              <HStack
+                color="blackAlpha.700"
+                bgColor="blackAlpha.300"
+                p={1}
+                px={3}
+                borderRadius="16px"
+              >
                 <WarningIcon boxSize={4} />
                 <Text fontSize={'sm'}>Cannot transfer</Text>
               </HStack>
@@ -55,7 +61,13 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
         <Box position={'absolute'} right={2} top={2}>
           <VStack alignItems={'flex-end'}>
             {!isMarketPage && (
-              <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
+              <HStack
+                bgColor="blackAlpha.300"
+                p={1}
+                px={3}
+                borderRadius="16px"
+                color="blackAlpha.700"
+              >
                 <WarningIcon boxSize={4} />
                 <Text fontSize={'sm'}>Cannot list</Text>
               </HStack>
