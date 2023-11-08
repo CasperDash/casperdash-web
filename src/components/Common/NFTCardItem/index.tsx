@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   CardBody,
+  CardFooter,
   Flex,
   HStack,
   Image,
@@ -13,14 +14,16 @@ import {
 import { AiOutlineShop } from 'react-icons/ai';
 
 import NFTDefaultImg from '@/assets/img/nft-default.png';
+import BuyModalButton from '@/modules/NFTMarket/components/BuyModalButton';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 import space from '@/theme/foundations/space';
-
+import { toCSPR } from '@/utils/currency';
 type NFTCardItemProps = {
   item: INFTInfo;
+  isMarketPage?: boolean;
 };
 
-const NFTCardItem = ({ item }: NFTCardItemProps) => {
+const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
   const { isTransfarable = false, status = '' } = item;
   return (
     <Card
@@ -36,7 +39,7 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
     >
       <CardBody p={0} position="relative">
         <Box position={'absolute'} left={2} top={2}>
-          {!isTransfarable && (
+          {!isMarketPage && !isTransfarable && (
             <VStack alignItems={'flex-end'}>
               <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
                 <WarningIcon boxSize={4} />
@@ -47,11 +50,13 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
         </Box>
         <Box position={'absolute'} right={2} top={2}>
           <VStack alignItems={'flex-end'}>
-            <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
-              <WarningIcon boxSize={4} />
-              <Text fontSize={'sm'}>Cannot list</Text>
-            </HStack>
-            {status === 'listing' && (
+            {!isMarketPage && (
+              <HStack bgColor="blackAlpha.300" p={1} px={3} borderRadius="16px">
+                <WarningIcon boxSize={4} />
+                <Text fontSize={'sm'}>Cannot list</Text>
+              </HStack>
+            )}
+            {!isMarketPage && status === 'listing' && (
               <HStack
                 bgColor="green.200"
                 color="green.900"
@@ -91,8 +96,27 @@ const NFTCardItem = ({ item }: NFTCardItemProps) => {
           <Text fontWeight={'500'} fontSize={'md'} color="gray.500">
             Token ID #{item.tokenId}
           </Text>
+          {isMarketPage && (
+            <Box mt="3">
+              <Text textAlign={'center'} fontWeight={'bold'} color="gray.500">
+                Price: {toCSPR(item.listingAmount)} CSPR
+              </Text>
+            </Box>
+          )}
         </Flex>
       </CardBody>
+      <CardFooter>
+        {isMarketPage && (
+          <Flex mt="4" w="100%" justifyContent={'center'}>
+            <BuyModalButton
+              tokenId={item.tokenId}
+              tokenPackageHash={item.tokenPackageHash}
+              w="30"
+              variant="outline"
+            />
+          </Flex>
+        )}
+      </CardFooter>
     </Card>
   );
 };

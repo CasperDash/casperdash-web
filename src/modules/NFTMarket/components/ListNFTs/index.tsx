@@ -12,9 +12,9 @@ import {
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 
-import CardItem from './CardItem';
 import { useFetchMarketNFTs } from '../../hooks/useFetchMarketNFTs';
 import EmptyImg from '@/assets/img/empty.png';
+import NFTCardItem from '@/components/Common/NFTCardItem';
 import { PathEnum } from '@/enums';
 import { IMarketNFT } from '@/services/casperdash/market/type';
 
@@ -59,16 +59,22 @@ const ListNFTs = () => {
       <Grid
         templateColumns={{
           base: '1',
+          sm: 'repeat(2,1fr)',
           md: 'repeat(2,1fr)',
           lg: 'repeat(3,1fr)',
+          xl: 'repeat(4,1fr)',
+          '2xl': 'repeat(4,1fr)',
         }}
         gap={6}
         w={'100%'}
       >
         {nfts?.map((item) => {
           return (
-            <GridItem key={`${item.tokenPackageHash}-${item.tokenId}`}>
-              <CardItem item={item} onClick={() => handleOnClick(item)} />
+            <GridItem
+              key={`${item.tokenPackageHash}-${item.tokenId}`}
+              onClick={() => handleOnClick(item)}
+            >
+              <NFTCardItem isMarketPage item={item} />
               <Divider marginY={{ base: '4' }} />
             </GridItem>
           );
