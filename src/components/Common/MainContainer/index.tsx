@@ -6,7 +6,12 @@ type Props = {
 
 const MainContainer = ({ children, ...restProps }: Props) => {
   return (
-    <Container {...restProps} padding="36px" maxW="1280px">
+    <Container
+      className="main-container"
+      padding="36px"
+      maxW="1680px"
+      {...restProps}
+    >
       {children}
     </Container>
   );

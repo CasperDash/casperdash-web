@@ -31,3 +31,6 @@ export const startAndEnd = (str: string, startLength = 5, endLength = 4) => {
   }
   return str;
 };
+
+export const formatI18Value = (value: number) =>
+  new Intl.NumberFormat().format(value);

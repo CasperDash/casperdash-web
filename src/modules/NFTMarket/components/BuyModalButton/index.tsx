@@ -74,6 +74,10 @@ const BuyModalButton = ({
         isLoading={isLoading || isPending || isLoadingTransactions}
         loadingText={isPending && t('deploying')}
         minW="36"
+        _hover={{
+          bg: 'red.500',
+          color: 'white',
+        }}
       >
         {t('buy')}
       </Button>

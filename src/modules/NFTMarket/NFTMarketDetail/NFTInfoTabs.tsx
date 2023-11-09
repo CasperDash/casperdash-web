@@ -38,8 +38,12 @@ const NFTInfoTabs = ({ nft }: Props) => {
   return (
     <Tabs variant="soft-rounded" w={'100%'}>
       <TabList>
-        <Tab>Overview</Tab>
-        <Tab>Attributes</Tab>
+        <Tab fontSize={'sm'} _selected={{ color: 'white', bg: 'gray.400' }}>
+          Overview
+        </Tab>
+        <Tab fontSize={'sm'} _selected={{ color: 'white', bg: 'gray.400' }}>
+          Attributes
+        </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>

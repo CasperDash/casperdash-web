@@ -44,29 +44,22 @@ const NFTInfoTabs = ({ nft }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Tabs variant="soft-rounded" w={'100%'}>
+    <Tabs variant="solid-rounded" w={'100%'}>
       <TabList>
-        <Tab>Overview</Tab>
-        <Tab>Attributes</Tab>
+        <Tab fontSize={'sm'} _selected={{ color: 'white', bg: 'gray.500' }}>
+          Overview
+        </Tab>
+        <Tab fontSize={'sm'} _selected={{ color: 'white', bg: 'gray.500' }}>
+          Attributes
+        </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
           <Box mt="6">
-            <Text fontSize={'xl'} fontWeight={'bold'}>
-              {t('description')}
-            </Text>
-            <Divider mt="2" />
-          </Box>
-          <Box mt="6">
-            <Text fontSize={'xl'} fontWeight={'bold'}>
-              {t('details')}
-            </Text>
-            <Divider mt="2" />
-
-            <Flex direction="column" gap="4" w="100%" mt="2">
+            <Flex direction="column" gap="1" w="100%" mt="2">
               {NFT_INFO_ATTRIBUTES.map((item) => {
                 return (
-                  <Flex key={item.key} justifyContent={'space-between'} mt="4">
+                  <Flex key={item.key} justifyContent={'space-between'} mt="1">
                     <Text mr="1">{t(item.label)}:</Text>
                     {item.isTruncate ? (
                       <MiddleTruncatedText

@@ -13,6 +13,8 @@ export default {
   panelBackground: `linear-gradient(145deg, #e5e5e5, #fefefe)`,
   panelBackground02: `linear-gradient(300deg, #e5e5e5, #fefefe)`,
   panelBackground03: `linear-gradient(45deg, #e5e5e5, #fefefe)`,
+  insetPanelBackground: `linear-gradient(315deg, #d4d4d4, #fbfbfb)`,
+  insetPanelBackground02: `#ebebeb`,
 
   primaryAlpha: {
     50: hexToRgba(PRIMARY_COLOR, 0.04),

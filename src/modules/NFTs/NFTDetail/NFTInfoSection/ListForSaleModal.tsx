@@ -113,7 +113,6 @@ const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
   return (
     <>
       <Button
-        variant="light-outline"
         mt="4"
         w="100%"
         onClick={onOpen}
