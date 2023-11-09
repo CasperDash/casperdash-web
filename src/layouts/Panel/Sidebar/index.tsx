@@ -19,6 +19,7 @@ import {
   FiImage,
   FiPieChart,
 } from 'react-icons/fi';
+import { useLocation } from 'react-router-dom';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
 import DownloadSocialButton from '@/components/Common/DownloadSocialButton';
@@ -138,6 +139,7 @@ interface NavItemProps extends FlexProps {
   onClick: () => void;
 }
 const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
+  const location = useLocation();
   return (
     <Link
       as={ReactRouterLink}
@@ -158,6 +160,8 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
         _hover={{
           color: 'primary',
         }}
+        fontSize="sm"
+        fontWeight={500}
         {...rest}
       >
         {icon && (
@@ -177,6 +181,11 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
             }}
           >
             <Icon
+              filter={
+                location.pathname === path
+                  ? `drop-shadow(0 1px 15px #fa2852) drop-shadow(0 1px 17px #fa2852)`
+                  : ``
+              }
               fontSize="24"
               _groupHover={{
                 color: 'primary',
