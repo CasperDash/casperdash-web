@@ -18,6 +18,8 @@ import ModalDetail from './ModalDetail';
 import { useGetPendingTokenTransaction } from '../../hooks/useGetPendingTokenTransaction';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { useGetMarketNFT } from '@/hooks/queries/useGetMarketNFT';
+import { useAccount } from '@/hooks/useAccount';
+import { ConnectWallet } from '@/modules/core/ButtonConnectWallet';
 import { ModalTransactionStatus } from '@/modules/core/ModalTransactionStatus';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
@@ -40,6 +42,7 @@ const BuyModalButton = ({
     onOpen: onOpenTransaction,
     onClose: onCloseTransaction,
   } = useDisclosure();
+  const { publicKey } = useAccount();
   const { t } = useTranslation();
   const [transactionHash, setTransactionHash] = useState<string>('');
   const queryClient = useQueryClient();
@@ -67,23 +70,34 @@ const BuyModalButton = ({
 
   return (
     <>
-      <Button
-        {...buttonProps}
-        onClick={onOpen}
-        fontWeight={'bold'}
-        isLoading={isLoading || isPending || isLoadingTransactions}
-        loadingText={isPending && t('deploying')}
-        minW="36"
-        _hover={{
-          bg: 'red.500',
-          color: 'white',
-        }}
-      >
-        {t('buy')}
-      </Button>
+      {publicKey ? (
+        <Button
+          {...buttonProps}
+          onClick={onOpen}
+          fontWeight={'bold'}
+          isLoading={isLoading || isPending || isLoadingTransactions}
+          loadingText={isPending && t('deploying')}
+          minW="36"
+          _hover={{
+            bg: 'red.500',
+            color: 'white',
+          }}
+        >
+          {t('buy')}
+        </Button>
+      ) : (
+        <ConnectWallet
+          {...buttonProps}
+          minW="36"
+          _hover={{
+            bg: 'red.500',
+            color: 'white',
+          }}
+        />
+      )}
 
       <UnlockWalletPopupRequired>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent pb="8">
             <ModalHeader>{t('confirm_buy')}</ModalHeader>

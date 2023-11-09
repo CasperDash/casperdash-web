@@ -12,7 +12,12 @@ const ReviewModal = ({
 }: ReviewModalProps) => {
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        closeOnOverlayClick={false}
+        isCentered
+      >
         <ModalOverlay />
         <ReviewModalContent
           onSubmit={onSend}

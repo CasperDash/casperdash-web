@@ -35,7 +35,7 @@ export const ModalTransactionStatus = ({
     });
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent pb="8">
         <ModalBody paddingTop="14">

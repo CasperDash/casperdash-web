@@ -23,7 +23,7 @@ const ModalFeedback = ({ isOpen, onClose, onSuccess }: ModalAirdropProps) => {
   const { t } = useTranslation();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="2xl" isCentered>
       <ModalOverlay pointerEvents="none" />
       <ModalContent
         borderRadius="2xl"

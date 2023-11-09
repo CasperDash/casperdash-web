@@ -63,7 +63,7 @@ const PopupSDK = () => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent borderRadius="2xl" w={{ base: '340px', md: '400px' }}>
           <ModalHeader>

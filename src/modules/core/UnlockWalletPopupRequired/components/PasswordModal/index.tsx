@@ -30,7 +30,7 @@ const PasswordFormModal = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent borderRadius="2xl" w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader>

@@ -25,7 +25,13 @@ const ModalThanksFeedback = ({ isOpen, onClose, onSuccess }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="2xl" autoFocus={false}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size="2xl"
+      autoFocus={false}
+      isCentered
+    >
       <ModalOverlay pointerEvents="none" />
       <ModalContent
         borderRadius="2xl"

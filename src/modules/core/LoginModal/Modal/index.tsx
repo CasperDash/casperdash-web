@@ -25,11 +25,12 @@ const ModalConnect = ({ isOpen, onClose }: ModalConnectProps) => {
 
   const handleOnCreateWallet = () => {
     navigate(PathEnum.NEW_WALLET);
+    onClose();
   };
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader>

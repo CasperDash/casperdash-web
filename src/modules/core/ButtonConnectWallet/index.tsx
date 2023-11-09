@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from '@chakra-ui/react';
+import { Button, ButtonProps, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -6,7 +6,9 @@ import ModalConnectWallet from '../ModalConnectWallet';
 import MyAccount from '../MyAccount';
 import { publicKeySelector } from '@/store/wallet';
 
-export const ConnectWallet = () => {
+type Props = ButtonProps;
+
+export const ConnectWallet = (buttonProps: Props) => {
   const { t } = useTranslation();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -17,6 +19,7 @@ export const ConnectWallet = () => {
         variant="solid"
         colorScheme="red"
         onClick={() => onOpen()}
+        {...buttonProps}
       >
         {t('connect_wallet')}
       </Button>
