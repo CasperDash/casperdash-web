@@ -1,9 +1,7 @@
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 
-import { useGetLocked } from '@/hooks/queries/useGetLocked';
 import PopupAutoConnectWallet from '@/modules/PopupAutoConnectWallet';
 import PopupSDK from '@/modules/PopupSDK';
-import UnlockWallet from '@/modules/UnlockWallet';
 
 export type Props = {
   children?: React.ReactNode;
@@ -12,17 +10,7 @@ export type Props = {
 };
 
 const BodyContent = ({ children }: { children: React.ReactNode }) => {
-  const { data: isLocked, isLoading } = useGetLocked();
-
-  if (isLoading) {
-    return <Flex h="100vh"></Flex>;
-  }
-
-  return (
-    <Flex className="body-content">
-      {!isLocked ? children : <UnlockWallet />}
-    </Flex>
-  );
+  return <Flex className="body-content">{children}</Flex>;
 };
 
 const BaseLayout = ({ children, defaultLightBg = 'gray.100' }: Props) => {

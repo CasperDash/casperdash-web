@@ -4,10 +4,21 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import BaseLayout from '../Base';
 import MainContainer from '@/components/Common/MainContainer';
+import { useGetLocked } from '@/hooks/queries/useGetLocked';
+import UnlockWallet from '@/modules/UnlockWallet';
 
 export type Props = {
   children?: React.ReactNode;
   defaultLightBg?: string;
+};
+
+const Wrapper = ({ children }: { children: React.ReactNode }) => {
+  const { data: isLocked } = useGetLocked();
+  if (isLocked) {
+    return <UnlockWallet />;
+  }
+
+  return <>{children}</>;
 };
 
 // MasterPanelLayout
@@ -39,7 +50,7 @@ const PanelLayout = ({ children }: Props) => {
           borderRadius={'lg'}
         >
           <MainContainer>
-            {children}
+            <Wrapper>{children}</Wrapper>
             {/* <Box h={2000} bg={'teal'} /> */}
           </MainContainer>
         </Box>
