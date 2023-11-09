@@ -7,15 +7,20 @@ import {
   Text,
   IconButton,
 } from '@chakra-ui/react';
+import _get from 'lodash-es/get';
 import { PiShoppingCart } from 'react-icons/pi';
 
+import StatCompact from '../StatCompact';
+import { CSPRValue } from '../TokenValue';
 import NFTDefaultImg from '@/assets/img/nft-default.png';
-// import BuyModalButton from '@/modules/NFTMarket/components/BuyModalButton';
+import { IMarketNFT } from '@/services/casperdash/market/type';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 import space from '@/theme/foundations/space';
+import { toCSPR } from '@/utils/currency';
+import { formatI18Value } from '@/utils/format';
 
 type NFTCardItemProps = {
-  item: INFTInfo;
+  item: INFTInfo | IMarketNFT;
   isMarketPage?: boolean;
 };
 
@@ -94,10 +99,10 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
         <Flex direction={'column'} alignItems="center" rowGap={3}>
           <Flex direction={'column'} alignItems="center">
             <Text color={'gray.500'} mt="2" mb={0}>
-              {item.contractName}
+              {_get(item, 'contractName', '')}
             </Text>
             <Text mb={0} fontWeight={'bold'} fontSize={'xl'} noOfLines={1}>
-              {item.nftName}
+              {_get(item, 'nftName', '')}
             </Text>
           </Flex>
           <Text fontWeight={'500'} fontSize={'md'} color="gray.500">
@@ -113,12 +118,14 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
             padding={4}
             borderRadius="md"
           >
-            {/* <StatCompact
+            <StatCompact
               label="Price"
               value={
-                <CSPRValue value={formatI18Value(toCSPR(item.listingAmount))} />
+                <CSPRValue
+                  value={formatI18Value(toCSPR(_get(item, 'listingAmount', 0)))}
+                />
               }
-            /> */}
+            />
             <IconButton
               ml="auto"
               isRound={true}
