@@ -1,8 +1,4 @@
-import {
-  useQuery,
-  useQueryClient,
-  UseQueryOptions,
-} from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import * as _ from 'lodash-es';
 
 import { useAccount } from '../useAccount';
@@ -11,6 +7,7 @@ import { getTokensInfo } from '@/services/casperdash/token';
 import { Token } from '@/typings/token';
 import { formatBalanceFromHex } from '@/utils/currency';
 import { getBase64IdentIcon } from '@/utils/icon';
+import { TokenStorage } from '@/utils/localForage/token';
 
 export const useGetMyTokens = (
   options?: Omit<
@@ -24,7 +21,6 @@ export const useGetMyTokens = (
   >
 ) => {
   const { publicKey } = useAccount();
-  const queryClient = useQueryClient();
 
   return useQuery(
     [QueryKeysEnum.MY_TOKENS, publicKey],
@@ -32,10 +28,8 @@ export const useGetMyTokens = (
       if (!publicKey) {
         return [];
       }
-      const tokens = queryClient.getQueryData<Token[]>([
-        QueryKeysEnum.MY_TOKENS,
-        publicKey,
-      ]);
+      const tokenStorage = new TokenStorage(publicKey);
+      const tokens = await tokenStorage.getTokens();
       const tokenAddresses = _.map(tokens, 'tokenAddress');
       const tokensInfo = await getTokensInfo({
         publicKey,

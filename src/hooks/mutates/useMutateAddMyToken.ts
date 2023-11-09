@@ -7,6 +7,7 @@ import {
 import { useAccount } from '../useAccount';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { Token } from '@/typings/token';
+import { TokenStorage } from '@/utils/localForage/token';
 
 export const useMutateAddMyToken = (
   options?: UseMutationOptions<Token, unknown, Token, unknown>
@@ -17,23 +18,12 @@ export const useMutateAddMyToken = (
   return useMutation({
     ...options,
     mutationFn: async (variables: Token) => {
-      queryClient.setQueryData(
-        [QueryKeysEnum.MY_TOKENS, publicKey],
-        (oldTokens: Token[] = []) => {
-          const foundOldToken = oldTokens.find(
-            (token) => token.tokenAddress === variables.tokenAddress
-          );
-          if (foundOldToken) {
-            return oldTokens;
-          }
+      console.log('variables', variables);
+      const tokenStorage = new TokenStorage(publicKey!);
 
-          const newToken = {
-            ...variables,
-          };
+      await tokenStorage.pushToken(variables);
 
-          return [newToken, ...oldTokens];
-        }
-      );
+      await queryClient.invalidateQueries([QueryKeysEnum.MY_TOKENS, publicKey]);
 
       return variables;
     },

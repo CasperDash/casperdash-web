@@ -46,11 +46,9 @@ const App = () => {
                 return [
                   QueryKeysEnum.TRANSACTION_HISTORIES,
                   QueryKeysEnum.CONNECTED_URL,
-                  QueryKeysEnum.MY_TOKENS,
                   QueryKeysEnum.ACCOUNT,
                   QueryKeysEnum.ACCOUNT_BALANCES,
                   QueryKeysEnum.AIRDROP_CODE,
-                  QueryKeysEnum.STAKING_TRANSACTION_HISTORIES,
                   QueryKeysEnum.NFTS,
                   QueryKeysEnum.VALIDATORS,
                   QueryKeysEnum.VALIDATOR_DETAILS,

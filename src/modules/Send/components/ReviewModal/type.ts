@@ -3,6 +3,7 @@ export type ReviewModalValues = {
   receivingAddress: string;
   transferId: number;
   asset: string;
+  fee: number;
 };
 
 export type ReviewModalProps = {

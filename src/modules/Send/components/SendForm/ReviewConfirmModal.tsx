@@ -51,12 +51,14 @@ export const ReviewConfirmModal = ({ isOpen, onClose }: Props) => {
       return;
     }
 
+    console.log('values', values);
+
     if (!values.isToken) {
       await mutateSendCSPRAsync({
         fromPublicKeyHex: publicKey,
         toPublicKeyHex: values.receivingAddress,
         transferId: values.transferId,
-        fee: 0.1,
+        fee: values.fee,
         amount: values.transferAmount,
       });
     } else if (values.tokenAddress) {
@@ -64,7 +66,7 @@ export const ReviewConfirmModal = ({ isOpen, onClose }: Props) => {
         fromPublicKeyHex: publicKey,
         toPublicKeyHex: values.receivingAddress,
         contractHash: values.tokenAddress,
-        fee: 0.1,
+        fee: values.fee,
         amount: values.transferAmount,
         asset: values.asset,
       });

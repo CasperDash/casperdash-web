@@ -18,6 +18,7 @@ const SendForm = () => {
       transferId: 0,
       tokenAddress: '',
       isToken: false,
+      fee: 0.1,
     },
   });
   const { handleSubmit } = methods;

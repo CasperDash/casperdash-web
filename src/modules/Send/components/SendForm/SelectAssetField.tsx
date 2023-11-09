@@ -28,6 +28,7 @@ const SelectAssetField = () => {
       setValue('asset', foundToken?.value);
       setValue('tokenAddress', foundToken?.tokenAddress);
       setValue('isToken', true);
+      setValue('fee', 5);
       setValue('maxAssetAmount', foundToken?.amount);
     },
   });
@@ -49,6 +50,8 @@ const SelectAssetField = () => {
         const handleOnChangeAsset = (newValue?: string) => {
           if (newValue === 'CSPR') {
             setValue('maxAssetAmount', balance);
+            setValue('isToken', false);
+            setValue('fee', 0.1);
           } else {
             const foundToken = options?.find(
               (option) => option.value === newValue
@@ -57,6 +60,7 @@ const SelectAssetField = () => {
             setValue('maxAssetAmount', foundToken?.amount);
             setValue('tokenAddress', foundToken?.tokenAddress);
             setValue('isToken', true);
+            setValue('fee', 5);
           }
 
           setValue('transferAmount', 0);
