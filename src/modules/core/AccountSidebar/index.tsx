@@ -15,6 +15,7 @@ import { PiUserCircleLight } from 'react-icons/pi';
 
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { Config } from '@/config';
+import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
 import { useAccount } from '@/hooks/useAccount';
 import { ButtonDeleteAllData } from '@/modules/core/ButtonDeleteAllData';
 import ButtonLockWallet from '@/modules/core/ButtonLockWallet';
@@ -22,6 +23,7 @@ import ButtonViewRecoveryPhrase from '@/modules/core/ButtonViewRecoveryPhrase';
 
 const AccountSidebar = () => {
   const { isConnected, isLocked, publicKey } = useAccount();
+  const { data: { name } = {} } = useGetCurrentAccount();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
@@ -31,11 +33,7 @@ const AccountSidebar = () => {
         onClick={onOpen}
       >
         <Flex justifyContent={'center'} alignItems="center" gap="4">
-          <MiddleTruncatedText
-            textProps={{ fontWeight: 500 }}
-            value={publicKey}
-            placement={'auto-start'}
-          />
+          <Text>{name}</Text>
           <PiUserCircleLight size={30} />
         </Flex>
       </Button>
@@ -45,7 +43,7 @@ const AccountSidebar = () => {
           <DrawerHeader background={'panelBackground'} borderBottomWidth="1px">
             <Flex>
               <Box>
-                <Text fontSize={'18px'}>Account 1</Text>
+                <Text fontSize={'18px'}>{name}</Text>
                 <MiddleTruncatedText
                   textProps={{ fontSize: '12px', fontWeight: 400 }}
                   value={publicKey}
