@@ -1,27 +1,18 @@
-import { WarningIcon } from '@chakra-ui/icons';
 import {
   Box,
   Card,
   CardBody,
   Flex,
-  HStack,
   Image,
   Text,
-  Icon,
-  VStack,
   IconButton,
 } from '@chakra-ui/react';
-import { AiOutlineShop } from 'react-icons/ai';
 import { PiShoppingCart } from 'react-icons/pi';
 
 import NFTDefaultImg from '@/assets/img/nft-default.png';
-import StatCompact from '@/components/Common/StatCompact';
-import { CSPRValue } from '@/components/Common/TokenValue';
 // import BuyModalButton from '@/modules/NFTMarket/components/BuyModalButton';
 import { INFTInfo } from '@/services/casperdash/nft/type';
 import space from '@/theme/foundations/space';
-import { toCSPR } from '@/utils/currency';
-import { formatI18Value } from '@/utils/format';
 
 type NFTCardItemProps = {
   item: INFTInfo;
@@ -29,7 +20,6 @@ type NFTCardItemProps = {
 };
 
 const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
-  const { isTransfarable = false, status = '' } = item;
   return (
     <Card
       w={{ base: '100%' }}
@@ -43,7 +33,7 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
       shadow="panelShadow"
     >
       <CardBody p={0} position="relative">
-        <Box position={'absolute'} left={2} top={2}>
+        {/* <Box position={'absolute'} left={2} top={2}>
           {!isMarketPage && !isTransfarable && (
             <VStack alignItems={'flex-end'}>
               <HStack
@@ -58,9 +48,9 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
               </HStack>
             </VStack>
           )}
-        </Box>
+        </Box> */}
         <Box position={'absolute'} right={2} top={2}>
-          <VStack alignItems={'flex-end'}>
+          {/* <VStack alignItems={'flex-end'}>
             {!isMarketPage && (
               <HStack
                 bgColor="blackAlpha.300"
@@ -86,7 +76,7 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
                 <Text fontSize={'sm'}>Listing</Text>
               </HStack>
             )}
-          </VStack>
+          </VStack> */}
         </Box>
         <Box
           h={{ base: '240', sm: '320' }}
@@ -123,12 +113,12 @@ const NFTCardItem = ({ item, isMarketPage = false }: NFTCardItemProps) => {
             padding={4}
             borderRadius="md"
           >
-            <StatCompact
+            {/* <StatCompact
               label="Price"
               value={
                 <CSPRValue value={formatI18Value(toCSPR(item.listingAmount))} />
               }
-            />
+            /> */}
             <IconButton
               ml="auto"
               isRound={true}
