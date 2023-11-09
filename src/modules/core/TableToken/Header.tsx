@@ -81,7 +81,7 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
     }
   );
 
-  const { mutate } = useMutateAddMyToken({
+  const { mutate, isLoading: isAddingToken } = useMutateAddMyToken({
     onSuccess: (tokenAdded: Token) => {
       toastSuccess('token_added', { name: tokenAdded.name });
       onClose();
@@ -91,6 +91,8 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
   const onSubmit = (values: SubmitValues) => {
     mutate(values);
   };
+
+  const isLoading = isSubmitting || isAddingToken;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -193,8 +195,8 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
                 variant={'primary'}
                 w="60%"
                 leftIcon={<SmallAddIcon />}
-                isDisabled={isSubmitting}
-                isLoading={isSubmitting}
+                isDisabled={isLoading}
+                isLoading={isLoading}
               >
                 {t('add')}
               </Button>

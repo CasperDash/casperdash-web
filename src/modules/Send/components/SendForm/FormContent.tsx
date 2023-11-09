@@ -33,6 +33,11 @@ const FormContent = () => {
     name: 'asset',
   });
 
+  const feeWatched = useWatch({
+    control,
+    name: 'fee',
+  });
+
   const handleSetMaxAmount = () => {
     const values = getValues();
     setValue('transferAmount', _.get(values, 'maxAssetAmount', 0));
@@ -126,7 +131,7 @@ const FormContent = () => {
       </FormControl>
       <Box mt="8">
         <Text>
-          {t('network_fee_with_asset', { total: 0.1, symbol: 'CSPR' })}
+          {t('network_fee_with_asset', { total: feeWatched, symbol: 'CSPR' })}
         </Text>
       </Box>
       <Box mt="8">

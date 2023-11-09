@@ -9,6 +9,7 @@ export const validationSchema = z
     maxAssetAmount: z.number().optional(),
     tokenAddress: z.string().optional(),
     isToken: z.boolean().optional(),
+    fee: z.number(),
   })
   .refine((data) => data.transferAmount >= 2.5, {
     message: 'min_transfer_amount_required',

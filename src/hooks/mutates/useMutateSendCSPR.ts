@@ -8,7 +8,6 @@ import { AssetNamesEnum } from '@/enums/assetNames';
 import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { DeployTypesEnum } from '@/enums/deployTypes';
-import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
@@ -74,6 +73,5 @@ export const useMutateSendCSPR = (
 
       return result;
     },
-    mutationKey: [MutationKeysEnum.SEND_ASSET],
   });
 };
