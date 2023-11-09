@@ -16,6 +16,7 @@ export const useGetContractPackageInfo = (
   return useQuery({
     ...options,
     queryKey: [QueryKeysEnum.CONTRACTS, contractPackageHash],
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     queryFn: () => getContractPackageInfo(contractPackageHash!),
     enabled: !!contractPackageHash,
   });

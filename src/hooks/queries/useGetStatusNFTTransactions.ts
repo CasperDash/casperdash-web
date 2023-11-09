@@ -4,15 +4,15 @@ import { useGetTransactions } from './useGetTransactions';
 import { useAccount } from '../useAccount';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 
 type Params = {
-  filterFn: (transaction: NFTTransactionHistory) => boolean;
+  filterFn: (transaction: TransactionHistory) => boolean;
   queryKey: string | string[] | Record<string, string>;
   context: DeployContextEnum;
 };
 
-export type NFTTransactionStatus = NFTTransactionHistory & {
+export type NFTTransactionStatus = TransactionHistory & {
   isSuccess: boolean;
   isPending: boolean;
   isFailed: boolean;
@@ -24,14 +24,14 @@ export const useGetStatusNFTTransactions = (params: Params) => {
 
   const filteredTransactions = useMemo(() => {
     const foundTransactions = transactions?.filter(
-      (transaction: NFTTransactionHistory) => params?.filterFn(transaction)
+      (transaction: TransactionHistory) => params?.filterFn(transaction)
     );
 
     if (!foundTransactions || foundTransactions.length === 0) {
       return undefined;
     }
 
-    return foundTransactions.map((transaction: NFTTransactionHistory) => {
+    return foundTransactions.map((transaction: TransactionHistory) => {
       return {
         ...transaction,
         isSuccess: transaction.status === TransactionStatusEnum.COMPLETED,

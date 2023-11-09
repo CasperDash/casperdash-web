@@ -10,7 +10,7 @@ import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { getDeployStatuses } from '@/services/casperdash/deploysStatus/deploysStatus.service';
 import { DeployStatus } from '@/services/casperdash/deploysStatus/type';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 import { TransactionHistoryStorage } from '@/utils/localForage/transactionHistory';
 
 export const useGetTransactions = (
@@ -19,7 +19,7 @@ export const useGetTransactions = (
     UseQueryOptions<
       unknown,
       unknown,
-      NFTTransactionHistory[],
+      TransactionHistory[],
       [QueryKeysEnum.TRANSACTIONS, string | undefined]
     >,
     'queryKey' | 'queryFn'
@@ -31,12 +31,21 @@ export const useGetTransactions = (
     [QueryKeysEnum.TRANSACTIONS, publicKey],
     async () => {
       const transactionHistoryStorage = new TransactionHistoryStorage(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         publicKey!
       );
       const transactionHistories =
         await transactionHistoryStorage.getTransactionHistories();
-      const pendingTransactionHistories = transactionHistories.filter(
-        (transactionHistory: NFTTransactionHistory) =>
+
+      // Sort by date
+      const sortedTransactionHistories = _.orderBy(
+        transactionHistories,
+        ['date'],
+        ['desc']
+      );
+
+      const pendingTransactionHistories = sortedTransactionHistories.filter(
+        (transactionHistory: TransactionHistory) =>
           transactionHistory.status === TransactionStatusEnum.PENDING
       );
 
@@ -46,11 +55,11 @@ export const useGetTransactions = (
           deployHash: deployHashes,
         });
 
-        let trackingUpdatedDeploys: NFTTransactionHistory[] = [];
+        let trackingUpdatedDeploys: TransactionHistory[] = [];
 
         const mappedTxHistories = _.map(
-          transactionHistories,
-          (txHistory: NFTTransactionHistory) => {
+          sortedTransactionHistories,
+          (txHistory: TransactionHistory) => {
             const foundDeployStatus = deployStatuses.find(
               (deployStatus: DeployStatus) =>
                 deployStatus.hash.toLowerCase() ===
@@ -76,7 +85,7 @@ export const useGetTransactions = (
         await transactionHistoryStorage.setItem(mappedTxHistories);
 
         const isUpdatedMarketNFTs = trackingUpdatedDeploys.some(
-          (trackingUpdatedDeploy: NFTTransactionHistory) =>
+          (trackingUpdatedDeploy: TransactionHistory) =>
             trackingUpdatedDeploy.context === DeployContextEnum.NFT
         );
 
@@ -89,7 +98,7 @@ export const useGetTransactions = (
         return mappedTxHistories;
       }
 
-      return transactionHistories;
+      return sortedTransactionHistories;
     },
     {
       refetchInterval: 5 * 1000,

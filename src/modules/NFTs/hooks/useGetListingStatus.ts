@@ -4,7 +4,7 @@ import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { useGetLastNFTTransactionStatus } from '@/hooks/queries/useGetStatusNFTTransactions';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 
 type Params = {
   contractAddress: string;
@@ -13,7 +13,7 @@ type Params = {
 
 export const useGetListingStatus = (params: Params) => {
   return useGetLastNFTTransactionStatus({
-    filterFn: (transaction: NFTTransactionHistory) =>
+    filterFn: (transaction: TransactionHistory) =>
       transaction.action === DeployActionsEnum.LIST_ITEM &&
       transaction.context === DeployContextEnum.NFT &&
       transaction.status === TransactionStatusEnum.PENDING &&

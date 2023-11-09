@@ -43,3 +43,4 @@ tsconfig.tsbuildinfo
 
 dist
 .vscode/settings.json
+.idea
