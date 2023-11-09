@@ -1,4 +1,17 @@
-import { Box, Text, Flex, Stack, Radio, RadioGroup } from '@chakra-ui/react';
+import {
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  Box,
+  Text,
+  Flex,
+  Stack,
+  Radio,
+  RadioGroup,
+  HStack,
+  Select,
+} from '@chakra-ui/react';
 
 import space from '@/theme/foundations/space';
 
@@ -46,6 +59,30 @@ const NFTFilters = () => {
             <Radio value="3">Show All</Radio>
           </Stack>
         </RadioGroup>
+      </Flex>
+      <Flex direction={'column'}>
+        <Box bgColor="gray.200" p={2} py={3} mb={3} borderRadius="lg">
+          <Text fontWeight={600} size="md">
+            Price range
+          </Text>
+        </Box>
+        <HStack>
+          <RangeSlider
+            aria-label={['min', 'max']}
+            colorScheme="red"
+            defaultValue={[10, 30]}
+          >
+            <RangeSliderTrack>
+              <RangeSliderFilledTrack />
+            </RangeSliderTrack>
+            <RangeSliderThumb index={0} />
+            <RangeSliderThumb index={1} />
+          </RangeSlider>
+          <Select variant="filled" value="cspr">
+            <option value="cspr">CSPR</option>
+            <option value="usdt">USD</option>
+          </Select>
+        </HStack>
       </Flex>
     </Flex>
   );

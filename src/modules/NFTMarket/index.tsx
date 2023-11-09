@@ -1,14 +1,12 @@
-import { Flex, Box } from '@chakra-ui/react';
-
+import NFTFilters from './components/Filters';
 import ListNFTs from './components/ListNFTs';
+import NFTListingLayout from '@/components/Layouts/NFTListingLayout';
 
 const NFTMarket = () => {
   return (
-    <Box className="duc-test">
-      <Flex alignItems={'center'} flexDir={'column'} justify={'center'}>
-        <ListNFTs />
-      </Flex>
-    </Box>
+    <NFTListingLayout title="Market" filters={<NFTFilters />}>
+      <ListNFTs />
+    </NFTListingLayout>
   );
 };
 
