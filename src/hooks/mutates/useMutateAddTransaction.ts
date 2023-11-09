@@ -5,10 +5,10 @@ import {
 } from '@tanstack/react-query';
 
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 import { TransactionHistoryStorage } from '@/utils/localForage/transactionHistory';
 
-export type Variables = NFTTransactionHistory;
+export type Variables = TransactionHistory;
 
 export const useMutateAddTransaction = (
   fromPublicKeyHex?: string,

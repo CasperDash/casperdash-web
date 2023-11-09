@@ -10,7 +10,7 @@ import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { getDeployStatuses } from '@/services/casperdash/deploysStatus/deploysStatus.service';
 import { DeployStatus } from '@/services/casperdash/deploysStatus/type';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 import { TransactionHistoryStorage } from '@/utils/localForage/transactionHistory';
 
 export const useGetTransactions = (
@@ -19,7 +19,7 @@ export const useGetTransactions = (
     UseQueryOptions<
       unknown,
       unknown,
-      NFTTransactionHistory[],
+      TransactionHistory[],
       [QueryKeysEnum.TRANSACTIONS, string | undefined]
     >,
     'queryKey' | 'queryFn'
@@ -45,7 +45,7 @@ export const useGetTransactions = (
       );
 
       const pendingTransactionHistories = sortedTransactionHistories.filter(
-        (transactionHistory: NFTTransactionHistory) =>
+        (transactionHistory: TransactionHistory) =>
           transactionHistory.status === TransactionStatusEnum.PENDING
       );
 
@@ -55,11 +55,11 @@ export const useGetTransactions = (
           deployHash: deployHashes,
         });
 
-        let trackingUpdatedDeploys: NFTTransactionHistory[] = [];
+        let trackingUpdatedDeploys: TransactionHistory[] = [];
 
         const mappedTxHistories = _.map(
           sortedTransactionHistories,
-          (txHistory: NFTTransactionHistory) => {
+          (txHistory: TransactionHistory) => {
             const foundDeployStatus = deployStatuses.find(
               (deployStatus: DeployStatus) =>
                 deployStatus.hash.toLowerCase() ===
@@ -85,7 +85,7 @@ export const useGetTransactions = (
         await transactionHistoryStorage.setItem(mappedTxHistories);
 
         const isUpdatedMarketNFTs = trackingUpdatedDeploys.some(
-          (trackingUpdatedDeploy: NFTTransactionHistory) =>
+          (trackingUpdatedDeploy: TransactionHistory) =>
             trackingUpdatedDeploy.context === DeployContextEnum.NFT
         );
 

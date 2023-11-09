@@ -10,13 +10,13 @@ import Validator from '@/components/Common/Validator';
 import { DataTable } from '@/components/Table/DataTable';
 import { IValidator, useGetValidators } from '@/hooks/queries/useGetValidators';
 import i18n from '@/i18n';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 import { formatReadDate } from '@/utils/date';
 import { getDeployStatus } from '@/utils/deployStatus';
 import { getDeployHashUrl } from '@/utils/url';
 
 type ListRewardsProps = FlexProps;
-type TransactionWithValidator = NFTTransactionHistory & {
+type TransactionWithValidator = TransactionHistory & {
   validatorName?: string;
   validatorLogo?: string;
 };

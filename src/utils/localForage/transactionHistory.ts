@@ -3,7 +3,7 @@ import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { StorageKeysEnum } from '@/enums/storageKeys';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 
 export class TransactionHistoryStorage extends BaseTransactionStorage {
   constructor(publicKey: string) {
@@ -21,8 +21,8 @@ export class TransactionHistoryStorage extends BaseTransactionStorage {
     tokenAddress: string;
     action: DeployActionsEnum;
   }) {
-    const foundItem = await this.findItem<NFTTransactionHistory>(
-      (item: NFTTransactionHistory) =>
+    const foundItem = await this.findItem<TransactionHistory>(
+      (item: TransactionHistory) =>
         item.context === context &&
         item.args.tokenId === tokenId &&
         item.args.tokenAddress === tokenAddress &&

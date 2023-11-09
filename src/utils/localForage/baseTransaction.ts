@@ -1,11 +1,9 @@
 import { BaseStorage } from './base';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 
 export class BaseTransactionStorage extends BaseStorage {
-  public async pushTransactionHistory(
-    transactionHistory: NFTTransactionHistory
-  ) {
-    const transactionHistories = await this.getItem<NFTTransactionHistory[]>();
+  public async pushTransactionHistory(transactionHistory: TransactionHistory) {
+    const transactionHistories = await this.getItem<TransactionHistory[]>();
 
     const newTransactionHistories = [
       ...(transactionHistories || []),
@@ -16,7 +14,7 @@ export class BaseTransactionStorage extends BaseStorage {
   }
 
   public async getTransactionHistories() {
-    const transactionHistories = await this.getItem<NFTTransactionHistory[]>();
+    const transactionHistories = await this.getItem<TransactionHistory[]>();
 
     return transactionHistories || [];
   }

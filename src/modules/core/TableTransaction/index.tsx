@@ -6,14 +6,14 @@ import { useGetTransferTransactions } from './hooks/useGetTransferTransactions';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { DataTable } from '@/components/Table/DataTable';
 import i18n from '@/i18n';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 import { getDeployStatus } from '@/utils/deployStatus';
 import { getDeployHashUrl } from '@/utils/url';
 
-const columnHelper = createColumnHelper<NFTTransactionHistory>();
+const columnHelper = createColumnHelper<TransactionHistory>();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const columns: ColumnDef<NFTTransactionHistory, any>[] = [
+const columns: ColumnDef<TransactionHistory, any>[] = [
   columnHelper.accessor('args.transferId', {
     cell: (info) => info.getValue(),
     header: () => i18n.t('transfer_id'),

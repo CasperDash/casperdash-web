@@ -5,7 +5,7 @@ import { DeployContextEnum } from '@/enums/deployContext';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { useGetTransactions } from '@/hooks/queries/useGetTransactions';
 import { useAccount } from '@/hooks/useAccount';
-import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
+import { TransactionHistory } from '@/typings/transactionHistory';
 
 type Params = {
   tokenId?: string;
@@ -25,7 +25,7 @@ export const useGetPendingTokenTransaction = ({
     }
 
     const foundItem = data.find(
-      (item: NFTTransactionHistory) =>
+      (item: TransactionHistory) =>
         item.context === DeployContextEnum.NFT &&
         item.args.tokenId === tokenId &&
         item.args.token === `hash-${tokenAddress}` &&
