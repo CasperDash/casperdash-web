@@ -1,6 +1,5 @@
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 
-import PopupAutoConnectWallet from '@/modules/PopupAutoConnectWallet';
 import PopupSDK from '@/modules/PopupSDK';
 
 export type Props = {
@@ -24,7 +23,6 @@ const BaseLayout = ({ children, defaultLightBg = 'gray.100' }: Props) => {
       position={'relative'}
     >
       <BodyContent>{children}</BodyContent>
-      <PopupAutoConnectWallet />
       <PopupSDK />
     </Box>
   );

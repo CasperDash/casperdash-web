@@ -36,7 +36,12 @@ interface LinkItemProps {
 }
 export const LinkItems: Array<LinkItemProps> = [
   { name: i18n.t('home'), icon: FiHome, path: PathEnum.HOME },
-  { name: i18n.t('staking'), icon: FiTrendingUp, path: PathEnum.STAKING },
+  {
+    name: i18n.t('staking'),
+    icon: FiTrendingUp,
+    path: PathEnum.STAKING,
+    isConnected: true,
+  },
   {
     name: i18n.t('portfolio'),
     icon: FiPieChart,

@@ -124,7 +124,7 @@ const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
       </Button>
 
       <UnlockWalletPopupRequired>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent pb="8">
             <ModalHeader>{t('create_listing')}</ModalHeader>

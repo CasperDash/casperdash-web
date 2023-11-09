@@ -41,7 +41,7 @@ export const ModalAccounts = ({ isOpen, onClose }: Props) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent w={{ base: 'sm', md: 'xl' }}>
           <ModalHeader textAlign="center">

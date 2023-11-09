@@ -88,7 +88,7 @@ const CancelListButton = ({ contractAddress, tokenId, onContinue }: Props) => {
         {t('cancel_listing')}
       </Button>
       <UnlockWalletPopupRequired>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent pb="8">
             <ModalHeader>{t('cancel_listing')}</ModalHeader>

@@ -95,7 +95,7 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
   const isLoading = isSubmitting || isAddingToken;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent w={{ base: 'sm', md: 'xl' }}>
         <ModalHeader>

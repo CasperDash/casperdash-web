@@ -27,15 +27,17 @@ const ModalConnectWallet = ({ isOpen, onClose }: ModalConnectProps) => {
 
   const handleOnCreateWallet = () => {
     navigate(PathEnum.NEW_WALLET);
+    onClose();
   };
 
   const handleOnImportWallet = () => {
     navigate(PathEnum.IMPORT_WALLET);
+    onClose();
   };
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent
           borderRadius="2xl"
