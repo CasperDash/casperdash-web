@@ -23,6 +23,7 @@ export const useMutateAddTransaction = (
       };
 
       const transactionStorage = new TransactionHistoryStorage(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         fromPublicKeyHex!
       );
 

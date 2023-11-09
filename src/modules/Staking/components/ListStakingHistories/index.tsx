@@ -3,20 +3,20 @@ import { useMemo } from 'react';
 import { Center, Flex, FlexProps, Link, Spinner, Text } from '@chakra-ui/react';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 
+import { useGetStakingTransactions } from '../../hooks/useGetStakingTransactions';
 import AssetText from '@/components/Common/AssetText';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import Validator from '@/components/Common/Validator';
 import { DataTable } from '@/components/Table/DataTable';
-import { useGetStakingTransactionHistories } from '@/hooks/queries/useGetStakingTransactionHistories';
 import { IValidator, useGetValidators } from '@/hooks/queries/useGetValidators';
 import i18n from '@/i18n';
-import { StakingTransactionHistory } from '@/typings/stakingTransactionHistory';
+import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
 import { formatReadDate } from '@/utils/date';
 import { getDeployStatus } from '@/utils/deployStatus';
 import { getDeployHashUrl } from '@/utils/url';
 
 type ListRewardsProps = FlexProps;
-type TransactionWithValidator = StakingTransactionHistory & {
+type TransactionWithValidator = NFTTransactionHistory & {
   validatorName?: string;
   validatorLogo?: string;
 };
@@ -26,20 +26,18 @@ const columnHelper = createColumnHelper<TransactionWithValidator>();
 const ListStakingHistories = (props: ListRewardsProps) => {
   const { data: validators = [], isLoading: isLoadingValidators } =
     useGetValidators();
-  const { data: transactions = [], isLoading: isLoadingTransactions } =
-    useGetStakingTransactionHistories();
+  const { transactions = [], isLoading: isLoadingTransactions } =
+    useGetStakingTransactions();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const columns: ColumnDef<TransactionWithValidator, any>[] = [
-    columnHelper.accessor('validatorPublicKeyHex', {
+    columnHelper.accessor('args.validator', {
       cell: ({ cell }) => {
-        const { validatorPublicKeyHex, validatorLogo, validatorName } =
-          cell.row.original;
+        const { args, validatorLogo, validatorName } = cell.row.original;
         return (
           <Validator
             name={validatorName}
             logo={validatorLogo}
-            publicKey={validatorPublicKeyHex}
+            publicKey={(args?.validator as string) || ''}
             alignItems={'center'}
             minW="40"
           />
@@ -67,7 +65,7 @@ const ListStakingHistories = (props: ListRewardsProps) => {
         <Text display={{ base: 'none', md: 'block' }}>{i18n.t('action')}</Text>
       ),
     }),
-    columnHelper.accessor('amount', {
+    columnHelper.accessor('args.amount', {
       cell: (info) => {
         return <AssetText value={info.getValue()} asset="CSPR" />;
       },
@@ -101,13 +99,6 @@ const ListStakingHistories = (props: ListRewardsProps) => {
         <Text display={{ base: 'none', md: 'block' }}>{i18n.t('status')}</Text>
       ),
     }),
-    // columnHelper.accessor((row) => row, {
-    //   id: 'action',
-    //   cell: ({ cell }) => {
-    //     return <div></div>;
-    //   },
-    //   header: () => '',
-    // }),
   ];
 
   const delegatorRewardsWithValidator: TransactionWithValidator[] =
@@ -115,7 +106,7 @@ const ListStakingHistories = (props: ListRewardsProps) => {
       return transactions.map((transaction) => {
         const foundValidator = validators.find(
           (validator: IValidator) =>
-            validator.validatorPublicKey === transaction.validatorPublicKeyHex
+            validator.validatorPublicKey === transaction.args?.validator
         );
 
         return {

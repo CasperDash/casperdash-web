@@ -31,11 +31,20 @@ export const useGetTransactions = (
     [QueryKeysEnum.TRANSACTIONS, publicKey],
     async () => {
       const transactionHistoryStorage = new TransactionHistoryStorage(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         publicKey!
       );
       const transactionHistories =
         await transactionHistoryStorage.getTransactionHistories();
-      const pendingTransactionHistories = transactionHistories.filter(
+
+      // Sort by date
+      const sortedTransactionHistories = _.orderBy(
+        transactionHistories,
+        ['date'],
+        ['desc']
+      );
+
+      const pendingTransactionHistories = sortedTransactionHistories.filter(
         (transactionHistory: NFTTransactionHistory) =>
           transactionHistory.status === TransactionStatusEnum.PENDING
       );
@@ -49,7 +58,7 @@ export const useGetTransactions = (
         let trackingUpdatedDeploys: NFTTransactionHistory[] = [];
 
         const mappedTxHistories = _.map(
-          transactionHistories,
+          sortedTransactionHistories,
           (txHistory: NFTTransactionHistory) => {
             const foundDeployStatus = deployStatuses.find(
               (deployStatus: DeployStatus) =>
@@ -89,7 +98,7 @@ export const useGetTransactions = (
         return mappedTxHistories;
       }
 
-      return transactionHistories;
+      return sortedTransactionHistories;
     },
     {
       refetchInterval: 5 * 1000,

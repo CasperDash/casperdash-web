@@ -2,18 +2,19 @@ import { Box, BoxProps, Link } from '@chakra-ui/react';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 
+import { useGetTransferTransactions } from './hooks/useGetTransferTransactions';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { DataTable } from '@/components/Table/DataTable';
-import { useGetTransactionHistories } from '@/hooks/queries/useGetTransactionHistories';
 import i18n from '@/i18n';
+import { NFTTransactionHistory } from '@/typings/nftTransactionHistory';
 import { getDeployStatus } from '@/utils/deployStatus';
 import { getDeployHashUrl } from '@/utils/url';
 
-const columnHelper = createColumnHelper<TransactionHistory>();
+const columnHelper = createColumnHelper<NFTTransactionHistory>();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const columns: ColumnDef<TransactionHistory, any>[] = [
-  columnHelper.accessor('transferId', {
+const columns: ColumnDef<NFTTransactionHistory, any>[] = [
+  columnHelper.accessor('args.transferId', {
     cell: (info) => info.getValue(),
     header: () => i18n.t('transfer_id'),
   }),
@@ -37,13 +38,13 @@ const columns: ColumnDef<TransactionHistory, any>[] = [
     cell: (info) => getDeployStatus(info.getValue()),
     header: 'Status',
   }),
-  columnHelper.accessor('amount', {
+  columnHelper.accessor('args.amount', {
     cell: (info) => {
       const { cell } = info;
 
       return i18n.t('intlAssetNumber', {
         val: info.getValue(),
-        asset: cell.row.original.asset,
+        asset: cell.row.original.args?.asset,
         number: 3,
       });
     },
@@ -58,13 +59,13 @@ const columns: ColumnDef<TransactionHistory, any>[] = [
 type TableTransactionProps = BoxProps;
 
 const TableTransaction = ({ ...restProps }: TableTransactionProps) => {
-  const { data = [] } = useGetTransactionHistories();
+  const { transactions = [] } = useGetTransferTransactions();
 
   return (
     <Box {...restProps} overflowX={'auto'} background={'white'} p="8">
       <DataTable
         columns={columns}
-        data={data}
+        data={transactions}
         w={{ base: '800px', md: '100%' }}
       />
     </Box>

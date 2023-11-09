@@ -9,7 +9,7 @@ type NFTTransactionHistory = {
   toPublicKeyHex?: string;
   type: DeployTypesEnum;
   paymentAmount: number;
-  args: Record<string, string | number>;
+  args: Record<string, unknown>;
   status: TransactionStatusEnum;
   date: string;
   entryPoint?: string;

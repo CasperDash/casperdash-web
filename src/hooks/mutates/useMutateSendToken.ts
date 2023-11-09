@@ -1,13 +1,13 @@
-import {
-  useMutation,
-  UseMutationOptions,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
+import { useMutateAddTransaction } from './useMutateAddTransaction';
+import { useAccount } from '../useAccount';
 import { Config } from '@/config';
+import { DeployActionsEnum } from '@/enums/deployActions';
+import { DeployContextEnum } from '@/enums/deployContext';
+import { DeployTypesEnum } from '@/enums/deployTypes';
 import { MutationKeysEnum } from '@/enums/mutationKeys.enum';
-import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
@@ -26,7 +26,9 @@ type DeployParams = {
 export const useMutateSendToken = (
   options?: UseMutationOptions<DeployResponse, unknown, DeployParams, unknown>
 ) => {
-  const queryClient = useQueryClient();
+  const { publicKey } = useAccount();
+  const { mutateAsync } = useMutateAddTransaction(publicKey);
+
   return useMutation({
     ...options,
     mutationFn: async ({
@@ -52,28 +54,23 @@ export const useMutateSendToken = (
 
       const result = await deploy(signedDeploy);
 
-      queryClient.setQueryData(
-        [QueryKeysEnum.TRANSACTION_HISTORIES, fromPublicKeyHex],
-        (oldTransactionHistories?: TransactionHistory[]) => {
-          const newTransactionHistory = {
-            fromPublicKeyHex,
-            toPublicKeyHex,
-            contractHash,
+      if (result?.deployHash) {
+        await mutateAsync({
+          fromPublicKeyHex,
+          toPublicKeyHex,
+          deployHash: result.deployHash,
+          args: {
             amount,
-            fee,
-            deployHash: result.deployHash,
-            status: TransactionStatusEnum.PENDING,
-            date: dayjs().toISOString(),
             asset,
-          };
-
-          if (!oldTransactionHistories) {
-            return [newTransactionHistory];
-          }
-
-          return [newTransactionHistory, ...oldTransactionHistories];
-        }
-      );
+          },
+          context: DeployContextEnum.TRANSFER,
+          action: DeployActionsEnum.TRANSFER,
+          status: TransactionStatusEnum.PENDING,
+          date: dayjs().toISOString(),
+          paymentAmount: fee,
+          type: DeployTypesEnum.CONTRACT_CALL,
+        });
+      }
 
       return result;
     },
