@@ -38,6 +38,11 @@ const NFTDetail = () => {
         variant={'outline'}
         w={{ base: '28' }}
         onClick={handleOnBack}
+        _hover={{
+          bgColor: 'gray.800',
+          color: 'white',
+          borderColor: 'gray.800',
+        }}
       >
         {t('back')}
       </Button>
