@@ -7,6 +7,7 @@ import { useDisconnectToDapp } from './postMesasges/useDisconnectToDapp';
 import { PathEnum } from '@/enums';
 import { useAppDispatch } from '@/store';
 import { reset } from '@/store/wallet';
+import { store } from '@/utils/localForage';
 import { localStorageUtil } from '@/utils/localStorage';
 
 export const useDeleteAllData = () => {
@@ -15,10 +16,11 @@ export const useDeleteAllData = () => {
   const dispatch = useAppDispatch();
   const { toastSuccess } = useI18nToast();
 
-  const handleDeleteAllData = useCallback(() => {
+  const handleDeleteAllData = useCallback(async () => {
     dispatch(reset());
     disconnect();
     localStorageUtil.removeAll();
+    await store.clear();
 
     toastSuccess('delete_all_data');
     navigate(PathEnum.HOME);

@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { PiUserCircleLight } from 'react-icons/pi';
 
+import MyAccount from '../MyAccount';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
 import { Config } from '@/config';
 import { useGetCurrentAccount } from '@/hooks/queries/useGetCurrentAccount';
@@ -41,7 +42,7 @@ const AccountSidebar = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader background={'panelBackground'} borderBottomWidth="1px">
-            <Flex>
+            <Flex justifyContent={'space-between'}>
               <Box>
                 <Text fontSize={'18px'}>{name}</Text>
                 <MiddleTruncatedText
@@ -49,14 +50,7 @@ const AccountSidebar = () => {
                   value={publicKey}
                 />
               </Box>
-              {/* <IconButton
-                isRound={true}
-                variant="solid"
-                colorScheme="teal"
-                aria-label="Done"
-                fontSize="20px"
-                icon={<CheckIcon />}
-              /> */}
+              <MyAccount isButton />
             </Flex>
           </DrawerHeader>
           <DrawerBody pt={4} pb={4}>

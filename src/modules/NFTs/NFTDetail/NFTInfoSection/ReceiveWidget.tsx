@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
 import { Config } from '@/config';
+import { AssetNamesEnum } from '@/enums/assetNames';
 
 const ReceiveWidget = () => {
   const { t } = useTranslation();
@@ -15,15 +16,15 @@ const ReceiveWidget = () => {
   });
   const { data = null } = useGetCurrentMarketContract();
 
-  const bigPlatformFee = price
-    ? Big(price).times(Config.marketPlatformFeePercent).div(100)
-    : 0;
+  const bigPlatformFee = Big(price || 0)
+    .times(Config.marketPlatformFeePercent)
+    .div(100);
+  const bigRoyaltyFee = Big(price || 0).times(
+    Big(data?.royaltyFee || 0).div(100)
+  );
 
   const receiveAmount = price
-    ? Big(price)
-        .minus(Big(price).times(Big(data?.royaltyFee || 0).div(100)))
-        .minus(bigPlatformFee)
-        .toFixed(4)
+    ? Big(price).minus(bigRoyaltyFee).minus(bigPlatformFee).toFixed(4)
     : 0;
 
   return (
@@ -45,20 +46,35 @@ const ReceiveWidget = () => {
         </Text>
       </Flex>
       <Flex justifyContent={'space-between'} alignItems="center">
-        <Text mt="4">{t('royalty_fee')}</Text>
-        <Text>
+        <Text mt="4">
+          {t('royalty_fee')} (
           {t('intlAssetNumber', {
             asset: '%',
             val: data?.royaltyFee,
           })}
+          )
+        </Text>
+        <Text>
+          {t('intlAssetNumber', {
+            asset: AssetNamesEnum.CSPR,
+            val: bigRoyaltyFee.toFixed(4),
+          })}
         </Text>
       </Flex>
       <Flex justifyContent={'space-between'} alignItems="center">
-        <Text mt="4">{t('platform_fee')}</Text>
-        <Text>
+        <Text mt="4">
+          {t('platform_fee')} (
           {t('intlAssetNumber', {
             asset: '%',
             val: Config.marketPlatformFeePercent,
+          })}
+          )
+        </Text>
+        <Text>
+          {t('intlAssetNumber', {
+            asset: AssetNamesEnum.CSPR,
+            val: bigPlatformFee.toFixed(4),
+            number: 4,
           })}
         </Text>
       </Flex>
@@ -73,7 +89,7 @@ const ReceiveWidget = () => {
         <Text>{t('you_will_receive')}</Text>
         <Text>
           {t('intlAssetNumber', {
-            asset: 'CSPR',
+            asset: AssetNamesEnum.CSPR,
             val: receiveAmount,
           })}
         </Text>
