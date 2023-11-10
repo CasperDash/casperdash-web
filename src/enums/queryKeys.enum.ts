@@ -1,4 +1,5 @@
 export enum QueryKeysEnum {
+  CONFIGURATION = 'configuration',
   COINGECKO_COIN = 'coingecko_coin',
   COINGECKO_COIN_HISTORIES = 'coingecko_coin_histories',
   ACCOUNT_PUBLIC_KEYS = 'account_public_keys',

@@ -1,17 +1,14 @@
 import { useEffect } from 'react';
 
-import { useDisclosure } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 
-import ModalConnectWallet from '../core/ModalConnectWallet';
 import { PathEnum } from '@/enums';
 import { useUpdateAccount } from '@/hooks/useUpdateAccount';
 import casperUserUtil from '@/utils/casper/casperUser';
 
-const PopupAutoConnectWallet = () => {
+const BackgroundAutoConnectWallet = () => {
   const location = useLocation();
   const { updateAccount } = useUpdateAccount();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (
@@ -41,11 +38,11 @@ const PopupAutoConnectWallet = () => {
       return;
     }
 
-    onOpen();
+    // onOpen();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <ModalConnectWallet isOpen={isOpen} onClose={onClose} />;
+  return null;
 };
 
-export default PopupAutoConnectWallet;
+export default BackgroundAutoConnectWallet;

@@ -14,6 +14,7 @@ import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { useMutateAddTransaction } from '@/hooks/mutates/useMutateAddTransaction';
+import { useGetConfigs } from '@/hooks/queries/useGetConfigs';
 import { useGetContractPackageInfo } from '@/hooks/queries/useGetContractPackageInfo';
 import { useAccount } from '@/hooks/useAccount';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
@@ -38,14 +39,15 @@ export const useCreateNFTListing = (
   const { data: contractPackageInfo } =
     useGetContractPackageInfo(contractPackageHash);
   const { mutateAsync } = useMutateAddTransaction(publicKey);
+  const { data: configs } = useGetConfigs();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     ...options,
     mutationFn: async (params: Params) => {
       const contract = new MarketContract(
-        Config.contracts.vkMarketplace.contractHash,
-        Config.contracts.vkMarketplace.contractPackageHash,
+        `hash-${configs?.MARKETPLACE_CONTRACT?.contractHash}}`,
+        `hash-${configs?.MARKETPLACE_CONTRACT?.contractPackageHash}`,
         {
           chainName: Config.networkName,
         }

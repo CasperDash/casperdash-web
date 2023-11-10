@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+
 import { Flex, Box } from '@chakra-ui/react';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
 import BaseLayout from '../Base';
 import MainContainer from '@/components/Common/MainContainer';
+import { usePrefetchGetConfigs } from '@/hooks/queries/useGetConfigs';
 import { useGetLocked } from '@/hooks/queries/useGetLocked';
 import UnlockWallet from '@/modules/UnlockWallet';
 
@@ -23,6 +26,12 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
 
 // MasterPanelLayout
 const PanelLayout = ({ children }: Props) => {
+  const prefetch = usePrefetchGetConfigs();
+
+  useEffect(() => {
+    prefetch();
+  }, []);
+
   return (
     <BaseLayout defaultLightBg="white" defaultLightHeaderBg="gray.50">
       <Box

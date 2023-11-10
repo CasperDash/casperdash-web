@@ -14,6 +14,7 @@ import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
 import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import { TransactionStatusEnum } from '@/enums/transactionStatusEnum';
 import { useMutateAddTransaction } from '@/hooks/mutates/useMutateAddTransaction';
+import { useGetConfigs } from '@/hooks/queries/useGetConfigs';
 import { useAccount } from '@/hooks/useAccount';
 import { useEstimateNetworkFee } from '@/hooks/useEstimateNetworkFee';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
@@ -32,6 +33,7 @@ export const useBuyItem = (
   options?: UseMutationOptions<DeployResponse, unknown, Params, unknown>
 ) => {
   const { publicKey } = useAccount();
+  const { data } = useGetConfigs();
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutateAddTransaction(publicKey);
   const { fee } = useEstimateNetworkFee({
@@ -46,8 +48,8 @@ export const useBuyItem = (
         throw new Error('Please connect to buy item');
       }
       const contract = new MarketContract(
-        Config.contracts.vkMarketplace.contractHash,
-        Config.contracts.vkMarketplace.contractPackageHash,
+        `hash-${data?.MARKETPLACE_CONTRACT?.contractHash}`,
+        `hash-${data?.MARKETPLACE_CONTRACT?.contractPackageHash}`,
         {
           chainName: Config.networkName,
         }

@@ -21,13 +21,5 @@ export const Config = {
   auctionHash:
     VITE_AUCTION_HASH ||
     'ccb576d6ce6dec84a551e48f0d0b7af89ddba44c7390b690036257a04a3ae9ea',
-  contracts: {
-    vkMarketplace: {
-      contractHash:
-        'hash-102847b3bf911abbd123cb66b0cc72e7e19619d9f49d52bc0bf1aeefb792bdec',
-      contractPackageHash:
-        'hash-e7cf0e4796821217ae86e2b34848cc6e1ef610b87572bd0d0848762448f1b3f2',
-    },
-  },
   marketPlatformFeePercent: 2,
 };
