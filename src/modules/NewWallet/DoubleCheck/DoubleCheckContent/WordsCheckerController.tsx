@@ -3,24 +3,30 @@ import { Control, Controller, FieldValues } from 'react-hook-form';
 
 import RadioButton from '@/components/Inputs/RadioButton';
 import RadioButtonGroup from '@/components/Inputs/RadioButton/RadioButtonGroup';
+import { getPhraseLength, getWord } from '@/utils/entropy';
 
 type Props = {
   control: Control<FieldValues>;
-  answer: number;
-  words: string[];
+  answerIndex: number;
+  masterKeyEntropy: Uint8Array;
   options: number[];
 };
 
-const WordsCheckerController = ({ control, answer, words, options }: Props) => {
+const WordsCheckerController = ({
+  control,
+  answerIndex,
+  masterKeyEntropy,
+  options,
+}: Props) => {
   return (
     <Controller
       control={control}
-      name={`words.${answer}`}
+      name={`words.${answerIndex}`}
       rules={{
         required: true,
         validate: {
           isValid: (value: string) => {
-            if (value !== words[answer]) {
+            if (value !== getWord(masterKeyEntropy, answerIndex, true)) {
               return 'error';
             }
           },
@@ -28,10 +34,16 @@ const WordsCheckerController = ({ control, answer, words, options }: Props) => {
       }}
       render={({ field: { onChange } }) => (
         <RadioButtonGroup alignItems="center" onChange={onChange}>
-          {_.pullAt([...words], options).map((value: string) => {
+          {_.pullAt(
+            [...Array.from(Array(getPhraseLength(masterKeyEntropy)).keys())],
+            options
+          ).map((value: number) => {
             return (
-              <RadioButton key={`word-${value}`} value={value}>
-                {value}
+              <RadioButton
+                key={`word-checker-${value}`}
+                value={getWord(masterKeyEntropy, value, true)}
+              >
+                {getWord(masterKeyEntropy, value, true)}
               </RadioButton>
             );
           })}

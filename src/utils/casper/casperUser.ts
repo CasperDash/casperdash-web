@@ -51,7 +51,7 @@ class CasperUserUtil {
     encryptionType = EncryptionType.Ed25519,
   }: {
     password: string;
-    keyphrase: string;
+    keyphrase: Uint8Array;
     encryptionType: EncryptionType;
   }) => {
     if (!password) {
@@ -104,12 +104,12 @@ class CasperUserUtil {
     localStorageUtil.removeAll();
   };
 
-  getKeyphrase = async () => {
+  getKeyEntropy = async () => {
     if (!this.userService) {
       throw new Error('Missing UserService instance');
     }
 
-    return this.userService.getKeyphrase();
+    return this.userService.getKeyEntropy();
   };
 
   public async getCurrentWalletDetails() {

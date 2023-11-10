@@ -1,19 +1,26 @@
 import { BoxProps, ListItem, OrderedList } from '@chakra-ui/react';
 
 import Paper from '@/components/Paper';
+import { getWord } from '@/utils/entropy';
 
 type Props = {
-  words: string[];
+  wordIndexes: number[];
   start?: number;
+  masterKeyEntropy: Uint8Array;
 } & BoxProps;
 
-const ListWords = ({ start, words, ...restProps }: Props) => {
+const ListWords = ({
+  start,
+  wordIndexes,
+  masterKeyEntropy,
+  ...restProps
+}: Props) => {
   return (
     <Paper {...restProps} borderRadius="2xl">
       <OrderedList start={start}>
-        {words.map((word: string) => (
-          <ListItem key={word} lineHeight="6">
-            {word}
+        {wordIndexes.map((wordIndex: number) => (
+          <ListItem key={`word-${wordIndex}`} lineHeight="6">
+            {getWord(masterKeyEntropy, wordIndex, true)}
           </ListItem>
         ))}
       </OrderedList>

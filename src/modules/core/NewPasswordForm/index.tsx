@@ -26,7 +26,10 @@ import { useSafeResetSensitive } from '@/hooks/useSafeResetSensitive';
 import { useUpdateAccount } from '@/hooks/useUpdateAccount';
 import i18n from '@/i18n';
 import { originUrlSelector } from '@/store/sdk';
-import { encryptionTypeSelector, masterKeySelector } from '@/store/wallet';
+import {
+  encryptionTypeSelector,
+  masterKeyEntropySelector,
+} from '@/store/wallet';
 import casperUserUtil from '@/utils/casper/casperUser';
 import { isDebug } from '@/utils/env';
 
@@ -64,7 +67,7 @@ type SubmitValues = {
 const NewPasswordForm = ({ ...restProps }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const masterKey = useSelector(masterKeySelector);
+  const masterKeyEntropy = useSelector(masterKeyEntropySelector);
   const encryptionType = useSelector(encryptionTypeSelector);
   const { toastSuccess, toastError } = useI18nToast();
   const connectToDApp = useConnectToDapp();
@@ -93,7 +96,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
       return;
     }
 
-    if (!masterKey) {
+    if (!masterKeyEntropy) {
       toastError('master_key_is_empty');
 
       return;
@@ -108,7 +111,7 @@ const NewPasswordForm = ({ ...restProps }: Props) => {
     try {
       const { publicKey, uid } = await casperUserUtil.createNewUser({
         password: values.newPassword,
-        keyphrase: masterKey,
+        keyphrase: masterKeyEntropy,
         encryptionType,
       });
 

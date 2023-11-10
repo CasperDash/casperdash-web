@@ -6,7 +6,7 @@ import { StatusEnum } from '@/enums/status';
 export interface IWallet {
   status: StatusEnum;
   uid?: string;
-  masterKey?: string;
+  masterKeyEntropy?: Uint8Array;
   publicKey?: string;
   encryptionType?: EncryptionType;
 }
@@ -17,7 +17,7 @@ const initialState: IWallet = {
   publicKey: undefined,
   uid: undefined,
   status: StatusEnum.INACTIVE,
-  masterKey: undefined,
+  masterKeyEntropy: undefined,
   encryptionType: EncryptionType.Ed25519,
 };
 
@@ -32,9 +32,12 @@ export const walletSlice = createSlice({
       const { payload: encryptionType } = action;
       state.encryptionType = encryptionType;
     },
-    updateMasterKey: (state: IWallet, action: PayloadAction<string>) => {
-      const { payload: masterKey } = action;
-      state.masterKey = masterKey;
+    updateMasterKeyEntropy: (
+      state: IWallet,
+      action: PayloadAction<Uint8Array>
+    ) => {
+      const { payload: masterKeyEntropy } = action;
+      state.masterKeyEntropy = masterKeyEntropy;
     },
     updatePublicKey: (state: IWallet, action: PayloadAction<string>) => {
       const { payload: publicKey } = action;
@@ -43,13 +46,13 @@ export const walletSlice = createSlice({
     updateEncryptionTypeAndMasterKey: (
       state: IWallet,
       action: PayloadAction<
-        Required<Pick<IWallet, 'masterKey' | 'encryptionType'>>
+        Required<Pick<IWallet, 'masterKeyEntropy' | 'encryptionType'>>
       >
     ) => {
       const {
-        payload: { masterKey, encryptionType },
+        payload: { masterKeyEntropy, encryptionType },
       } = action;
-      state.masterKey = masterKey;
+      state.masterKeyEntropy = masterKeyEntropy;
       state.encryptionType = encryptionType;
     },
     loginWallet: (
@@ -77,7 +80,7 @@ export const walletSlice = createSlice({
       state.publicKey = publicKey;
       state.uid = uid;
       state.status = StatusEnum.ACTIVE;
-      state.masterKey = undefined;
+      state.masterKeyEntropy = undefined;
     },
     reset: () => initialState,
     safeResetSensitive: (state: IWallet) => {
@@ -91,7 +94,7 @@ export const walletSlice = createSlice({
 
 export const {
   updateEncryptionType,
-  updateMasterKey,
+  updateMasterKeyEntropy,
   updateEncryptionTypeAndMasterKey,
   updatePublicKey,
   loginWallet,
