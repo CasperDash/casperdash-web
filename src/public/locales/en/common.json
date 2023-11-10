@@ -172,7 +172,7 @@
   "price": "Price",
   "royalty_fee": "Royalty fee",
   "you_will_receive": "You will receive",
-  "price_must_be_greater_than_0": "Price must be greater than 0",
+  "price_must_be_greater_equal_than": "Price must be greater than or equal to {{ val }}",
   "confirm_listing": "Confirm Listing",
   "list_for_sale": "List for sale",
   "create_listing": "Create Listing",
@@ -200,5 +200,6 @@
   "buying": "Buying...",
   "nft_in_your_wallet": "This NFT is in your wallet",
   "nft_not_listed": "This NFT collection has not supported for listing. Please contact our Admin for more details.",
-  "nft_can_list": "This NFT collection has supported for listing. You can list your NFT now."
+  "nft_can_list": "This NFT collection has supported for listing. You can list your NFT now.",
+  "switch_account": "Switch your account"
 }

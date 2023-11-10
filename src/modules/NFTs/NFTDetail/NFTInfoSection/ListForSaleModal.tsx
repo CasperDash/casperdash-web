@@ -34,8 +34,15 @@ import i18n from '@/i18n';
 import { ModalTransactionStatus } from '@/modules/core/ModalTransactionStatus';
 import UnlockWalletPopupRequired from '@/modules/core/UnlockWalletPopupRequired';
 
+const MINIMUM_PRICE = 1;
+
 const validationSchema = z.object({
-  price: z.number().gt(0, i18n.t('price_must_be_greater_than_0') as string),
+  price: z.number().gte(
+    MINIMUM_PRICE,
+    i18n.t('price_must_be_greater_equal_than', {
+      val: MINIMUM_PRICE,
+    }) as string
+  ),
 });
 
 type SubmitValues = z.infer<typeof validationSchema>;

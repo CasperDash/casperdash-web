@@ -46,7 +46,6 @@ const App = () => {
                 return [
                   QueryKeysEnum.TRANSACTION_HISTORIES,
                   QueryKeysEnum.CONNECTED_URL,
-                  QueryKeysEnum.ACCOUNT,
                   QueryKeysEnum.ACCOUNT_BALANCES,
                   QueryKeysEnum.AIRDROP_CODE,
                   QueryKeysEnum.NFTS,
