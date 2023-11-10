@@ -27,10 +27,11 @@ export const RadioLengthWords = ({ control, setValue }: Props) => {
             size="md"
             defaultValue={'12'}
             onChange={(value: string) => {
-              const masterKey = KeyFactory.getInstance().generate(
-                parseInt(value, 10)
+              const masterKeyEntropy = KeyFactory.getInstance().generate(
+                Number(value)
               );
-              setValue('masterKey', masterKey);
+
+              setValue('masterKeyEntropy', masterKeyEntropy);
 
               onChange(parseInt(value));
             }}

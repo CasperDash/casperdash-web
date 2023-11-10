@@ -76,7 +76,7 @@ export class UserService {
   /**
    * Initialize with `keyphrase` passed when creating new User
    */
-  initialize = async (keyphrase: string) => {
+  initialize = async (keyphrase: Uint8Array) => {
     const user = this.instance;
     if (!user) {
       throw new Error('User not found');
@@ -267,10 +267,10 @@ export class UserService {
     return walletInfo;
   };
 
-  getKeyphrase = async () => {
+  getKeyEntropy = async () => {
     const user = this.instance;
 
-    return user.getHDWalletKeyPhrase();
+    return user.getHDWallet().keyEntropy;
   };
 
   getWallets = async (): Promise<WalletInfo[]> => {

@@ -6,10 +6,11 @@ import { AppState } from '..';
 import { StatusEnum } from '@/enums/status';
 
 // Master key
-const selectMasterKey = (state: AppState) => state[NAME_SPACE].masterKey;
-export const masterKeySelector = createSelector(
-  selectMasterKey,
-  (masterKey?: string) => masterKey
+const selectMasterKeyEntropy = (state: AppState) =>
+  state[NAME_SPACE].masterKeyEntropy;
+export const masterKeyEntropySelector = createSelector(
+  selectMasterKeyEntropy,
+  (masterKey?: Uint8Array) => masterKey
 );
 
 // Encryption type
@@ -18,12 +19,6 @@ const selectEncryptionType = (state: AppState) =>
 export const encryptionTypeSelector = createSelector(
   selectEncryptionType,
   (encryptionType?: EncryptionType) => encryptionType
-);
-
-// Words array
-const selectWords = (state: AppState) => state[NAME_SPACE].masterKey;
-export const wordsSelector = createSelector(selectWords, (masterKey?: string) =>
-  masterKey ? masterKey.split(' ') : []
 );
 
 // Public key

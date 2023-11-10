@@ -13,9 +13,9 @@ import casperUserUtil from '@/utils/casper/casperUser';
 export const useGetMyRecoveryPhrase = (
   options?: Omit<
     UseQueryOptions<
-      string,
+      Uint8Array,
       unknown,
-      string,
+      Uint8Array,
       [QueryKeysEnum.RECOVERY_PHRASE, string | undefined]
     >,
     'queryKey' | 'queryFn'
@@ -34,7 +34,7 @@ export const useGetMyRecoveryPhrase = (
   return useQuery(
     [QueryKeysEnum.RECOVERY_PHRASE, publicKey],
     async () => {
-      const keyPhrase = await casperUserUtil.getKeyphrase();
+      const keyPhrase = await casperUserUtil.getKeyEntropy();
 
       return keyPhrase;
     },

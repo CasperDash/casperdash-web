@@ -22,7 +22,8 @@ import SelectEncryptionType from '@/components/Select/SelectEncryptionType';
 import { PathEnum } from '@/enums';
 import { RadioLengthWords } from '@/modules/core/Controllers/RadioLengthWords';
 import { useAppDispatch } from '@/store';
-import { updateEncryptionType, updateMasterKey } from '@/store/wallet';
+import { updateEncryptionType, updateMasterKeyEntropy } from '@/store/wallet';
+import { toEntropy } from '@/utils/entropy';
 
 type Props = BoxProps;
 
@@ -78,10 +79,10 @@ const SeedPhrases = ({ ...restProps }: Props) => {
 
   const handelOnSubmit = (values: SubmitValues) => {
     const { encryptionType, words } = values;
-    const masterKey = words.filter((word: string) => word).join(' ');
+    words.shift();
 
     dispatch(updateEncryptionType(encryptionType));
-    dispatch(updateMasterKey(masterKey));
+    dispatch(updateMasterKeyEntropy(toEntropy(words)));
     navigate(`${PathEnum.IMPORT_WALLET_NEW_PASSWORD}`);
   };
 

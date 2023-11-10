@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 import {
   Box,
@@ -6,7 +6,6 @@ import {
   Button,
   Flex,
   FormControl,
-  Input,
   Text,
 } from '@chakra-ui/react';
 import { EncryptionType, KeyFactory } from 'casper-storage';
@@ -29,24 +28,24 @@ const NUMBER_WORDS_PER_PAGE = 4;
 type SubmitValues = {
   encryptionType: EncryptionType;
   wordsLength: number | string;
-  masterKey: string;
+  masterKeyEntropy: Uint8Array;
 };
 
 const RecoveryKeysForm = ({ ...restProps }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const masterKeyWatchedRef = useRef<string>('');
-  const { handleSubmit, control, register, setValue, reset } =
-    useForm<SubmitValues>({
-      defaultValues: {
-        encryptionType: EncryptionType.Ed25519,
-        wordsLength: 12,
-        masterKey: KeyFactory.getInstance().generate(12),
-      },
-    });
-  masterKeyWatchedRef.current = useWatch({
-    name: 'masterKey',
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const masterKeyEntropyWatchedRef = useRef<Uint8Array>(null!);
+  const { handleSubmit, control, setValue } = useForm<SubmitValues>({
+    defaultValues: {
+      encryptionType: EncryptionType.Ed25519,
+      wordsLength: 12,
+      masterKeyEntropy: KeyFactory.getInstance().generate(12),
+    },
+  });
+  masterKeyEntropyWatchedRef.current = useWatch({
+    name: 'masterKeyEntropy',
     control,
   });
   const numberOfWords = useWatch({
@@ -54,24 +53,19 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
     name: 'wordsLength',
   });
 
-  const handleOnSubmit = ({ masterKey, encryptionType }: SubmitValues) => {
+  const handleOnSubmit = ({
+    masterKeyEntropy,
+    encryptionType,
+  }: SubmitValues) => {
     dispatch(
       updateEncryptionTypeAndMasterKey({
         encryptionType,
-        masterKey,
+        masterKeyEntropy,
       })
     );
 
     navigate(`${PathEnum.DOUBLE_CHECK}`);
   };
-
-  useEffect(() => {
-    return () => {
-      masterKeyWatchedRef.current = '';
-      reset();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Box {...restProps}>
@@ -113,14 +107,15 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
             md: 'auto',
           }}
         >
-          {_.chunk(masterKeyWatchedRef.current.split(' '), 4).map(
-            (partWords: string[], index: number) => {
+          {_.chunk(Array.from(Array(numberOfWords).keys()), 4).map(
+            (partWordIndexes: number[], index: number) => {
               return (
                 <ListWords
                   start={index * NUMBER_WORDS_PER_PAGE + 1}
                   w={{ base: '80px', md: '175px' }}
                   key={`words-${index}`}
-                  words={partWords}
+                  wordIndexes={partWordIndexes}
+                  masterKeyEntropy={masterKeyEntropyWatchedRef.current}
                   border={{ base: 'none', md: '1px solid' }}
                   borderColor={{ base: 'none', md: 'gray.200' }}
                   p={{ base: '0', md: '8' }}
@@ -129,7 +124,6 @@ const RecoveryKeysForm = ({ ...restProps }: Props) => {
             }
           )}
         </Flex>
-        <Input type="hidden" {...register('masterKey')} />
         <Box mt={{ base: 18, md: 30 }}>
           <Button type="submit" w="100%" variant="primary">
             {t('next')}

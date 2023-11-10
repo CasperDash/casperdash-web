@@ -16,7 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import WordsCheckerController from './WordsCheckerController';
 import { PathEnum } from '@/enums';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
-import { wordsSelector } from '@/store/wallet';
+import { masterKeyEntropySelector } from '@/store/wallet';
+import { getPhraseLength } from '@/utils/entropy';
 import {
   generateSeedPhraseCheckers,
   SeedPhraseChecker,
@@ -32,15 +33,18 @@ const DoubleCheck = ({ ...restProps }: Props) => {
   const { t } = useTranslation();
   const seedPhraseCheckersRef = useRef<SeedPhraseChecker[]>([]);
   const { handleSubmit, control, reset } = useForm();
-  const words = useSelector(wordsSelector);
+  const masterKeyEntropy = useSelector(masterKeyEntropySelector);
 
   seedPhraseCheckersRef.current = useMemo(() => {
-    if (words.length === 0) {
+    if (!masterKeyEntropy || masterKeyEntropy?.length === 0) {
       return [];
     }
 
-    return generateSeedPhraseCheckers(words.length, TOTAL_DOUBLE_CHECK);
-  }, [words]);
+    return generateSeedPhraseCheckers(
+      getPhraseLength(masterKeyEntropy) || 0,
+      TOTAL_DOUBLE_CHECK
+    );
+  }, [masterKeyEntropy]);
 
   const onSubmit = () => {
     navigate(PathEnum.NEW_PASSWORD);
@@ -74,14 +78,16 @@ const DoubleCheck = ({ ...restProps }: Props) => {
                     <FormLabel>
                       {t('select_word', { orderNumber: answer + 1 })}
                     </FormLabel>
-                    <Box mt="6">
-                      <WordsCheckerController
-                        control={control}
-                        words={words}
-                        options={options}
-                        answer={answer}
-                      />
-                    </Box>
+                    {masterKeyEntropy && (
+                      <Box mt="6">
+                        <WordsCheckerController
+                          control={control}
+                          masterKeyEntropy={masterKeyEntropy}
+                          options={options}
+                          answerIndex={answer}
+                        />
+                      </Box>
+                    )}
                   </Flex>
                 </FormControl>
               );
