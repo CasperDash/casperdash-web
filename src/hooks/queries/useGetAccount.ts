@@ -33,7 +33,7 @@ export const useGetAccount = (
 
         await accountStorage.setItem({
           name: walletDetails?.descriptor.name,
-          uid: uid!,
+          uid,
         });
 
         return {
