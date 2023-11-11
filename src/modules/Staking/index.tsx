@@ -5,6 +5,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Box,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +14,7 @@ import ListStakeds from './components/ListStakeds';
 import ListStakingHistories from './components/ListStakingHistories';
 import RewardInfo from './components/RewardInfo';
 import StakingForm from './components/StakingForm';
+import StakingRewardsChart from './components/StakingRewardsChart';
 
 const Staking = () => {
   const { t } = useTranslation();
@@ -25,6 +27,9 @@ const Staking = () => {
       mt={{ base: '6', lg: '20' }}
       w={'100%'}
     >
+      <Box width={'full'}>
+        <StakingRewardsChart />
+      </Box>
       <Tabs
         variant={'soft-rounded'}
         colorScheme="blackAlpha"
