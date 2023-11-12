@@ -10,14 +10,13 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Label,
 } from 'recharts';
 
 import { useGetDelegatorRewards } from '@/hooks/queries/useGetDelegatorRewards';
 import { useAccount } from '@/hooks/useAccount';
-import colors from '@/theme/foundations/colors';
+// import colors from '@/theme/foundations/colors';
 import { toCSPR } from '@/utils/currency';
 
 // const series = [
@@ -48,7 +47,6 @@ import { toCSPR } from '@/utils/currency';
 // ];
 
 const CustomTooltip = (props: any) => {
-  console.log(`🚀 ~ CustomTooltip ~ props:`, props);
   const { active, payload, label } = props;
   if (active && payload && payload.length) {
     const timeLabel = format(new Date(label), 'MM-dd hh:mm');
@@ -61,7 +59,7 @@ const CustomTooltip = (props: any) => {
         maxW={'xs'}
       >
         <p className="label">{timeLabel}</p>
-        {payload.map((series) => {
+        {payload.map((series: any) => {
           const { payload: payloadSeries } = series;
           return (
             <HStack
@@ -77,7 +75,6 @@ const CustomTooltip = (props: any) => {
             </HStack>
           );
         })}
-        {/* <p className="desc">Anything you want can be displayed here.</p> */}
       </Box>
     );
   }
@@ -129,7 +126,7 @@ const StakingRewardsChart = () => {
   }
 
   return (
-    <Box height={400}>
+    <Box>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -164,7 +161,7 @@ const StakingRewardsChart = () => {
             />
           </YAxis>
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          {/* <Legend /> */}
           {rewardData.map((series) => {
             return (
               <Line
@@ -172,7 +169,7 @@ const StakingRewardsChart = () => {
                 type="monotone"
                 data={series.data}
                 dataKey="amount"
-                stroke={colors.primary}
+                // stroke={colors.primary}
                 dot={false}
                 activeDot={false}
                 strokeWidth="2"

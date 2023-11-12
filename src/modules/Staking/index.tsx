@@ -15,6 +15,7 @@ import ListStakingHistories from './components/ListStakingHistories';
 import RewardInfo from './components/RewardInfo';
 import StakingForm from './components/StakingForm';
 import StakingRewardsChart from './components/StakingRewardsChart';
+import StakingRewardsByDate from './components/StakingRewardsChart/StakingRewardsByDate';
 
 const Staking = () => {
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ const Staking = () => {
       w={'100%'}
     >
       <Box width={'full'}>
+        <StakingRewardsByDate />
         <StakingRewardsChart />
       </Box>
       <Tabs
