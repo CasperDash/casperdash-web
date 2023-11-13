@@ -202,5 +202,8 @@
   "nft_not_listed": "This NFT collection has not supported for listing. Please contact our Admin for more details.",
   "nft_can_list": "This NFT collection has supported for listing. You can list your NFT now.",
   "switch_account": "Switch your account",
-  "write_down_your_recovery_phrase": "Write down your recovery phrase and keep it in a safe place"
+  "write_down_your_recovery_phrase": "Write down your recovery phrase and keep it in a safe place",
+  "current_owner": "Current owner",
+  "account_hash": "Owner account hash",
+  "copied": "Copied!"
 }
