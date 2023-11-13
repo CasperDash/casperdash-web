@@ -1,4 +1,4 @@
-import { Text, Box } from '@chakra-ui/react';
+import { Text, Box, Tooltip } from '@chakra-ui/react';
 
 type Props = {
   attribute?: string;
@@ -25,9 +25,11 @@ const CardAttribute = ({ attribute, value }: Props) => {
       >
         {attribute}
       </Text>
-      <Text isTruncated maxW="xs">
-        {value}
-      </Text>
+      <Tooltip label={value}>
+        <Text isTruncated maxW="xs">
+          {value}
+        </Text>
+      </Tooltip>
     </Box>
   );
 };
