@@ -11,6 +11,7 @@ import { IValidator, useGetValidators } from '@/hooks/queries/useGetValidators';
 import { useAccount } from '@/hooks/useAccount';
 import i18n from '@/i18n';
 import { DelegatorReward } from '@/services/cspr/delegator/type';
+import { toCSPR } from '@/utils/currency';
 import { formatReadDate } from '@/utils/date';
 
 type ListRewardsProps = FlexProps;
@@ -63,7 +64,7 @@ const ListRewards = (props: ListRewardsProps) => {
     }),
     columnHelper.accessor('amount', {
       cell: (info) => {
-        return <AssetText value={info.getValue()} asset="CSPR" />;
+        return <AssetText value={toCSPR(info.getValue())} asset="CSPR" />;
       },
       header: () => (
         <Text display={{ base: 'none', md: 'block' }}>{i18n.t('amount')}</Text>

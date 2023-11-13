@@ -48,7 +48,6 @@ const AccountSidebar = () => {
                 <MiddleTruncatedText
                   textProps={{ fontSize: '12px', fontWeight: 400 }}
                   value={publicKey}
-                  isCopy
                 />
               </Box>
               <MyAccount isButton />

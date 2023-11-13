@@ -5,9 +5,7 @@ import {
   Text,
   TextProps,
   Tooltip,
-  useClipboard,
 } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
 
 import { startAndEnd } from '@/utils/format';
 
@@ -25,17 +23,7 @@ const MiddleTruncatedText = ({
   endLength = 7,
   textProps,
   placement,
-  isCopy,
 }: Props) => {
-  const { t } = useTranslation();
-  const { onCopy, hasCopied } = useClipboard(value || '');
-
-  const handleOnClick = () => {
-    if (isCopy) {
-      onCopy();
-    }
-  };
-
   if (!value) {
     return null;
   }
@@ -45,19 +33,7 @@ const MiddleTruncatedText = ({
 
   return (
     <Tooltip label={value} placement={placement}>
-      {hasCopied ? (
-        <Text {...textProps} color={'green'}>
-          {t('copied')}
-        </Text>
-      ) : (
-        <Text
-          cursor={isCopy ? 'pointer' : 'auto'}
-          {...textProps}
-          onClick={handleOnClick}
-        >
-          {startAndEnd(value, startLength, endLength)}
-        </Text>
-      )}
+      <Text {...textProps}>{startAndEnd(value, startLength, endLength)}</Text>
     </Tooltip>
   );
 };
