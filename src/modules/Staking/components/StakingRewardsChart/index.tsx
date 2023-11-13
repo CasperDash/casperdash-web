@@ -96,15 +96,15 @@ const StakingRewardsChart = () => {
     const reversed = reverse([...delegatorRewards]);
 
     // Clone data
-    const clonedData = reversed.map((item) => ({
-      ...item,
-      validatorPublicKey: `${item.validatorPublicKey}-mock-1`,
-      amount: parseInt(item.amount, 10) - 2_500_000,
-    }));
-    const compoundData = [...reversed, ...clonedData];
+    // const clonedData = reversed.map((item) => ({
+    //   ...item,
+    //   validatorPublicKey: `${item.validatorPublicKey}-mock-1`,
+    //   amount: parseInt(item.amount, 10) - 2_500_000,
+    // }));
+    // const compoundData = [...reversed, ...clonedData];
 
     // Real data below
-    const groupedDataByValidator = groupBy(compoundData, 'validatorPublicKey');
+    const groupedDataByValidator = groupBy(reversed, 'validatorPublicKey');
     const result = Object.keys(groupedDataByValidator).map((validator) => {
       return {
         name: validator,
@@ -126,7 +126,7 @@ const StakingRewardsChart = () => {
   }
 
   return (
-    <Box>
+    <Box height={300}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -140,7 +140,9 @@ const StakingRewardsChart = () => {
         >
           <XAxis
             allowDuplicatedCategory={false}
-            tickFormatter={(value) => format(new Date(value), 'MM-dd')}
+            tickFormatter={(value) => {
+              return format(new Date(value), 'MM-dd');
+            }}
             dataKey="timestamp"
           />
           <YAxis

@@ -1,19 +1,22 @@
 import { useMemo } from 'react';
 
-import { Center, Spinner, Box, HStack, Text } from '@chakra-ui/react';
+import { Heading, Center, Spinner, Box, HStack, Text } from '@chakra-ui/react';
 import Big from 'big.js';
 import format from 'date-fns/format';
 import formatISO from 'date-fns/formatISO';
+import { useTranslation } from 'react-i18next';
 import {
-  LineChart,
-  Line,
+  // LineChart,
+  // Line,
+  // Label,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Label,
   AreaChart,
   Area,
+  BarChart,
+  Bar,
 } from 'recharts';
 
 import { CSPRValue } from '@/components/Common/TokenValue';
@@ -50,14 +53,17 @@ import { toCSPR } from '@/utils/currency';
 // ];
 
 const CustomTooltip = (props: any) => {
+  // console.log(`🚀 ~ CustomTooltip ~ props:`, props);
   const { active, payload, label } = props;
+  // console.log(`🚀 ~ CustomTooltip ~ active:`, active, payload);
   if (active && payload && payload.length) {
     const timeLabel = format(new Date(label), 'MM-dd');
+    // console.log(`🚀 ~ CustomTooltip ~ timeLabel:`, timeLabel);
     return (
       <Box
         p={2}
         borderRadius={'sm'}
-        bgColor="blackAlpha.200"
+        bgColor="whiteAlpha.600"
         className="custom-tooltip"
         maxW={'xs'}
       >
@@ -82,6 +88,7 @@ const CustomTooltip = (props: any) => {
 
 const StakingRewardsByDate = () => {
   const { publicKey } = useAccount();
+  const { t } = useTranslation();
   const {
     data: { data: delegatorRewards } = { data: [] },
     isLoading: isLoadingDelegatorRewards,
@@ -90,11 +97,14 @@ const StakingRewardsByDate = () => {
   });
   const chartColor = colors.cyan['600'];
   const boxProps = {
-    p: 8,
-    mb: 4,
+    p: 10,
+    pb: 16,
+    mb: 12,
+    mt: 12,
     background: 'panelBackground',
     shadow: 'panelShadow',
     borderRadius: '16px',
+    maxWidth: '50%',
   };
 
   const generateRewards = (data) => {
@@ -180,6 +190,9 @@ const StakingRewardsByDate = () => {
   return (
     <Box>
       <Box {...boxProps} height={300}>
+        <Heading fontSize={'md'} mb={6}>
+          {t('cumulative_rewards')}
+        </Heading>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             width={450}
@@ -195,12 +208,11 @@ const StakingRewardsByDate = () => {
             </defs>
             <XAxis
               tickFormatter={(value) => format(new Date(value), 'MM-dd')}
-              allowDuplicatedCategory={false}
               dataKey="date"
             />
             <YAxis
-              tickFormatter={(value: number) => {
-                return toCSPR(value as number);
+              tickFormatter={(value: any) => {
+                return toCSPR(value as number).toString();
               }}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -214,90 +226,75 @@ const StakingRewardsByDate = () => {
           </AreaChart>
         </ResponsiveContainer>
       </Box>
-      <Box {...boxProps} height={300}>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            width={450}
-            height={200}
-            data={rewardData.resultRewardEachDay}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={chartColor} stopOpacity={0.8} />
-                <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <XAxis
-              tickFormatter={(value) => format(new Date(value), 'MM-dd')}
-              allowDuplicatedCategory={false}
-              dataKey="date"
-            />
-            <YAxis
-              tickFormatter={(value: number) => {
-                return toCSPR(value as number);
-              }}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Area
-              type="monotone"
-              dataKey="value"
-              stroke={chartColor}
-              fillOpacity={1}
-              fill="url(#colorUv)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </Box>
-      <Box {...boxProps} height={300}>
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            width={450}
-            height={200}
-            data={rewardData.resultRewardEachDay}
-            margin={{
-              top: 40,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <XAxis
-              allowDuplicatedCategory={false}
-              tickFormatter={(value) => format(new Date(value), 'MM-dd')}
-              dataKey="date"
-            />
-            <YAxis
-              type="number"
-              tickFormatter={(value: number) => {
-                return toCSPR(value as number);
-              }}
+      <HStack>
+        <Box {...boxProps} width="50%" maxWidth={'100%'} height={300}>
+          <Heading fontSize={'md'} mb={6}>
+            {t('daily_rewards')}
+          </Heading>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              width={450}
+              height={200}
+              data={rewardData.resultRewardEachDay}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
             >
-              <Label
-                style={{
-                  textAnchor: 'middle',
-                  fontSize: '100%',
-                  fill: 'black',
-                }}
-                position="top"
-                offset={24}
-                value={'Rewards'}
+              <XAxis
+                tickFormatter={(value) => format(new Date(value), 'MM-dd')}
+                dataKey="date"
               />
-            </YAxis>
-            <Tooltip content={<CustomTooltip />} />
-
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke={chartColor}
-              dot={false}
-              activeDot={true}
-              strokeWidth="2"
-            />
-            {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-          </LineChart>
-        </ResponsiveContainer>
-      </Box>
+              <YAxis
+                tickFormatter={(value: number) => {
+                  return toCSPR(value as number);
+                }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar
+                dataKey="value"
+                fill={chartColor}
+                background={{ fill: '#eee' }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </Box>
+        <Box {...boxProps} width="50%" maxWidth={'100%'} height={300}>
+          <Heading fontSize={'md'} mb={6}>
+            {t('daily_rewards')}
+          </Heading>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              width={450}
+              height={200}
+              data={rewardData.resultRewardEachDay}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={chartColor} stopOpacity={0.8} />
+                  <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <XAxis
+                tickFormatter={(value) => format(new Date(value), 'MM-dd')}
+                allowDuplicatedCategory={false}
+                dataKey="date"
+              />
+              <YAxis
+                tickFormatter={(value: number) => {
+                  return toCSPR(value as number);
+                }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Area
+                type="monotone"
+                dataKey="value"
+                stroke={chartColor}
+                fillOpacity={1}
+                fill="url(#colorUv)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </Box>
+      </HStack>
     </Box>
   );
 };
