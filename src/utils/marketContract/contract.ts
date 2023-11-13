@@ -15,8 +15,10 @@ import ListItemCep78NumberWasm from './wasm/list-item-cep78-number.wasm';
 import ListItemWasm from './wasm/list-item.wasm';
 import BuyItemWasm from './wasm/market-buy-item.wasm';
 import { Contract } from '../contract';
+import { Config } from '@/config';
 import { DeployActionsEnum } from '@/enums/deployActions';
 import { MarketTokenTypesEnum } from '@/enums/marketTokeTypes';
+import { IConfiguration } from '@/services/casperdash/configuration/type';
 
 const MAPPED_WASM_FILES = {
   [MarketTokenTypesEnum.CEP78Number]: ListItemCep78NumberWasm,
@@ -275,4 +277,14 @@ export const getFeeByAction = (
     default:
       return 15;
   }
+};
+
+export const getMarketContract = (config: IConfiguration) => {
+  return new MarketContract(
+    `hash-${config.MARKETPLACE_CONTRACT.contractHash}`,
+    `hash-${config.MARKETPLACE_CONTRACT.contractPackageHash}`,
+    {
+      chainName: Config.networkName,
+    }
+  );
 };

@@ -56,7 +56,7 @@ type Props = {
 const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
   const { contractAddress, tokenId } = useParams();
   const { t } = useTranslation();
-  const { toastSuccess } = useI18nToast();
+  const { toastSuccess, toastError } = useI18nToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenTransaction,
@@ -100,6 +100,7 @@ const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
 
   const onSubmit = (values: SubmitValues) => {
     if (!nft) {
+      toastError('nft_not_found');
       return;
     }
 
