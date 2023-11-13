@@ -28,7 +28,7 @@ const Staking = () => {
       mt={{ base: '6', lg: '20' }}
       w={'100%'}
     >
-      <Box width={'full'}>
+      <Box width={'80%'} ml="auto" mr="auto">
         <StakingRewardsByDate />
         <StakingRewardsChart />
       </Box>

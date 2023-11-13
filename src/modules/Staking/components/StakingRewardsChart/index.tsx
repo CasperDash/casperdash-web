@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 
-import { Center, Spinner, Box, HStack, Text } from '@chakra-ui/react';
+import { Heading, Center, Spinner, Box, HStack, Text } from '@chakra-ui/react';
 import format from 'date-fns/format';
 import groupBy from 'lodash-es/groupBy';
 import reverse from 'lodash-es/reverse';
+import { useTranslation } from 'react-i18next';
 import {
   LineChart,
   Line,
@@ -84,6 +85,7 @@ const CustomTooltip = (props: any) => {
 
 const StakingRewardsChart = () => {
   const { publicKey } = useAccount();
+  const { t } = useTranslation();
   const {
     data: { data: delegatorRewards } = { data: [] },
     isLoading: isLoadingDelegatorRewards,
@@ -125,8 +127,21 @@ const StakingRewardsChart = () => {
     );
   }
 
+  const boxProps = {
+    p: 10,
+    pb: 16,
+    mb: 12,
+    mt: 12,
+    background: 'panelBackground',
+    shadow: 'panelShadow',
+    borderRadius: '16px',
+  };
+
   return (
-    <Box height={300}>
+    <Box {...boxProps} height={300}>
+      <Heading fontSize={'md'} mb={6}>
+        {t('daily_rewards_trend')}
+      </Heading>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
