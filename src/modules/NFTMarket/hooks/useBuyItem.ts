@@ -6,7 +6,6 @@ import {
 import { csprToMotes } from 'casper-js-sdk';
 import dayjs from 'dayjs';
 
-import { Config } from '@/config';
 import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { DeployTypesEnum } from '@/enums/deployTypes';
@@ -20,7 +19,10 @@ import { useEstimateNetworkFee } from '@/hooks/useEstimateNetworkFee';
 import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import casperUserUtil from '@/utils/casper/casperUser';
-import { BuyItemArgs, MarketContract } from '@/utils/marketContract/contract';
+import {
+  BuyItemArgs,
+  getMarketContract,
+} from '@/utils/marketContract/contract';
 
 type Params = Pick<BuyItemArgs, 'token' | 'tokenId' | 'amount'>;
 
@@ -47,14 +49,10 @@ export const useBuyItem = (
       if (!publicKey) {
         throw new Error('Please connect to buy item');
       }
-      const contract = new MarketContract(
-        `hash-${data?.MARKETPLACE_CONTRACT?.contractHash}`,
-        `hash-${data?.MARKETPLACE_CONTRACT?.contractPackageHash}`,
-        {
-          chainName: Config.networkName,
-        }
-      );
-
+      if (!data) {
+        throw new Error('Configs not found');
+      }
+      const contract = getMarketContract(data);
       const paymentAmount = csprToMotes(fee).toNumber();
 
       const buildedDeploy = await contract.buyItem({

@@ -6,7 +6,6 @@ import {
 import { csprToMotes } from 'casper-js-sdk';
 import dayjs from 'dayjs';
 
-import { Config } from '@/config';
 import { DeployActionsEnum } from '@/enums/deployActions';
 import { DeployContextEnum } from '@/enums/deployContext';
 import { DeployTypesEnum } from '@/enums/deployTypes';
@@ -21,7 +20,7 @@ import { deploy } from '@/services/casperdash/deploy/deploy.service';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import casperUserUtil from '@/utils/casper/casperUser';
 import { toMotes } from '@/utils/currency';
-import { MarketContract } from '@/utils/marketContract/contract';
+import { getMarketContract } from '@/utils/marketContract/contract';
 
 type Params = {
   tokenId: string;
@@ -45,13 +44,10 @@ export const useCreateNFTListing = (
   const mutation = useMutation({
     ...options,
     mutationFn: async (params: Params) => {
-      const contract = new MarketContract(
-        `hash-${configs?.MARKETPLACE_CONTRACT?.contractHash}}`,
-        `hash-${configs?.MARKETPLACE_CONTRACT?.contractPackageHash}`,
-        {
-          chainName: Config.networkName,
-        }
-      );
+      if (!configs) {
+        throw new Error('Configs not found');
+      }
+      const contract = getMarketContract(configs);
       if (!contractPackageInfo?.contract_hash) {
         throw new Error('Contract not found');
       }
