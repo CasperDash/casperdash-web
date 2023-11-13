@@ -15,11 +15,12 @@ type Props = {
   endLength?: number;
   textProps?: TextProps;
   placement?: PlacementWithLogical;
+  isCopy?: boolean;
 };
 const MiddleTruncatedText = ({
   value,
   startLength = 5,
-  endLength = 4,
+  endLength = 7,
   textProps,
   placement,
 }: Props) => {
@@ -29,6 +30,7 @@ const MiddleTruncatedText = ({
   if (startLength + endLength >= value.length) {
     return <Text {...textProps}>{value}</Text>;
   }
+
   return (
     <Tooltip label={value} placement={placement}>
       <Text {...textProps}>{startAndEnd(value, startLength, endLength)}</Text>

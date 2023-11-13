@@ -1,4 +1,5 @@
-import { Box, Flex, Tag, Text } from '@chakra-ui/react';
+import { InfoOutlineIcon } from '@chakra-ui/icons';
+import { Box, Flex, Tag, Text, Tooltip } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
 import BuyModalButton from '../components/BuyModalButton';
@@ -43,7 +44,12 @@ const NFTInfoSection = ({ nft }: Props) => {
             <GradientAvatar name={nft?.sellerAccountHash || ''} size={40} />
           </Box>
           <Box ml="2">
-            <Text color="gray">Current owner</Text>
+            <Flex alignItems={'center'}>
+              <Text color="gray">{t('current_owner')}</Text>
+              <Tooltip label={t('account_hash')}>
+                <InfoOutlineIcon ml="2" color="gray" />
+              </Tooltip>
+            </Flex>
             <MiddleTruncatedText value={nft?.sellerAccountHash} endLength={8} />
           </Box>
         </Flex>
