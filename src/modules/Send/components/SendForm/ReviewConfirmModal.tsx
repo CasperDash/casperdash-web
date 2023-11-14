@@ -51,8 +51,6 @@ export const ReviewConfirmModal = ({ isOpen, onClose }: Props) => {
       return;
     }
 
-    console.log('values', values);
-
     if (!values.isToken) {
       await mutateSendCSPRAsync({
         fromPublicKeyHex: publicKey,

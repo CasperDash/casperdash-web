@@ -205,5 +205,6 @@
   "write_down_your_recovery_phrase": "Write down your recovery phrase and keep it in a safe place",
   "current_owner": "Current owner",
   "account_hash": "Owner account hash",
-  "copied": "Copied!"
+  "copied": "Copied!",
+  "beta": "Beta"
 }

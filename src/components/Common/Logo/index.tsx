@@ -1,4 +1,4 @@
-import { Badge, Image } from '@chakra-ui/react';
+import { Badge, Flex, Image } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -12,11 +12,10 @@ const Logo = () => {
   return (
     <Link to={PathEnum.HOME}>
       <Image src={CasperDashLogoImg} alt="logo" width={{ base: '84px' }} />
-      {offline && (
-        <Badge mt="2" variant="outline">
-          {t('offline')}
-        </Badge>
-      )}
+      <Flex justifyContent="center" gap="2">
+        {offline && <Badge variant="outline">{t('offline')}</Badge>}
+        <Badge variant="outline">{t('beta')}</Badge>
+      </Flex>
     </Link>
   );
 };

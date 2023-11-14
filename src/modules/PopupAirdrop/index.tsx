@@ -6,9 +6,8 @@ import { useGetAirdropCode } from '@/hooks/queries/useGetAirdropCode';
 const PopupAirdrop = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useGetAirdropCode({
-    onError: (err) => {
+    onError: () => {
       onOpen();
-      console.log('err: ', err);
     },
   });
 
