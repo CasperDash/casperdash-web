@@ -1,4 +1,5 @@
 {
+  "intlNumberFormat": "{{val, number}}",
   "intlNumber": "${{val, number}}",
   "intlAssetNumber": "{{val, number}} {{ asset }}",
   "intlCurrencyNumber": "{{ currency }}{{val, number}}",
@@ -6,9 +7,11 @@
   "total_balance": "Total Balance",
   "total_volume": "Total Volume",
   "market_cap": "Market Cap",
+  "casper_market_price": "Casper Market Price",
   "circulating_supply": "Circulating Supply",
   "total_supply": "Total Supply",
   "24h_volume": "24H Volume",
+  "volume_24h": "Volume (24H)",
   "account_info": "Account Info",
   "send": "Send",
   "swap": "Swap",
