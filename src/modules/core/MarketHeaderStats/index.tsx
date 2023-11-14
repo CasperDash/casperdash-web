@@ -28,7 +28,7 @@ const MarketHeaderStats = () => {
   } = useGetCSPRMarketInfo();
 
   const formatValue = useCallback(
-    (value: any, opt = {}) => {
+    (value: number, opt = {}) => {
       return t('intlNumber', {
         val: value,
         ...opt,
@@ -39,13 +39,19 @@ const MarketHeaderStats = () => {
   return (
     <HStack spacing={10} alignItems={'flex-end'}>
       <StatCompact
-        label="Circulating Supply"
+        label={t('circulating_supply') as string}
         value={<CSPRValue value={formatI18Value(circulating_supply)} />}
       />
-      <StatCompact label="Volume (24H)" value={formatValue(volume_24h)} />
-      <StatCompact label="Market Cap" value={formatValue(market_cap)} />
       <StatCompact
-        label="Casper Market Price"
+        label={t('volume_24h') as string}
+        value={formatValue(volume_24h)}
+      />
+      <StatCompact
+        label={t('market_cap') as string}
+        value={formatValue(market_cap)}
+      />
+      <StatCompact
+        label={t('casper_market_price') as string}
         value={formatValue(price, {
           minimumFractionDigits: 6,
         })}

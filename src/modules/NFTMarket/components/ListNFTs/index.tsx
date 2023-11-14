@@ -48,8 +48,8 @@ const ListNFTs = () => {
 
   if (!nfts || nfts.length === 0) {
     return (
-      <Flex justifyContent={'center'} mt="40" w="160px">
-        <Image src={EmptyImg} />
+      <Flex justifyContent={'center'} mt="40">
+        <Image src={EmptyImg} w="160px" />
       </Flex>
     );
   }
