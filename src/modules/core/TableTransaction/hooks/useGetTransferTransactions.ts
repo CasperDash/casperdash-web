@@ -14,8 +14,6 @@ export const useGetTransferTransactions = () => {
     });
   }, [data]);
 
-  console.log('filteredTransactions: ', filteredTransactions);
-
   return {
     transactions: filteredTransactions,
     isLoading,

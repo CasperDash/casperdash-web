@@ -18,7 +18,6 @@ export const useMutateAddMyToken = (
   return useMutation({
     ...options,
     mutationFn: async (variables: Token) => {
-      console.log('variables', variables);
       const tokenStorage = new TokenStorage(publicKey!);
 
       await tokenStorage.pushToken(variables);

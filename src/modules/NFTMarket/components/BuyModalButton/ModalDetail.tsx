@@ -39,7 +39,6 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
 
   const handleOnBuy = () => {
     const { tokenId, listingAmount } = nft || {};
-    console.log('nft', nft);
     if (!tokenId || !listingAmount || !nft?.tokenContract?.tokenContractHash) {
       toastError('invalid_nft');
       return;
