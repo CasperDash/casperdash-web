@@ -5,6 +5,7 @@
     "dev": "vite --host",
     "build": "tsc && vite build",
     "build:dev": "tsc && vite build --mode development",
+    "build:prod": "tsc && vite build --mode production",
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
