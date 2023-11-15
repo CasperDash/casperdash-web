@@ -43,7 +43,7 @@ export default ({ mode }: { mode: string }) => {
         output: {
           entryFileNames: `assets/[name].${version}.js`,
           chunkFileNames: `assets/[name].${version}.js`,
-          assetFileNames: `assets/[name].${version}.[ext]`,
+          assetFileNames: `assets/[name].[ext]`,
         },
       },
     },
