@@ -41,7 +41,7 @@ const TotalBalance = ({
             </Box>
             <Flex mt="3" gap={3} alignItems={'center'}>
               <Heading variant="2xl">
-                {t('intlNumber', {
+                {t('intlAssetNumber', {
                   asset: 'CSPR',
                   val: balance || 0,
                 })}
