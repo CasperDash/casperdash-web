@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
 import { Config } from '@/config';
 import { AssetNamesEnum } from '@/enums/assetNames';
+import { useGetConfigs } from '@/hooks/queries/useGetConfigs';
 
 const ReceiveWidget = () => {
   const { t } = useTranslation();
@@ -15,9 +16,14 @@ const ReceiveWidget = () => {
     name: 'price',
   });
   const { data = null } = useGetCurrentMarketContract();
+  const { data: configs } = useGetConfigs();
+
+  const marketPlatformFeePercent =
+    configs?.MARKETPLACE_PLATFORM_FEE_PERCENT ||
+    Config.marketPlatformFeePercent;
 
   const bigPlatformFee = Big(price || 0)
-    .times(Config.marketPlatformFeePercent)
+    .times(marketPlatformFeePercent)
     .div(100);
   const bigRoyaltyFee = Big(price || 0).times(
     Big(data?.royaltyFee || 0).div(100)
@@ -66,7 +72,7 @@ const ReceiveWidget = () => {
           {t('platform_fee')} (
           {t('intlAssetNumber', {
             asset: '%',
-            val: Config.marketPlatformFeePercent,
+            val: marketPlatformFeePercent,
           })}
           )
         </Text>

@@ -28,7 +28,7 @@ type Params = {
   tokenType?: MarketTokenTypesEnum;
 };
 
-const FEE_NETWORK = 15;
+const FEE_NETWORK = 20;
 
 export const useCreateNFTListing = (
   contractPackageHash?: string,

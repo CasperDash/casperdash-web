@@ -209,5 +209,6 @@
   "current_owner": "Current owner",
   "account_hash": "Owner account hash",
   "copied": "Copied!",
-  "beta": "Beta"
+  "beta": "Beta",
+  "network_gas": "Network Gas"
 }

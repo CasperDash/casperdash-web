@@ -41,7 +41,7 @@ const TotalBalance = ({
             </Box>
             <Flex mt="3" gap={3} alignItems={'center'}>
               <Heading variant="2xl">
-                {t('intlNumber', {
+                {t('intlAssetNumber', {
                   asset: 'CSPR',
                   val: balance || 0,
                 })}
@@ -116,7 +116,7 @@ const TotalBalance = ({
             <Text>{t('circulating_supply')}</Text>
             <Box mt="3">
               <Heading variant="xl">
-                {t('intlNumber', {
+                {t('intlNumberFormat', {
                   val: circulatingSupply,
                 })}
               </Heading>
@@ -126,7 +126,7 @@ const TotalBalance = ({
             <Text>{t('total_supply')}</Text>
             <Box mt="3">
               <Heading variant="xl">
-                {t('intlNumber', {
+                {t('intlNumberFormat', {
                   val: totalSupply,
                 })}
               </Heading>

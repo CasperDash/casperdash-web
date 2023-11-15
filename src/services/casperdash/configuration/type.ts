@@ -24,6 +24,7 @@ export interface IConfiguration {
   ENABLE_BUY_IOS: boolean;
   ENABLE_BUY_ANDROID: boolean;
   MARKETPLACE_CONTRACT: IMarketplaceContract;
+  MARKETPLACE_PLATFORM_FEE_PERCENT: number;
 }
 
 export interface IMarketplaceContract {
