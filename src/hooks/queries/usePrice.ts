@@ -44,5 +44,6 @@ export const useGetCSPRPriceHistories = (
       query.data?.map((datum) => ({ timestamp: datum[0], value: datum[1] })),
     [query.data]
   );
+
   return { ...query, data };
 };

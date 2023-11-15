@@ -1,6 +1,5 @@
-import { AddIcon, SmallAddIcon } from '@chakra-ui/icons';
+import { SmallAddIcon } from '@chakra-ui/icons';
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -18,7 +17,6 @@ import {
   ModalOverlay,
   Spinner,
   Text,
-  useDisclosure,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as _ from 'lodash-es';
@@ -29,7 +27,6 @@ import { z } from 'zod';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
 import { useMutateAddMyToken } from '@/hooks/mutates/useMutateAddMyToken';
 import { useGetToken } from '@/hooks/queries/useGetToken';
-import { useAccount } from '@/hooks/useAccount';
 import { GetTokenResponse } from '@/services/casperdash/token';
 import { Token } from '@/typings/token';
 
@@ -51,6 +48,7 @@ const tokenSchema = z.object({
 
 export type SubmitValues = z.infer<typeof tokenSchema>;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
   const { t } = useTranslation();
   const { toastSuccess } = useI18nToast();
@@ -209,23 +207,11 @@ const TokenFormModal = ({ isOpen, onClose }: TokenFormProps) => {
 };
 
 const TableTokenHeader = () => {
-  const { isConnected } = useAccount();
-  const { t } = useTranslation();
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
   return (
     <Flex justifyContent={'space-between'} alignItems={'center'}>
       <Text color="gray.500" fontSize="xl">
         {/* {t('my_tokens')} */}
       </Text>
-      {isConnected && (
-        <Box>
-          <Button variant={'outline'} leftIcon={<AddIcon />} onClick={onOpen}>
-            {t('add_token')}
-          </Button>
-          <TokenFormModal isOpen={isOpen} onClose={onClose} />
-        </Box>
-      )}
     </Flex>
   );
 };

@@ -5,18 +5,6 @@ import AreaChartPrice from './AreaChartPrice';
 import Paper from '@/components/Paper';
 import { useGetCSPRMarketInfo } from '@/hooks/queries/usePrice';
 
-const data: { year: number; value: number }[] = [];
-
-const rand = 300;
-for (let i = 0; i < 7; i++) {
-  const d = {
-    year: 2000 + i,
-    value: Math.random() * (rand + 50) + 100,
-  };
-
-  data.push(d);
-}
-
 type ChartCSPRPriceProps = BoxProps;
 
 const CoingeckoPriceText = () => {

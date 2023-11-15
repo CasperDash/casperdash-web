@@ -164,7 +164,7 @@ const ListForSaleModal = ({ isLoading, onContinue, tokenType }: Props) => {
                     </FormControl>
                     <ReceiveWidget />
                     <Flex mt="4">
-                      <Text mt="4">{t('fee')}</Text>
+                      <Text mt="4">{t('network_gas')}</Text>
                       <Text mt="4" ml="auto">
                         {t('intlAssetNumber', {
                           asset: 'CSPR',
