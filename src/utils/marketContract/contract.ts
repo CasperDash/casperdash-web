@@ -273,7 +273,7 @@ export const getFeeByAction = (
 ) => {
   switch (action) {
     case DeployActionsEnum.BUY_ITEM:
-      return tokenType === MarketTokenTypesEnum.CEP47Number ? 40 : 45;
+      return tokenType === MarketTokenTypesEnum.CEP47Number ? 35 : 45;
     default:
       return 17;
   }
