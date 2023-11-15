@@ -1,0 +1,77 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true,
+    "node": true
+  },
+  // "settings": {
+  //   "react": {
+  //     "version": "detect"
+  //   },
+  //   "import/extensions": [".js",".jsx",".ts",".tsx"],
+  //   "import/parsers": {
+  //       "@typescript-eslint/parser": [".ts",".tsx"]
+  //   }
+  // },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "import"],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/no-default-export": "off",
+    "import/no-unresolved": 0,
+    // "import/extensions": [
+    //   2,
+    //   "ignorePackages",
+    //   {
+    //     "ts": "never",
+    //     "tsx": "never",
+    //     "js": "never"
+    //   }
+    // ],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-named-as-default": 0,
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "semi": ["error", "always"],
+    "no-shadow": 0,
+    "@typescript-eslint/no-shadow": 2,
+    "no-underscore-dangle": 0,
+    "import/no-cycle": 0
+  }
+}

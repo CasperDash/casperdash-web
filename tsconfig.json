@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "alwaysStrict": true,
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "lib": ["ES5", "ES2015", "ES2016", "dom", "dom.iterable", "ES2015.Promise"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/public/*": ["public/*"]
+    },
+    "pretty": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "incremental": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "./src/**/*", "**/*.ts", "**/*.tsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

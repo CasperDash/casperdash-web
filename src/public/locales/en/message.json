@@ -1,0 +1,33 @@
+{
+  "success": {
+    "default": "Success!",
+    "copy_public_key": "The public key has been successfully copied to your clipboard.",
+    "copy_private_key": "The private key has been successfully copied to your clipboard.",
+    "copy_recovery_phrases": "The recovery phrases have been successfully copied to your clipboard.",
+    "send_asset": "Success! Your {{asset}} tokens have been sent and confirmed. Please wait while we process your transaction.",
+    "delete_all_data": "Success! All of your data has been deleted.",
+    "account_created": "Your account created successfully",
+    "account_selected": "You have successfully selected {{ name }}",
+    "account_imported": "You have successfully imported",
+    "token_added": "You have successfully added {{ name }} token",
+    "your_wallet_locked": "Your wallet locked successfully",
+    "airdrop_successfully_submitted": "Thanks for your valuable feedbacks. Enjoy your Defi journey with CasperDash.",
+    "listing_created_submitted": "Success! Your listing has been submitted. Please wait while we process your transaction.",
+    "listing_cancelled": "Success! Your listing has been cancelled. Please wait while we process your transaction.",
+    "buy_success": "Success! Your buy order has been submitted. Please wait while we process your transaction."
+  },
+  "error": {
+    "default": "We're sorry, something went wrong. Please try again later.",
+    "nft_not_found": "Your NFT somehow disappeared. Please try again later.",
+    "please_try_other_password": "We're sorry, the password you entered is incorrect. Please try again with a different password",
+    "master_key_is_empty": "We're sorry, the master key you provided is empty. Please enter a valid master key to proceed.",
+    "encryption_type_is_empty": "We're sorry, the encryption type you selected is empty. Please choose a valid encryption type to proceed.",
+    "seed_phrase_is_not_correct": "We're sorry, the seed phrase you entered is not correct. Please double-check your seed phrase and try again.",
+    "public_key_does_not_exist": "We're sorry, we were unable to retrieve the public key. Please try again later or re-import your wallet",
+    "password_is_not_correct": "The password you entered is not correct.",
+    "private_key_required": "Private key is required",
+    "uid_is_empty": "UID is empty",
+    "invalid_airdrop_code": "Invalid retroactive code",
+    "airdrop_is_not_started": "Retroactive campaign has not been started yet"
+  }
+}
