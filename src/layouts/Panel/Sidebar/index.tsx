@@ -157,7 +157,6 @@ const NavItem = ({ icon, children, path, onClick, ...rest }: NavItemProps) => {
         direction={'column'}
         columnGap={4}
         align="center"
-        p="4"
         borderRadius="lg"
         role="group"
         cursor="pointer"
