@@ -25,7 +25,7 @@ type Params = {
   tokenId: string;
 };
 
-const FEE_NETWORK_IN_CSPR = 4;
+const FEE_NETWORK_IN_CSPR = 6;
 
 export const useCancelNFTListing = (
   contractPackageHash: string,
