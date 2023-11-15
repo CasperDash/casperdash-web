@@ -22,10 +22,6 @@ type Props = {
 
 const NFT_INFO_ATTRIBUTES = [
   {
-    key: 'totalSupply.hex',
-    label: 'total_supply',
-  },
-  {
     key: 'contractName',
     label: 'contract_name',
   },
