@@ -37,4 +37,5 @@ export enum QueryKeysEnum {
   NFT_TRANSACTION = 'nft_transaction',
   NFT_TRANSACTION_STATUS = 'nft_transaction_status',
   PENDING_TOKEN_TRANSACTION = 'pending_token_transaction',
+  ESTIMATE_FEE = 'estimate_fee',
 }

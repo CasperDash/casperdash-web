@@ -94,7 +94,7 @@ export const ModalTransactionStatus = ({
               w="100%"
               onClick={onClose}
             >
-              {t('continue')}
+              {t('close')}
             </Button>
           </Flex>
         </ModalBody>

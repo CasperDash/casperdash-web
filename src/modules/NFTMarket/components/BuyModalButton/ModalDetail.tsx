@@ -1,14 +1,20 @@
+import { useEffect, useState } from 'react';
+
 import { Button, Box, Text, Flex, Image } from '@chakra-ui/react';
 import Big from 'big.js';
 import { useTranslation } from 'react-i18next';
 
 import { useBuyItem } from '../../hooks/useBuyItem';
 import NFTDefaultImg from '@/assets/img/nft-default.png';
+import EditInputField from '@/components/Common/EditInputField';
 import MiddleTruncatedText from '@/components/Common/MiddleTruncatedText';
+import TripleDotLoading from '@/components/Loading/TripleDotLoading';
 import { useI18nToast } from '@/hooks/helpers/useI18nToast';
+import { useMutateEstimateFee } from '@/hooks/mutates/useMutateEstimateFee';
 import { useGetCurrentBalance } from '@/hooks/queries/useGetCurrentBalance';
 import { DeployResponse } from '@/services/casperdash/deploy/type';
 import { IMarketNFT } from '@/services/casperdash/market/type';
+import { getColorByStatus } from '@/utils/color';
 import { toCSPR } from '@/utils/currency';
 
 type Props = {
@@ -18,6 +24,7 @@ type Props = {
 
 const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
   const { data: { balance } = { balance: 0 } } = useGetCurrentBalance();
+  const [paymentAmount, setPaymentAmount] = useState('0');
 
   const { t } = useTranslation();
   const { toastSuccess, toastError } = useI18nToast();
@@ -25,6 +32,7 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
     mutate,
     isLoading: isBuying,
     feeNetwork,
+    buildFn,
   } = useBuyItem(
     {
       tokenType: nft?.tokenContract?.tokenType,
@@ -36,6 +44,15 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
       },
     }
   );
+  const {
+    mutate: estimateFee,
+    data: estimatedResult,
+    isLoading: isEstimating,
+  } = useMutateEstimateFee({
+    onSuccess: (data) => {
+      setPaymentAmount(data?.cost || '0');
+    },
+  });
 
   const handleOnBuy = () => {
     const { tokenId, listingAmount } = nft || {};
@@ -48,6 +65,7 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
       token: `hash-${nft?.tokenContract?.tokenContractHash}`,
       tokenId: tokenId,
       amount: listingAmount,
+      paymentAmount,
     });
   };
 
@@ -55,6 +73,23 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
     .add(feeNetwork)
     .toNumber();
   const isDisabled = balance < totalPayment;
+
+  const handleOnChangePaymentAmount = (value: string) => {
+    setPaymentAmount(value);
+  };
+
+  useEffect(() => {
+    if (nft?.listingAmount) {
+      estimateFee(() =>
+        buildFn({
+          token: `hash-${nft?.tokenContract?.tokenContractHash}`,
+          tokenId: nft?.tokenId,
+          amount: nft?.listingAmount,
+        })
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nft?.listingAmount, nft?.tokenContract?.tokenContractHash, nft?.tokenId]);
 
   return (
     <>
@@ -103,15 +138,20 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
           <Text>{t('royalties')}</Text>
           <Text>{nft?.tokenContract?.royaltyFee}%</Text>
         </Flex>
-        <Flex justifyContent="space-between">
-          <Text>{t('network_fee')}</Text>
-          <Text>
-            {t('intlAssetNumber', {
-              val: feeNetwork,
-              asset: 'CSPR',
-            })}
-          </Text>
-        </Flex>
+      </Flex>
+      <Flex mt="4" justifyContent={'space-between'} alignItems="center">
+        <Text>{t('network_gas')}</Text>
+        <EditInputField
+          value={paymentAmount}
+          onChange={handleOnChangePaymentAmount}
+          isLoading={isEstimating}
+        />
+      </Flex>
+      <Flex mt="4">
+        <Text>{t('estimated_result')}</Text>
+        <Text ml="auto" color={getColorByStatus(estimatedResult?.status)}>
+          {isEstimating ? <TripleDotLoading /> : estimatedResult?.status || '-'}
+        </Text>
       </Flex>
       <Box mt="8">
         <Flex mt="8">
@@ -121,8 +161,9 @@ const ModalDetail = ({ nft, onSuccessfulBuy }: Props) => {
             type="submit"
             w="100%"
             onClick={handleOnBuy}
-            isLoading={isBuying}
+            isLoading={isBuying || isEstimating}
             isDisabled={isDisabled}
+            loadingText={isEstimating && t('estimating')}
           >
             {isDisabled ? t('insufficient_balance') : t('buy')}
           </Button>

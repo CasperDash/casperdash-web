@@ -7,4 +7,6 @@ export enum MutationKeysEnum {
   SELECT_ACCOUNT = 'select_account',
   STAKE_DELEGATE = 'stake_delegate',
   STAKE_UNDELEGATE = 'stake_undelegate',
+  CREATE_NFT_LISTING = 'create_nft_listing',
+  CANCEL_NFT_LISTING = 'cancel_nft_listing',
 }

@@ -12,9 +12,8 @@ const MOTE_RATE = 1000000000;
  * After that multiple with mote rate 10⁸
  *
  * @param {Number|String} amount
- * @returns {BigNumberis|String} Return "-" if it's the invalid big number input.
  */
-export const toMotes = (amount: number): BigNumber | number => {
+export const toMotes = (amount: number | string): BigNumber | number => {
   try {
     const bigAmount = Big(amount)
       .times(MOTE_RATE)
