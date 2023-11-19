@@ -18,3 +18,16 @@ export const hexToRgba = (hex = '', opacity = 1) => {
     ? `rgba(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b}, ${opacity})`
     : hex;
 };
+
+export const getColorByStatus = (status?: string) => {
+  switch (status) {
+    case 'pending':
+      return 'yellow';
+    case 'success':
+      return 'green';
+    case 'failure':
+      return 'red';
+    default:
+      return 'black';
+  }
+};

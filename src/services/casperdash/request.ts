@@ -22,7 +22,7 @@ casperDashRequest.interceptors.response.use(
         data: { message },
       } = error.response;
 
-      alert(message);
+      console.log(message);
     }
 
     return Promise.reject(error);

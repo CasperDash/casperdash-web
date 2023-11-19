@@ -3,7 +3,7 @@ import {
   UseMutationOptions,
   useQueryClient,
 } from '@tanstack/react-query';
-import { csprToMotes } from 'casper-js-sdk';
+import Big from 'big.js';
 import dayjs from 'dayjs';
 
 import { DeployActionsEnum } from '@/enums/deployActions';
@@ -24,7 +24,9 @@ import {
   getMarketContract,
 } from '@/utils/marketContract/contract';
 
-type Params = Pick<BuyItemArgs, 'token' | 'tokenId' | 'amount'>;
+type Params = Pick<BuyItemArgs, 'token' | 'tokenId' | 'amount'> & {
+  paymentAmount?: string;
+};
 
 type UseBuyItemParams = {
   tokenType?: MarketTokenTypesEnum;
@@ -43,6 +45,27 @@ export const useBuyItem = (
     tokenType,
   });
 
+  const buildFn = async (params: Params, paymentAmount = 50_000_000_000) => {
+    if (!publicKey) {
+      throw new Error('Please connect to buy item');
+    }
+    if (!data) {
+      throw new Error('Configs not found');
+    }
+    const contract = getMarketContract(data);
+
+    const buildedDeploy = await contract.buyItem({
+      ...params,
+      paymentAmount,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      fromPublicKeyHex: publicKey!,
+    });
+
+    const signedDeploy = await casperUserUtil.signWithPrivateKey(buildedDeploy);
+
+    return signedDeploy;
+  };
+
   const mutation = useMutation({
     ...options,
     mutationFn: async (params: Params) => {
@@ -52,18 +75,9 @@ export const useBuyItem = (
       if (!data) {
         throw new Error('Configs not found');
       }
-      const contract = getMarketContract(data);
-      const paymentAmount = csprToMotes(fee).toNumber();
+      const paymentAmount = Big(params.paymentAmount || 0).toNumber();
 
-      const buildedDeploy = await contract.buyItem({
-        ...params,
-        paymentAmount,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        fromPublicKeyHex: publicKey!,
-      });
-      const signedDeploy = await casperUserUtil.signWithPrivateKey(
-        buildedDeploy
-      );
+      const signedDeploy = await buildFn(params, paymentAmount);
 
       const result = await deploy(signedDeploy);
 
@@ -99,5 +113,6 @@ export const useBuyItem = (
   return {
     ...mutation,
     feeNetwork: fee,
+    buildFn,
   };
 };

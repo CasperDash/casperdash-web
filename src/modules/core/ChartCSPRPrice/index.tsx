@@ -31,10 +31,10 @@ const BadgePercentageChange = () => {
   let text;
   if (priceChangePercentage24h >= 0) {
     color = `green.300`;
-    text = `+${priceChangePercentage24h.toFixed(2)}`;
+    text = `+${priceChangePercentage24h?.toFixed(2)}`;
   } else {
     color = `red.300`;
-    text = `${priceChangePercentage24h.toFixed(2)}`;
+    text = `${priceChangePercentage24h?.toFixed(2)}`;
   }
   return (
     <Badge
