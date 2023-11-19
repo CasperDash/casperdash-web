@@ -1,8 +1,8 @@
 import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import CancelListButton from './CancelListButton';
-import ListForSaleModal from './ListForSaleModal';
+import CancelListButton from '../../components/CancelListButton';
+import ListForSale from '../../components/ListForSale';
 import { useGetCurrentMarketContract } from '../../hooks/useGetCurrentMarketContract';
 import { useGetCurrentMarketNFT } from '../../hooks/useGetCurrentMarketNFT';
 import { INFTInfo } from '@/services/casperdash/nft/type';
@@ -64,7 +64,7 @@ const NFTInfoSection = ({ nft }: Props) => {
                       onContinue={handleOnContinue}
                     />
                   ) : (
-                    <ListForSaleModal
+                    <ListForSale
                       onContinue={handleOnContinue}
                       tokenType={data?.tokenType}
                     />

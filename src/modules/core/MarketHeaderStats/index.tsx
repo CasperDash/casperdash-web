@@ -55,7 +55,7 @@ const MarketHeaderStats = () => {
         value={formatValue(price, {
           minimumFractionDigits: 6,
         })}
-        diff={price_change_percentage_24h.toFixed(2)}
+        diff={price_change_percentage_24h?.toFixed(2)}
       />
       {/* <CSPRValue value={price.toFixed(6)} diff={price_change_percentage_24h} /> */}
     </HStack>

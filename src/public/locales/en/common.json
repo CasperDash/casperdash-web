@@ -210,5 +210,10 @@
   "account_hash": "Owner account hash",
   "copied": "Copied!",
   "beta": "Beta",
-  "network_gas": "Network Gas"
+  "network_gas": "Network Gas",
+  "estimating": "Estimating...",
+  "excutation_result": "Excutation Result",
+  "estimated_status": "Estimated Status",
+  "estimated_result": "Estimated Result",
+  "list": "List"
 }
