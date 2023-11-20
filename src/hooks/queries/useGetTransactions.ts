@@ -46,7 +46,10 @@ export const useGetTransactions = (
 
       const pendingTransactionHistories = sortedTransactionHistories.filter(
         (transactionHistory: TransactionHistory) =>
-          transactionHistory.status === TransactionStatusEnum.PENDING
+          [
+            TransactionStatusEnum.PENDING,
+            TransactionStatusEnum.UNDELEGATING,
+          ].includes(transactionHistory.status)
       );
 
       if (pendingTransactionHistories.length > 0) {
