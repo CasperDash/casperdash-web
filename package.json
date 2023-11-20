@@ -1,8 +1,9 @@
 {
   "name": "casperdash-web",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "scripts": {
     "dev": "vite --host",
+    "debug:prod": "vite --host --mode production",
     "build": "tsc && vite build",
     "build:dev": "tsc && vite build --mode development",
     "build:prod": "tsc && vite build --mode production",
