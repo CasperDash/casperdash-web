@@ -42,6 +42,7 @@ export const LinkItems: Array<LinkItemProps> = [
     path: PathEnum.STAKING,
     isConnected: true,
   },
+  { name: i18n.t('market'), icon: FiCompass, path: PathEnum.NFT_MARKET },
   {
     name: i18n.t('portfolio'),
     icon: FiPieChart,
@@ -54,7 +55,6 @@ export const LinkItems: Array<LinkItemProps> = [
     path: PathEnum.NFT,
     isConnected: true,
   },
-  { name: i18n.t('market'), icon: FiCompass, path: PathEnum.NFT_MARKET },
 ];
 
 export default function Sidebar() {
