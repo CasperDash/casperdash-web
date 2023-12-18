@@ -3,6 +3,7 @@ import {
   IGetMarketContractsParams,
   IMarketNFT,
   IMarketNFTsResponse,
+  IPriceHistory,
   ITokenContract,
   ListResponse,
 } from './type';
@@ -94,4 +95,37 @@ export const getMarketContractByPackageHash = async (
   );
 
   return normalizeTokenContract(data);
+};
+
+export const getMarketNFTPriceHistory = async (
+  tokenPackageHash: string,
+  tokenId: string
+): Promise<IPriceHistory[]> => {
+  const data: IPriceHistory[] = await request.get(
+    `/v1/market/nfts/${tokenPackageHash}/${tokenId}/price-history`
+  );
+
+  return data;
+};
+
+export const getMarketNFTFloorPrice = async (
+  tokenPackageHash: string,
+  tokenId: string
+): Promise<number> => {
+  const data: { floorPrice: number } = await request.get(
+    `/v1/market/nfts/${tokenPackageHash}/${tokenId}/floor-price`
+  );
+
+  return data.floorPrice;
+};
+
+export const getMarketNFTVolume = async (
+  tokenPackageHash: string,
+  tokenId: string
+): Promise<number> => {
+  const data: { volume: number } = await request.get(
+    `/v1/market/nfts/${tokenPackageHash}/${tokenId}/volume`
+  );
+
+  return data.volume;
 };

@@ -1,12 +1,25 @@
 import { useEffect } from 'react';
 
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import { Box, Button, Divider, Flex, Image, Spinner } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Image,
+  Spinner,
+} from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import NFTInfoSection from './NFTInfoSection';
 import NFTInfoTabs from './NFTInfoTabs';
+import NFTPriceChart from '../components/NFTPriceChart';
 import { useGetCurrentMarketNFT } from '../hooks/useGetCurrentMarketNFT';
 import NFTDefaultImg from '@/assets/img/nft-default.png';
 import { PathEnum } from '@/enums';
@@ -70,22 +83,39 @@ const NFTMarketDetail = () => {
               e.currentTarget.src = NFTDefaultImg;
             }}
           />
+          <Box mt="12">
+            <Accordion defaultIndex={[0]} allowMultiple>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      Price History
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <NFTPriceChart />
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+          </Box>
         </Box>
 
-        <Flex
-          flex="0"
-          flexBasis={'md'}
-          flexShrink={0}
-          flexGrow={0}
-          p={{ base: '4' }}
-          justifyContent={'center'}
-          direction="column"
-        >
-          <NFTInfoSection nft={nftDetail} />
-          <Box mt="12">
-            <NFTInfoTabs nft={nftDetail} />
-          </Box>
-        </Flex>
+        <Box p={{ base: '4' }} flexBasis={'md'}>
+          <Flex
+            flex="0"
+            flexShrink={0}
+            flexGrow={0}
+            justifyContent={'center'}
+            direction="column"
+          >
+            <NFTInfoSection nft={nftDetail} />
+            <Box mt="12">
+              <NFTInfoTabs nft={nftDetail} />
+            </Box>
+          </Flex>
+        </Box>
       </Flex>
     </Flex>
   );

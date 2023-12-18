@@ -12,7 +12,7 @@ import { useAccount } from '@/hooks/useAccount';
 import i18n from '@/i18n';
 import { DelegatorReward } from '@/services/cspr/delegator/type';
 import { toCSPR } from '@/utils/currency';
-import { formatReadDate } from '@/utils/date';
+import { formatReadableDate } from '@/utils/date';
 
 type ListRewardsProps = FlexProps;
 type DelegatorRewardWithValidator = DelegatorReward & {
@@ -56,7 +56,7 @@ const ListRewards = (props: ListRewardsProps) => {
     }),
     columnHelper.accessor('timestamp', {
       cell: (info) => {
-        return <Text>{formatReadDate(info.getValue())}</Text>;
+        return <Text>{formatReadableDate(info.getValue())}</Text>;
       },
       header: () => (
         <Text display={{ base: 'none', md: 'block' }}>{i18n.t('date')}</Text>
