@@ -59,3 +59,8 @@ export interface IGetMarketContractsParams {
   page?: number;
   limit?: number;
 }
+
+export interface IPriceHistory {
+  price: number;
+  timestamp: string;
+}
