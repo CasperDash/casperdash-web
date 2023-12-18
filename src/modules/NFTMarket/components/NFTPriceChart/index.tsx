@@ -13,7 +13,7 @@ import {
 
 import { useGetCurrentMarketNFTPriceHistory } from '../../hooks/useGetCurrentMarketNFTPriceHistory';
 import { toCSPR } from '@/utils/currency';
-import { formatReadDate } from '@/utils/date';
+import { formatReadableDate } from '@/utils/date';
 
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
@@ -46,7 +46,7 @@ const NFTPriceChart = () => {
     if (!data) return [];
     const dataPrices = data.map((item) => {
       return {
-        timestamp: formatReadDate(item.timestamp),
+        timestamp: formatReadableDate(item.timestamp),
         price: toCSPR(item.price),
       };
     });

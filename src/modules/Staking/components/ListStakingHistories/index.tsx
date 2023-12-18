@@ -11,7 +11,7 @@ import { DataTable } from '@/components/Table/DataTable';
 import { IValidator, useGetValidators } from '@/hooks/queries/useGetValidators';
 import i18n from '@/i18n';
 import { TransactionHistory } from '@/typings/transactionHistory';
-import { formatReadDate } from '@/utils/date';
+import { formatReadableDate } from '@/utils/date';
 import { getDeployStatus } from '@/utils/deployStatus';
 import { getDeployHashUrl } from '@/utils/url';
 
@@ -51,7 +51,7 @@ const ListStakingHistories = (props: ListRewardsProps) => {
     }),
     columnHelper.accessor('date', {
       cell: (info) => {
-        return <Text w="44">{formatReadDate(info.getValue())}</Text>;
+        return <Text w="44">{formatReadableDate(info.getValue())}</Text>;
       },
       header: () => (
         <Text display={{ base: 'none', md: 'block' }}>{i18n.t('date')}</Text>
