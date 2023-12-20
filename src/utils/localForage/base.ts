@@ -4,8 +4,8 @@ import { getItem, setItem } from '.';
 export class BaseStorage {
   protected storageKey = '';
 
-  constructor(name: string, publicKey: string) {
-    this.storageKey = `${name}_${publicKey}`;
+  constructor(name: string, publicKey?: string) {
+    this.storageKey = publicKey ? `${name}_${publicKey}` : name;
   }
 
   public async getItem<T>(): Promise<T | null> {

@@ -1,16 +1,12 @@
-import {
-  useMutation,
-  UseMutationOptions,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import { QueryKeysEnum } from '@/enums/queryKeys.enum';
 import {
   CheckAirdropCodeParams,
   CheckAirdropCodeResponse,
 } from '@/services/airdrop/user/type';
 import { checkAirdropCode } from '@/services/airdrop/user/user.service';
+import { AirdropCodeStorage } from '@/utils/localForage/airdropCode';
 
 export const useMutateCheckAirdropCode = (
   options?: UseMutationOptions<
@@ -20,16 +16,13 @@ export const useMutateCheckAirdropCode = (
     unknown
   >
 ) => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     ...options,
     mutationFn: checkAirdropCode,
     networkMode: 'offlineFirst',
     onSuccess: async (data, variables, context) => {
-      queryClient.setQueryData([QueryKeysEnum.AIRDROP_CODE], {
-        airdropCode: variables.airdropCode,
-      });
+      const airdropCodeStorage = new AirdropCodeStorage();
+      await airdropCodeStorage.setCode(variables.airdropCode);
 
       options?.onSuccess?.(data, variables, context);
     },
