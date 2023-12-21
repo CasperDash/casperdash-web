@@ -68,7 +68,7 @@ const FeedbackForm = ({ onSuccess, ...restProps }: Props) => {
       onSuccess?.();
       toastSuccess('airdrop_successfully_submitted');
 
-      const message = `${variables.feedback} @casperdash_io @Casper_Network #CasperDash_Retroactive`;
+      const message = `${variables.feedback} @casperdash_io @Casper_Network @BabyGhostCoin`;
       const params = qs.stringify({
         text: message,
       });

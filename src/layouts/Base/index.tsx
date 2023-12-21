@@ -1,5 +1,6 @@
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 
+import AirdropFeedback from '@/modules/AirdropFeedback';
 import BackgroundAutoConnectWallet from '@/modules/BackgroundAutoConnectWallet';
 import PopupAirdrop from '@/modules/PopupAirdrop';
 import PopupSDK from '@/modules/PopupSDK';
@@ -28,6 +29,7 @@ const BaseLayout = ({ children, defaultLightBg = 'gray.100' }: Props) => {
       <PopupSDK />
       <BackgroundAutoConnectWallet />
       <PopupAirdrop />
+      <AirdropFeedback />
     </Box>
   );
 };
