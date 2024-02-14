@@ -32,7 +32,19 @@ export const useMutateEstimateFee = (options?: Options) => {
       callback: () => Promise<JsonTypes>
     ): Promise<Result | undefined> => {
       const data = await callback();
-      const result = await speculativeDeploy(data);
+      let result;
+
+      try {
+        result = await speculativeDeploy(data);
+      } catch (error) {
+        const calculatedCost = '35';
+
+        return {
+          status: SpeculativedStatusEnum.UNKNOWN,
+          cost: toMotes(calculatedCost).toString(),
+          costInCSPR: calculatedCost,
+        };
+      }
 
       if (!result?.execution_result) {
         throw new Error('Execution result not found');
